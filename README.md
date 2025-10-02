@@ -62,5 +62,5 @@ Community-App/
 | `tb_board`   | board_id, title, content, user_id   | 게시글 정보 |
 | `tb_comment` | comment_id, board_id, text, user_id | 댓글     |
 
-![ERD](./Community_Document/ERD_20251002_211152.png)
+![ERD](./Community_Document/images/ERD_20251002_211152.png)
 

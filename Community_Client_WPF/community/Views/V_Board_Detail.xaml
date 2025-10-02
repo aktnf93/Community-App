@@ -1,0 +1,191 @@
+﻿<UserControl x:Class="community.Views.V_Board_Detail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:community.Views"
+             xmlns:c="clr-namespace:community.Common"
+             mc:Ignorable="d" 
+             Width="600" Height="800">
+
+    <Border BorderBrush="Gray" BorderThickness="1.5" CornerRadius="5" Background="{StaticResource WhiteBrush}">
+        <!--<Border.Effect>
+            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="5" Opacity="0.5" BlurRadius="10"/>
+        </Border.Effect>-->
+
+        <Grid>
+            <!-- 닫기 버튼 -->
+            <Button Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,14,10,0" 
+                    Background="{StaticResource NavyBrush}" Click="{c:MethodBinding BoardClose}">
+                
+                <Path Data="M 1,1 L 16,16 M 16,1 L 1,16" Stroke="White" StrokeThickness="3"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1.4,1.4,0,0"/>
+            </Button>
+
+            <Label Content="게시글 보기" FontSize="20" FontWeight="Bold" Foreground="{StaticResource NavyBrush}"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+
+            <Grid Margin="10,60,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- 제목 영역 -->
+                <Border Grid.Row="0" Background="#FF1A237E">
+                    <Grid>
+                        <!--<TextBlock Text="제목:" VerticalAlignment="Center" FontWeight="Bold" Width="50" Foreground="{StaticResource NavyBrush}"/>-->
+                        <TextBox x:Name="TitleTextBox" 
+                                 Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 FontSize="16" Height="30"
+                                 VerticalContentAlignment="Center"
+                                 Background="{StaticResource WhiteBrush}" Foreground="{StaticResource NavyBrush}"/>
+                    </Grid>
+                </Border>
+
+                <!-- 게시글 스테이터스 -->
+                <Border Grid.Row="1">
+                    <Grid VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <!-- 좌측 -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- 중앙 공백 -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- 우측 -->
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                            <TextBlock>
+                                <Run Text="글쓴이"/>
+                                <!--<Run Text="{Binding User_Id}"/>-->
+                                <Run Text="{Binding Nickname}"/>
+                            </TextBlock>
+                            <Image Source="/Resource_Icon/icon_user1.png" Width="12" Height="12" Margin="5,0,0,0"/>
+                        </StackPanel>
+
+
+                        <TextBlock Grid.Column="2" Grid.Row="0">
+                            <Run Text="댓글"/>
+                            <Run Text="{Binding Comments}"/>
+                            
+                            <Run Text=" | "/>
+                            
+                            <Run Text="작성"/>
+                            <Run Text="{Binding Created_Dt, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"/>
+                        </TextBlock>
+
+                        <TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right">
+                            <Run Text="수정"/>
+                            <Run Text="{Binding Updated_Dt, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"/>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+
+                <!-- 본문 영역 -->
+                <Border Grid.Row="2" BorderBrush="LightGray" BorderThickness="1">
+                    <Grid >
+                <!--<TextBlock Grid.Row="1" Text="본문:" FontWeight="Bold" Foreground="{StaticResource NavyBrush}" Margin="0,0,0,5"/>-->
+                        <TextBox  x:Name="ContentTextBox" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  FontSize="14" VerticalAlignment="Stretch" AcceptsReturn="True" TextWrapping="Wrap" 
+                                  IsReadOnly="{Binding IsReadOnlyMode}" 
+                                  Visibility="Visible"
+                                  Background="{StaticResource WhiteBrush}" Foreground="{StaticResource NavyBrush}"/>
+
+                        <RichTextBox x:Name="Editor" IsDocumentEnabled="True" AllowDrop="True" AcceptsReturn="True"
+                                     PreviewDragOver="MyRichTextBox_PreviewDragOver"
+                                     Drop="MyRichTextBox_Drop"
+                                     Visibility="Collapsed">
+                            <RichTextBox.Resources>
+                                <Style TargetType="Paragraph">
+                                    <Setter Property="Margin" Value="0"/>
+                                </Style>
+                            </RichTextBox.Resources>
+
+                            <RichTextBox.CommandBindings>
+                                <CommandBinding Command="ApplicationCommands.Paste"
+                                                Executed="Editor_Paste_Executed"
+                                                CanExecute="Editor_Paste_CanExecute"/>
+                            </RichTextBox.CommandBindings>
+                        </RichTextBox>
+
+                    </Grid>
+                </Border>
+
+                <!-- 본문 버튼 2 -->
+                <Border Grid.Row="3" Margin="0,10,0,10">
+                    <Grid>
+                        <Button Content="수정 완료" Width="80" Height="30" HorizontalAlignment="Right" 
+                                Background="{StaticResource NavyBrush}" Foreground="White" Click="{c:MethodBinding BoardEditCommit}"
+                                Visibility="{Binding Show_Edit_Mode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Button Content="신규 작성" Width="80" Height="30" HorizontalAlignment="Right"
+                                Background="{StaticResource NavyBrush}" Foreground="White" Click="{c:MethodBinding BoardNewCommit}"
+                                Visibility="{Binding Show_New_Mode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                </Border>
+
+
+                <!-- 댓글 목록 -->
+                <StackPanel Grid.Row="4" Margin="0,0,0,0" Visibility="{Binding Show_Edit_Mode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl ItemsSource="{Binding Comment_List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <StackPanel>
+                                    <!-- Header -->
+                                    <TextBlock Text="📌 댓글" FontSize="16" FontWeight="Bold" Foreground="{StaticResource NavyBrush}" Margin="0,0,0,10"/>
+
+                                    <!-- Items Presenter -->
+                                    <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="0" Background="{StaticResource WhiteBrush}">
+                                        <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                                            <ItemsPresenter />
+                                        </ScrollViewer>
+                                    </Border>
+
+                                    <!-- Footer -->
+                                    <!-- 댓글 입력 영역 -->
+                                    <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,10,0,0">
+                                        <TextBox x:Name="CommentInputBox" Width="460" Height="30" Margin="0,0,10,0" 
+                                                 Text="{Binding New_Comment_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 Background="#FFF5F7FF" Foreground="{StaticResource NavyBrush}" />
+                                        <Button Content="댓글 작성" Width="80" Height="30" Background="{StaticResource NavyBrush}" Foreground="White"
+                                                Click="{c:MethodBinding NewCommentCommit}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource CommentItemStyle}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Nickname}" FontWeight="Bold" Foreground="{StaticResource NavyBrush}"
+                                                   Margin="0,0,10,0"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Content}" TextWrapping="Wrap"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Updated_Dt, StringFormat={}[{0:yyyy-MM-dd HH:mm:ss}]}" FontSize="10" Foreground="Gray"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

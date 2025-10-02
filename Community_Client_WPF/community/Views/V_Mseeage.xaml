@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="community.Views.V_Mseeage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:community.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="120">
+    <Grid Background="Gray">
+        <ItemsControl ItemsSource="{Binding User_Messages}">
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="{x:Type ItemsControl}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="White" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="10" Padding="10">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Title}" FontSize="10" FontWeight="Bold" Margin="0,0,0,5"/>
+                            <TextBlock Text="{Binding Content}" FontSize="10" TextWrapping="Wrap" Margin="0,0,0,4"
+                                       Height="40"/>
+                            <TextBlock Text="{Binding Author}" FontSize="10" FontStyle="Italic" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            
+            <!--<ItemsControl.ItemsSource>
+                <x:Array Type="{x:Type local:Post}">
+                    <local:Post Title="회원가입 오류" Content="회원정보를 입력하고 가입을 눌러서 완료까지 봤는데, 회원가입이 안됐어요" Author="Null"/>
+                    <local:Post Title="차단기능 요청" Content="보고 싶지 않은 사람 차단할 수 있게 해주세요" Author="유저1"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저46"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저47"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저48"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저49"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저50"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저51"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저52"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저53"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저54"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저55"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저56"/>
+                    <local:Post Title="모바일에서도 볼 수 있게 해주세요" Content="모바일에서도 보고 싶어요!" Author="유저57"/>
+                </x:Array>
+            </ItemsControl.ItemsSource>-->
+        </ItemsControl>
+    </Grid>
+</UserControl>

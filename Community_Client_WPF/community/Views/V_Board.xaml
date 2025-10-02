@@ -1,0 +1,199 @@
+﻿<UserControl x:Class="community.Views.V_Board"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:community.Views"
+             xmlns:m="clr-namespace:community.Models"
+             xmlns:c="clr-namespace:community.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="#FFF3F3F3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <Button Content="Home"       Width="100" Height="30" Margin="0,0,10,0" Background="#E1E1E1"/>
+                <Button Content="Categories" Width="100" Height="30" Margin="0,0,10,0" Background="#E1E1E1"/>
+                <Button Content="Tags"       Width="100" Height="30" Margin="0,0,10,0" Background="#E1E1E1"/>
+                <Button Content="New Post"   Width="100" Height="30" Margin="0,0,10,0" Background="#007ACC" Foreground="White"
+                        Command="{Binding NewBoardShow}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Width="120" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0"
+                          VerticalContentAlignment="Center"
+                          ItemsSource="{Binding SearchConditions}" 
+                          SelectedItem="{Binding SelectedSearchCondition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedIndex="0"
+                          DisplayMemberPath="Display" SelectedValuePath="Vlaue"
+                          >
+                </ComboBox>
+
+                <TextBox Width="400" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" 
+                         Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Padding="2,5,0,0"/>
+                
+                <Button Content="Search Posts" Click="{c:MethodBinding BoardSearch}"
+                        Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0" 
+                        Background="#007ACC" Foreground="White"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Line Grid.Row="0"
+              X1="0" Y1="99" Y2="99" Stroke="LightGray" StrokeThickness="1"
+              X2="{Binding ActualWidth, 
+                   RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}" />
+
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Board_Posts}">
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="{x:Type ItemsControl}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+                        <ItemsPresenter/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        
+                        <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="3" Margin="6,0,6,0" Padding="20,8,10,8"
+                                Cursor="Hand" MouseDown="{c:MethodBinding BoardShow}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#F0F8FF"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock FontSize="15" Margin="0,0,0,4">
+                                    <Run Text="{Binding Id}" FontSize="12" Foreground="Gray"/> "
+                                    <Run Text="{Binding Title}" FontWeight="Bold"/>
+                                    <Run Text="{Binding Comments, StringFormat={}[{0}]}" Foreground="Gray"/>
+                                </TextBlock>
+
+                                <!--<TextBlock Text="{Binding Content}" TextWrapping="Wrap" Margin="0,5,0,10" Height="16"/>-->
+
+                                <TextBlock Foreground="DarkSlateGray" FontSize="12" Margin="30,0,0,0">
+                                    <Run Text="{Binding Nickname}" />
+                                    <Run Text="{Binding Updated_Dt, StringFormat={}[{0:yyyy-MM-dd HH:mm:ss}]}"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Width="20" Height="20" Background="White" Cursor="No"
+                                HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10"
+                                MouseLeftButtonUp="{c:MethodBinding BoardDeleteCommit}"
+                                BorderBrush="Gray" BorderThickness="1">
+                            <Border.ToolTip>
+                                <ToolTip Content="Delete Post" />
+                            </Border.ToolTip>
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FFB22222"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+
+                            <TextBlock Text="X" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            
+            <!--<ItemsControl.ItemsSource>
+                <x:Array Type="{x:Type m:M_Board}">
+                    <m:M_Board Title="Welcome to the Community!" Content="This is the first post in our community board. Feel free to share your thoughts and ideas." Nickname="Admin"/>
+                    <m:M_Board Title="Community Guidelines" Content="Please be respectful and follow the community guidelines to ensure a positive experience for everyone." Nickname="Moderator"/>
+                    <m:M_Board Title="Upcoming Events" Content="Stay tuned for upcoming events and activities in our community. We have exciting things planned!" Nickname="Event Coordinator"/>
+                </x:Array>
+            </ItemsControl.ItemsSource>-->
+        </ItemsControl>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"
+                    Background="Transparent">
+            
+            <ItemsControl ItemsSource="{Binding PageNumbers}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.Template>
+                    <ControlTemplate TargetType="{x:Type ItemsControl}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <!--<RadioButton Content="1" Width="30" Margin="2" GroupName="PageButtons" Template="{StaticResource RadioTemplate}"/>-->
+                            <ItemsPresenter/>
+                            <!--<RadioButton Content="556" Width="30" Margin="2" GroupName="PageButtons" Template="{StaticResource RadioTemplate}"/>-->
+                        </StackPanel>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <RadioButton GroupName="PageButtons" Width="30" Margin="2"
+                                     Cursor="Hand">
+                            <RadioButton.Style>
+                                <Style TargetType="{x:Type RadioButton}">
+                                    <Setter Property="Content" Value="{Binding}"/>
+                                    <Setter Property="Template" Value="{StaticResource RadioTemplate}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding}" Value="-1">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                                                        <Border Width="30" Height="24"
+                                                                Background="Transparent"
+                                                                BorderBrush="Transparent" BorderThickness="0" CornerRadius="3">
+                                                            <Grid>
+                                                                <TextBlock Text="..." HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                           FontWeight="Bold" Foreground="Gray"/>
+                                                            </Grid>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>
+
+                            <RadioButton.IsChecked>
+                                <MultiBinding Converter="{StaticResource PageNumberToIsCheckedMultiConverter}" Mode="OneWay">
+                                    <Binding Path="DataContext.CurrentPage" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                    <Binding/>
+                                </MultiBinding>
+                            </RadioButton.IsChecked>
+
+                            <RadioButton.Command>
+                                <Binding Path="DataContext.GoToPageCommand" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                            </RadioButton.Command>
+
+                            <RadioButton.CommandParameter>
+                                <Binding/>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                        
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</UserControl>

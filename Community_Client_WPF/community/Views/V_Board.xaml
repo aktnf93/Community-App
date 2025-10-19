@@ -17,7 +17,7 @@
 
         <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <Button Content="Home"       Width="100" Height="30" Margin="0,0,10,0" Background="#E1E1E1"/>
+                <Button Content="Home"       Width="100" Height="30" Margin="0,0,10,0" Background="#E1E1E1" Click="Button_Click"/>
                 <Button Content="Categories" Width="100" Height="30" Margin="0,0,10,0" Background="#E1E1E1"/>
                 <Button Content="Tags"       Width="100" Height="30" Margin="0,0,10,0" Background="#E1E1E1"/>
                 <Button Content="New Post"   Width="100" Height="30" Margin="0,0,10,0" Background="#007ACC" Foreground="White"
@@ -48,13 +48,12 @@
               X1="0" Y1="99" Y2="99" Stroke="LightGray" StrokeThickness="1"
               X2="{Binding ActualWidth, 
                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}" />
-
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding Board_Posts}">
+        
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Board_Posts}" Background="LightBlue"
+                      >
             <ItemsControl.Template>
                 <ControlTemplate TargetType="{x:Type ItemsControl}">
-                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
-                        <ItemsPresenter/>
-                    </ScrollViewer>
+                    <ItemsPresenter/>
                 </ControlTemplate>
             </ItemsControl.Template>
             
@@ -195,5 +194,12 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
+
+        <!-- 새 글 작성 -->
+        <!--<Grid Visibility="{Binding NewBoard, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding VM_Moard_Instance}">
+            <Grid Background="Gray" Opacity="0.8" DataContext="{Binding Board_New_Add}" MouseLeftButtonDown="{c:MethodBinding BoardClose}"/>
+            <v:V_Board_Detail DataContext="{Binding Board_New_Add}"/>
+        </Grid>-->
+
     </Grid>
 </UserControl>

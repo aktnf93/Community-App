@@ -14,18 +14,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace community
+namespace community.Views
 {
     /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
+    /// V_MainWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class V_MainWindow : Window
     {
-        public MainWindow()
+        public V_MainWindow()
         {
             InitializeComponent();
 
-            this.Closing += (sender, e) =>
+            // this.Closing += (sender, e) =>
+            // {
+            //     Server_REST_API.Instance.Dispose();
+            //     Application.Current.Shutdown();
+            // };
+
+            this.Closed += (sender, e) =>
             {
                 Server_REST_API.Instance.Dispose();
                 Application.Current.Shutdown();

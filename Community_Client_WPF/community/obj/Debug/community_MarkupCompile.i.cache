@@ -1,7 +1,7 @@
 ﻿community
 
 
-winexe
+exe
 C#
 .cs
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\
@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\App.xaml
-6-336620048
+13-1343039923
 
-27837998068
-16566794801
-MainWindow.xaml;Views\V_Board.xaml;Views\V_Login.xaml;Views\V_Mseeage.xaml;Views\V_Board_Detail.xaml;View_Controls\U_AudioPlayer.xaml;
+50-1579607311
+161526559107
+Views\V_MainWindow.xaml;Views\V_Board.xaml;Views\V_Chat.xaml;Views\V_Employee.xaml;Views\V_Inventory.xaml;Views\V_Login.xaml;Views\V_Mseeage.xaml;Views\V_Board_Detail.xaml;Views\V_Project.xaml;Views\V_Settings.xaml;Views\V_TEST.xaml;View_Controls\U_AudioPlayer.xaml;View_Controls\U_ProgressBar.xaml;
 
 True
 

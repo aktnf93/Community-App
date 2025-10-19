@@ -24,5 +24,12 @@ namespace community.Views
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var d = this.DataContext.GetType();
+
+            int i = 5;
+        }
     }
 }

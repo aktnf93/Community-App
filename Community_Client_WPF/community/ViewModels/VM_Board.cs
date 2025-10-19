@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace community.ViewModels
 {
-    public class VM_Moard : Notify
+    public class VM_Board : ViewModelBase
     {
         public ObservableCollection<M_ComboItem<int>> SearchConditions { get; set; } = new ObservableCollection<M_ComboItem<int>>()
         {
@@ -89,7 +89,7 @@ namespace community.ViewModels
             set => base.OnPropertyChanged(ref this.editBoard, value);
         }
 
-        public VM_Moard()
+        public VM_Board()
         {
             this.Board_New_Add.BoardShowEvent += (e) => this.NewBoard = Visibility.Visible;
             this.Board_New_Add.BoardCloseEvent += () => this.NewBoard = Visibility.Collapsed;

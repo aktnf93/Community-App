@@ -14,33 +14,26 @@ namespace community.ViewModels
 {
     public class VM_MainViewModel : ViewModelBase
     {
-        public VM_Board Instance_VM_Board { get; set; } = new VM_Board();
-        public VM_Chat Instance_VM_Chat { get; set; } = new VM_Chat();
-        public VM_Employee Instance_VM_Employee { get; set; } = new VM_Employee();
-        public VM_Inventory Instance_VM_Inventory { get; set; } = new VM_Inventory();
-        public VM_Login Instance_VM_Login { get; set; } = new VM_Login();
-        public VM_Messages Instance_VM_Messages { get; set; } = new VM_Messages();
-        public VM_Project Instance_VM_Project { get; set; } = new VM_Project();
-        public VM_Settings Instance_VM_Settings { get; set; } = new VM_Settings();
-        public VM_TEST Instance_VM_TEST { get; set; } = new VM_TEST();
+        public VM_Login VM_Login { get; set; }
 
+        private VM_Board vm_Board;
+        private VM_Messages vm_Messages;
+        private VM_Chat vm_Chat;
 
+        private VM_Project vm_Project;
+        private VM_Customer vm_Customer;
+        private VM_Inventory vm_Inventory;
+        private VM_Employee vm_Employee;
+        private VM_Settings vm_Settings;
 
-        public M_User Login_User { get; set; } = new M_User();
-
-        public M_Views_Show Views_Show { get; set; } = new M_Views_Show();
-
-
-        public ViewModelBase currentViewModel = null;
+        public ViewModelBase currentViewModel;
         public ViewModelBase CurrentViewModel
         {
             get => this.currentViewModel;
             set => base.OnPropertyChanged(ref this.currentViewModel, value);
         }
 
-
         private MenuType menuSelected = MenuType.None;
-
         public MenuType MenuSelected
         {
             get => this.menuSelected;
@@ -50,48 +43,41 @@ namespace community.ViewModels
 
                 switch (this.menuSelected)
                 {
+                    default:
                     case MenuType.None:
                         this.CurrentViewModel = null;
                         break;
 
                     case MenuType.Board:
-                        this.CurrentViewModel = this.Instance_VM_Board;
-                        break;
-
-                    case MenuType.Chat:
-                        this.CurrentViewModel = this.Instance_VM_Chat;
-                        break;
-
-                    case MenuType.Employee:
-                        this.CurrentViewModel = this.Instance_VM_Employee;
-                        break;
-
-                    case MenuType.Inventory:
-                        this.CurrentViewModel = this.Instance_VM_Inventory;
-                        break;
-
-                    case MenuType.Login:
-                        this.CurrentViewModel = this.Instance_VM_Login;
+                        this.CurrentViewModel = this.vm_Board;
                         break;
 
                     case MenuType.Messages:
-                        this.CurrentViewModel = this.Instance_VM_Messages;
+                        this.CurrentViewModel = this.vm_Messages;
+                        break;
+
+                    case MenuType.Chat:
+                        this.CurrentViewModel = this.vm_Chat;
                         break;
 
                     case MenuType.Project:
-                        this.CurrentViewModel = this.Instance_VM_Project;
+                        this.CurrentViewModel = this.vm_Project;
+                        break;
+
+                    case MenuType.Customer:
+                        this.CurrentViewModel = this.vm_Customer;
+                        break;
+
+                    case MenuType.Inventory:
+                        this.CurrentViewModel = this.vm_Inventory;
+                        break;
+
+                    case MenuType.Employee:
+                        this.CurrentViewModel = this.vm_Employee;
                         break;
 
                     case MenuType.Settings:
-                        this.CurrentViewModel = this.Instance_VM_Settings;
-                        break;
-
-                    case MenuType.TEST:
-                        this.CurrentViewModel = this.Instance_VM_TEST;
-                        break;
-
-                    default:
-                        this.CurrentViewModel = null;
+                        this.CurrentViewModel = this.vm_Settings;
                         break;
                 }
             }
@@ -100,37 +86,24 @@ namespace community.ViewModels
 
         public VM_MainViewModel()
         {
-            this.Login_User.LoginEvent += User_OnLogin;
+            this.VM_Login = new VM_Login();
+            this.VM_Login.LoginEvent += VM_Login_LoginEvent;
         }
 
-        private void User_OnLogin()
+        private void VM_Login_LoginEvent(bool isLogin)
         {
-            var u = Server_REST_API.Instance.PostUser(this.Login_User.Login_Id, this.Login_User.Login_Pw);
-
-            if (u.Id != 0)
+            if (isLogin)
             {
-                // 로그인 성공
+                vm_Board = new VM_Board();
+                vm_Messages = new VM_Messages();
+                vm_Chat = new VM_Chat();
+                vm_Project = new VM_Project();
+                vm_Customer = new VM_Customer();
+                vm_Inventory = new VM_Inventory();
+                vm_Employee = new VM_Employee();
+                vm_Settings = new VM_Settings();
 
-                // this.User_Messages.Clear();
-                // 
-                // for (int i = 0; i < boards.Length; i++)
-                // {
-                //     this.User_Messages.Add(boards[i]);
-                // }
-
-                this.Login_User.Id = u.Id;
-                this.Login_User.Nickname = u.Nickname;
-                this.Login_User.Login_Id = string.Empty;
-                this.Login_User.Login_Pw = string.Empty;
-
-                this.Views_Show.Login = Visibility.Collapsed;
-
-                this.Instance_VM_Board.Login_User_Id = this.Login_User.Id;
-            }
-            else
-            {
-                // 로그인 실패
-                MessageBox.Show("아이디 또는 비밀번호가 올바르지 않습니다.", "로그인 실패");
+                MenuSelected = MenuType.Board;
             }
         }
     }

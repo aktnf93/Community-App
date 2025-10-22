@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace community.Converters
 {
-    public class PageNumberToIsCheckedMultiConverter : IMultiValueConverter
+    public class C_PageNumberButton : IMultiValueConverter
     {
         // values[0]: CurrentPage, values[1]: PageNumber
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

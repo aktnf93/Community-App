@@ -1,4 +1,5 @@
-﻿using System;
+﻿using community.Enums;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -20,6 +21,9 @@ namespace community
     {
         public App()
         {
+            // DPI 인식 모드 설정 (WPF 에서는 기본적으로 PerMonitorV2 모드 사용)
+            // System.Windows.Forms.Application.SetHighDpiMode(System.Windows.Forms.HighDpiMode.PerMonitorV2);
+
             // GPU 렌더링 티어 확인 (GPU 가속 사용 여부)
             // 0: 제한적
             // 1: 비활성화

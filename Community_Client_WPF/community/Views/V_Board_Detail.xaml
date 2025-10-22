@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:community.Views"
-             xmlns:c="clr-namespace:community.Common"
              mc:Ignorable="d" 
              Width="600" Height="800">
 
@@ -16,7 +15,7 @@
         <Grid>
             <!-- 닫기 버튼 -->
             <Button Width="30" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,14,10,0" 
-                    Background="{StaticResource NavyBrush}" Click="{c:MethodBinding BoardClose}">
+                    Background="{StaticResource NavyBrush}" Click="{local:MethodBinding BoardClose}">
                 
                 <Path Data="M 1,1 L 16,16 M 16,1 L 1,16" Stroke="White" StrokeThickness="3"
                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1.4,1.4,0,0"/>
@@ -125,11 +124,11 @@
                 <Border Grid.Row="3" Margin="0,10,0,10">
                     <Grid>
                         <Button Content="수정 완료" Width="80" Height="30" HorizontalAlignment="Right" 
-                                Background="{StaticResource NavyBrush}" Foreground="White" Click="{c:MethodBinding BoardEditCommit}"
+                                Background="{StaticResource NavyBrush}" Foreground="White" Click="{local:MethodBinding BoardEditCommit}"
                                 Visibility="{Binding Show_Edit_Mode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Button Content="신규 작성" Width="80" Height="30" HorizontalAlignment="Right"
-                                Background="{StaticResource NavyBrush}" Foreground="White" Click="{c:MethodBinding BoardNewCommit}"
+                                Background="{StaticResource NavyBrush}" Foreground="White" Click="{local:MethodBinding BoardNewCommit}"
                                 Visibility="{Binding Show_New_Mode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                 </Border>
@@ -158,7 +157,7 @@
                                                  Text="{Binding New_Comment_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                  Background="#FFF5F7FF" Foreground="{StaticResource NavyBrush}" />
                                         <Button Content="댓글 작성" Width="80" Height="30" Background="{StaticResource NavyBrush}" Foreground="White"
-                                                Click="{c:MethodBinding NewCommentCommit}"/>
+                                                Click="{local:MethodBinding NewCommentCommit}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </ControlTemplate>
@@ -166,7 +165,8 @@
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Style="{StaticResource CommentItemStyle}">
+                                <Border Style="{StaticResource CommentItemStyle}"
+                                        Background="#FFF5F7FF" CornerRadius="5" Padding="8" Margin="0,2,0,2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>

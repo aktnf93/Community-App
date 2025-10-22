@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:community.Views"
              xmlns:m="clr-namespace:community.Models"
-             xmlns:c="clr-namespace:community.Common"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="#FFF3F3F3">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="{local:MethodBinding Loaded}">
+    <Grid Background="{StaticResource View_Background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
@@ -17,7 +17,7 @@
 
         <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10">
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <Button Content="Home"       Width="100" Height="30" Margin="0,0,10,0" Background="#E1E1E1" Click="Button_Click"/>
+                <Button Content="Home"       Width="100" Height="30" Margin="0,0,10,0" Background="#E1E1E1"/>
                 <Button Content="Categories" Width="100" Height="30" Margin="0,0,10,0" Background="#E1E1E1"/>
                 <Button Content="Tags"       Width="100" Height="30" Margin="0,0,10,0" Background="#E1E1E1"/>
                 <Button Content="New Post"   Width="100" Height="30" Margin="0,0,10,0" Background="#007ACC" Foreground="White"
@@ -38,16 +38,13 @@
                          Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Padding="2,5,0,0"/>
                 
-                <Button Content="Search Posts" Click="{c:MethodBinding BoardSearch}"
+                <Button Content="Search Posts" Click="{local:MethodBinding BoardSearch}"
                         Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0" 
                         Background="#007ACC" Foreground="White"/>
             </StackPanel>
         </StackPanel>
 
-        <Line Grid.Row="0"
-              X1="0" Y1="99" Y2="99" Stroke="LightGray" StrokeThickness="1"
-              X2="{Binding ActualWidth, 
-                   RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}" />
+        <Line Grid.Row="0" X1="0" Y1="99" Y2="99" Stroke="LightGray" StrokeThickness="1" X2="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Grid}}" />
         
         <ItemsControl Grid.Row="1" ItemsSource="{Binding Board_Posts}" Background="LightBlue"
                       >
@@ -56,13 +53,13 @@
                     <ItemsPresenter/>
                 </ControlTemplate>
             </ItemsControl.Template>
-            
+
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        
+
                         <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="3" Margin="6,0,6,0" Padding="20,8,10,8"
-                                Cursor="Hand" MouseDown="{c:MethodBinding BoardShow}">
+                                Cursor="Hand" MouseDown="{local:MethodBinding BoardShow}">
                             <Border.Style>
                                 <Style TargetType="Border">
                                     <Setter Property="Background" Value="White"/>
@@ -92,7 +89,7 @@
 
                         <Border Width="20" Height="20" Background="White" Cursor="No"
                                 HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10"
-                                MouseLeftButtonUp="{c:MethodBinding BoardDeleteCommit}"
+                                MouseLeftButtonUp="{local:MethodBinding BoardDeleteCommit}"
                                 BorderBrush="Gray" BorderThickness="1">
                             <Border.ToolTip>
                                 <ToolTip Content="Delete Post" />
@@ -114,14 +111,6 @@
 
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-            
-            <!--<ItemsControl.ItemsSource>
-                <x:Array Type="{x:Type m:M_Board}">
-                    <m:M_Board Title="Welcome to the Community!" Content="This is the first post in our community board. Feel free to share your thoughts and ideas." Nickname="Admin"/>
-                    <m:M_Board Title="Community Guidelines" Content="Please be respectful and follow the community guidelines to ensure a positive experience for everyone." Nickname="Moderator"/>
-                    <m:M_Board Title="Upcoming Events" Content="Stay tuned for upcoming events and activities in our community. We have exciting things planned!" Nickname="Event Coordinator"/>
-                </x:Array>
-            </ItemsControl.ItemsSource>-->
         </ItemsControl>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0"
@@ -197,7 +186,7 @@
 
         <!-- 새 글 작성 -->
         <!--<Grid Visibility="{Binding NewBoard, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" DataContext="{Binding VM_Moard_Instance}">
-            <Grid Background="Gray" Opacity="0.8" DataContext="{Binding Board_New_Add}" MouseLeftButtonDown="{c:MethodBinding BoardClose}"/>
+            <Grid Background="Gray" Opacity="0.8" DataContext="{Binding Board_New_Add}" MouseLeftButtonDown="{local:MethodBinding BoardClose}"/>
             <v:V_Board_Detail DataContext="{Binding Board_New_Add}"/>
         </Grid>-->
 

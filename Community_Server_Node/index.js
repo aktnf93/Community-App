@@ -12,25 +12,6 @@ const dbConfig = {
   password: '1111',
 };
 
-/*
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: '...',
-  password: '...',
-  database: '...',
-  timezone: 'local', // 'Z' 또는 '+00:00', 'local' 등
-  
-  typeCast: function (field, next) {
-    if (field.type === 'DATETIME') {
-      return field.string(); // 그대로 문자열로 반환
-    }
-    return next();
-  }
-    
-});
-*/
-
-
 
 function Now() {
     const date = new Date();
@@ -41,7 +22,6 @@ function Now() {
 
     return formattedDate;
 }
-
 
 // 사용할 DB명 변수
 let databaseName = 'community';
@@ -146,8 +126,6 @@ app.get('/board/page/search', async (req, res) => {
   }
 });
 
-// LIMIT 10 OFFSET 10
-
 // 게시글 생성
 app.post('/board/new', async (req, res) => {
   try {
@@ -219,6 +197,9 @@ app.get('/board/:id', async (req, res) => {
 
 // 댓글 생성
 app.post('/comment/new', async (req, res) => {
+
+  console.log(`${Now()} \t /comment/new \t 댓글 생성`);
+
   try {
     const conn = await getConnection();
 
@@ -240,8 +221,6 @@ app.post('/comment/new', async (req, res) => {
 
 
 // ------------------------------------------
-
-
 // 전체 사용자 조회
 app.get('/users', async (req, res) => {
   try {
@@ -253,9 +232,6 @@ app.get('/users', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-
-
 
 // 예시: 사용자 생성
 app.post('/users', async (req, res) => {

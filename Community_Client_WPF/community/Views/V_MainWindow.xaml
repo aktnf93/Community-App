@@ -3,103 +3,113 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:community"
-        xmlns:v="clr-namespace:community.Views"
+        xmlns:local="clr-namespace:community.Views"
         xmlns:vm="clr-namespace:community.ViewModels"
-        xmlns:c="clr-namespace:community.Common"
         mc:Ignorable="d"
+        Title="Community App" Height="900" Width="1600"
+        WindowStyle="None" AllowsTransparency="False"
         WindowStartupLocation="CenterScreen"
-        BorderBrush="Gray" BorderThickness="1.5"
-        Title="MainWindow" Height="900" Width="1600">
-    
+        StateChanged="Window_OnStateChanged"
+        SizeChanged="Window_OnSizeChanged">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
+    </WindowChrome.WindowChrome>
     <Window.DataContext>
         <vm:VM_MainViewModel/>
     </Window.DataContext>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="140" Tag="Menu"/>
-            <ColumnDefinition Width="*"   Tag="Content"/>
+            <ColumnDefinition Width="140"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
-            <RowDefinition    Height="30" Tag="Top"/>
-            <RowDefinition    Height="*"  Tag="Middle"/>
-            <RowDefinition    Height="30" Tag="Bottom"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- 상단 스테이터스 -->
-        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#34495E">
-            <TextBlock Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="10,0,0,0">
-                <Run Text="{Binding Login_User.Id}"/>
-                <Run Text=":"/>
-                <Run Text="{Binding Login_User.Nickname}"/>
-                <Run Text=" 님 환영합니다."/>
-            </TextBlock>
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="46"/>
+                <ColumnDefinition Width="46"/>
+                <ColumnDefinition Width="46"/>
+                <ColumnDefinition Width="46"/>
+            </Grid.ColumnDefinitions>
+
+            <Border x:Name="TitleBar" Grid.Column="0" Grid.ColumnSpan="4" Background="{StaticResource Menu_Background_Blue}" PreviewMouseLeftButtonDown="Window_OnMove" MouseLeftButtonDown="Window_OnResize"/>
+
+            <Grid Grid.Column="0" IsHitTestVisible="False">
+                <TextBlock Text="커뮤니티 - 버전 1" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White"/>
+            </Grid>
+
+            <Button Grid.Column="1" ToolTip="확인"/>
+            <Button Grid.Column="2" ToolTip="최소화" Click="Window_OnMinimize"/>
+            <Button Grid.Column="3" ToolTip="최대화" Click="Window_OnMaximize"/>
+            <Button Grid.Column="4" ToolTip="닫기"  Click="Window_OnClose"/>
         </Grid>
 
-        <!-- 메뉴 바 -->
-        <Border Padding="6" Grid.Column="0" Grid.Row="1" Background="#2C3E50">
+        <!-- 메뉴 패널 -->
+        <Border Grid.Column="0" Grid.Row="1" Background="{StaticResource Menu_Background_Blue}">
+
+            <!--<TreeView Background="{StaticResource Menu_Background_Blue}"
+                      ItemContainerStyle="{StaticResource MenuTree}">
+
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding SubTrees}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+
+                <TreeView.ItemsSource>
+                    <x:Array Type="{x:Type m:M_TreeItem}">
+                        <m:M_TreeItem Name="게시판" Icon="..\Resource_Icon\help.png">
+                            <m:M_TreeItem.SubTrees>
+                                <m:M_TreeItem Name="자유게시판" Depth="1"/>
+                                <m:M_TreeItem Name="직원게시판" Depth="1"/>
+                            </m:M_TreeItem.SubTrees>
+                        </m:M_TreeItem>
+                        <m:M_TreeItem Name="메시지" Icon="..\Resource_Icon\help.png"/>
+                        <m:M_TreeItem Name="채팅방" Icon="..\Resource_Icon\help.png"/>
+                        <m:M_TreeItem Name="프로젝트" Icon="..\Resource_Icon\help.png"/>
+                        <m:M_TreeItem Name="고객괸리" Icon="..\Resource_Icon\help.png"/>
+                        <m:M_TreeItem Name="직원관리" Icon="..\Resource_Icon\help.png"/>
+                        <m:M_TreeItem Name="재고관리" Icon="..\Resource_Icon\help.png"/>
+                        <m:M_TreeItem Name="환경설정" Icon="..\Resource_Icon\help.png"/>
+                    </x:Array>
+                </TreeView.ItemsSource>
+            </TreeView>-->
+
             <StackPanel>
-                <RadioButton Content="게시판" 
-                             Height="40" GroupName="Menu" Background="#34495E" 
-                             IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Board}" 
-                             Template="{StaticResource MenuButton}"/>
-                
-                <RadioButton Content="메시지" 
-                             Height="40" GroupName="Menu" Background="#34495E" 
-                             IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Messages}" 
-                             Template="{StaticResource MenuButton}"/>
-                
-                <RadioButton Content="채팅방" 
-                            Height="40" GroupName="Menu" Background="#34495E" 
-                             IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Chat}" 
-                             Template="{StaticResource MenuButton}"/>
-                
-                <RadioButton Content="프로젝트"   
-                             Height="40" GroupName="Menu" Background="#34495E" 
-                             IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Project}" 
-                             Template="{StaticResource MenuButton}"/>
-                
-                <RadioButton Content="직원관리"  
-                             Height="40" GroupName="Menu" Background="#34495E" 
-                             IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Employee}" 
-                             Template="{StaticResource MenuButton}"/>
-                
-                <RadioButton Content="재고관리" 
-                             Height="40" GroupName="Menu" Background="#34495E" 
-                             IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Inventory}" 
-                             Template="{StaticResource MenuButton}"/>
+                <Grid Height="80">
+                    <Image HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Width="60" Height="60"
+                           Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant"/>
 
-                <RadioButton Content="환경설정" 
-                             Height="40" GroupName="Menu" Background="#34495E" 
-                             IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Settings}" 
-                             Template="{StaticResource MenuButton}"/>
-
-                <RadioButton Content="TEST" 
-                             Height="40" GroupName="Menu" Background="#34495E" 
-                             IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=TEST}" 
-                             Template="{StaticResource MenuButton}"/>
+                    <TextBlock FontSize="16" VerticalAlignment="Bottom" Margin="20,0,0,0">
+                        <Run Text="{Binding Login_User.Id}"/>
+                        <Run Text=":"/>
+                        <Run Text="{Binding Login_User.Nickname}"/>
+                    </TextBlock>
+                </Grid>
+                <RadioButton Content="게시판"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Board}"/>
+                <RadioButton Content="메시지"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Messages}"/>
+                <RadioButton Content="채팅방"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Chat}"/>
+                <RadioButton Content="프로젝트" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Project}"/>
+                <RadioButton Content="고객괸리" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Customer}"/>
+                <RadioButton Content="직원관리" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Employee}"/>
+                <RadioButton Content="재고관리" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Inventory}"/>
+                <RadioButton Content="환경설정" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Settings}"/>
             </StackPanel>
         </Border>
             
-        <!-- 가운데 컨텐츠 -->
-        <Grid Grid.Column="1" Grid.Row="1" Background="White">
-            <ScrollViewer Grid.Column="1" Grid.Row="1" Background="White" 
-                          HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <c:ViewCacheHost Content="{Binding CurrentViewModel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-            </ScrollViewer>
-        </Grid>
-
-        <!-- 하단 스테이터스 -->
-        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Background="#34495E">
-            <TextBlock Text="© 2024 Community App" Foreground="White" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-        </Grid>
+        <!-- 메뉴 화면 -->
+        <ScrollViewer Grid.Column="1" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <local:ViewCacheHost Content="{Binding CurrentViewModel}"/>
+        </ScrollViewer>
 
         <!-- 로그인 -->
-        <!--<Grid Visibility="{Binding Views_Show.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <Grid Background="Gray" Opacity="1"/>
-            <v:V_Login DataContext="{Binding Login_User}"/>
-        </Grid>-->
+        <local:V_Login Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" DataContext="{Binding VM_Login}" Visibility="{Binding DisplayShow}"/>
     </Grid>
 </Window>

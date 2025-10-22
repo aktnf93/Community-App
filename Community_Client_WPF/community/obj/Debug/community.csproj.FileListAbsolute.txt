@@ -111,7 +111,6 @@ C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\Views\V_Board_Detail.g.cs
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\Views\V_Project.g.cs
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\Views\V_Settings.g.cs
-C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\Views\V_TEST.g.cs
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\View_Controls\U_AudioPlayer.g.cs
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\View_Controls\U_ProgressBar.g.cs
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\App.g.cs
@@ -129,7 +128,6 @@ C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\Views\V_Board_Detail.baml
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\Views\V_Project.baml
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\Views\V_Settings.baml
-C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\Views\V_TEST.baml
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\View_Controls\U_AudioPlayer.baml
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\View_Controls\U_ProgressBar.baml
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\community.g.resources
@@ -140,3 +138,5 @@ C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\community.exe
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\community.pdb
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\community.exe.config
+C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\Views\V_Customer.g.cs
+C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\obj\Debug\Views\V_Customer.baml

@@ -8,5 +8,9 @@ namespace community.ViewModels
 {
     public class VM_Employee : ViewModelBase
     {
+        private void Loaded()
+        {
+            Console.WriteLine("VM_Employee Loaded");
+        }
     }
 }

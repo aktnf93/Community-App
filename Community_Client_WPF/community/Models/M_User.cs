@@ -11,8 +11,6 @@ namespace community.Models
     [DataContract]
     public class M_User : Notify
     {
-        public event NormalHandler LoginEvent;
-
         private int id;
         private string login_id = "Admin987";
         private string login_pw = "Admin987";
@@ -60,11 +58,6 @@ namespace community.Models
         {
             get => this.updated_dt;
             set => base.OnPropertyChanged(ref this.updated_dt, value);
-        }
-
-        private void OnLogin()
-        {
-            this.LoginEvent?.Invoke();
         }
     }
 }

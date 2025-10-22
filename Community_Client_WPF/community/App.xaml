@@ -4,241 +4,114 @@
              xmlns:local="clr-namespace:community"
              xmlns:v="clr-namespace:community.Views"
              xmlns:vm="clr-namespace:community.ViewModels"
-             xmlns:c="clr-namespace:community.Common"
+             xmlns:u="clr-namespace:community.View_Controls"
              xmlns:cnv="clr-namespace:community.Converters"
              StartupUri="Views/V_MainWindow.xaml"
-             ShutdownMode="OnLastWindowClose"
-             >
+             ShutdownMode="OnLastWindowClose">
     <Application.Resources>
 
+        <!--#region Converters-->
+        <cnv:C_PageNumberButton x:Key="PageNumberToIsCheckedMultiConverter"/>
+        <cnv:C_EnumMenuButton x:Key="EnumToBoolConverter"/>
+        
+        <!--#endregion-->
+
+        <!--#region View Maping-->
         <DataTemplate DataType="{x:Type vm:VM_Board}">
             <v:V_Board/>
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vm:VM_Chat}">
-            <v:V_Chat/>
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vm:VM_Employee}">
-            <v:V_Employee/>
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vm:VM_Inventory}">
-            <v:V_Inventory/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:VM_Messages}">
             <v:V_Mseeage/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:VM_Chat}">
+            <v:V_Chat/>
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type vm:VM_Project}">
             <v:V_Project/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:VM_Customer}">
+            <v:V_Customer/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:VM_Inventory}">
+            <v:V_Inventory/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:VM_Employee}">
+            <v:V_Employee/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:VM_Settings}">
             <v:V_Settings/>
         </DataTemplate>
+        <!--#endregion-->
 
-        <DataTemplate DataType="{x:Type vm:VM_TEST}">
-            <v:V_TEST/>
-        </DataTemplate>
+        <!--#region Images-->
+        <BitmapImage x:Key="Img_LoginLogo" UriSource="..\Images\image_login.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Username" UriSource="..\Images\icon_username_24px.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Password" UriSource="..\Images\icon_password_24px.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Logout" UriSource="..\Images\icon_logout_24px.png" DecodePixelWidth="24"/>
 
+        <!--#endregion-->
 
-
-
-
-        <!-- 남색 테마 색상 -->
+        <!--#region Colors-->
         <SolidColorBrush x:Key="NavyBrush" Color="#FF1A237E"/>
         <SolidColorBrush x:Key="WhiteBrush" Color="White"/>
-        <Style x:Key="CommentItemStyle" TargetType="Border">
-            <Setter Property="Background" Value="#FFF5F7FF"/>
-            <Setter Property="CornerRadius" Value="5"/>
-            <Setter Property="Margin" Value="0,2,0,2"/>
-            <Setter Property="Padding" Value="8"/>
-        </Style>
+        
+        <SolidColorBrush x:Key="Gray" Color="#808080"/>
+        <SolidColorBrush x:Key="DarkBlue" Color="#313647"/>
 
-        <!-- ComboBox 스타일 -->
-        <Style TargetType="ComboBox" x:Key="ComboStyle1">
-            <Setter Property="Foreground" Value="#FF333333"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#FFF5A623"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="4,2"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4"
-                                Height="24">
-                            <Grid>
-                                <ToggleButton Name="ToggleButton" Grid.Column="2" Focusable="false"
-                                              IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                              ClickMode="Press" Background="Transparent" BorderThickness="0"
-                                              HorizontalContentAlignment="Right"
-                                              VerticalContentAlignment="Center">
-                                    
-                                    <Path x:Name="Arrow" Data="M 0 0 L 4 4 L 8 0 Z" Fill="#FFB22222" Margin="0,0,6,0"/>
-                                </ToggleButton>
-                                
-                                <ContentPresenter Margin="6,0,25,0" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{TemplateBinding SelectionBoxItem}"
-                                                  IsHitTestVisible="False"/>
-                                
-                                <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
-                                    <Border Background="White" BorderBrush="#FFF5A623" BorderThickness="1" CornerRadius="4">
-                                        <ScrollViewer>
-                                            <StackPanel IsItemsHost="True" />
-                                        </ScrollViewer>
-                                    </Border>
-                                </Popup>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <SolidColorBrush x:Key="TextBox_BorderBrush" Color="#808080"/>
+        <SolidColorBrush x:Key="TextBox_Background" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextBox_PlaceholderText" Color="#808080"/>
 
-        <!-- ToggleButton 스타일 -->
-        <Style TargetType="ToggleButton" x:Key="ToggleStyle1">
-            <Setter Property="Foreground" Value="#FF333333"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#FFF5A623"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Background" Value="#FFB22222"/>
-                                <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="#FFB22222"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <SolidColorBrush x:Key="Menu_Foreground_Blue" Color="#6883D5"/>
+        <SolidColorBrush x:Key="Menu_Background_Blue" Color="#3E51A3"/>
 
-        <!-- Button 스타일 -->
-        <Style TargetType="Button" x:Key="ButtonStyle1">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#FFB22222"/>
-            <Setter Property="BorderBrush" Value="#FFF5A623"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="6,2"/>
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FFF5A623"/>
-                                <Setter Property="Foreground" Value="#FFB22222"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#FF8B1A1A"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" Value="#FFE0E0E0"/>
-                                <Setter Property="Foreground" Value="#FFAAAAAA"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <SolidColorBrush x:Key="Menu_Foreground_Selection" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Menu_Background_Selection" Color="#384992"/>
 
-        <ControlTemplate TargetType="{x:Type RadioButton}" x:Key="RadioTemplate">
-            <Border x:Name="bor" Width="30" Height="24"
-                    Background="#FF1A237E"
-                    BorderBrush="Gray" BorderThickness="0.5" CornerRadius="3">
-                <Grid>
-                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
-                                      TextBlock.FontWeight="Bold"
-                                      TextBlock.Foreground="White"/>
-                </Grid>
-            </Border>
-            
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter TargetName="bor" Property="Background" Value="#FFB22222"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="bor" Property="BorderBrush" Value="#FFB22222"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
+        <SolidColorBrush x:Key="Menu_Foreground_MouseOver" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Menu_Background_MouseOver" Color="#6F93CE"/>
 
-        <ControlTemplate TargetType="{x:Type RadioButton}" x:Key="MenuButton">
-            <Border x:Name="bor" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="Transparent" BorderThickness="0" CornerRadius="0">
-                <Grid>
-                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
-                                      TextBlock.FontWeight="Bold"
-                                      TextBlock.Foreground="White"/>
-                </Grid>
-            </Border>
 
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter TargetName="bor" Property="Background" Value="#FFB22222"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="bor" Property="BorderBrush" Value="#FFB22222"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
 
-        <ControlTemplate TargetType="{x:Type Button}" x:Key="ButtonTemplate">
-            <Border x:Name="bor" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
-                    Background="#FF1A237E"
-                    BorderBrush="Gray" BorderThickness="0.5" CornerRadius="3">
-                <Grid>
-                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
-                                      TextBlock.FontWeight="Bold"
-                                      TextBlock.Foreground="White"/>
-                </Grid>
-            </Border>
+        <SolidColorBrush x:Key="View_Background" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Panel_Background" Color="#FAFAFB"/>
 
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="bor" Property="Background" Value="#FFB22222"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter TargetName="bor" Property="Background" Value="#FFB22222"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
+        <SolidColorBrush x:Key="Button_Foreground_Transparent" Color="#3C3C3C"/>
+        <SolidColorBrush x:Key="Button_Background_Transparent" Color="Transparent"/>
 
+        <SolidColorBrush x:Key="Button_Foreground_White" Color="#3C3C3C"/>
+        <SolidColorBrush x:Key="Button_Background_White" Color="#F3F4F6"/>
+
+        <SolidColorBrush x:Key="Button_Foreground_Blue" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Button_Background_Blue" Color="#346ECD"/>
+
+        <SolidColorBrush x:Key="Button_Foreground_Grean" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Button_Background_Grean" Color="#51B374"/>
+
+        <SolidColorBrush x:Key="Button_Foreground_kakao" Color="#121101"/>
+        <SolidColorBrush x:Key="Button_Background_kakao" Color="#FFE812"/>
+        
+
+        <SolidColorBrush x:Key="Button_Foreground_MouseOver" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Button_Background_MouseOver" Color="#6F93CE"/>
+        
+        <!--#endregion-->
+
+        <!-- Display # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # -->
+
+        <!--#region Line Point Progress Bar-->
         <Style TargetType="{x:Type ProgressBar}" x:Key="LinePoint_ProgressBar">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="ProgressBar">
-                        <Grid x:Name="Root" Background="Transparent">
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Grid x:Name="Root">
                             <!-- 회색 배경 -->
                             <Border Background="#DDD" CornerRadius="2" Height="6" VerticalAlignment="Center"/>
 
@@ -253,11 +126,13 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--#endregion-->
 
-        <Style x:Key="Employee_Status" TargetType="ContentControl">
+        <!--#region Status : Employee-->
+        <Style TargetType="{x:Type ContentControl}" x:Key="Employee_Status">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="ContentControl">
+                    <ControlTemplate TargetType="{x:Type ContentControl}">
                         <Border x:Name="Outer" CornerRadius="8" Background="#EEE">
                             <TextBlock x:Name="StatusText" Text="알 수 없음" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
@@ -283,14 +158,287 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--#endregion-->
 
 
+        <!-- Button # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # -->
+        
+        <!--#region Borderless Text Button-->
+        <ControlTemplate TargetType="{x:Type Button}" x:Key="Borderless_TextButton">
+            <Border x:Name="Border" Background="{StaticResource Button_Background_White}" 
+                    CornerRadius="4" Cursor="Hand">
+                <ContentPresenter x:Name="Button_Text" Content="{TemplateBinding Content}"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  TextBlock.Foreground="{StaticResource Button_Foreground_White}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Tag" Value="0">
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_Blue}"/>
+                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_Blue}"/>
+                </Trigger>
+
+                <Trigger Property="Tag" Value="1">
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_Grean}"/>
+                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_Grean}"/>
+                </Trigger>
+
+                <Trigger Property="Tag" Value="2">
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_kakao}"/>
+                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_kakao}"/>
+                </Trigger>
+
+                <Trigger Property="Tag" Value="3">
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_Transparent}"/>
+                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_Transparent}"/>
+                </Trigger>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_MouseOver}"/>
+                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_MouseOver}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!--#endregion-->
+
+        <!--#region Borderless Icon Button-->
+        <ControlTemplate TargetType="{x:Type Button}" x:Key="Borderless_IconButton">
+            <Border x:Name="Border" Background="{StaticResource Button_Background_White}" 
+                    CornerRadius="4" Cursor="Hand">
+                <ContentPresenter x:Name="Button_Text" Content="{TemplateBinding Content}"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  TextBlock.Foreground="{StaticResource Button_Foreground_White}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Tag" Value="0">
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_Blue}"/>
+                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_Blue}"/>
+                </Trigger>
+
+                <Trigger Property="Tag" Value="1">
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_Grean}"/>
+                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_Grean}"/>
+                </Trigger>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_MouseOver}"/>
+                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_MouseOver}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!--#endregion-->
+
+        <!--#region Menu Button(Radio Button)-->
+        <ControlTemplate TargetType="{x:Type RadioButton}" x:Key="MenuButton">
+            <Border x:Name="Border" Height="40" Cursor="Hand" Background="{StaticResource Menu_Background_Blue}">
+                <StackPanel Orientation="Horizontal">
+                    <ContentPresenter x:Name="Button_Text" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                      TextBlock.Foreground="{StaticResource Menu_Foreground_Blue}"/>
+                </StackPanel>
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Menu_Background_Selection}"/>
+                    <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Menu_Foreground_Selection}"/>
+                </Trigger>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Menu_Background_MouseOver}"/>
+                    <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Menu_Foreground_MouseOver}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!--#endregion-->
+
+        <!--#region Audio Player Button-->
+        <ControlTemplate TargetType="{x:Type Button}" x:Key="ButtonTemplate">
+            <Border x:Name="bor" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
+                    Background="#FF1A237E"
+                    BorderBrush="Gray" BorderThickness="0.5" CornerRadius="3">
+                <Grid>
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                      TextBlock.FontWeight="Bold"
+                                      TextBlock.Foreground="White"/>
+                </Grid>
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="bor" Property="Background" Value="#FFB22222"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="bor" Property="Background" Value="#FFB22222"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!--#endregion-->
+
+        <!--#region Page Button-->
+        <ControlTemplate TargetType="{x:Type RadioButton}" x:Key="RadioTemplate">
+            <Border x:Name="bor" Width="30" Height="24"
+                    Background="#FF1A237E"
+                    BorderBrush="Gray" BorderThickness="0.5" CornerRadius="3">
+                <Grid>
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                      TextBlock.FontWeight="Bold"
+                                      TextBlock.Foreground="White"/>
+                </Grid>
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="bor" Property="Background" Value="#FFB22222"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="bor" Property="BorderBrush" Value="#FFB22222"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!--#endregion-->
 
 
-        <!-- 컨버터 -->
-        <cnv:PageNumberToIsCheckedConverter x:Key="PageNumberToIsCheckedConverter"/>
-        <cnv:PageNumberToIsCheckedMultiConverter x:Key="PageNumberToIsCheckedMultiConverter"/>
-        <cnv:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+        <!-- Text Box # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # -->
+        
+        <!--#region Icon TextBox-->
+        <ControlTemplate TargetType="{x:Type TextBox}" x:Key="Icon_TextBox">
+            <Border x:Name="Border" BorderBrush="Gray" BorderThickness="1" CornerRadius="2" Background="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- 아이콘 -->
+                    <Image Source="{TemplateBinding Tag}" Width="16" Height="16" Margin="8,0,4,0" VerticalAlignment="Center"/>
+
+                    <!-- 입력 영역 -->
+                    <Grid Grid.Column="1">
+                        <ScrollViewer x:Name="PART_ContentHost" Margin="0" VerticalAlignment="Center"/>
+
+                        <!-- Placeholder 텍스트 -->
+                        <TextBlock x:Name="PlaceholderText" Text="{TemplateBinding ToolTip}" 
+                                   Foreground="Gray" Margin="4,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" Visibility="Collapsed"/>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter TargetName="Border" Property="BorderBrush" Value="DodgerBlue"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="DarkGray"/>
+                    <Setter TargetName="Border" Property="BorderBrush" Value="Gray"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!--#endregion-->
+
+        <!--#region Icon PasswordBox-->
+        <ControlTemplate TargetType="{x:Type PasswordBox}" x:Key="Icon_PasswordBox">
+            <Border x:Name="Border" BorderBrush="Gray" BorderThickness="1" CornerRadius="2" Background="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- 아이콘 -->
+                    <Image Source="{TemplateBinding Tag}" Width="16" Height="16" Margin="8,0,4,0" VerticalAlignment="Center"/>
+
+                    <!-- 입력 영역 + Placeholder -->
+                    <Grid Grid.Column="1">
+                        <ScrollViewer x:Name="PART_ContentHost" Margin="0" VerticalAlignment="Center"/>
+
+                        <!-- Placeholder 텍스트 -->
+                        <TextBlock x:Name="PlaceholderText" Text="{TemplateBinding ToolTip}" 
+                                   Foreground="Gray" Margin="4,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" Visibility="Collapsed"/>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="u:PasswordBoxHelper.Password" Value="">
+                    <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter TargetName="Border" Property="BorderBrush" Value="DodgerBlue"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="Border" Property="BorderBrush" Value="Gray"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <!--#endregion-->
+
+
+        <!-- List View # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # -->
+
+        <!--#region Tree View-->
+        <Style TargetType="{x:Type TreeViewItem}" x:Key="TreeView">
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                        <StackPanel Orientation="Vertical">
+                            <Grid x:Name="Parent" Height="40" Cursor="Hand" Background="{StaticResource Menu_Background_Blue}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="20"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" x:Name="MenuIcon" Source="{Binding Icon}" Width="20" Height="20"/>
+                                <ContentPresenter x:Name="Button_Text" Grid.Column="1" ContentSource="Header" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                  TextBlock.Foreground="{StaticResource Menu_Foreground_Blue}"/>
+
+                                <Image Grid.Column="2" x:Name="Expander" Source="/Resource_Icon/arrow_down_24px.png" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <ItemsPresenter x:Name="Child" Margin="0,0,0,0" Visibility="Collapsed"/>
+                        </StackPanel>
+
+                        <ControlTemplate.Triggers>
+                            <!-- 루트 메뉴가 아니면 아이콘 삭제 -->
+                            <DataTrigger Binding="{Binding Depth}" Value="1">
+                                <Setter TargetName="MenuIcon" Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+
+                            <!-- 자식 요소가 있으면 하위식별 표시 -->
+                            <Trigger Property="HasItems" Value="True">
+                                <Setter TargetName="Expander" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+
+                            <!-- 자식 요소를 펼치기 -->
+                            <Trigger Property="IsExpanded" Value="True">
+                                <Setter TargetName="Expander" Property="Source" Value="/Resource_Icon/arrow_up_24px.png"/>
+                                <Setter TargetName="Child" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+
+                            <!-- 선택하면 패널 색상 변경 -->
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Parent" Property="Background" Value="{StaticResource Menu_Background_Selection}"/>
+                                <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Menu_Foreground_Selection}"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Parent" Property="Background" Value="{StaticResource Menu_Background_MouseOver}"/>
+                                <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Menu_Foreground_MouseOver}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+
+
 
     </Application.Resources>
 </Application>

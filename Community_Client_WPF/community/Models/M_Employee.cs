@@ -43,7 +43,7 @@ namespace community.Models
         /// 연락처
         /// </summary>
         public string Phone { get; set; }
-        
+
         /// <summary>
         /// 급여
         /// </summary>
@@ -53,5 +53,15 @@ namespace community.Models
         /// 이미지
         /// </summary>
         public string Icon { get; set; }
+
+        /// <summary>
+        /// 총 휴가일
+        /// </summary>
+        public int Total_Vacation { get; set; }
+
+        /// <summary>
+        /// 사용한 휴가일
+        /// </summary>
+        public int Used_Vacation { get; set; }
     }
 }

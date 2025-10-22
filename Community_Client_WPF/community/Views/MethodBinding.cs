@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace community.Common
+namespace community.Views
 {
     public class MethodBinding : MarkupExtension
     {
@@ -30,8 +30,10 @@ namespace community.Common
             {
                 var dataContext = frameworkElement.DataContext;
 
+                // 단일 파라미터 적용
                 InvokeWithSingleParameter(dataContext, MethodName, args);
 
+                // 다중 파라미터 적용
                 // InvokeWithMatchingParameters(dataContext, MethodName, sender, args);
             };
 

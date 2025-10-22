@@ -6,18 +6,19 @@
              xmlns:local="clr-namespace:community.Views"
              xmlns:m="clr-namespace:community.Models"
              mc:Ignorable="d"  
-             d:DesignWidth="1460" d:DesignHeight="850">
-    <Grid Background="White">
+             d:DesignWidth="1460" d:DesignHeight="850"
+             Loaded="{local:MethodBinding Loaded}">
+    <Grid Background="{StaticResource View_Background}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="340" />
-            <ColumnDefinition Width="1120" />
+            <ColumnDefinition Width="340" MaxWidth="340"/>
+            <ColumnDefinition Width="Auto" MaxWidth="1120"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="180" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- 상단 인디게이터 패널 -->
+        <!-- 상단 대시보드 -->
         <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0">
             <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="직원 관리" 
                        HorizontalAlignment="Left" VerticalAlignment="Top" 
@@ -58,119 +59,8 @@
             </Border>
         </Grid>
 
-        <!-- 하단 직원 목록 패널 -->
-        <ItemsControl Grid.Column="1" Grid.Row="1" Margin="20,10,20,20"
-                      ScrollViewer.CanContentScroll="True"
-                      VirtualizingPanel.IsVirtualizing="True"
-                      VirtualizingPanel.VirtualizationMode="Recycling">
-
-            <ItemsControl.Template>
-                <ControlTemplate TargetType="ItemsControl">
-                    <Border Background="#FFFAFAFA" CornerRadius="8">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="220" Tag="직원"/>
-                                <ColumnDefinition Width="40" Tag="사번"/>
-                                <ColumnDefinition Width="90" Tag="부서"/>
-                                <ColumnDefinition Width="100" Tag="직위"/>
-                                <ColumnDefinition Width="80" Tag="상태"/>
-                                <ColumnDefinition Width="90" Tag="입사일"/>
-                                <ColumnDefinition Width="80" Tag="액션"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="180"/>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <Grid Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0">
-                                <TextBlock Text="직원 목록" FontSize="18" FontWeight="Bold" Margin="10,10,0,0"/>
-                                <TextBox Text="이름, 이메일, 사번 검색" Width="200" Height="30" Margin="10,40,0,0" 
-                                         HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            </Grid>
-
-                            <TextBlock Grid.Column="0" Grid.Row="1" Text="직원"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="사번"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="2" Grid.Row="1" Text="부서"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="3" Grid.Row="1" Text="직위"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="4" Grid.Row="1" Text="상태"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="5" Grid.Row="1" Text="입사일" FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="6" Grid.Row="1" Text="액션"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                            <Line Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="1" X1="0" Y1="0" X2="1" Y2="0" Stroke="LightGray" StrokeThickness="1" Stretch="Fill" VerticalAlignment="Bottom"/>
-
-                            <ItemsPresenter Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="2"/>
-                        </Grid>
-                    </Border>
-                </ControlTemplate>
-            </ItemsControl.Template>
-
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel IsItemsHost="True" Orientation="Vertical"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="220" Tag="직원"/>
-                            <ColumnDefinition Width="40"  Tag="사번"/>
-                            <ColumnDefinition Width="90"  Tag="부서"/>
-                            <ColumnDefinition Width="100" Tag="직위"/>
-                            <ColumnDefinition Width="80"  Tag="상태"/>
-                            <ColumnDefinition Width="90"  Tag="입사일"/>
-                            <ColumnDefinition Width="80"  Tag="액션"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0">
-                            <Ellipse Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                     Margin="10">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding Icon}" Stretch="UniformToFill"/>
-                                </Ellipse.Fill>
-                            </Ellipse>
-
-                            <Ellipse Width="14" Height="14" Stroke="White" StrokeThickness="1" Fill="Green" 
-                                     HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="38,0,0,10">
-                            </Ellipse>
-
-                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="16" 
-                                       Margin="60,0,0,0"/>
-                        </Grid>
-
-
-                        <TextBlock Grid.Column="1" Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <TextBlock Grid.Column="2" Text="{Binding Department}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <TextBlock Grid.Column="3" Text="{Binding Position}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                        <ContentControl Grid.Column="4" Style="{StaticResource Employee_Status}"
-                                        Width="60" Height="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                        <TextBlock Grid.Column="5" Text="{Binding HireDate, StringFormat={}{0:yyyy-MM-dd}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <TextBlock Grid.Column="6" Text="..." VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                        <Line Grid.Column="0" Grid.ColumnSpan="7" X1="0" Y1="0" X2="1" Y2="0" Stroke="LightGray" StrokeThickness="1" Stretch="Fill" VerticalAlignment="Bottom"/>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-
-            <ItemsControl.ItemsSource>
-                <x:Array Type="{x:Type m:M_Employee}">
-                    <m:M_Employee Name="김민준" Id="1" Department="영업부"   Position="팀장"       Status="1" HireDate="2020-03-15" Icon="C:\Users\A\Downloads\sample\1.png"/>
-                    <m:M_Employee Name="이서연" Id="2" Department="마케팅부" Position="매니저"      Status="1" HireDate="2021-06-01" Icon="C:\Users\A\Downloads\sample\2.png"/>
-                    <m:M_Employee Name="박지훈" Id="3" Department="개발부"   Position="선임 개발자" Status="1" HireDate="2019-11-20" Icon="C:\Users\A\Downloads\sample\3.png"/>
-                    <m:M_Employee Name="최유진" Id="4" Department="인사부"   Position="사원"        Status="2" HireDate="2022-01-10" Icon="C:\Users\A\Downloads\sample\4.png"/>
-                    <m:M_Employee Name="정우진" Id="5" Department="재무부"   Position="매니저"      Status="1" HireDate="2018-09-01" Icon="C:\Users\A\Downloads\sample\5.png"/>
-                    <m:M_Employee Name="강하나" Id="6" Department="영업부"   Position="사원"        Status="1" HireDate="2023-02-28" Icon="C:\Users\A\Downloads\sample\6.png"/>
-                    <m:M_Employee Name="윤아름" Id="7" Department="마케팅부" Position="주니어 디자이너" Status="3" HireDate="2023-07-15" Icon="C:\Users\A\Downloads\sample\7.png"/>
-                </x:Array>
-            </ItemsControl.ItemsSource>
-        </ItemsControl>
-
-        <Border Grid.Column="0" Grid.Row="1" Background="#FFFAFAFA" Margin="20,10,0,20" CornerRadius="8"
+        <!-- 직원 프로필 -->
+        <Border Grid.Column="0" Grid.Row="1" Background="{StaticResource Panel_Background}" Margin="20,10,0,20" CornerRadius="8"
                 Padding="20">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -199,11 +89,14 @@
                 <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" 
                            Text="팀장" FontSize="12" Foreground="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,38,0,0"/>
 
-                <Button Grid.Column="0" Grid.Row="1" Content="개인 정보" 
-                        Height="28" Width="90" HorizontalAlignment="Right" VerticalAlignment="Top"
-                        />
-                <Button Grid.Column="1" Grid.Row="1" Content="근무 상세" Height="28" Width="90" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <Button Grid.Column="2" Grid.Row="1" Content="인사 기록" Height="28" Width="90" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Button Grid.Column="0" Grid.Row="1" Template="{StaticResource Borderless_TextButton}" Tag="0"
+                        Content="개인 정보" Height="28" Width="90" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
+                <Button Grid.Column="1" Grid.Row="1" Template="{StaticResource Borderless_TextButton}"
+                        Content="근무 상세" Height="28" Width="90" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                <Button Grid.Column="2" Grid.Row="1" Template="{StaticResource Borderless_TextButton}"
+                        Content="인사 기록" Height="28" Width="90" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                 <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
@@ -222,15 +115,149 @@
                     <TextBlock Grid.Column="1" Grid.Row="0" Text="minjun.kim@example.com" FontSize="12" VerticalAlignment="Top"/>
 
                     <Image     Grid.Column="0" Grid.Row="1" Source="/Resource_Icon/ok.png" Width="12" Height="12" VerticalAlignment="Top" Margin="0,2,0,0"/>
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="minjun.kim@example.com" FontSize="12" VerticalAlignment="Top"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="+82 10-1234-5678" FontSize="12" VerticalAlignment="Top"/>
 
                     <Image     Grid.Column="0" Grid.Row="2" Source="/Resource_Icon/ok.png" Width="12" Height="12" VerticalAlignment="Top" Margin="0,2,0,0"/>
-                    <TextBlock Grid.Column="1" Grid.Row="2" Text="minjun.kim@example.com" FontSize="12" VerticalAlignment="Top"/>
+                    <TextBlock Grid.Column="1" Grid.Row="2" Text="서울특별시 강남구 테헤란로 123" FontSize="12" VerticalAlignment="Top"/>
 
                     <Image     Grid.Column="0" Grid.Row="3" Source="/Resource_Icon/ok.png" Width="12" Height="12" VerticalAlignment="Top" Margin="0,2,0,0"/>
-                    <TextBlock Grid.Column="1" Grid.Row="3" Text="minjun.kim@example.com" FontSize="12" VerticalAlignment="Top"/>
+                    <TextBlock Grid.Column="1" Grid.Row="3" Text="1992-05-20" FontSize="12" VerticalAlignment="Top"/>
                 </Grid>
             </Grid>
         </Border>
+
+        <!-- 직원 목록 -->
+        <ItemsControl Grid.Column="1" Grid.Row="1" Margin="20,10,20,20"
+                      ScrollViewer.CanContentScroll="True" 
+                      VirtualizingPanel.IsVirtualizing="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling">
+
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                    <Border Background="{StaticResource Panel_Background}" CornerRadius="8"
+                            Padding="20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="90"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0">
+                                
+                                <TextBlock Text="직원 목록" FontSize="18" FontWeight="Bold" 
+                                           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0"/>
+                                
+                                <TextBox Text="이름, 이메일, 사번 검색"
+                                         Width="200" Height="30" 
+                                         HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+
+                                <Button Content="검색" Template="{StaticResource Borderless_TextButton}" Tag="0"
+                                        Width="80" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="210,0,0,10"/>
+
+                                <Button Content="신규 입사" Template="{StaticResource Borderless_TextButton}" Tag="1"
+                                        Width="80" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="300,0,0,10"/>
+                            </Grid>
+
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="직원"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="사번"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Grid.Row="1" Text="부서"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="3" Grid.Row="1" Text="직위"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="4" Grid.Row="1" Text="상태"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="5" Grid.Row="1" Text="입사일" FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="6" Grid.Row="1" Text="휴가일" FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="7" Grid.Row="1" Text="액션"   FontSize="14" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                            <Line Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="1" X1="0" Y1="0" X2="1" Y2="0" Stroke="LightGray" StrokeThickness="1" Stretch="Fill" VerticalAlignment="Bottom"/>
+
+                            <ItemsPresenter Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="2"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </ItemsControl.Template>
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel IsItemsHost="True" Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="90"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Ellipse Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                     Margin="10">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding Icon}" Stretch="UniformToFill"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <Ellipse Width="14" Height="14" Stroke="White" StrokeThickness="1" Fill="Green" 
+                                     HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="38,0,0,10">
+                            </Ellipse>
+
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="16" 
+                                       Margin="60,0,0,0"/>
+                        </Grid>
+
+
+                        <TextBlock Grid.Column="1" Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Department}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="3" Text="{Binding Position}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        <ContentControl Grid.Column="4" Style="{StaticResource Employee_Status}"
+                                        Width="60" Height="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        <TextBlock Grid.Column="5" Text="{Binding HireDate, StringFormat={}{0:yyyy-MM-dd}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Run Text="{Binding Used_Vacation}"/>"
+                            <Run Text="/"/>
+                            <Run Text="{Binding Total_Vacation}"/>
+                        </TextBlock>
+                        
+                        <TextBlock Grid.Column="7" Text="..." VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        <Line Grid.Column="0" Grid.ColumnSpan="8" X1="0" Y1="0" X2="1" Y2="0" Stroke="LightGray" StrokeThickness="1" Stretch="Fill" VerticalAlignment="Bottom"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+            <ItemsControl.ItemsSource>
+                <x:Array Type="{x:Type m:M_Employee}">
+                    <m:M_Employee Name="김민준" Id="1" Department="영업부"   Position="팀장"       Status="1" HireDate="2020-03-15" Icon="C:\Users\A\Downloads\sample\1.png" Total_Vacation="15" Used_Vacation="3"/>
+                    <m:M_Employee Name="이서연" Id="2" Department="마케팅부" Position="매니저"      Status="1" HireDate="2021-06-01" Icon="C:\Users\A\Downloads\sample\2.png" Total_Vacation="15" Used_Vacation="16"/>
+                    <m:M_Employee Name="박지훈" Id="3" Department="개발부"   Position="선임 개발자" Status="1" HireDate="2019-11-20" Icon="C:\Users\A\Downloads\sample\3.png" Total_Vacation="15" Used_Vacation="17"/>
+                    <m:M_Employee Name="최유진" Id="4" Department="인사부"   Position="사원"        Status="2" HireDate="2022-01-10" Icon="C:\Users\A\Downloads\sample\4.png" Total_Vacation="15" Used_Vacation="5"/>
+                    <m:M_Employee Name="정우진" Id="5" Department="재무부"   Position="매니저"      Status="1" HireDate="2018-09-01" Icon="C:\Users\A\Downloads\sample\5.png" Total_Vacation="15" Used_Vacation="6"/>
+                    <m:M_Employee Name="강하나" Id="6" Department="영업부"   Position="사원"        Status="1" HireDate="2023-02-28" Icon="C:\Users\A\Downloads\sample\6.png" Total_Vacation="15" Used_Vacation="0"/>
+                    <m:M_Employee Name="윤아름" Id="7" Department="마케팅부" Position="주니어 디자이너" Status="3" HireDate="2023-07-15" Icon="C:\Users\A\Downloads\sample\7.png" Total_Vacation="15" Used_Vacation="1"/>
+                </x:Array>
+            </ItemsControl.ItemsSource>
+        </ItemsControl>
+
+
     </Grid>
 </UserControl>

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace community.Common
+namespace community.View_Controls
 {
     public static class PasswordBoxHelper
     {

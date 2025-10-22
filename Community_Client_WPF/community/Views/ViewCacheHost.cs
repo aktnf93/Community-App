@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace community.Common
+namespace community.Views
 {
     public class ViewCacheHost : ContentControl
     {
@@ -39,17 +39,7 @@ namespace community.Common
                         view.DataContext = newContent;
                         this.viewCache[vmType] = view; // 캐시에 저장.
 
-                        // Console.WriteLine($"[ViewCacheHost] View=\"{view}\", DataContext=\"{view.DataContext}\"");
-
-                        Console.Write($"[ViewCacheHost]\tNew\t\tView=\"");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(view.GetType().Name);
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.Write($"\", DataContext=\"");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(view.DataContext.GetType().Name);
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.WriteLine($"\"");
+                        Console.Write("[ViewCacheHost]\tNew\t\tView=\"{0}\", DataContext=\"{1}\"", view.GetType().Name, view.DataContext.GetType().Name);
                     }
                 }
             }
@@ -57,16 +47,7 @@ namespace community.Common
             {
                 // 재사용.
                 view.DataContext = newContent;
-
-                Console.Write($"[ViewCacheHost]\tRecycling\tView=\"");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write(view.GetType().Name);
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Console.Write($"\", DataContext=\"");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write(view.DataContext.GetType().Name);
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine($"\"");
+                Console.Write("[ViewCacheHost]\tRecycling\tView=\"{0}\", DataContext=\"{1}\"", view.GetType().Name, view.DataContext.GetType().Name);
             }
 
             base.OnContentChanged(oldContent, view);

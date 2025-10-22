@@ -96,13 +96,18 @@ namespace community.ViewModels
 
 
             this.NewBoardShow = new RelayCommand(New_Board);
-
             this.GoToPageCommand = new RelayCommand<int>(page =>
             {
                 if (page >= 1 && page <= TotalPages)
+                {
                     CurrentPage = page;
+                }
             });
+        }
 
+        private void Loaded()
+        {
+            Console.WriteLine("VM_Board Loaded");
             Home_LoadBoards();
         }
 

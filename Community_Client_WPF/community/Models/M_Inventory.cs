@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace community.ViewModels
+namespace community.Models
 {
-    public class VM_TEST : ViewModelBase
+    public class M_Inventory
     {
     }
 }

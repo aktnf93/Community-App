@@ -64,7 +64,7 @@ Community-App/
 
 ![ERD](./Community_Document/images/ERD_20251002_211152.png)
 
-```
+```mermaid
 erDiagram
 	tb_organization_companies }o--|| tb_organization_locations : references
 	tb_organization_departments }o--|| tb_organization_companies : references

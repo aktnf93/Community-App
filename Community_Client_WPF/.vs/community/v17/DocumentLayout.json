@@ -3,31 +3,35 @@
   "WorkspaceRootPath": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\common\\server_rest_api.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\common\\server_rest_api.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\views\\v_mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\views\\v_login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\views\\v_login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_login.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\viewmodels\\vm_login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\viewmodels\\vm_login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\views\\v_mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\views\\v_mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\views\\v_employee.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\views\\v_employee.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_employee.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\viewmodels\\vm_mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\viewmodels\\vm_mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -38,72 +42,81 @@
       "DocumentGroups": [
         {
           "DockedWidth": 993,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
+              "Title": "Server_REST_API.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Common\\Server_REST_API.cs",
+              "RelativeDocumentMoniker": "community\\Common\\Server_REST_API.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Common\\Server_REST_API.cs",
+              "RelativeToolTip": "community\\Common\\Server_REST_API.cs",
+              "ViewState": "AgIAANsAAAAAAAAAAAAcwOoAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-01T16:47:45.222Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "V_Employee.xaml",
               "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Views\\V_Employee.xaml",
               "RelativeDocumentMoniker": "community\\Views\\V_Employee.xaml",
               "ToolTip": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Views\\V_Employee.xaml",
               "RelativeToolTip": "community\\Views\\V_Employee.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-21T14:30:40.132Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-21T14:30:40.132Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "V_MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Views\\V_MainWindow.xaml",
               "RelativeDocumentMoniker": "community\\Views\\V_MainWindow.xaml",
               "ToolTip": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Views\\V_MainWindow.xaml",
               "RelativeToolTip": "community\\Views\\V_MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-21T04:07:05.291Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-21T04:07:05.291Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "V_MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Views\\V_MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "community\\Views\\V_MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Views\\V_MainWindow.xaml.cs",
               "RelativeToolTip": "community\\Views\\V_MainWindow.xaml.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAQwBsAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-21T11:14:56.469Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\App.xaml",
               "RelativeDocumentMoniker": "community\\App.xaml",
               "ToolTip": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\App.xaml",
               "RelativeToolTip": "community\\App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-21T07:58:31.252Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-21T07:58:31.252Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "V_Login.xaml",
               "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Views\\V_Login.xaml",
               "RelativeDocumentMoniker": "community\\Views\\V_Login.xaml",
               "ToolTip": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Views\\V_Login.xaml",
               "RelativeToolTip": "community\\Views\\V_Login.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-10-21T07:32:10.532Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-21T07:32:10.532Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "VM_Login.cs",
               "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\ViewModels\\VM_Login.cs",
               "RelativeDocumentMoniker": "community\\ViewModels\\VM_Login.cs",
@@ -111,12 +124,11 @@
               "RelativeToolTip": "community\\ViewModels\\VM_Login.cs",
               "ViewState": "AgIAADEAAAAAAAAAAAAkwEoAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-21T07:27:48.176Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-21T07:27:48.176Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "VM_MainViewModel.cs",
               "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\ViewModels\\VM_MainViewModel.cs",
               "RelativeDocumentMoniker": "community\\ViewModels\\VM_MainViewModel.cs",
@@ -124,8 +136,7 @@
               "RelativeToolTip": "community\\ViewModels\\VM_MainViewModel.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAGYAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-21T07:23:15.278Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-21T07:23:15.278Z"
             }
           ]
         }

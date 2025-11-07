@@ -5,7 +5,7 @@
              xmlns:v="clr-namespace:community.Views"
              xmlns:vm="clr-namespace:community.ViewModels"
              xmlns:u="clr-namespace:community.View_Controls"
-             xmlns:cnv="clr-namespace:community.Converters"
+             xmlns:cnv="clr-namespace:community.View_Converters"
              StartupUri="Views/V_MainWindow.xaml"
              ShutdownMode="OnLastWindowClose">
     <Application.Resources>
@@ -17,88 +17,72 @@
         <!--#endregion-->
 
         <!--#region View Maping-->
-        <DataTemplate DataType="{x:Type vm:VM_Board}">
-            <v:V_Board/>
+        <DataTemplate DataType="{x:Type vm:VM_Login}">
+            <v:V_Login/>
         </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vm:VM_Messages}">
-            <v:V_Mseeage/>
+        <DataTemplate DataType="{x:Type vm:VM_Post}">
+            <v:V_Post/>
         </DataTemplate>
-
         <DataTemplate DataType="{x:Type vm:VM_Chat}">
             <v:V_Chat/>
         </DataTemplate>
-
         <DataTemplate DataType="{x:Type vm:VM_Project}">
             <v:V_Project/>
         </DataTemplate>
-
         <DataTemplate DataType="{x:Type vm:VM_Customer}">
             <v:V_Customer/>
         </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vm:VM_Inventory}">
-            <v:V_Inventory/>
+        <DataTemplate DataType="{x:Type vm:VM_Product}">
+            <v:V_Product/>
         </DataTemplate>
-
         <DataTemplate DataType="{x:Type vm:VM_Employee}">
             <v:V_Employee/>
         </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vm:VM_Settings}">
-            <v:V_Settings/>
+        <DataTemplate DataType="{x:Type vm:VM_System}">
+            <v:V_System/>
         </DataTemplate>
         <!--#endregion-->
 
         <!--#region Images-->
-        <BitmapImage x:Key="Img_LoginLogo" UriSource="..\Images\image_login.png" DecodePixelWidth="24"/>
-        <BitmapImage x:Key="Img_Username" UriSource="..\Images\icon_username_24px.png" DecodePixelWidth="24"/>
-        <BitmapImage x:Key="Img_Password" UriSource="..\Images\icon_password_24px.png" DecodePixelWidth="24"/>
-        <BitmapImage x:Key="Img_Logout" UriSource="..\Images\icon_logout_24px.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Login_Logo" UriSource="..\Images\Login\image_login.png"/>
+        <BitmapImage x:Key="Img_Login_ID" UriSource="..\Images\Login\icon_username_24px.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Login_PW" UriSource="..\Images\Login\icon_password_24px.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Login_Logout" UriSource="..\Images\Login\icon_logout_24px.png" DecodePixelWidth="24"/>
 
         <!--#endregion-->
 
         <!--#region Colors-->
-        <SolidColorBrush x:Key="NavyBrush" Color="#FF1A237E"/>
-        <SolidColorBrush x:Key="WhiteBrush" Color="White"/>
+        <SolidColorBrush x:Key="Color_DarkWhite" Color="#FAFAFB"/>
+        <SolidColorBrush x:Key="Color_White" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Color_Gray" Color="#808080"/>
+
+        <SolidColorBrush x:Key="Color_DeepdarkBlue" Color="#313647"/>
+        <SolidColorBrush x:Key="Color_DarkBlue" Color="#384992"/>
+        <SolidColorBrush x:Key="Color_Blue" Color="#3E51A3"/>
+        <SolidColorBrush x:Key="Color_LightBlue" Color="#6883D5"/>
         
-        <SolidColorBrush x:Key="Gray" Color="#808080"/>
-        <SolidColorBrush x:Key="DarkBlue" Color="#313647"/>
+        <SolidColorBrush x:Key="Color_Transparent" Color="Transparent"/>
+
 
         <SolidColorBrush x:Key="TextBox_BorderBrush" Color="#808080"/>
         <SolidColorBrush x:Key="TextBox_Background" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="TextBox_PlaceholderText" Color="#808080"/>
-
         <SolidColorBrush x:Key="Menu_Foreground_Blue" Color="#6883D5"/>
         <SolidColorBrush x:Key="Menu_Background_Blue" Color="#3E51A3"/>
-
         <SolidColorBrush x:Key="Menu_Foreground_Selection" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="Menu_Background_Selection" Color="#384992"/>
-
         <SolidColorBrush x:Key="Menu_Foreground_MouseOver" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="Menu_Background_MouseOver" Color="#6F93CE"/>
-
-
-
         <SolidColorBrush x:Key="View_Background" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="Panel_Background" Color="#FAFAFB"/>
-
         <SolidColorBrush x:Key="Button_Foreground_Transparent" Color="#3C3C3C"/>
         <SolidColorBrush x:Key="Button_Background_Transparent" Color="Transparent"/>
-
         <SolidColorBrush x:Key="Button_Foreground_White" Color="#3C3C3C"/>
         <SolidColorBrush x:Key="Button_Background_White" Color="#F3F4F6"/>
-
         <SolidColorBrush x:Key="Button_Foreground_Blue" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="Button_Background_Blue" Color="#346ECD"/>
-
         <SolidColorBrush x:Key="Button_Foreground_Grean" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="Button_Background_Grean" Color="#51B374"/>
-
-        <SolidColorBrush x:Key="Button_Foreground_kakao" Color="#121101"/>
-        <SolidColorBrush x:Key="Button_Background_kakao" Color="#FFE812"/>
-        
-
         <SolidColorBrush x:Key="Button_Foreground_MouseOver" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="Button_Background_MouseOver" Color="#6F93CE"/>
         
@@ -180,11 +164,6 @@
                 <Trigger Property="Tag" Value="1">
                     <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_Grean}"/>
                     <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_Grean}"/>
-                </Trigger>
-
-                <Trigger Property="Tag" Value="2">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_kakao}"/>
-                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_kakao}"/>
                 </Trigger>
 
                 <Trigger Property="Tag" Value="3">
@@ -301,7 +280,7 @@
 
         <!-- Text Box # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # -->
         
-        <!--#region Icon TextBox-->
+        <!--#region 아이콘 텍스트박스 -->
         <ControlTemplate TargetType="{x:Type TextBox}" x:Key="Icon_TextBox">
             <Border x:Name="Border" BorderBrush="Gray" BorderThickness="1" CornerRadius="2" Background="White">
                 <Grid>
@@ -339,7 +318,7 @@
         </ControlTemplate>
         <!--#endregion-->
 
-        <!--#region Icon PasswordBox-->
+        <!--#region 아이콘 패스워드박스-->
         <ControlTemplate TargetType="{x:Type PasswordBox}" x:Key="Icon_PasswordBox">
             <Border x:Name="Border" BorderBrush="Gray" BorderThickness="1" CornerRadius="2" Background="White">
                 <Grid>

@@ -1,57 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const query = require('../services/service_database');
+const db = require('../services/service_database');
 
-router.route('/')
-    .get(async (req, res) => {
-        try {
-            const sql = `SELECT * FROM tb_customers WHERE 1 = 1 LIMIT 1000;`;
-            const [rows] = await query(sql);
+const tb_project_list = db.tb.project_list;
+router.post('/list/select', async (req, res, next) => db.get(req, res, next, tb_project_list));
+router.post('/list/insert', async (req, res, next) => db.post(req, res, next, tb_project_list));
+router.put('/list/update', async (req, res, next) => db.put(req, res, next, tb_project_list));
+router.delete('/list/delete', async (req, res, next) => db.delete(req, res, next, tb_project_list));
 
-            res.status(200).json(rows);
-        } 
-        catch (err) {
-            res.status(500).json({ message: err.message });
-        }
-    })
-    .post(async (req, res) => {
-        try {
-            const { location_id, name, description, image_path } = req.body;
+const tb_project_member = db.tb.project_member;
+router.post('/member/select', async (req, res, next) => db.get(req, res, next, tb_project_member));
+router.post('/member/insert', async (req, res, next) => db.post(req, res, next, tb_project_member));
+router.put('/member/update', async (req, res, next) => db.put(req, res, next, tb_project_member));
+router.delete('/member/delete', async (req, res, next) => db.delete(req, res, next, tb_project_member));
 
-            const sql = `INSERT INTO tb_customers (location_id, name, description, image_path) VALUES (?, ?, ?, ?);`;
-            const [result] = await query(sql, [location_id, name, description, image_path]);
+const tb_project_task = db.tb.project_task;
+router.post('/task/select', async (req, res, next) => db.get(req, res, next, tb_project_task));
+router.post('/task/insert', async (req, res, next) => db.post(req, res, next, tb_project_task));
+router.put('/task/update', async (req, res, next) => db.put(req, res, next, tb_project_task));
+router.delete('/task/delete', async (req, res, next) => db.delete(req, res, next, tb_project_task));
 
-            res.status(200).json(result.insertId);
-        } 
-        catch (err) {
-            res.status(500).json({ message: err.message });
-        }
-    })
-    .put(async (req, res) => {
-        try {
-            const { location_id, name, description, image_path, id } = req.body;
-
-            const sql = `UPDATE tb_customers SET location_id = ?, name = ?, description = ?, image_path = ? WHERE id = ?;`;
-            const [result] = await query(sql, [location_id, name, description, image_path, id]);
-
-            res.status(200).json(result.changedRows);
-        } 
-        catch (err) {
-            res.status(500).json({ message: err.message });
-        }
-    })
-    .delete(async (req, res) => {
-        try {
-            const { id } = req.body;
-
-            const sql = `DELETE FROM tb_customers WHERE id = ?;`;
-            const [result] = await query(sql, [id]);
-
-            res.status(200).json(result.affectedRows);
-        } 
-        catch (err) {
-            res.status(500).json({ message: err.message });
-        }
-    });
+const tb_project_task_member = db.tb.project_task_member;
+router.post('/taskmember/select', async (req, res, next) => db.get(req, res, next, tb_project_task_member));
+router.post('/taskmember/insert', async (req, res, next) => db.post(req, res, next, tb_project_task_member));
+router.put('/taskmember/update', async (req, res, next) => db.put(req, res, next, tb_project_task_member));
+router.delete('/taskmember/delete', async (req, res, next) => db.delete(req, res, next, tb_project_task_member));
 
 module.exports = router;

@@ -1,94 +1,99 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Runtime.Serialization;
+using community.Common;
 
 namespace community.Models
 {
-    public class M_Project
+    [DataContract]
+    public class M_Project : Notify
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string Status { get; set; }
-        public int OwnerId { get; set; }
-        public string OwnerName { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public int Progress { get; set; }
+        private int id;
+        private int? customer_id;
+        private string name;
+        private string description;
+        private int progress;
+        private DateTime? start_date;
+        private DateTime? end_date;
+        private string status = "대기"; // '대기','진행','완료','취소','보류'
+        private DateTime created_at;
+        private DateTime updated_at;
+        private DateTime? deleted_at;
 
-        private void CalculateProgress()
+        [DataMember(Name = "id")]
+        public int Id
         {
-            // Example logic to calculate progress
-            var totalDuration = (EndDate - StartDate).TotalDays;
-            var elapsedDuration = (DateTime.Now - StartDate).TotalDays;
-            Progress = (int)((elapsedDuration / totalDuration) * 100);
-            if (Progress < 0) Progress = 0;
-            if (Progress > 100) Progress = 100;
+            get => this.id;
+            set => base.OnPropertyChanged(ref this.id, value);
         }
 
-        private void UpdateStatus()
+        [DataMember(Name = "customer_id")]
+        public int? Customer_Id
         {
-            if (DateTime.Now < StartDate)
-            {
-                Status = "Not Started";
-            }
-            else if (DateTime.Now >= StartDate && DateTime.Now <= EndDate)
-            {
-                Status = "In Progress";
-            }
-            else
-            {
-                Status = "Completed";
-            }
+            get => this.customer_id;
+            set => base.OnPropertyChanged(ref this.customer_id, value);
         }
 
-        private void UpdateTimestamps()
+        [DataMember(Name = "name")]
+        public string Name
         {
-            UpdatedAt = DateTime.Now;
-            if (CreatedAt == default(DateTime))
-            {
-                CreatedAt = DateTime.Now;
-            }
+            get => this.name;
+            set => base.OnPropertyChanged(ref this.name, value);
         }
 
-        private void ValidateDates()
+        [DataMember(Name = "description")]
+        public string Description
         {
-            if (EndDate < StartDate)
-            {
-                throw new ArgumentException("EndDate cannot be earlier than StartDate");
-            }
+            get => this.description;
+            set => base.OnPropertyChanged(ref this.description, value);
         }
 
-        private void OnPropertyChanged()
+        [DataMember(Name = "progress")]
+        public int Progress
         {
-            ValidateDates();
-            UpdateStatus();
-            CalculateProgress();
-            UpdateTimestamps();
+            get => this.progress;
+            set => base.OnPropertyChanged(ref this.progress, value);
         }
 
-        private void BtnView_Click()
+        [DataMember(Name = "start_date")]
+        public DateTime? Start_Date
         {
-            MessageBox.Show($"Project Details:\n\nName: {Name}\nDescription: {Description}\nStart Date: {StartDate.ToShortDateString()}\nEnd Date: {EndDate.ToShortDateString()}\nStatus: {Status}\nProgress: {Progress}%");
+            get => this.start_date;
+            set => base.OnPropertyChanged(ref this.start_date, value);
         }
 
-        private void BtnEdit_Click()
+        [DataMember(Name = "end_date")]
+        public DateTime? End_Date
         {
-            MessageBox.Show("Edit functionality is not implemented yet.");
+            get => this.end_date;
+            set => base.OnPropertyChanged(ref this.end_date, value);
         }
 
-        private void BtnDelete_Click()
+        [DataMember(Name = "status")]
+        public string Status
         {
-            var result = MessageBox.Show("Are you sure you want to delete this project?", "Confirm Delete", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-                MessageBox.Show("Delete functionality is not implemented yet.");
-            }
+            get => this.status;
+            set => base.OnPropertyChanged(ref this.status, value);
+        }
+
+        [DataMember(Name = "created_at")]
+        public DateTime Created_At
+        {
+            get => this.created_at;
+            set => base.OnPropertyChanged(ref this.created_at, value);
+        }
+
+        [DataMember(Name = "updated_at")]
+        public DateTime Updated_At
+        {
+            get => this.updated_at;
+            set => base.OnPropertyChanged(ref this.updated_at, value);
+        }
+
+        [DataMember(Name = "deleted_at")]
+        public DateTime? Deleted_At
+        {
+            get => this.deleted_at;
+            set => base.OnPropertyChanged(ref this.deleted_at, value);
         }
     }
 }

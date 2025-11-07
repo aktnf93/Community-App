@@ -12,16 +12,9 @@ namespace community.ViewModels
 {
     public class VM_Login : ViewModelBase
     {
-        public event NormalHandler<bool> LoginEvent;
+        public event ActionHandler<bool> LoginEvent;
 
-        private Visibility displayShow = Visibility.Visible;
-        public Visibility DisplayShow
-        {
-            get => this.displayShow;
-            set => base.OnPropertyChanged(ref this.displayShow, value);
-        }
-
-        public M_User LoginUser { get; set; } = new M_User();
+        public M_Employee LoginUser { get; set; } = new M_Employee();
 
         private void Loaded()
         {
@@ -34,17 +27,23 @@ namespace community.ViewModels
 
             try
             {
-                var u = Server_REST_API.Instance.PostUser(this.LoginUser.Login_Id, this.LoginUser.Login_Pw);
+                // var u = Server_REST_API.Instance.PostUser(this.LoginUser.Login_Id, this.LoginUser.Login_Pw);
 
-                if (u.Id != 0)
+                Dictionary<string, dynamic> param = new Dictionary<string, dynamic>();
+                param.Add("login_id", this.LoginUser.Login_Id);
+                param.Add("login_pw", this.LoginUser.Login_Pw);
+
+
+                var rows = Server.API.HttpSendAsync<Dictionary<string, dynamic>, M_Employee[]>("/employee/list/select", Server.HttpMethod.POST, param);
+
+                if (rows.Length > 0)
                 {
+                    var u = rows[0];
                     // 로그인 성공
                     this.LoginUser.Id = u.Id;
-                    this.LoginUser.Nickname = u.Nickname;
+                    this.LoginUser.Name = u.Name;
                     this.LoginUser.Login_Id = string.Empty;
                     this.LoginUser.Login_Pw = string.Empty;
-
-                    this.DisplayShow = Visibility.Collapsed;
                     result = true;
                 }
                 else

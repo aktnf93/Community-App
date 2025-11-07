@@ -12,20 +12,10 @@ namespace community.Models
         
         public T Value { get; set; }
 
-        public M_ComboItem()
-        {
-            
-        }
-
         public M_ComboItem(string display, T value)
         {
             Display = display;
             Value = value;
-        }
-        
-        public override string ToString()
-        {
-            return Display;
         }
     }
 }

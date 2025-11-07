@@ -20,7 +20,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="140"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -38,7 +38,7 @@
                 <ColumnDefinition Width="46"/>
             </Grid.ColumnDefinitions>
 
-            <Border x:Name="TitleBar" Grid.Column="0" Grid.ColumnSpan="4" Background="{StaticResource Menu_Background_Blue}" PreviewMouseLeftButtonDown="Window_OnMove" MouseLeftButtonDown="Window_OnResize"/>
+            <Border x:Name="TitleBar" Grid.Column="0" Grid.ColumnSpan="4" Background="{StaticResource Color_Blue}" PreviewMouseLeftButtonDown="Window_OnMove" MouseLeftButtonDown="Window_OnResize"/>
 
             <Grid Grid.Column="0" IsHitTestVisible="False">
                 <TextBlock Text="커뮤니티 - 버전 1" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White"/>
@@ -51,7 +51,17 @@
         </Grid>
 
         <!-- 메뉴 패널 -->
-        <Border Grid.Column="0" Grid.Row="1" Background="{StaticResource Menu_Background_Blue}">
+        <Border Grid.Column="0" Grid.Row="1" Background="{StaticResource Color_Blue}" Width="140">
+            <Border.Style>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding MenuSelected}" Value="0">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
 
             <!--<TreeView Background="{StaticResource Menu_Background_Blue}"
                       ItemContainerStyle="{StaticResource MenuTree}">
@@ -93,14 +103,13 @@
                         <Run Text="{Binding Login_User.Nickname}"/>
                     </TextBlock>
                 </Grid>
-                <RadioButton Content="게시판"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Board}"/>
-                <RadioButton Content="메시지"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Messages}"/>
+                <RadioButton Content="게시판"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Post}"/>
                 <RadioButton Content="채팅방"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Chat}"/>
-                <RadioButton Content="프로젝트" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Project}"/>
-                <RadioButton Content="고객괸리" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Customer}"/>
-                <RadioButton Content="직원관리" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Employee}"/>
-                <RadioButton Content="재고관리" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Inventory}"/>
-                <RadioButton Content="환경설정" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Settings}"/>
+                <RadioButton Content="프로젝트 관리" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Project}"/>
+                <RadioButton Content="고객 관리" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Customer}"/>
+                <RadioButton Content="제품 관리" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Product}"/>
+                <RadioButton Content="직원 관리" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=Employee}"/>
+                <RadioButton Content="환경설정" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource EnumToBoolConverter}, ConverterParameter=System}"/>
             </StackPanel>
         </Border>
             
@@ -108,8 +117,5 @@
         <ScrollViewer Grid.Column="1" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <local:ViewCacheHost Content="{Binding CurrentViewModel}"/>
         </ScrollViewer>
-
-        <!-- 로그인 -->
-        <local:V_Login Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" DataContext="{Binding VM_Login}" Visibility="{Binding DisplayShow}"/>
     </Grid>
 </Window>

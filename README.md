@@ -10,7 +10,7 @@ WPF client, Node.js server, MariaDB backend / React client planned
 ## 📌 구조
 ```mermaid
 flowchart LR
-    Client[WPF Client] <--> Server[Node.js Express]
+    Client[WPF] <--> Server[Express]
     Server <--> DB[(MariaDB)]
 ```
 
@@ -24,413 +24,171 @@ Community-App/
 └── README.md                 # 전체 설명
 ```
 
----
+1. Client
+- C#, WPF, MVVM
+- 진행도: 40%
+- 남은것: 뷰(파일만 있음), 뷰모델(파일만 있음), 아이콘파일
+- 디자인 진행도: 80% (ai로 만든 일부 화면 별 이미지 파일)
 
-## 📌 WPF Client
+2. Server
+- Node.js, Express, RESTful API
+- 진행도: 98%
+- 만든것: DB 테이블 별 URL 라우트 (쿼리, DML)
+- 남은것: 전체 URL 테스트, EXE 패키징, 난독화
 
-| Function | Description           |
-| -------- | --------------------- |
-| 사용자      | 회원가입 / 로그인 / 로그아웃     |
-| 게시판      | 게시글 등록 / 조회 / 수정 / 삭제 |
-| 댓글       | 게시글별 댓글 작성 / 수정 / 삭제  |
-| 파일 업로드   | 이미지 첨부 및 미리보기         |
-| 관리자      | 사용자 관리, 게시글 관리        |
+3. DB
+- MariaDB v11.8
+- 진행도: 90%
+- 만든것: 화면 및 기능 별 테이블
+- 남은것: 뷰 생성, 트리거 생성, 고정 데이터 생성
 
----
 
-## 📌 Node.js API
+# wpf client
+```
+client_wpf
+├─Images/
+├─Common/
+│   ├─Handlers.cs
+│   ├─Notify.cs
+│   └─Server.cs
+├─Models/
+│   ├─M_Chat_Member.cs
+│   ├─M_Chat_Message.cs
+│   ├─M_Chat_Room.cs
+│   ├─M_ComboItem.cs
+│   ├─M_Customer.cs
+│   ├─M_Customer_Product.cs
+│   ├─M_DB_Result.cs
+│   ├─M_Employee.cs
+│   ├─M_Employee_Leave.cs
+│   ├─M_Employee_Review.cs
+│   ├─M_Organization_Company.cs
+│   ├─M_Organization_Department.cs
+│   ├─M_Organization_Location.cs
+│   ├─M_Organization_Position.cs
+│   ├─M_Organization_Privileges.cs
+│   ├─M_Organization_Rank.cs
+│   ├─M_Organization_Role.cs
+│   ├─M_Organization_Team.cs
+│   ├─M_Post.cs
+│   ├─M_Post_Comment.cs
+│   ├─M_Product.cs
+│   ├─M_Product_Inventory.cs
+│   ├─M_Project.cs
+│   ├─M_Project_Member.cs
+│   ├─M_Project_Task.cs
+│   ├─M_Project_Task_Member.cs
+│   ├─M_System_Config.cs
+│   └─M_System_Log.cs
+├─ViewModels/
+│   └─ViewModelBase.cs
+│       ├─VM_Chat.cs
+│       ├─VM_Customer.cs
+│       ├─VM_Employee.cs
+│       ├─VM_Login.cs
+│       ├─VM_MainViewModel.cs
+│       ├─VM_Post.cs
+│       ├─VM_Product.cs
+│       ├─VM_Project.cs
+│       └─VM_System.cs
+├─Views/
+│   ├─MethodBinding.cs
+│   └─V_MainWindow.xaml
+│       └─ViewCacheHost.cs
+│           ├─V_Chat.xaml
+│           ├─V_Customer.xaml
+│           ├─V_Employee.xaml
+│           ├─V_Login.xaml
+│           ├─V_Post.xaml
+│           ├─V_Product.xaml
+│           ├─V_Project.xaml
+│           └─V_System.xaml
+├─View_Controls/
+├─View_Converters/
+└─App.xaml
+```
 
-| Method | Endpoint           | Description |
-| ------ | ------------------ | ----------- |
-| GET    | /                  | 서버 확인       |
-| POST   | /login             | 사용자 로그인     |
-| GET    | /board             | 게시글 목록 조회   |
-| GET    | /board/page/search | 게시글 조건 조회   |
-| POST   | /board/new         | 새 게시글 작성    |
-| PUT    | /board/update      | 게시글 수정      |
-| DELETE | /board/delete/:id  | 게시글 삭제      |
-| GET    | /board/:id         | 댓글 조회       |
-| POST   | /comment/new       | 댓글 작성       |
 
----
+# express server
 
-## 📌 MariaDB
+- 프로세스 흐름
+1. app.use > 보안 헤더 설정
+2. app.use > HTTP finish 로그 생성
+3. app.use > cors 도메인 체크
+4. app.use > IP 체크, API Key 체크, Header Size 체크, uuid 부여, LOG
+5. app.use > express.json 본문 크기 제한
+6. app.use > 각 url 라우터 모듈 연결
+7. route: get, post, put, delete
+8. db_route: route + req.body.json + db + next
+9. db_query: select, insert, update, delete
+10. query: db_pool + query + result, LOG
+11. app.use > 정상 핸들 처리, LOG
+12. app.use > 에러 핸들 처리, LOG
 
-| Table        | 주요 컬럼                               | 설명     |
-| ------------ | ----------------------------------- | ------ |
-| `tb_user`    | user_id, pw, name                   | 사용자 계정 |
-| `tb_board`   | board_id, title, content, user_id   | 게시글 정보 |
-| `tb_comment` | comment_id, board_id, text, user_id | 댓글     |
+```
+server_node/
+├─index.js
+├─logger.js
+├─.env
+├─routes/
+│   ├─url_post.js
+│   ├─url_chat.js
+│   ├─url_project.js
+│   ├─url_customer.js
+│   ├─url_product.js
+│   ├─url_employee.js
+│   ├─url_organization.js
+│   └─url_system.js
+├─services/
+│   ├─service_databse.js
+│   ├─service_express.js
+│   └─service_socket.js
+└─utils/
+    └─pick.js
+```
 
-![ERD](./Community_Document/images/ERD_20251002_211152.png)
+```
+/* 끝에 select, insert, update, delete 붙음 */
+/* post:select, post:insert, put:update, delete:delete */
 
-```mermaid
-erDiagram
-	tb_organization_companies }o--|| tb_organization_locations : references
-	tb_organization_departments }o--|| tb_organization_companies : references
-	tb_employees }o--|| tb_organization_departments : references
-	tb_employees }o--|| tb_organization_teams : references
-	tb_employees }o--|| tb_organization_ranks : references
-	tb_employees }o--|| tb_organization_positions : references
-	tb_employees }o--|| tb_organization_roles : references
-	tb_employee_reviews }o--|| tb_employees : references
-	tb_employee_reviews }o--|| tb_employees : references
-	tb_employee_leaves }o--|| tb_employees : references
-	tb_employee_leaves }o--|| tb_employees : references
-	tb_employee_account ||--|| tb_employees : references
-	tb_employee_permissions }o--|| tb_employees : references
-	tb_employee_permissions }o--|| tb_system_permissions : references
-	tb_organization_locations ||--o{ tb_customers : references
-	tb_customers ||--o{ tb_customer_products : references
-	tb_customer_products }o--|| tb_products : references
-	tb_product_inventory }o--|| tb_employees : references
-	tb_product_inventory }o--|| tb_employees : references
-	tb_product_inventory }o--|| tb_products : references
-	tb_customers ||--o{ tb_projects : references
-	tb_project_members }o--|| tb_projects : references
-	tb_project_members }o--|| tb_employees : references
-	tb_projects ||--o{ tb_project_tasks : references
-	tb_project_tasks ||--o{ tb_project_task_members : references
-	tb_employees ||--o{ tb_project_task_members : references
-	tb_chat_rooms ||--o{ tb_chat_messages : references
-	tb_chat_members }o--|| tb_chat_rooms : references
-	tb_posts ||--o{ tb_post_comments : references
-	tb_employees ||--o{ tb_chat_messages : references
-	tb_employees ||--o{ tb_chat_members : references
-	tb_employees ||--o{ tb_posts : references
-	tb_employees ||--o{ tb_post_comments : references
+/post/list | comment
+/chat/room | member | message
+/project/list | member | task | taskmember
+/customer/list | product
+/product/list | inventory
+/employee/list | leave | review
+/organization/location | company | department | team | rank | position | role | privileg
+/system/config | logs
+```
 
-	tb_system_settings {
-		INTEGER id
-		VARCHAR(255) name
-		INTEGER value_number
-		VARCHAR(255) value_text
-		VARCHAR(255) description
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-	}
-
-	tb_system_monitor {
-		INTEGER id
-		VARCHAR(255) name
-		INTEGER state
-		VARCHAR(255) status
-		VARCHAR(255) description
-		INTEGER check_interval
-		TIMESTAMP checked_at
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-	}
-
-	tb_system_logs {
-		INTEGER id
-		INTEGER log_code
-		VARCHAR(255) content
-		TIMESTAMP created_at
-	}
-
-	tb_system_permissions {
-		INTEGER id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		INTEGER category
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_posts {
-		INTEGER id
-		INTEGER employee_id
-		VARCHAR(255) title
-		VARCHAR(255) content
-		INTEGER comments
-		TIMESTAMP comment_at
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_post_comments {
-		INTEGER id
-		INTEGER post_id
-		INTEGER employee_id
-		VARCHAR(255) content
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_chat_rooms {
-		INTEGER id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		TIMESTAMP message_at
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_chat_messages {
-		INTEGER id
-		INTEGER chat_room_id
-		INTEGER employee_id
-		VARCHAR(255) message
-		TIMESTAMP created_at
-		INTEGER is_deleted
-	}
-
-	tb_chat_members {
-		INTEGER id
-		INTEGER chat_room_id
-		INTEGER employee_id
-		TIMESTAMP created_at
-		INTEGER is_deleted
-	}
-
-	tb_projects {
-		INTEGER id
-		INTEGER customer_id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		INTEGER progress
-		TIMESTAMP start_date
-		TIMESTAMP end_date
-		INTEGER status
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_project_members {
-		INTEGER id
-		INTEGER project_id
-		INTEGER employee_id
-		TIMESTAMP created_at
-		INTEGER is_deleted
-	}
-
-	tb_project_tasks {
-		INTEGER id
-		INTEGER project_id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		INTEGER progress
-		TIMESTAMP start_date
-		TIMESTAMP end_date
-		INTEGER status
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_project_task_members {
-		INTEGER id
-		INTEGER project_task_id
-		INTEGER employee_id
-		TIMESTAMP created_at
-		INTEGER is_deleted
-	}
-
-	tb_customers {
-		INTEGER id
-		INTEGER location_id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_customer_products {
-		INTEGER id
-		INTEGER product_id
-		INTEGER customer_id
-		TIMESTAMP created_at
-		INTEGER is_deleted
-	}
-
-	tb_products {
-		INTEGER id
-		VARCHAR(255) name
-		VARCHAR(255) content
-		VARCHAR(255) description
-		VARCHAR(255) image_path
-		INTEGER total_count
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_product_inventory {
-		INTEGER id
-		INTEGER product_id
-		INTEGER from_employee_id
-		INTEGER to_employee_id
-		INTEGER movement_type
-		INTEGER count
-		VARCHAR(255) content
-		VARCHAR(255) description
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_employees {
-		INTEGER id
-		VARCHAR(255) employee_code
-		VARCHAR(255) name
-		INTEGER gender
-		DATE birth_date
-		VARCHAR(255) email
-		VARCHAR(255) phone
-		VARCHAR(255) address
-		VARCHAR(255) description
-		VARCHAR(255) image_path
-		INTEGER department_id
-		INTEGER team_id
-		INTEGER rank_id
-		INTEGER position_id
-		INTEGER role_id
-		INTEGER status
-		TIMESTAMP joined_at
-		TIMESTAMP resigned_at
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_employee_reviews {
-		INTEGER id
-		INTEGER employee_id
-		INTEGER reviewer_id
-		VARCHAR(255) review_period
-		INTEGER category
-		INTEGER score
-		VARCHAR(255) comment
-		INTEGER recommendation
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_employee_leaves {
-		INTEGER id
-		INTEGER employee_id
-		INTEGER approver_id
-		INTEGER category
-		TIMESTAMP start_dt
-		TIMESTAMP end_dt
-		VARCHAR(255) comment
-		INTEGER status
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_employee_account {
-		INTEGER id
-		INTEGER employee_id
-		VARCHAR(255) login_id
-		VARCHAR(255) login_pw
-		VARCHAR(255) name
-		VARCHAR(255) description
-		VARCHAR(255) backup_email
-		INTEGER account_status
-		VARCHAR(255) login_ip
-		INTEGER login_status
-		INTEGER login_success_count
-		INTEGER login_fail_count
-		TIMESTAMP login_at
-		TIMESTAMP logout_at
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_employee_permissions {
-		INTEGER id
-		INTEGER employee_id
-		INTEGER permissions_id
-		INTEGER is_allowed
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_organization_locations {
-		INTEGER id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_organization_companies {
-		INTEGER id
-		INTEGER location_id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		INTEGER score
-		TIMESTAMP created_id
-		TIMESTAMP updated_id
-		INTEGER is_deleted
-	}
-
-	tb_organization_departments {
-		INTEGER id
-		INTEGER company_id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		INTEGER salary
-		INTEGER score
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_organization_teams {
-		INTEGER id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		INTEGER salary
-		INTEGER score
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_organization_ranks {
-		INTEGER id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		INTEGER salary
-		INTEGER score
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_organization_positions {
-		INTEGER id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		INTEGER salary
-		INTEGER score
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
-
-	tb_organization_roles {
-		INTEGER id
-		VARCHAR(255) name
-		VARCHAR(255) description
-		INTEGER salary
-		INTEGER score
-		TIMESTAMP created_at
-		TIMESTAMP updated_at
-		INTEGER is_deleted
-	}
+# mariadb
+26 Tables
+```
+db_community
+├─tb_posts
+│   └─tb_post_comments
+├─tb_chat_rooms
+│   ├─tb_chat_members
+│   └─tb_chat_messages
+├─tb_projects
+│   ├─tb_project_members
+│   └─tb_project_tasks
+│       └─tb_project_task_members
+├─tb_customers
+│   └─tb_customer_products
+├─tb_products
+│   └─tb_product_inventory
+├─tb_employees
+│   ├─tb_employee_reviews
+│   └─tb_employee_leaves
+├─tb_organization_locations
+├─tb_organization_companies
+│   └─tb_organization_departments
+│       └─tb_organization_teams
+├─tb_organization_ranks
+├─tb_organization_positions
+├─tb_organization_roles
+├─tb_organization_privileges
+├─tb_system_config
+└─tb_system_logs
 ```

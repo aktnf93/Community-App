@@ -39,6 +39,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=9.2.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\MySql.Data.dll</HintPath>
@@ -67,42 +70,54 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\Handlers.cs" />
-    <Compile Include="Models\M_Inventory.cs" />
-    <Compile Include="Models\M_Messages.cs" />
-    <Compile Include="Models\M_Settings.cs" />
+    <Compile Include="Models\M_Chat_Message.cs" />
+    <Compile Include="Models\M_Chat_Member.cs" />
+    <Compile Include="Models\M_Chat_Room.cs" />
+    <Compile Include="Models\M_Customer_Product.cs" />
+    <Compile Include="Models\M_DB_Result.cs" />
+    <Compile Include="Models\M_Employee_Leave.cs" />
+    <Compile Include="Models\M_Employee_Review.cs" />
+    <Compile Include="Models\M_Organization_Company.cs" />
+    <Compile Include="Models\M_Organization_Department.cs" />
+    <Compile Include="Models\M_Organization_Location.cs" />
+    <Compile Include="Models\M_Organization_Position.cs" />
+    <Compile Include="Models\M_Organization_Privileges.cs" />
+    <Compile Include="Models\M_Organization_Rank.cs" />
+    <Compile Include="Models\M_Organization_Role.cs" />
+    <Compile Include="Models\M_Organization_Team.cs" />
+    <Compile Include="Models\M_Product.cs" />
+    <Compile Include="Models\M_Product_Inventory.cs" />
+    <Compile Include="Models\M_Project_Member.cs" />
+    <Compile Include="Models\M_Project_Task.cs" />
+    <Compile Include="Models\M_Project_Task_Member.cs" />
+    <Compile Include="Models\M_System_Config.cs" />
+    <Compile Include="Models\M_Post_Comment.cs" />
+    <Compile Include="Models\M_System_Log.cs" />
     <Compile Include="Views\MethodBinding.cs" />
     <Compile Include="Common\Notify.cs" />
     <Compile Include="View_Controls\PasswordBoxHelper.cs" />
-    <Compile Include="Common\Server_Data_Convert.cs" />
-    <Compile Include="Common\Server_REST_API.cs" />
+    <Compile Include="Common\Server.cs" />
     <Compile Include="Views\ViewCacheHost.cs" />
-    <Compile Include="Converters\C_EnumMenuButton.cs" />
-    <Compile Include="Converters\C_PageNumberButton.cs" />
-    <Compile Include="Enums\MenuType.cs" />
-    <Compile Include="Models\M_Card.cs" />
+    <Compile Include="View_Converters\C_EnumMenuButton.cs" />
+    <Compile Include="View_Converters\C_PageNumberButton.cs" />
     <Compile Include="Models\M_ComboItem.cs" />
-    <Compile Include="Models\M_Comment.cs" />
     <Compile Include="Models\M_Customer.cs" />
-    <Compile Include="Models\M_Employee.cs" />
-    <Compile Include="Models\M_TreeItem.cs" />
     <Compile Include="Models\M_Project.cs" />
-    <Compile Include="Models\M_User.cs" />
+    <Compile Include="Models\M_Employee.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\VM_Chat.cs" />
     <Compile Include="ViewModels\VM_Customer.cs" />
     <Compile Include="ViewModels\VM_Employee.cs" />
-    <Compile Include="ViewModels\VM_Inventory.cs" />
+    <Compile Include="ViewModels\VM_Product.cs" />
     <Compile Include="ViewModels\VM_Login.cs" />
     <Compile Include="ViewModels\VM_MainViewModel.cs" />
-    <Compile Include="Models\M_Board.cs" />
-    <Compile Include="ViewModels\VM_Messages.cs" />
-    <Compile Include="ViewModels\VM_Board.cs" />
-    <Compile Include="ViewModels\VM_Settings.cs" />
+    <Compile Include="Models\M_Post.cs" />
+    <Compile Include="ViewModels\VM_Post.cs" />
+    <Compile Include="ViewModels\VM_System.cs" />
     <Compile Include="ViewModels\VM_Project.cs" />
-    <Compile Include="Views\V_Board.xaml.cs">
-      <DependentUpon>V_Board.xaml</DependentUpon>
+    <Compile Include="Views\V_Post.xaml.cs">
+      <DependentUpon>V_Post.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\V_Chat.xaml.cs">
       <DependentUpon>V_Chat.xaml</DependentUpon>
@@ -113,14 +128,11 @@
     <Compile Include="Views\V_Employee.xaml.cs">
       <DependentUpon>V_Employee.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_Inventory.xaml.cs">
-      <DependentUpon>V_Inventory.xaml</DependentUpon>
+    <Compile Include="Views\V_Product.xaml.cs">
+      <DependentUpon>V_Product.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\V_Login.xaml.cs">
       <DependentUpon>V_Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\V_Mseeage.xaml.cs">
-      <DependentUpon>V_Mseeage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\V_Board_Detail.xaml.cs">
       <DependentUpon>V_Board_Detail.xaml</DependentUpon>
@@ -128,8 +140,8 @@
     <Compile Include="Views\V_Project.xaml.cs">
       <DependentUpon>V_Project.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_Settings.xaml.cs">
-      <DependentUpon>V_Settings.xaml</DependentUpon>
+    <Compile Include="Views\V_System.xaml.cs">
+      <DependentUpon>V_System.xaml</DependentUpon>
     </Compile>
     <Compile Include="View_Controls\U_AudioPlayer.xaml.cs">
       <DependentUpon>U_AudioPlayer.xaml</DependentUpon>
@@ -154,7 +166,7 @@
       <DependentUpon>V_MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\V_Board.xaml">
+    <Page Include="Views\V_Post.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,15 +178,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_Inventory.xaml">
+    <Page Include="Views\V_Product.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\V_Login.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\V_Mseeage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,7 +194,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_Settings.xaml">
+    <Page Include="Views\V_System.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -256,16 +264,16 @@
     <Resource Include="Resource_Icon\employee_woman_head.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\image_login.png" />
+    <Resource Include="Images\Login\image_login.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resource_Icon\arrow_down_24px.png" />
     <Resource Include="Resource_Icon\arrow_up_24px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\icon_logout_24px.png" />
-    <Resource Include="Images\icon_password_24px.png" />
-    <Resource Include="Images\icon_username_24px.png" />
+    <Resource Include="Images\Login\icon_logout_24px.png" />
+    <Resource Include="Images\Login\icon_password_24px.png" />
+    <Resource Include="Images\Login\icon_username_24px.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

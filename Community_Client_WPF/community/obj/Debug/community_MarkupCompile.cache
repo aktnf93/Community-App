@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\A\source\repos\GitHub\Git_KSH_Community\Community_Client_WPF\community\App.xaml
-131912483475
+121591395424
 
-52-564771564
-161526559107
-Views\V_Customer.xaml;Views\V_MainWindow.xaml;Views\V_Board.xaml;Views\V_Chat.xaml;Views\V_Employee.xaml;Views\V_Inventory.xaml;Views\V_Login.xaml;Views\V_Mseeage.xaml;Views\V_Board_Detail.xaml;Views\V_Project.xaml;Views\V_Settings.xaml;View_Controls\U_AudioPlayer.xaml;View_Controls\U_ProgressBar.xaml;
+631402367928
+17-677285547
+Views\V_Customer.xaml;Views\V_MainWindow.xaml;Views\V_Post.xaml;Views\V_Chat.xaml;Views\V_Employee.xaml;Views\V_Product.xaml;Views\V_Login.xaml;Views\V_Board_Detail.xaml;Views\V_Project.xaml;Views\V_System.xaml;View_Controls\U_AudioPlayer.xaml;View_Controls\U_ProgressBar.xaml;
 
 False
 

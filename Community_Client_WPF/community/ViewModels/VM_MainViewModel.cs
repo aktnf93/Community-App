@@ -1,7 +1,4 @@
-﻿using community.Common;
-using community.Enums;
-using community.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -14,26 +11,23 @@ namespace community.ViewModels
 {
     public class VM_MainViewModel : ViewModelBase
     {
-        public VM_Login VM_Login { get; set; }
-
-        private VM_Board vm_Board;
-        private VM_Messages vm_Messages;
-        private VM_Chat vm_Chat;
-
-        private VM_Project vm_Project;
-        private VM_Customer vm_Customer;
-        private VM_Inventory vm_Inventory;
-        private VM_Employee vm_Employee;
-        private VM_Settings vm_Settings;
-
+        private VM_Login vm_login;
+        private VM_Post vm_post;
+        private VM_Chat vm_chat;
+        private VM_Project vm_project;
+        private VM_Customer vm_customer;
+        private VM_Product vm_product;
+        private VM_Employee vm_employee;
+        private VM_System vm_system;
         public ViewModelBase currentViewModel;
+        private MenuType menuSelected = MenuType.Login;
+
         public ViewModelBase CurrentViewModel
         {
             get => this.currentViewModel;
             set => base.OnPropertyChanged(ref this.currentViewModel, value);
         }
-
-        private MenuType menuSelected = MenuType.None;
+        
         public MenuType MenuSelected
         {
             get => this.menuSelected;
@@ -44,66 +38,62 @@ namespace community.ViewModels
                 switch (this.menuSelected)
                 {
                     default:
-                    case MenuType.None:
-                        this.CurrentViewModel = null;
+                    case MenuType.Login:
+                        this.CurrentViewModel = this.vm_login;
                         break;
 
-                    case MenuType.Board:
-                        this.CurrentViewModel = this.vm_Board;
-                        break;
-
-                    case MenuType.Messages:
-                        this.CurrentViewModel = this.vm_Messages;
+                    case MenuType.Post:
+                        this.CurrentViewModel = this.vm_post;
                         break;
 
                     case MenuType.Chat:
-                        this.CurrentViewModel = this.vm_Chat;
+                        this.CurrentViewModel = this.vm_chat;
                         break;
 
                     case MenuType.Project:
-                        this.CurrentViewModel = this.vm_Project;
+                        this.CurrentViewModel = this.vm_project;
                         break;
 
                     case MenuType.Customer:
-                        this.CurrentViewModel = this.vm_Customer;
+                        this.CurrentViewModel = this.vm_customer;
                         break;
 
-                    case MenuType.Inventory:
-                        this.CurrentViewModel = this.vm_Inventory;
+                    case MenuType.Product:
+                        this.CurrentViewModel = this.vm_product;
                         break;
 
                     case MenuType.Employee:
-                        this.CurrentViewModel = this.vm_Employee;
+                        this.CurrentViewModel = this.vm_employee;
                         break;
 
-                    case MenuType.Settings:
-                        this.CurrentViewModel = this.vm_Settings;
+                    case MenuType.System:
+                        this.CurrentViewModel = this.vm_system;
                         break;
                 }
             }
         }
 
-
         public VM_MainViewModel()
         {
-            this.VM_Login = new VM_Login();
-            this.VM_Login.LoginEvent += VM_Login_LoginEvent;
+            this.vm_login = new VM_Login();
+            this.vm_login.LoginEvent += VM_Login_LoginEvent;
+
+            this.CurrentViewModel = this.vm_login;
         }
 
         private void VM_Login_LoginEvent(bool isLogin)
         {
             if (isLogin)
             {
-                vm_Board = new VM_Board();
-                vm_Messages = new VM_Messages();
-                vm_Chat = new VM_Chat();
-                vm_Project = new VM_Project();
-                vm_Customer = new VM_Customer();
-                vm_Inventory = new VM_Inventory();
-                vm_Employee = new VM_Employee();
-                vm_Settings = new VM_Settings();
+                vm_chat = new VM_Chat();
+                vm_post = new VM_Post();
+                vm_project = new VM_Project();
+                vm_customer = new VM_Customer();
+                vm_product = new VM_Product();
+                vm_employee = new VM_Employee();
+                vm_system = new VM_System();
 
-                MenuSelected = MenuType.Board;
+                MenuSelected = MenuType.Post;
             }
         }
     }

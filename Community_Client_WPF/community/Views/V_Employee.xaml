@@ -78,9 +78,9 @@
                 </Grid.RowDefinitions>
 
                 <Ellipse Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Width="60" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0">
-                    <Ellipse.Fill>
+                    <!--<Ellipse.Fill>
                         <ImageBrush ImageSource="C:\Users\A\Downloads\sample\1.png" Stretch="UniformToFill"/>
-                    </Ellipse.Fill>
+                    </Ellipse.Fill>-->
                 </Ellipse>
 
                 <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" 
@@ -247,13 +247,13 @@
 
             <ItemsControl.ItemsSource>
                 <x:Array Type="{x:Type m:M_Employee}">
-                    <m:M_Employee Name="김민준" Id="1" Department="영업부"   Position="팀장"       Status="1" HireDate="2020-03-15" Icon="C:\Users\A\Downloads\sample\1.png" Total_Vacation="15" Used_Vacation="3"/>
+                    <!--<m:M_Employee Name="김민준" Id="1" Department="영업부"   Position="팀장"       Status="1" HireDate="2020-03-15" Icon="C:\Users\A\Downloads\sample\1.png" Total_Vacation="15" Used_Vacation="3"/>
                     <m:M_Employee Name="이서연" Id="2" Department="마케팅부" Position="매니저"      Status="1" HireDate="2021-06-01" Icon="C:\Users\A\Downloads\sample\2.png" Total_Vacation="15" Used_Vacation="16"/>
                     <m:M_Employee Name="박지훈" Id="3" Department="개발부"   Position="선임 개발자" Status="1" HireDate="2019-11-20" Icon="C:\Users\A\Downloads\sample\3.png" Total_Vacation="15" Used_Vacation="17"/>
                     <m:M_Employee Name="최유진" Id="4" Department="인사부"   Position="사원"        Status="2" HireDate="2022-01-10" Icon="C:\Users\A\Downloads\sample\4.png" Total_Vacation="15" Used_Vacation="5"/>
                     <m:M_Employee Name="정우진" Id="5" Department="재무부"   Position="매니저"      Status="1" HireDate="2018-09-01" Icon="C:\Users\A\Downloads\sample\5.png" Total_Vacation="15" Used_Vacation="6"/>
                     <m:M_Employee Name="강하나" Id="6" Department="영업부"   Position="사원"        Status="1" HireDate="2023-02-28" Icon="C:\Users\A\Downloads\sample\6.png" Total_Vacation="15" Used_Vacation="0"/>
-                    <m:M_Employee Name="윤아름" Id="7" Department="마케팅부" Position="주니어 디자이너" Status="3" HireDate="2023-07-15" Icon="C:\Users\A\Downloads\sample\7.png" Total_Vacation="15" Used_Vacation="1"/>
+                    <m:M_Employee Name="윤아름" Id="7" Department="마케팅부" Position="주니어 디자이너" Status="3" HireDate="2023-07-15" Icon="C:\Users\A\Downloads\sample\7.png" Total_Vacation="15" Used_Vacation="1"/>-->
                 </x:Array>
             </ItemsControl.ItemsSource>
         </ItemsControl>

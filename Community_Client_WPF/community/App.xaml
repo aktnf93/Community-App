@@ -16,38 +16,17 @@
         
         <!--#endregion-->
 
-        <!--#region View Maping-->
-        <DataTemplate DataType="{x:Type vm:VM_Login}">
-            <v:V_Login/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_Post}">
-            <v:V_Post/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_Chat}">
-            <v:V_Chat/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_Project}">
-            <v:V_Project/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_Customer}">
-            <v:V_Customer/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_Product}">
-            <v:V_Product/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_Employee}">
-            <v:V_Employee/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:VM_System}">
-            <v:V_System/>
-        </DataTemplate>
-        <!--#endregion-->
+
 
         <!--#region Images-->
-        <BitmapImage x:Key="Img_Login_Logo" UriSource="..\Images\Login\image_login.png"/>
-        <BitmapImage x:Key="Img_Login_ID" UriSource="..\Images\Login\icon_username_24px.png" DecodePixelWidth="24"/>
-        <BitmapImage x:Key="Img_Login_PW" UriSource="..\Images\Login\icon_password_24px.png" DecodePixelWidth="24"/>
-        <BitmapImage x:Key="Img_Login_Logout" UriSource="..\Images\Login\icon_logout_24px.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Login_Logo" UriSource="Images\Login\image_login.png"/>
+        <BitmapImage x:Key="Img_Login_ID" UriSource="Images\Login\icon_username_24px.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Login_PW" UriSource="Images\Login\icon_password_24px.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Login_Logout" UriSource="Images\Login\icon_logout_24px.png" DecodePixelWidth="24"/>
+
+        <BitmapImage x:Key="Img_Window_Close" UriSource="Images\Window\close.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Window_Max" UriSource="Images\Window\maximize.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Window_Min" UriSource="Images\Window\minimize.png" DecodePixelWidth="24"/>
 
         <!--#endregion-->
 
@@ -55,13 +34,15 @@
         <SolidColorBrush x:Key="Color_DarkWhite" Color="#FAFAFB"/>
         <SolidColorBrush x:Key="Color_White" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="Color_Gray" Color="#808080"/>
+        <SolidColorBrush x:Key="Color_DarkGray" Color="#3C3C3C"/>
 
         <SolidColorBrush x:Key="Color_DeepdarkBlue" Color="#313647"/>
         <SolidColorBrush x:Key="Color_DarkBlue" Color="#384992"/>
         <SolidColorBrush x:Key="Color_Blue" Color="#3E51A3"/>
         <SolidColorBrush x:Key="Color_LightBlue" Color="#6883D5"/>
-        
+
         <SolidColorBrush x:Key="Color_Transparent" Color="Transparent"/>
+        <SolidColorBrush x:Key="Color_Grean" Color="#51B374"/>
 
 
         <SolidColorBrush x:Key="TextBox_BorderBrush" Color="#808080"/>
@@ -180,27 +161,23 @@
         <!--#endregion-->
 
         <!--#region Borderless Icon Button-->
-        <ControlTemplate TargetType="{x:Type Button}" x:Key="Borderless_IconButton">
-            <Border x:Name="Border" Background="{StaticResource Button_Background_White}" 
-                    CornerRadius="4" Cursor="Hand">
-                <ContentPresenter x:Name="Button_Text" Content="{TemplateBinding Content}"
-                                  HorizontalAlignment="Center" VerticalAlignment="Center"
-                                  TextBlock.Foreground="{StaticResource Button_Foreground_White}"/>
+        <ControlTemplate TargetType="{x:Type Button}" x:Key="IconButton">
+            <Border x:Name="Border" Background="{StaticResource Color_Transparent}" 
+                    Cursor="Hand">
+                <Grid>
+                    <!-- 아이콘 -->
+                    <Image Source="{TemplateBinding Tag}" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <!--<ContentPresenter x:Name="Button_Text" Content="{TemplateBinding Content}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                                      TextBlock.Foreground="{StaticResource Button_Foreground_White}"/>-->
+                </Grid>
             </Border>
             <ControlTemplate.Triggers>
-                <Trigger Property="Tag" Value="0">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_Blue}"/>
-                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_Blue}"/>
-                </Trigger>
-
-                <Trigger Property="Tag" Value="1">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_Grean}"/>
-                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_Grean}"/>
-                </Trigger>
-
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_MouseOver}"/>
-                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_MouseOver}"/>
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Color_LightBlue}"/>
+                    <!--<Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_MouseOver}"/>-->
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -418,6 +395,32 @@
         <!--#endregion-->
 
 
+        <!--#region View Maping-->
+        <DataTemplate DataType="{x:Type vm:VM_Login}">
+            <v:V_Login/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VM_Post}">
+            <v:V_Post/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VM_Chat}">
+            <v:V_Chat/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VM_Project}">
+            <v:V_Project/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VM_Customer}">
+            <v:V_Customer/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VM_Product}">
+            <v:V_Product/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VM_Employee}">
+            <v:V_Employee/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VM_System}">
+            <v:V_System/>
+        </DataTemplate>
+        <!--#endregion-->
 
     </Application.Resources>
 </Application>

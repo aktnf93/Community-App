@@ -44,10 +44,9 @@
                 <TextBlock Text="커뮤니티 - 버전 1" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="White"/>
             </Grid>
 
-            <Button Grid.Column="1" ToolTip="확인"/>
-            <Button Grid.Column="2" ToolTip="최소화" Click="Window_OnMinimize"/>
-            <Button Grid.Column="3" ToolTip="최대화" Click="Window_OnMaximize"/>
-            <Button Grid.Column="4" ToolTip="닫기"  Click="Window_OnClose"/>
+            <Button Grid.Column="2" ToolTip="최소화" Click="Window_OnMinimize" Template="{StaticResource IconButton}" Tag="{StaticResource Img_Window_Min}"/>
+            <Button Grid.Column="3" ToolTip="최대화" Click="Window_OnMaximize" Template="{StaticResource IconButton}" Tag="{StaticResource Img_Window_Max}"/>
+            <Button Grid.Column="4" ToolTip="닫기"  Click="Window_OnClose" Template="{StaticResource IconButton}" Tag="{StaticResource Img_Window_Close}"/>
         </Grid>
 
         <!-- 메뉴 패널 -->

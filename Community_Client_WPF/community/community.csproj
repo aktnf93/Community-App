@@ -275,5 +275,10 @@
     <Resource Include="Images\Login\icon_password_24px.png" />
     <Resource Include="Images\Login\icon_username_24px.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Window\close.png" />
+    <Resource Include="Images\Window\maximize.png" />
+    <Resource Include="Images\Window\minimize.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

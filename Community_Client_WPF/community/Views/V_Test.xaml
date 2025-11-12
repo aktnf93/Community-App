@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="community.Views.V_Test"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:community.Views"
+             xmlns:m="clr-namespace:community.Models"
+             mc:Ignorable="d" 
+             Width="1810" Height="1000" d:DesignWidth="1810" d:DesignHeight="1000"
+             Loaded="{local:MethodBinding Loaded}" Background="{StaticResource Color_WhiteGray}">
+
+    <Grid Margin="20,20,20,30" TextBlock.FontSize="24">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240" Tag="카테고리"/>
+            <ColumnDefinition Width="60"  Tag="여백"/>
+            <ColumnDefinition Width="*"   Tag="리스트"/>
+            <ColumnDefinition Width="60"  Tag="여백"/>
+            <ColumnDefinition Width="240" Tag="최근이력"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110" Tag="배너"/>
+            <RowDefinition Height="90"  Tag="대시보드"/>
+            <RowDefinition Height="90"  Tag="컨트롤러"/>
+            <RowDefinition Height="*"   Tag="리스트"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Content="배너" Background="LightBlue"/>
+        <Label Grid.Column="2" Grid.Row="1" Content="대시보드" Background="LightGreen"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="카테고리 컨트롤" Background="LightYellow"/>
+        <Label Grid.Column="2" Grid.Row="2" Content="리스트 컨트롤" Background="LightYellow"/>
+        <Label Grid.Column="4" Grid.Row="2" Content="최근 이력" Background="LightYellow"/>
+
+        <Label Grid.Column="0" Grid.Row="3" Content="카테고리" Background="LightPink"/>
+        <Label Grid.Column="2" Grid.Row="3" Content="리스트" Background="LightPink"/>
+        <Label Grid.Column="4" Grid.Row="3" Content="최근 이력" Background="LightPink"/>
+    </Grid>
+</UserControl>

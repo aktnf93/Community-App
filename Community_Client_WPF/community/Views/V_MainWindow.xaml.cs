@@ -1,7 +1,8 @@
-﻿using System;
+﻿using community.Common;
+using Microsoft.Win32;
+using System;
 using System.Windows;
 using System.Windows.Input;
-using community.Common;
 
 
 namespace community.Views
@@ -72,7 +73,7 @@ namespace community.Views
                 {
                     // 최대화
                     normalSize = new Rect(this.Left, this.Top, this.Width, this.Height);
-                    Console.WriteLine("[StateChanged] 창 크기 백업 > {0}", normalSize.ToString());
+                    // Console.WriteLine("[StateChanged] 창 크기 백업 > {0}", normalSize.ToString());
                     var workArea = SystemParameters.WorkArea;
 
                     this.Top = workArea.Top;
@@ -191,6 +192,22 @@ namespace community.Views
         private void Window_OnClose(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "이미지 파일 선택";
+            openFileDialog.Filter = "이미지 파일 (*.png;*.jpg;*.jpeg;*.bmp)|*.png;*.jpg;*.jpeg;*.bmp";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string imagePath = openFileDialog.FileName;
+                Server.API.UploadImageSync(imagePath);
+
+                // 예: 이미지 컨트롤에 표시
+                // myImage.Source = new BitmapImage(new Uri(imagePath));
+            }
         }
     }
 }

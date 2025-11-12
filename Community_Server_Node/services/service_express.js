@@ -186,11 +186,13 @@ app.use((req, res, next) => {
 
   // * * * * * * * * * * * * * * * * * * * * * * * * * * *
   // API Key 체크
+  
   const t_autho_key = req.headers['authorization'];
   if (!t_autho_key || t_autho_key !== 'a620') {
     logger.error(`[ip=${clientIp}] Unauthorized: ${t_autho_key}`)
-    return res.status(401).end(); // Unauthorized
+    // return res.status(401).end(); // Unauthorized
   }
+  
 
   // * * * * * * * * * * * * * * * * * * * * * * * * * * *
   // Header Size 체크
@@ -217,6 +219,14 @@ app.use(express.json({
 
 // ****************************************
 // 라우터 모듈 연결
+/*
+// const path = require('path');
+app.get('/', (req, res) => {
+  res.sendFile('C:\\Users\\A\\Downloads\\Community-App-main\\Community_Server_Node\\home.html'); 
+});
+*/
+
+app.get('/favicon.ico', (req, res) => res.status(204).end()); // 브라우저 아이콘 무시
 app.use('/chat',         require('../routes/url_chat'));
 app.use('/customer',     require('../routes/url_customer'));
 app.use('/employee',     require('../routes/url_employee'));
@@ -226,8 +236,54 @@ app.use('/product',      require('../routes/url_product'));
 app.use('/project',      require('../routes/url_project'));
 app.use('/system',       require('../routes/url_system'));
 
-app.get('/favicon.ico', (req, res) => res.status(204).end()); // 브라우저 아이콘 무시
 
+
+
+// ****************************************
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+// 1) 업로드 디렉토리 없으면 생성
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
+
+// 2) multer 설정
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+        const uniqueName = Date.now() + '-' + file.originalname;
+        cb(null, uniqueName);
+    }
+});
+const upload = multer({ storage });
+
+// 3) 업로드 API
+app.post('/upload', upload.single('image'), async (req, res) => {
+    try {
+        const filePath = '/uploads/' + req.file.filename;
+
+        console.log(`app.post > ${filePath}`);
+
+        // DB 저장 예시
+        // await db.query("INSERT INTO images (path) VALUES (?)", [filePath]);
+
+        res.json({
+            success: true,
+            path: filePath
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false });
+    }
+});
+
+// 4) 정적 파일 제공
+app.use('/uploads', express.static(uploadDir));
 
 // ****************************************
 // 정상 핸들 처리

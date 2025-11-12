@@ -167,7 +167,7 @@ const delete_query = async (req, tableName, data) => {
 const route_get = async (req, res, next, tb) => {
     try {
         const data = pick(req.body, tb.get);
-        const result = await select_query(req, tb.table, data);
+        const result = await select_query(req, tb.view, data);
         res.locals.dbResult = result;
         next();
     } 
@@ -216,11 +216,21 @@ const route_delete = async (req, res, next, tb) => {
 const tables = {
 
     // __________________________________________/post
+    post_category: {
+        table: 'tb_post_category',
+        view: 'tb_post_category',
+        get: ['id'],
+        post: ['parent_id', 'name', 'description'],
+        put: ['id', 'parent_id', 'name', 'description'],
+        delete: ['id']
+    },
+
     post_list: {
         table: 'tb_posts',
-        get: ['id', 'employee_id'],
-        post: ['employee_id', 'title', 'content'],
-        put: ['id', 'content', 'deleted_at'],
+        view: 'v_posts',
+        get: ['id', 'post_category_id', 'employee_id'],
+        post: ['post_category_id', 'employee_id', 'title', 'content'],
+        put: ['id', 'post_category_id', 'title', 'content', 'view_count', 'deleted_at'],
         delete: ['id']
     },
 
@@ -328,8 +338,15 @@ const tables = {
     // __________________________________________/employee
     employee_list: {
         table: 'tb_employees',
+        view: 'tb_employees',
         get: ['id', 'login_id', 'login_pw'],
-        post: ['name'],
+        post: [
+            'name', 'description', 'employee_code', 
+            'gender', 'birth_date', 'email', 'phone', 'address', 'image_path', 
+            'status', 'joined_at', 'resigned_at', 
+            'team_id', 'rank_id', 'position_id', 'role_id', 'privilege_id',
+            'login_id', 'login_pw', 'is_active', 'deleted_at'
+        ],
         put: [
             'id', 'name', 'description', 'employee_code', 
             'gender', 'birth_date', 'email', 'phone', 'address', 'image_path', 
@@ -445,7 +462,8 @@ const tables = {
 };
 
 module.exports = {
-    // query,
+    pick,
+    query,
     tb: tables,
     get: route_get,
     post: route_post, 

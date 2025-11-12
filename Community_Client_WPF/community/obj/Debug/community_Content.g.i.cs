@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/window/close.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/window/maximize.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/window/minimize.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/arrow_down_24px_w.png")]
 
 

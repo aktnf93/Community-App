@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const db = require('../services/service_database');
 
+const tb_post_category = db.tb.post_category;
+router.post('/category/select', async (req, res, next) => db.get(req, res, next, tb_post_category));
+router.post('/category/insert', async (req, res, next) => db.post(req, res, next, tb_post_category));
+router.put('/category/update', async (req, res, next) => db.put(req, res, next, tb_post_category));
+router.delete('/category/delete', async (req, res, next) => db.delete(req, res, next, tb_post_category));
+
 const tb_post_list = db.tb.post_list;
 router.post('/list/select', async (req, res, next) => db.get(req, res, next, tb_post_list));
 router.post('/list/insert', async (req, res, next) => db.post(req, res, next, tb_post_list));

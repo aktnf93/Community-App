@@ -11,66 +11,140 @@
     <Application.Resources>
 
         <!--#region Converters-->
-        <cnv:C_PageNumberButton x:Key="PageNumberToIsCheckedMultiConverter"/>
-        <cnv:C_EnumMenuButton x:Key="EnumToBoolConverter"/>
-        
+        <cnv:C_PageNumberButton  x:Key="PageNumberToIsCheckedMultiConverter"/>
+        <cnv:Converter_Bool_Enum x:Key="Converter_Bool_Enum"/>
+        <cnv:Converter_Bool_Int  x:Key="Converter_Bool_Int"/>
         <!--#endregion-->
 
-
-
         <!--#region Images-->
-        <BitmapImage x:Key="Img_Login_Logo" UriSource="Images\Login\image_login.png"/>
-        <BitmapImage x:Key="Img_Login_ID" UriSource="Images\Login\icon_username_24px.png" DecodePixelWidth="24"/>
-        <BitmapImage x:Key="Img_Login_PW" UriSource="Images\Login\icon_password_24px.png" DecodePixelWidth="24"/>
-        <BitmapImage x:Key="Img_Login_Logout" UriSource="Images\Login\icon_logout_24px.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Login_ID"       UriSource="Images\icon_username_24px.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Login_PW"       UriSource="Images\icon_password_24px.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Login_Logout"   UriSource="Images\icon_logout_24px.png"   DecodePixelWidth="24"/>
 
-        <BitmapImage x:Key="Img_Window_Close" UriSource="Images\Window\close.png" DecodePixelWidth="24"/>
-        <BitmapImage x:Key="Img_Window_Max" UriSource="Images\Window\maximize.png" DecodePixelWidth="24"/>
-        <BitmapImage x:Key="Img_Window_Min" UriSource="Images\Window\minimize.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Window_Logo"    UriSource="Images\sh_electronic_logo.png" />
+        <BitmapImage x:Key="Img_Window_Logo2"   UriSource="Images\sh_electronic_logo2.png"/>
+        <BitmapImage x:Key="Img_Window_Logo3"   UriSource="Images\sh_electronic_logo3.png"/>
+        <BitmapImage x:Key="Img_Window_Logo4"   UriSource="Images\sh_electronic_logo4.png"/>
+        <BitmapImage x:Key="Img_Window_Logo5"   UriSource="Images\sh_electronic_logo5.png"/>
+        
+        <BitmapImage x:Key="Img_Window_Min"     UriSource="Images\window_min_64px.png"/>
+        <BitmapImage x:Key="Img_Window_Max"     UriSource="Images\window_max_64px.png"/>
+        <BitmapImage x:Key="Img_Window_Close"   UriSource="Images\window_close_64px.png"/>
 
+        <BitmapImage x:Key="Img_Menu_Home"      UriSource="Images\menu_home_64px_w.png"     DecodePixelWidth="64"/>
+        <BitmapImage x:Key="Img_Menu_Post"      UriSource="Images\menu_post_64px_w.png"     DecodePixelWidth="64"/>
+        <BitmapImage x:Key="Img_Menu_Chat"      UriSource="Images\menu_chat_64px_w.png"     DecodePixelWidth="64"/>
+        <BitmapImage x:Key="Img_Menu_Project"   UriSource="Images\menu_project_64px_w.png"  DecodePixelWidth="64"/>
+        <BitmapImage x:Key="Img_Menu_Customer"  UriSource="Images\menu_customer_64px_w.png" DecodePixelWidth="64"/>
+        <BitmapImage x:Key="Img_Menu_Product"   UriSource="Images\menu_product_64px_w.png"  DecodePixelWidth="64"/>
+        <BitmapImage x:Key="Img_Menu_Employee"  UriSource="Images\menu_employee_64px_w.png" DecodePixelWidth="64"/>
+        <BitmapImage x:Key="Img_Menu_System"    UriSource="Images\menu_system_64px_w.png"   DecodePixelWidth="64"/>
+
+        <BitmapImage x:Key="Img_Post_ArrowUp"   UriSource="Images\arrow_up_24px_w.png"      DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Post_ArrowDown" UriSource="Images\arrow_down_24px_w.png"    DecodePixelWidth="24"/>
+
+        <BitmapImage x:Key="Img_Post"           UriSource="Images\menu_post_64px.png"       DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Post_w"         UriSource="Images\menu_post_64px_w.png"     DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Chat"           UriSource="Images\menu_chat_64px.png"       DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Chat_w"         UriSource="Images\menu_chat_64px_w.png"     DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Project"        UriSource="Images\menu_project_64px.png"    DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Project_w"      UriSource="Images\menu_project_64px_w.png"  DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Customer"       UriSource="Images\menu_customer_64px.png"   DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Customer_w"     UriSource="Images\menu_customer_64px_w.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Product"        UriSource="Images\menu_product_64px.png"    DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Product_w"      UriSource="Images\menu_product_64px_w.png"  DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Employee"       UriSource="Images\menu_employee_64px.png"   DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Employee_w"     UriSource="Images\menu_employee_64px_w.png" DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_System"         UriSource="Images\menu_system_64px.png"     DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_System_w"       UriSource="Images\menu_system_64px_w.png"   DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Search"         UriSource="Images\search_64px.png"          DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Search_w"       UriSource="Images\search_64px_w.png"        DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Edit"           UriSource="Images\edit_64px.png"            DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Folder"         UriSource="Images\folder_64px.png"          DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Folder_w"       UriSource="Images\folder_64px_w.png"        DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Plus"           UriSource="Images\plus_64px.png"            DecodePixelWidth="24"/>
+        <BitmapImage x:Key="Img_Plus_w"         UriSource="Images\plus_64px_w.png"          DecodePixelWidth="24"/>
         <!--#endregion-->
 
         <!--#region Colors-->
-        <SolidColorBrush x:Key="Color_DarkWhite" Color="#FAFAFB"/>
-        <SolidColorBrush x:Key="Color_White" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="Color_Gray" Color="#808080"/>
-        <SolidColorBrush x:Key="Color_DarkGray" Color="#3C3C3C"/>
-
-        <SolidColorBrush x:Key="Color_DeepdarkBlue" Color="#313647"/>
-        <SolidColorBrush x:Key="Color_DarkBlue" Color="#384992"/>
-        <SolidColorBrush x:Key="Color_Blue" Color="#3E51A3"/>
-        <SolidColorBrush x:Key="Color_LightBlue" Color="#6883D5"/>
-
         <SolidColorBrush x:Key="Color_Transparent" Color="Transparent"/>
-        <SolidColorBrush x:Key="Color_Grean" Color="#51B374"/>
-
-
-        <SolidColorBrush x:Key="TextBox_BorderBrush" Color="#808080"/>
-        <SolidColorBrush x:Key="TextBox_Background" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="TextBox_PlaceholderText" Color="#808080"/>
-        <SolidColorBrush x:Key="Menu_Foreground_Blue" Color="#6883D5"/>
-        <SolidColorBrush x:Key="Menu_Background_Blue" Color="#3E51A3"/>
-        <SolidColorBrush x:Key="Menu_Foreground_Selection" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="Menu_Background_Selection" Color="#384992"/>
-        <SolidColorBrush x:Key="Menu_Foreground_MouseOver" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="Menu_Background_MouseOver" Color="#6F93CE"/>
-        <SolidColorBrush x:Key="View_Background" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="Panel_Background" Color="#FAFAFB"/>
-        <SolidColorBrush x:Key="Button_Foreground_Transparent" Color="#3C3C3C"/>
-        <SolidColorBrush x:Key="Button_Background_Transparent" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button_Foreground_White" Color="#3C3C3C"/>
-        <SolidColorBrush x:Key="Button_Background_White" Color="#F3F4F6"/>
-        <SolidColorBrush x:Key="Button_Foreground_Blue" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="Button_Background_Blue" Color="#346ECD"/>
-        <SolidColorBrush x:Key="Button_Foreground_Grean" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="Button_Background_Grean" Color="#51B374"/>
-        <SolidColorBrush x:Key="Button_Foreground_MouseOver" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="Button_Background_MouseOver" Color="#6F93CE"/>
-        
+        <SolidColorBrush x:Key="Color_White"       Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Color_WhiteGray"   Color="#F8F8F8"/>
+        <SolidColorBrush x:Key="Color_LightGray"   Color="#EDEDED"/>
+        <SolidColorBrush x:Key="Color_Gray2"       Color="#CFCFCF"/>
+        <SolidColorBrush x:Key="Color_Gray"        Color="#808080"/>
+        <SolidColorBrush x:Key="Color_ThinGray"    Color="#4A4A4A"/>
+        <SolidColorBrush x:Key="Color_ThinBlack"   Color="#202020"/>
+        <SolidColorBrush x:Key="Color_ThinBlack2"  Color="#DADADA"/>
+        <SolidColorBrush x:Key="Color_Black"       Color="#000000"/>
+        <SolidColorBrush x:Key="Color_LightBlue"   Color="#6F93CE"/>
+        <SolidColorBrush x:Key="Color_Blue"        Color="#384992"/>
         <!--#endregion-->
 
         <!-- Display # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # -->
 
+        <!--#region 리스트 컬럼 스타일-->
+        <Style TargetType="{x:Type Label}" x:Key="Lable_Column">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#4A4A4A"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Gray"/>
+                    <!--<Setter Property="Foreground" Value="White"/>-->
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--#endregion-->
+
+        <!--#region 배너 -->
+        <!-- Title: 자유게시판, 소통의 공간, 함께나누는 이야기 등 -->
+        <!-- Description: 짧은 설명: 생각을 자유롭게 나누세요, 일상, 고민, 유머 모두 환영-->
+        <!-- -->
+        <ControlTemplate TargetType="{x:Type Control}" x:Key="BannerCard">
+            <Border Background="{StaticResource Color_ThinGray}" 
+                    BorderBrush="Gray" BorderThickness="1" CornerRadius="8">
+                
+                <TextBlock Text="{Binding Title}" 
+                           FontSize="32" FontWeight="Bold" 
+                           Foreground="{StaticResource Color_WhiteGray}" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+        <!--#endregion-->
+
+        <!--#region 대시보드 카드 -->
+        <ControlTemplate TargetType="{x:Type Control}" x:Key="DashboardCard">
+            <Border x:Name="Bor" CornerRadius="8" Width="218" BorderBrush="{StaticResource Color_LightGray}" BorderThickness="0.5">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,2" EndPoint="1,0">
+                        <GradientStop Color="#808080" Offset="0.35"/>
+                        <GradientStop Color="#4A4A4A" Offset="0.35"/>
+                        <GradientStop Color="#4A4A4A" Offset="0.93"/>
+                        <GradientStop Color="#808080" Offset="0.93"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Image     Grid.Column="0" Grid.Row="0" Source="{TemplateBinding Tag}" Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Title}"       Foreground="{StaticResource Color_White}"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Content}"     Foreground="{StaticResource Color_White}" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Description}" Foreground="{StaticResource Color_White}"/>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <!--#endregion-->
+        
         <!--#region Line Point Progress Bar-->
         <Style TargetType="{x:Type ProgressBar}" x:Key="LinePoint_ProgressBar">
             <Setter Property="Template">
@@ -127,81 +201,81 @@
 
 
         <!-- Button # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # -->
-        
-        <!--#region Borderless Text Button-->
-        <ControlTemplate TargetType="{x:Type Button}" x:Key="Borderless_TextButton">
-            <Border x:Name="Border" Background="{StaticResource Button_Background_White}" 
-                    CornerRadius="4" Cursor="Hand">
-                <ContentPresenter x:Name="Button_Text" Content="{TemplateBinding Content}"
-                                  HorizontalAlignment="Center" VerticalAlignment="Center"
-                                  TextBlock.Foreground="{StaticResource Button_Foreground_White}"/>
-            </Border>
+
+        <!--#region  기본 버튼 -->
+        <ControlTemplate TargetType="{x:Type Button}" x:Key="BaseButton">
+            <Grid Cursor="Hand">
+                <Border x:Name="Border" CornerRadius="4" Background="{StaticResource Color_ThinGray}"/>
+                <Image x:Name="Img" Source="{TemplateBinding Tag}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Width="20" Height="20" Margin="8,0,0,0" Visibility="Visible"/>
+                <ContentPresenter x:Name="Button_Text" Content="{TemplateBinding Content}" 
+                                  HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                  TextBlock.Foreground="{StaticResource Color_White}"/>
+            </Grid>
+
             <ControlTemplate.Triggers>
-                <Trigger Property="Tag" Value="0">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_Blue}"/>
-                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_Blue}"/>
-                </Trigger>
-
-                <Trigger Property="Tag" Value="1">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_Grean}"/>
-                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_Grean}"/>
-                </Trigger>
-
-                <Trigger Property="Tag" Value="3">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_Transparent}"/>
-                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_Transparent}"/>
-                </Trigger>
-
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Button_Background_MouseOver}"/>
-                    <Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_MouseOver}"/>
+                    <Setter TargetName="Border" Property="Background" Value="Gray"/>
+                </Trigger>
+                <Trigger Property="Tag" Value="{x:Null}">
+                    <Setter TargetName="Img" Property="Visibility" Value="Collapsed"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Template" Value="{StaticResource BaseButton}"/>
+        </Style>
         <!--#endregion-->
 
-        <!--#region Borderless Icon Button-->
+        <!--#region 아이콘 버튼 -->
         <ControlTemplate TargetType="{x:Type Button}" x:Key="IconButton">
-            <Border x:Name="Border" Background="{StaticResource Color_Transparent}" 
-                    Cursor="Hand">
-                <Grid>
-                    <!-- 아이콘 -->
-                    <Image Source="{TemplateBinding Tag}" 
-                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                    <!--<ContentPresenter x:Name="Button_Text" Content="{TemplateBinding Content}"
-                                      HorizontalAlignment="Center" VerticalAlignment="Center"
-                                      TextBlock.Foreground="{StaticResource Button_Foreground_White}"/>-->
-                </Grid>
+            <Border x:Name="Border" Background="{StaticResource Color_Transparent}" Cursor="Hand">
+                <Image Source="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Color_LightBlue}"/>
-                    <!--<Setter TargetName="Button_Text" Property="TextBlock.Foreground" Value="{StaticResource Button_Foreground_MouseOver}"/>-->
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Color_ThinGray}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <!--#endregion-->
 
-        <!--#region Menu Button(Radio Button)-->
+        <!--#region 메인 메뉴 버튼 Menu Button(Radio Button)-->
         <ControlTemplate TargetType="{x:Type RadioButton}" x:Key="MenuButton">
-            <Border x:Name="Border" Height="40" Cursor="Hand" Background="{StaticResource Menu_Background_Blue}">
-                <StackPanel Orientation="Horizontal">
-                    <ContentPresenter x:Name="Button_Text" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                      TextBlock.Foreground="{StaticResource Menu_Foreground_Blue}"/>
+            <Border x:Name="Border" Height="90" Cursor="Hand" Background="{StaticResource Color_Transparent}"
+                    CornerRadius="6" Margin="2,0,2,0">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="8">
+                    <Image Source="{TemplateBinding Tag}" Width="34" Height="34" Margin="0,0,0,8"/>
+                    <ContentPresenter x:Name="ButtonText" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                      TextBlock.FontSize="14" TextBlock.FontFamily="고도 M" TextBlock.Foreground="{StaticResource Color_White}"/>
                 </StackPanel>
             </Border>
 
             <ControlTemplate.Triggers>
+                <!-- 선택함 -->
                 <Trigger Property="IsChecked" Value="True">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Menu_Background_Selection}"/>
-                    <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Menu_Foreground_Selection}"/>
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Color_ThinGray}"/>
+                    <Setter TargetName="ButtonText" Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
                 </Trigger>
 
+                <!-- 마우스 -->
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Menu_Background_MouseOver}"/>
-                    <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Menu_Foreground_MouseOver}"/>
+                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Color_LightGray}"/>
+                    <Setter TargetName="ButtonText" Property="TextBlock.Foreground" Value="{StaticResource Color_Black}"/>
                 </Trigger>
+                
+                <!-- 선택 + 마우스 -->
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsChecked" Value="True"/>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter TargetName="Border" Property="Background" Value="{StaticResource Color_ThinGray}"/>
+                        <Setter TargetName="ButtonText" Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <!--#endregion-->
@@ -254,6 +328,45 @@
         </ControlTemplate>
         <!--#endregion-->
 
+        <!--<RadioButton GroupName="PageButtons" Width="30" Margin="2" Cursor="Hand">
+            <RadioButton.Style>
+                <Style TargetType="{x:Type RadioButton}">
+                    <Setter Property="Content" Value="{Binding}"/>
+                    <Setter Property="Template" Value="{StaticResource RadioTemplate}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="-1">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                                        <Border Width="30" Height="24" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" CornerRadius="3">
+                                            <Grid>
+                                                <TextBlock Text="..." HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="Gray"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </RadioButton.Style>
+
+            <RadioButton.IsChecked>
+                <MultiBinding Converter="{StaticResource PageNumberToIsCheckedMultiConverter}" Mode="OneWay">
+                    <Binding Path="DataContext.CurrentPage" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                    <Binding/>
+                </MultiBinding>
+            </RadioButton.IsChecked>
+
+            <RadioButton.Command>
+                <Binding Path="DataContext.GoToPageCommand" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+            </RadioButton.Command>
+
+            <RadioButton.CommandParameter>
+                <Binding/>
+            </RadioButton.CommandParameter>
+        </RadioButton>-->
+
 
         <!-- Text Box # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # -->
         
@@ -267,7 +380,8 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- 아이콘 -->
-                    <Image Source="{TemplateBinding Tag}" Width="16" Height="16" Margin="8,0,4,0" VerticalAlignment="Center"/>
+                    <Image Source="{TemplateBinding Tag}" Width="20" Height="20" Margin="8,0,4,0" VerticalAlignment="Center"
+                           RenderOptions.BitmapScalingMode="Fant"/>
 
                     <!-- 입력 영역 -->
                     <Grid Grid.Column="1">
@@ -305,7 +419,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- 아이콘 -->
-                    <Image Source="{TemplateBinding Tag}" Width="16" Height="16" Margin="8,0,4,0" VerticalAlignment="Center"/>
+                    <Image Source="{TemplateBinding Tag}" Width="20" Height="20" Margin="8,0,4,0" VerticalAlignment="Center"/>
 
                     <!-- 입력 영역 + Placeholder -->
                     <Grid Grid.Column="1">
@@ -336,66 +450,148 @@
         <!-- List View # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # -->
 
         <!--#region Tree View-->
-        <Style TargetType="{x:Type TreeViewItem}" x:Key="TreeView">
-            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Style TargetType="{x:Type TreeView}" x:Key="CategoryView">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
-                        <StackPanel Orientation="Vertical">
-                            <Grid x:Name="Parent" Height="40" Cursor="Hand" Background="{StaticResource Menu_Background_Blue}">
+                    <ControlTemplate TargetType="{x:Type TreeView}">
+                        <Border BorderBrush="Gray" BorderThickness="0.5" Padding="0,0,0.5,0">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="17"/>
                                 </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="53"/>
+                                </Grid.RowDefinitions>
 
-                                <Image Grid.Column="0" x:Name="MenuIcon" Source="{Binding Icon}" Width="20" Height="20"/>
-                                <ContentPresenter x:Name="Button_Text" Grid.Column="1" ContentSource="Header" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                  TextBlock.Foreground="{StaticResource Menu_Foreground_Blue}"/>
+                                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Source="{StaticResource Img_Folder}" Width="23" Height="23" Margin="0,0,4,0"/>
+                                    <TextBox Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}"
+                                             Width="130" Height="23" Margin="0,0,8,0"/>
+                                    <Button Tag="{StaticResource Img_Plus_w}"
+                                            Width="36" Height="23"/>
+                                </StackPanel>
 
-                                <Image Grid.Column="2" x:Name="Expander" Source="/Resource_Icon/arrow_down_24px.png" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <!--<Label Grid.Column="0" Grid.Row="0" Content="이름" Style="{StaticResource Lable_Column}"/>-->
+                                <Line  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Bottom" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
+
+                                <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalScrollBarVisibility="Visible"
+                                              Background="{StaticResource Color_White}">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+
+                                <Grid Grid.Column="0"  Grid.ColumnSpan="9" Grid.Row="2">
+                                    <Line VerticalAlignment="Top" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
+
+                                    <StackPanel Grid.Column="0" Grid.ColumnSpan="9" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
-
-                            <ItemsPresenter x:Name="Child" Margin="0,0,0,0" Visibility="Collapsed"/>
-                        </StackPanel>
-
-                        <ControlTemplate.Triggers>
-                            <!-- 루트 메뉴가 아니면 아이콘 삭제 -->
-                            <DataTrigger Binding="{Binding Depth}" Value="1">
-                                <Setter TargetName="MenuIcon" Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-
-                            <!-- 자식 요소가 있으면 하위식별 표시 -->
-                            <Trigger Property="HasItems" Value="True">
-                                <Setter TargetName="Expander" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-
-                            <!-- 자식 요소를 펼치기 -->
-                            <Trigger Property="IsExpanded" Value="True">
-                                <Setter TargetName="Expander" Property="Source" Value="/Resource_Icon/arrow_up_24px.png"/>
-                                <Setter TargetName="Child" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-
-                            <!-- 선택하면 패널 색상 변경 -->
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Parent" Property="Background" Value="{StaticResource Menu_Background_Selection}"/>
-                                <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Menu_Foreground_Selection}"/>
-                            </Trigger>
-
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Parent" Property="Background" Value="{StaticResource Menu_Background_MouseOver}"/>
-                                <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Menu_Foreground_MouseOver}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
+                        </Border>
                     </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <HierarchicalDataTemplate ItemsSource="{Binding SubCategory}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </HierarchicalDataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                                    <StackPanel Orientation="Vertical">
+                                        <Border x:Name="bor" Height="30" Cursor="Hand" Background="{StaticResource Color_White}">
+                                            <Grid x:Name="Parent">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="20"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Image Grid.Column="0" x:Name="Image" Source="{Binding Image_Path}" Width="20" Height="20"/>
+                                                <ContentPresenter x:Name="Button_Text" Grid.Column="1" ContentSource="Header" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                      TextBlock.Foreground="{StaticResource Color_Black}"/>
+                                                <Image Grid.Column="2" x:Name="Expander" Source="{StaticResource Img_Post_ArrowDown}" Visibility="Collapsed" 
+                                                       Width="18" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            </Grid>
+                                        </Border>
+                                        <ItemsPresenter x:Name="Child" Margin="10,0,0,0" Visibility="Collapsed"/>
+                                    </StackPanel>
+
+                                    <ControlTemplate.Triggers>
+                                        <!-- 부모 요소 -->
+                                        <DataTrigger Binding="{Binding Parent_Id}" Value="{x:Null}">
+                                            <Setter TargetName="Image" Property="Source" Value="{StaticResource Img_Folder_w}"/>
+                                            <Setter TargetName="bor" Property="Background" Value="{StaticResource Color_ThinGray}"/>
+                                            <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
+                                        </DataTrigger>
+
+                                        <!-- 자식 요소가 있으면 하위식별 표시 -->
+                                        <Trigger Property="HasItems" Value="True">
+                                            <Setter TargetName="Expander" Property="Visibility" Value="Visible"/>
+                                        </Trigger>
+
+                                        <!-- 자식 요소를 펼치기 -->
+                                        <Trigger Property="IsExpanded" Value="True">
+                                            <Setter TargetName="Expander" Property="Source" Value="{StaticResource Img_Post_ArrowUp}"/>
+                                            <Setter TargetName="Child" Property="Visibility" Value="Visible"/>
+                                        </Trigger>
+
+                                        <!-- 선택 -->
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Parent" Property="Background" Value="{StaticResource Color_ThinGray}"/>
+                                            <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
+                                        </Trigger>
+
+                                        <!-- 마우스 -->
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Parent" Property="Background" Value="Gray"/>
+                                            <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
                 </Setter.Value>
             </Setter>
         </Style>
         <!--#endregion-->
 
+        <ControlTemplate TargetType="{x:Type Control}" x:Key="CategorySearch">
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBox Width="156" Height="30" 
+                         Template="{StaticResource Icon_TextBox}" ToolTip="{TemplateBinding ToolTip}" Margin="0,0,4,0"
+                         Tag="{StaticResource Img_Edit}"/>
+                <Button Content="검색" Width="80" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top"
+                        Tag="{StaticResource Img_Search_w}"/>
+            </StackPanel>
+        </ControlTemplate>
 
+        <ControlTemplate TargetType="{x:Type Control}" x:Key="ListSearch">
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <ComboBox Width="120" Height="30" Margin="0,0,4,0"/>
+                <TextBox Width="300" Height="30" 
+                         Template="{StaticResource Icon_TextBox}" ToolTip="{TemplateBinding ToolTip}" Margin="0,0,4,0"
+                         Tag="{StaticResource Img_Edit}"/>
+                <Button Content="검색" Width="80" Height="30"
+                        Tag="{StaticResource Img_Search_w}"/>
+            </StackPanel>
+        </ControlTemplate>
+  
         <!--#region View Maping-->
+        <DataTemplate DataType="{x:Type vm:VM_Home}">
+            <v:V_Home/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:VM_Login}">
             <v:V_Login/>
         </DataTemplate>
@@ -419,6 +615,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:VM_System}">
             <v:V_System/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VM_Test}">
+            <v:V_Test/>
         </DataTemplate>
         <!--#endregion-->
 

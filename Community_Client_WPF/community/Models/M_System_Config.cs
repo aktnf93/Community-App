@@ -9,7 +9,7 @@ namespace community.Models
     {
         private int id;
         private string name;
-        private int value_number;
+        private int? value_number;
         private string value_text;
         private string description;
         private DateTime created_at;
@@ -30,7 +30,7 @@ namespace community.Models
         }
 
         [DataMember(Name = "value_number")]
-        public int Value_Number
+        public int? Value_Number
         {
             get => this.value_number;
             set => base.OnPropertyChanged(ref this.value_number, value);

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyShop - 쇼핑몰 메인</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    /* 헤더 */
+    header {
+      background-color: #0078d7;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* 배너 */
+    .banner {
+      background: url('https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=1500&q=80') no-repeat center/cover;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+    .banner h2 {
+      font-size: 36px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    /* 제품 목록 */
+    .products {
+      max-width: 1200px;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+    .product {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    .product img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .product-info {
+      padding: 15px;
+    }
+    .product-info h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    .product-info p {
+      margin: 0 0 10px;
+      color: #777;
+    }
+    .price {
+      color: #0078d7;
+      font-weight: 700;
+    }
+    .buy-btn {
+      display: block;
+      width: 100%;
+      background: #0078d7;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .buy-btn:hover {
+      background: #005a9e;
+    }
+
+    /* 푸터 */
+    footer {
+      background: #222;
+      color: #bbb;
+      padding: 30px 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🛍️ MyShop</h1>
+    <nav>
+      <a href="#">홈</a>
+      <a href="#">카테고리</a>
+      <a href="#">이벤트</a>
+      <a href="#">로그인</a>
+      <a href="#">회원가입</a>
+    </nav>
+  </header>
+
+  <div class="banner">
+    <h2>지금 가장 인기 있는 상품을 만나보세요!</h2>
+  </div>
+
+  <section class="products">
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=500&q=60" alt="Product 1">
+      <div class="product-info">
+        <h3>무선 헤드폰</h3>
+        <p>노이즈 캔슬링 지원 / 24시간 배터리</p>
+        <div class="price">₩129,000</div>
+        <a href="#" class="buy-btn">구매하기</a>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=500&q=60" alt="Product 2">
+      <div class="product-info">
+        <h3>스마트 워치</h3>
+        <p>건강 모니터링 / 방수 기능</p>
+        <div class="price">₩89,000</div>
+        <a href="#" class="buy-btn">구매하기</a>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1567016547312-16da24e0b37d?auto=format&fit=crop&w=500&q=60" alt="Product 3">
+      <div class="product-info">
+        <h3>게이밍 마우스</h3>
+        <p>RGB 조명 / 인체공학 디자인</p>
+        <div class="price">₩59,000</div>
+        <a href="#" class="buy-btn">구매하기</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 MyShop. All rights reserved.</p>
+    <p>고객센터: 1234-5678 | 이메일: support@myshop.co.kr</p>
+  </footer>
+</body>
+</html>

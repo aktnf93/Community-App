@@ -1,26 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 
 namespace community.ViewModels
 {
     public class VM_MainViewModel : ViewModelBase
     {
-        private VM_Login vm_login;
-        private VM_Post vm_post;
-        private VM_Chat vm_chat;
-        private VM_Project vm_project;
-        private VM_Customer vm_customer;
-        private VM_Product vm_product;
-        private VM_Employee vm_employee;
-        private VM_System vm_system;
-        public ViewModelBase currentViewModel;
-        private MenuType menuSelected = MenuType.Login;
+        private Dictionary<int, ViewModelBase> viewModels = new Dictionary<int, ViewModelBase>()
+        {
+            { 0, new VM_Login() }, // 로그인
+            { 1, new VM_Home() }, // 홈
+            { 2, new VM_Post() }, // 게시글
+            { 3, new VM_Chat() }, // 채팅방
+            { 4, new VM_Project() }, // 프로젝트 관리
+            { 5, new VM_Customer() }, // 고객 관리
+            { 6, new VM_Product() }, // 제품 관리
+            { 7, new VM_Employee() }, // 직원 관리
+            { 8, new VM_System() }, // 시스템
+            { 9, new VM_Test() }    // TEST
+        };
+
+        private ViewModelBase currentViewModel = null;
+        private int menuSelected = 0;
 
         public ViewModelBase CurrentViewModel
         {
@@ -28,73 +28,41 @@ namespace community.ViewModels
             set => base.OnPropertyChanged(ref this.currentViewModel, value);
         }
         
-        public MenuType MenuSelected
+        public int MenuSelected
         {
             get => this.menuSelected;
             set
             {
                 base.OnPropertyChanged(ref this.menuSelected, value);
 
-                switch (this.menuSelected)
+                if (viewModels.TryGetValue(value, out var vm))
                 {
-                    default:
-                    case MenuType.Login:
-                        this.CurrentViewModel = this.vm_login;
-                        break;
-
-                    case MenuType.Post:
-                        this.CurrentViewModel = this.vm_post;
-                        break;
-
-                    case MenuType.Chat:
-                        this.CurrentViewModel = this.vm_chat;
-                        break;
-
-                    case MenuType.Project:
-                        this.CurrentViewModel = this.vm_project;
-                        break;
-
-                    case MenuType.Customer:
-                        this.CurrentViewModel = this.vm_customer;
-                        break;
-
-                    case MenuType.Product:
-                        this.CurrentViewModel = this.vm_product;
-                        break;
-
-                    case MenuType.Employee:
-                        this.CurrentViewModel = this.vm_employee;
-                        break;
-
-                    case MenuType.System:
-                        this.CurrentViewModel = this.vm_system;
-                        break;
+                    this.CurrentViewModel = vm;
+                }
+                else
+                {
+                    this.CurrentViewModel = null;
+                    MessageBox.Show($"메뉴화면 코드 에러 \"{value}\"", "메뉴화면 에러", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
 
         public VM_MainViewModel()
         {
-            this.vm_login = new VM_Login();
-            this.vm_login.LoginEvent += VM_Login_LoginEvent;
-
-            this.CurrentViewModel = this.vm_login;
-        }
-
-        private void VM_Login_LoginEvent(bool isLogin)
-        {
-            if (isLogin)
+            var login = this.viewModels[0] as VM_Login;
+            login.LoginEvent += (loginUser) =>
             {
-                vm_chat = new VM_Chat();
-                vm_post = new VM_Post();
-                vm_project = new VM_Project();
-                vm_customer = new VM_Customer();
-                vm_product = new VM_Product();
-                vm_employee = new VM_Employee();
-                vm_system = new VM_System();
+                CurrentUser = loginUser;
 
-                MenuSelected = MenuType.Post;
-            }
+                foreach (var vm in viewModels)
+                {
+                    vm.Value.CurrentUser = loginUser;
+                }
+
+                MenuSelected = 1; // 로그인 시 Home 화면으로.
+            };
+
+            this.MenuSelected = 0; // 프로그램 초기 실행 시 Login 화면으로.
         }
     }
 }

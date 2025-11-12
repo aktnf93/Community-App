@@ -12,39 +12,45 @@ namespace community.ViewModels
 {
     public class VM_Login : ViewModelBase
     {
-        public event ActionHandler<bool> LoginEvent;
+        public event ActionHandler<M_Employee> LoginEvent;
 
         public M_Employee LoginUser { get; set; } = new M_Employee();
+
+        public M_Employee SignupUser { get; set; } = new M_Employee();
+
+        private Visibility signupVisibility = Visibility.Collapsed;
+        public Visibility SignupVisibility
+        {
+            get => this.signupVisibility;
+            set => base.OnPropertyChanged(ref this.signupVisibility, value);
+        }
 
         private void Loaded()
         {
             Console.WriteLine("VM_Login Loaded");
+            this.LoginUser = new M_Employee();
+            this.SignupUser = new M_Employee();
         }
 
         private void OnLogin()
         {
-            bool result = false;
+            var login = this.LoginUser;
 
             try
             {
-                // var u = Server_REST_API.Instance.PostUser(this.LoginUser.Login_Id, this.LoginUser.Login_Pw);
-
                 Dictionary<string, dynamic> param = new Dictionary<string, dynamic>();
-                param.Add("login_id", this.LoginUser.Login_Id);
-                param.Add("login_pw", this.LoginUser.Login_Pw);
+                param.Add("login_id", login.Login_Id);
+                param.Add("login_pw", login.Login_Pw);
 
+                var user = Server.API.HttpSend<M_Employee[]>("/employee/list/select", Server.Method.POST, param);
 
-                var rows = Server.API.HttpSendAsync<Dictionary<string, dynamic>, M_Employee[]>("/employee/list/select", Server.HttpMethod.POST, param);
-
-                if (rows.Length > 0)
+                if (user.Length > 0)
                 {
-                    var u = rows[0];
                     // 로그인 성공
-                    this.LoginUser.Id = u.Id;
-                    this.LoginUser.Name = u.Name;
-                    this.LoginUser.Login_Id = string.Empty;
-                    this.LoginUser.Login_Pw = string.Empty;
-                    result = true;
+                    login.Login_Id = string.Empty;
+                    login.Login_Pw = string.Empty;
+
+                    this.LoginEvent?.Invoke(user[0]);
                 }
                 else
                 {
@@ -57,28 +63,73 @@ namespace community.ViewModels
                 MessageBox.Show(ex.Message, "로그인 실패",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            this.LoginEvent?.Invoke(result);
         }
 
         private void OnSignUp()
         {
             MessageBox.Show("회원가입 페이지로 이동합니다.", "회원가입", MessageBoxButton.OK, MessageBoxImage.Information);
+            SignupVisibility = Visibility.Visible;
         }
 
-        private void OnForgotUsername()
+        private void OnSignUpCommit()
         {
-            MessageBox.Show("아이디 찾기 페이지로 이동합니다.", "아이디 찾기", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+            // 회원가입 개시.
+            var u = SignupUser;
 
-        private void OnForgotPassword()
-        {
-            MessageBox.Show("비밀번호 찾기 페이지로 이동합니다.", "비밀번호 찾기", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+            // 로그인 ID 중복 검사.
+            if (u.Login_Id != "")
+            {
+                object id = new { login_id = u.Login_Id };
+                M_Employee e = Server.API.HttpSend<M_Employee>("/employee/list/select", Server.Method.POST, id);
 
-        private void OnLogin_Kakao()
-        {
-            MessageBox.Show("카카오 로그인 페이지로 이동합니다.", "카카오 로그인", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (e != null)
+                {
+                    MessageBox.Show("해당 로그인 ID는 사용하실 수 없습니다.", "회원가입 오류");
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("로그인 ID를 입력해주세요.", "회원가입 오류");
+                return;
+            }
+
+            // 패스워드 일치 검사.
+            if (u.Login_Id != "")
+            {
+                if (u.Login_Pw != u.Login_Pw_Check)
+                {
+                    MessageBox.Show("비밀번호가 일치하지 않습니다.\n다시 작성해주세요.", "회원가입 오류");
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("로그인 비밀번호를 입력해주세요.", "회원가입 오류");
+                return;
+            }
+
+            // 이름 공백 검사.
+            if (u.Name == "")
+            {
+                MessageBox.Show("이름을 입력해주세요.", "회원가입 오류");
+                return;
+            }
+
+            M_DB_Result d = Server.API.HttpSend<M_DB_Result>("/employee/list/insert", Server.Method.POST, u);
+            if (d != null && d.InsertId > 0)
+            {
+                this.SignupVisibility = Visibility.Collapsed;
+                this.LoginUser.Login_Id = u.Login_Id;
+                this.LoginUser.Login_Pw = u.Login_Pw;
+                this.OnLogin();
+                return;
+            }
+            else
+            {
+                MessageBox.Show("알 수 없는 오류가 발생했습니다.\n관리자에게 문의하여 주세요.", "회원가입 오류");
+                return;
+            }
         }
     }
 }

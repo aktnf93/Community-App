@@ -5,9 +5,9 @@
 
 /**
  * example: " const obj = pick(req.body, ['id', 'name', 'remark']); "
- * @param {Object} src - req.body | ex: { id, age }
- * @param {string[]} keys - columns | ex: ['id']
- * @returns {Object} - object | ex: { id }
+ * @param {Object} src - 받은 항목: req.body | ex: { id, age }
+ * @param {string[]} keys - 가져올 항목: columns | ex: ['id']
+ * @returns {Object} - 필터링된 항목: object | ex: { id }
  */
 const pick = (src, keys) => {
     return Object.fromEntries(

@@ -8,9 +8,13 @@ namespace community.Models
     public class M_Post : Notify
     {
         private int id;
+        private int post_category_id;
+        private string post_category_name;
         private int employee_id;
+        private string employee_name;
         private string title;
         private string content;
+        private int view_count;
         private int comments;
         private DateTime? comment_at;
         private DateTime created_at;
@@ -24,11 +28,32 @@ namespace community.Models
             set => base.OnPropertyChanged(ref this.id, value);
         }
 
+        [DataMember(Name = "post_category_id")]
+        public int Post_Category_Id
+        {
+            get => this.post_category_id;
+            set => base.OnPropertyChanged(ref this.post_category_id, value);
+        }
+
+        [DataMember(Name = "post_category_name")]
+        public string Post_Category_Name
+        {
+            get => this.post_category_name;
+            set => base.OnPropertyChanged(ref this.post_category_name, value);
+        }
+
         [DataMember(Name = "employee_id")]
         public int Employee_Id
         {
             get => this.employee_id;
             set => base.OnPropertyChanged(ref this.employee_id, value);
+        }
+
+        [DataMember(Name = "employee_name")]
+        public string Employee_Name
+        {
+            get => this.employee_name;
+            set => base.OnPropertyChanged(ref this.employee_name, value);
         }
 
         [DataMember(Name = "title")]
@@ -43,6 +68,13 @@ namespace community.Models
         {
             get => this.content;
             set => base.OnPropertyChanged(ref this.content, value);
+        }
+
+        [DataMember(Name = "view_count")]
+        public int View_Count
+        {
+            get => this.view_count;
+            set => base.OnPropertyChanged(ref this.view_count, value);
         }
 
         [DataMember(Name = "comments")]

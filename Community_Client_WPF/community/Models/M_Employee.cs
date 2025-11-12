@@ -25,8 +25,9 @@ namespace community.Models
         private int? position_id;
         private int? role_id;
         private int? privilege_id;
-        private string login_id = "Admin987";
-        private string login_pw = "Admin987";
+        private string login_id = string.Empty; // = "Admin987";
+        private string login_pw = string.Empty; // = "Admin987";
+        private string login_pw_check = string.Empty; // = "Admin987";
         private string is_active;
         private DateTime created_at;
         private DateTime updated_at;
@@ -99,7 +100,19 @@ namespace community.Models
         public string Image_Path
         {
             get => this.image_path;
-            set => base.OnPropertyChanged(ref this.image_path, value);
+            set
+            {
+                base.OnPropertyChanged(ref this.image_path, value);
+                base.OnPropertyChanged(nameof(Image_FullPath));
+            }
+        }
+
+        /// <summary>
+        /// 화면 바인딩
+        /// </summary>
+        public string Image_FullPath
+        {
+            get => Server.API.BaseUrl + this.Image_Path;
         }
 
         [DataMember(Name = "status")]
@@ -170,6 +183,15 @@ namespace community.Models
         {
             get => this.login_pw;
             set => base.OnPropertyChanged(ref this.login_pw, value);
+        }
+
+        /// <summary>
+        /// 화면 회원가입 시 비밀번호 체크용
+        /// </summary>
+        public string Login_Pw_Check
+        {
+            get => this.login_pw_check;
+            set => base.OnPropertyChanged(ref this.login_pw_check, value);
         }
 
         [DataMember(Name = "is_active")]

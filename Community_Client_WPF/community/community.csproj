@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\Handlers.cs" />
+    <Compile Include="Models\M_Card.cs" />
     <Compile Include="Models\M_Chat_Message.cs" />
     <Compile Include="Models\M_Chat_Member.cs" />
     <Compile Include="Models\M_Chat_Room.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Models\M_Organization_Rank.cs" />
     <Compile Include="Models\M_Organization_Role.cs" />
     <Compile Include="Models\M_Organization_Team.cs" />
+    <Compile Include="Models\M_Post_Category.cs" />
     <Compile Include="Models\M_Product.cs" />
     <Compile Include="Models\M_Product_Inventory.cs" />
     <Compile Include="Models\M_Project_Member.cs" />
@@ -94,8 +96,16 @@
     <Compile Include="Models\M_System_Config.cs" />
     <Compile Include="Models\M_Post_Comment.cs" />
     <Compile Include="Models\M_System_Log.cs" />
+    <Compile Include="ViewModels\VM_Home.cs" />
+    <Compile Include="ViewModels\VM_Test.cs" />
     <Compile Include="Views\MethodBinding.cs" />
     <Compile Include="Common\Notify.cs" />
+    <Compile Include="Views\V_Home.xaml.cs">
+      <DependentUpon>V_Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\V_Test.xaml.cs">
+      <DependentUpon>V_Test.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View_Controls\PasswordBoxHelper.cs" />
     <Compile Include="Common\Server.cs" />
     <Compile Include="Views\ViewCacheHost.cs" />
@@ -134,9 +144,6 @@
     <Compile Include="Views\V_Login.xaml.cs">
       <DependentUpon>V_Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_Board_Detail.xaml.cs">
-      <DependentUpon>V_Board_Detail.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\V_Project.xaml.cs">
       <DependentUpon>V_Project.xaml</DependentUpon>
     </Compile>
@@ -151,6 +158,10 @@
       <DependentUpon>U_ProgressBar.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\V_Customer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\V_Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,15 +197,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_Board_Detail.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\V_Project.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\V_System.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\V_Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -235,50 +246,121 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource_Icon\icon_user1.png" />
+    <Resource Include="Images\icon_logout_24px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource_Icon\delete.png" />
+    <Resource Include="Images\add_user_128px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource_Icon\edit.png" />
+    <Resource Include="Images\arrow_down_24px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource_Icon\help.png" />
+    <Resource Include="Images\arrow_up_24px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource_Icon\info.png" />
+    <Resource Include="Images\edit_64px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource_Icon\info2.png" />
+    <Resource Include="Images\folder_64px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource_Icon\ok.png" />
+    <Resource Include="Images\icon_password_24px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource_Icon\plus.png" />
+    <Resource Include="Images\icon_username_24px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource_Icon\employee_man.png" />
-    <Resource Include="Resource_Icon\employee_man_head.png" />
-    <Resource Include="Resource_Icon\employee_woman_head.png" />
+    <Resource Include="Images\menu_chat_64px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Login\image_login.png" />
+    <Resource Include="Images\menu_chat_64px_w.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource_Icon\arrow_down_24px.png" />
-    <Resource Include="Resource_Icon\arrow_up_24px.png" />
+    <Resource Include="Images\menu_customer_64px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Login\icon_logout_24px.png" />
-    <Resource Include="Images\Login\icon_password_24px.png" />
-    <Resource Include="Images\Login\icon_username_24px.png" />
+    <Resource Include="Images\menu_customer_64px_w.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Window\close.png" />
-    <Resource Include="Images\Window\maximize.png" />
-    <Resource Include="Images\Window\minimize.png" />
+    <Resource Include="Images\menu_employee_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu_employee_64px_w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu_home_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu_home_64px_w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu_post_64px_w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu_post_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu_product_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu_product_64px_w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu_project_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu_project_64px_w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu_system_64px_w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\plus_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sh_electronic_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sh_electronic_logo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sh_electronic_logo3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sh_electronic_logo4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\sh_electronic_logo5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\window_close_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\window_min_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\window_max_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_64px_w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\menu_system_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\plus_64px_w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search_64px_w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_up_24px_w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_down_24px_w.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

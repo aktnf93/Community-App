@@ -56,8 +56,8 @@
         </TabControl>
         
         <!-- 리스트 목록  -->
-        <TabControl Grid.Column="2" Grid.Row="5">
-            <TabItem Header="게시글 목록" Height="28">
+        <TabControl Grid.Column="2" Grid.Row="5" SelectedIndex="{Binding ListTabIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <TabItem Header="게시글 목록" Height="28" TabIndex="0">
                 <ItemsControl ItemsSource="{Binding PostList}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -127,7 +127,7 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Gray" BorderThickness="0.5" Height="30" Cursor="Hand">
+                            <Border BorderBrush="Gray" BorderThickness="0.5" Height="30" Cursor="Hand" MouseLeftButtonDown="{local:MethodBinding PostSelect}">
                                 <Border.Style>
                                     <Style TargetType="{x:Type Border}">
                                         <Setter Property="Background" Value="White"/>
@@ -167,12 +167,68 @@
                 </ItemsControl>
             </TabItem>
 
-            <TabItem Header="신규 생성" Height="28">
-                
+            <TabItem Header="신규 생성" Height="28" TabIndex="1">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="제목"/>
+                    <TextBox Text="{Binding PostAdd.Title}" Width="500" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,30"/>
+                    <TextBlock Text="본문"/>
+                    <TextBox Text="{Binding PostAdd.Content}" Width="500" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button Click="{local:MethodBinding AddPost}" Content="생성" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,0,0"/>
+                </StackPanel>
             </TabItem>
 
-            <TabItem Header="편집" Height="28" Visibility="Collapsed">
+            <TabItem Header="{Binding PostSelected.Title}" Height="28" TabIndex="2">
+                <TabItem.Style>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ListTabIndex}" Value="2">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Style>
                 
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" Margin="0,0,30,0">
+                        <TextBlock Text="제목"/>
+                        <TextBox Text="{Binding PostSelected.Title}" Width="500" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,30"/>
+                        <TextBlock Text="본문"/>
+                        <TextBox Text="{Binding PostSelected.Content}" Width="500" Height="400" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button Click="{local:MethodBinding BtnPostEdit}" Content="수정" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="10" Orientation="Vertical">
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" Width="300" Height="420" Margin="0,0,0,0" 
+                                      BorderBrush="Gray" BorderThickness="0.5">
+                            
+                            <ItemsControl ItemsSource="{Binding PostSelected.CommentList}" 
+                                          BorderBrush="Gray" BorderThickness="0.5">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="5" Padding="10" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Employee_Name}" FontWeight="Bold" FontSize="14"/>
+                                                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                                                <TextBlock Text="{Binding Created_At}" FontSize="12" Foreground="Gray" HorizontalAlignment="Right"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                        <TextBox Text="{Binding CommentAdd.Content}"  Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
+                        <Button Content="댓글 추가" Click="{local:MethodBinding BtnCommentAdd}" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,0,0"/>
+                    </StackPanel>
+
+                </StackPanel>
             </TabItem>
         </TabControl>
 

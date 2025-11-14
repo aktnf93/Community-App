@@ -6,7 +6,7 @@ const db = require('../services/service_database');
 const tb_system_config = db.tb.system_config;
 router.post('/config/select', async (req, res, next) => {
     try {
-        const data = []; // db.pick(req.body, tb.get);
+        const data = []; // db.pick(req.body, [ 'column1', 'column2' ]);
         const result = await db.query(req, 'select * from tb_system_config where 1 = 1;', data);
         res.locals.dbResult = result;
         next();

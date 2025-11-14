@@ -167,7 +167,7 @@ const delete_query = async (req, tableName, data) => {
 const route_get = async (req, res, next, tb) => {
     try {
         const data = pick(req.body, tb.get);
-        const result = await select_query(req, tb.view, data);
+        const result = await select_query(req, tb.table, data);
         res.locals.dbResult = result;
         next();
     } 
@@ -247,7 +247,7 @@ const tables = {
         table: 'tb_chat_rooms',
         get: ['id'],
         post: ['name', 'description'],
-        put: ['id', 'is_deleted'],
+        put: ['id', 'name', 'description', 'is_deleted'],
         delete: ['id']
     },
 

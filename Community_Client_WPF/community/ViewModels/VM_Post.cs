@@ -26,17 +26,60 @@ namespace community.ViewModels
             new M_Card() { Title = "", Content = "", Description = "" },
         };
 
-        public ObservableCollection<M_Post_Category> CategoryList { get; set; }
-            = new ObservableCollection<M_Post_Category>();
+        private string _txtCategorySearch = string.Empty;
+        public string TxtCategorySearch
+        {
+            get => this._txtCategorySearch;
+            set => base.OnPropertyChanged(ref this._txtCategorySearch, value);
+        }
 
-        public ObservableCollection<M_Post> PostList { get; set; }
-            = new ObservableCollection<M_Post>();
+        private string _txtListSearch = string.Empty;
+        public string TxtListSearch
+        {
+            get => this._txtListSearch;
+            set => base.OnPropertyChanged(ref this._txtListSearch, value);
+        }
 
-        private M_Post postSelected = null;
+        public string[] CboListSearch { get; set; } = { "제목", "내용" };
+        public string CboListSearchSelected { get; set; } = "제목";
+
+        public ObservableCollection<M_Post_Category> CategoryList { get; set; } = new ObservableCollection<M_Post_Category>();
+
+        public M_Post_Category CategorySelected { get; set; } = null;
+
+        public ObservableCollection<M_Post> PostList { get; set; } = new ObservableCollection<M_Post>();
+
+        private M_Post _postAdd = new M_Post();
+        public M_Post PostAdd
+        {
+            get => this._postAdd;
+            set => base.OnPropertyChanged(ref this._postAdd, value);
+        }
+
+
+        private M_Post _postSelected = null;
         public M_Post PostSelected
         {
-            get => this.postSelected;
-            set => base.OnPropertyChanged(ref this.postSelected, value);
+            get => this._postSelected;
+            set => base.OnPropertyChanged(ref this._postSelected, value);
+        }
+
+        private M_Post_Comment _commentAdd = null;
+        public M_Post_Comment CommentAdd
+        {
+            get => this._commentAdd;
+            set => base.OnPropertyChanged(ref this._commentAdd, value);
+        }
+
+        private int _listTabIndex = 0;
+        public int ListTabIndex
+        {
+            get => this._listTabIndex;
+            set
+            {
+                // Console.WriteLine("Tab Index: {0} > {1}", _listTabIndex, value);
+                base.OnPropertyChanged(ref this._listTabIndex, value);
+            }
         }
 
         public VM_Post()
@@ -47,59 +90,104 @@ namespace community.ViewModels
         private void Loaded()
         {
             Console.WriteLine("VM_Board Loaded");
+        }
 
-            // category
-            var categorys = Server.API.HttpSend<M_Post_Category[]>("/post/category/select");
+        private void BtnCategorySearch()
+        {
+            var obj = new { name = this.TxtCategorySearch };
+            var categorys = Server.API.HttpSend<M_Post_Category[]>("/post/category/select", data: obj);
             this.CategoryList.Clear();
 
-            if (categorys is null)
+            if (categorys != null)
             {
-                return;
+                this.CategoryList = new ObservableCollection<M_Post_Category>(BuildTree(categorys));
+                base.OnPropertyChanged(nameof(CategoryList));
             }
+        }
+        
+        /// <summary>
+        /// 카테고리 불러오거나 선택할 때.
+        /// 게시글 추가하거나 수정할 때.
+        /// </summary>
+        private void Category_PostsBtnListSearch()
+        {
+            Dictionary<string, object> obj = new Dictionary<string, object>();
+            obj.Add("post_category_id", this.CategorySelected.Id);
 
-            this.CategoryList = new ObservableCollection<M_Post_Category>(BuildTree(categorys));
-            base.OnPropertyChanged(nameof(CategoryList));
-
-            if (this.CategoryList.Count > 0)
+            var posts = Server.API.HttpSend<M_Post[]>("/post/list/select", Server.Method.POST, obj);
+            this.PostList.Clear();
+            if (posts != null)
             {
-                this.CategoryList[0].IsSelected = true;
-
-                object obj = new { category_id = this.CategoryList[0].Id };
-                var posts = Server.API.HttpSend<M_Post[]>("/post/list/select", Server.Method.POST, obj);
-                this.PostList.Clear();
                 foreach (var p in posts)
                 {
+                    p.SelectedEvent += (item) =>
+                    {
+                        this.PostSelected = item;
+                        this.CommentAdd = new M_Post_Comment() { Post_Id = item.Id, Employee_Id = CurrentUser.Id };
+                        this.ListTabIndex = 2;
+                        BtnCommentSearch();
+                    };
+
                     this.PostList.Add(p);
                 }
             }
         }
 
-        private void CategorySelected(M_Post_Category category)
+        private void BtnListSearch()
         {
-            object obj = new { category_id = category.Id };
+            Dictionary<string, object> obj = new Dictionary<string, object>();
+            obj.Add("post_category_id", this.CategorySelected.Id);
+
+            if (CboListSearchSelected == "제목")
+            {
+                if (!string.IsNullOrEmpty(this.TxtListSearch))
+                {
+                    obj.Add("title", this.TxtListSearch);
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(this.TxtListSearch))
+                {
+                    obj.Add("content", this.TxtListSearch);
+                }
+            }
+
+
+
             var posts = Server.API.HttpSend<M_Post[]>("/post/list/select", Server.Method.POST, obj);
             this.PostList.Clear();
-            foreach (var p in posts)
+            if (posts != null)
             {
-                this.PostList.Add(p);
+                foreach (var p in posts)
+                {
+                    p.SelectedEvent += (item) =>
+                    {
+                        this.PostSelected = item;
+                        this.CommentAdd = new M_Post_Comment() { Post_Id = item.Id, Employee_Id = CurrentUser.Id };
+                        this.ListTabIndex = 2;
+                        BtnCommentSearch();
+                    };
+
+                    this.PostList.Add(p);
+                }
             }
         }
 
         private void AddPost()
         {
-            M_Post post = new M_Post()
-            {
-                Employee_Id = CurrentUser.Id,
-                Post_Category_Id = this.CategoryList[0].Id,
-                Title = "새 글",
-                Content = "본문"
-            };
-            M_DB_Result result = Server.API.HttpSend<M_DB_Result>("/post/list/insert", Server.Method.POST, post);
+            this.PostAdd.Post_Category_Id = this.CategorySelected.Id;
+            this.PostAdd.Employee_Id = CurrentUser.Id;
+
+            M_DB_Result result = Server.API.HttpSend<M_DB_Result>("/post/list/insert", Server.Method.POST, this.PostAdd);
 
             if (result != null && result.InsertId > 0)
             {
-                // ok
-                this.PostList.Insert(0, post);
+                this.PostAdd.Title = string.Empty;
+                this.PostAdd.Content = string.Empty;
+
+                Category_PostsBtnListSearch();
+                ListTabIndex = 0;
             }
             else
             {
@@ -107,15 +195,80 @@ namespace community.ViewModels
             }
         }
 
+        private void BtnPostEdit()
+        {
+            var p = this.PostSelected;
+
+            if (p != null)
+            {
+                M_DB_Result result = Server.API.HttpSend<M_DB_Result>("/post/list/update", Server.Method.PUT, p);
+
+                if (result != null && result.InsertId > 0)
+                {
+                    this.PostSelected = null;
+
+                    Category_PostsBtnListSearch();
+                    ListTabIndex = 0;
+                }
+                else
+                {
+                    Console.WriteLine("error");
+                }
+            }
+        }
+
+        private void BtnCommentSearch()
+        {
+            var p = this.PostSelected;
+
+            if (p != null)
+            {
+                var obj = new { post_id = p.Id };
+                var getComments = Server.API.HttpSend<M_Post_Comment[]>("/post/comment/select", Server.Method.POST, obj);
+
+                p.CommentList.Clear();
+                if (getComments != null && getComments.Length > 0)
+                {
+                    foreach (var comment in getComments)
+                    {
+                        p.CommentList.Add(comment);
+                    }
+                }
+            }
+        }
+
+        private void BtnCommentAdd()
+        {
+            var p = this.PostSelected;
+
+            if (p != null)
+            {
+                var obj = new { post_id = p.Id, employee_id = CurrentUser.Id, content = CommentAdd.Content };
+                M_DB_Result result = Server.API.HttpSend<M_DB_Result>("/post/comment/insert", Server.Method.POST, obj);
+
+                if (result != null && result.InsertId > 0)
+                {
+                    BtnCommentSearch();
+                }
+            }
+        }
+
         List<M_Post_Category> BuildTree(M_Post_Category[] flatList)
         {
             var rootList = new List<M_Post_Category>();
-
             var lookup = flatList.ToDictionary(c => c.Id);
 
-            foreach (var category in flatList)
+            for (int i = 0; i < flatList.Length; i++)
             {
+                var category = flatList[i];
+                
                 category.Image_Path = "..\\Images\\menu_post_64px.png";
+                category.SelectEvent += (item) =>
+                {
+                    this.TxtListSearch = string.Empty;
+                    this.CategorySelected = item;
+                    this.Category_PostsBtnListSearch();
+                };
 
                 if (category.Parent_Id == null)
                 {
@@ -129,6 +282,5 @@ namespace community.ViewModels
 
             return rootList;
         }
-
     }
 }

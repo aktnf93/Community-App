@@ -11,7 +11,7 @@ namespace community.ViewModels
     {
         public M_Card BannerCard { get; set; } = new M_Card()
         {
-            Title = "고객사 관리"
+            Title = "고객관리"
         };
 
         public M_Card[] DashboardCard { get; set; } =

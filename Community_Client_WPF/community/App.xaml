@@ -466,13 +466,13 @@
                                     <RowDefinition Height="53"/>
                                 </Grid.RowDefinitions>
 
-                                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <!--<StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Image Source="{StaticResource Img_Folder}" Width="23" Height="23" Margin="0,0,4,0"/>
                                     <TextBox Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}"
-                                             Width="130" Height="23" Margin="0,0,8,0"/>
+                                             Width="130" Height="23" Margin="0,0,8,0" Text="{Binding TxtCategoryAdd}"/>
                                     <Button Tag="{StaticResource Img_Plus_w}"
-                                            Width="36" Height="23"/>
-                                </StackPanel>
+                                            Width="36" Height="23" Click="{v:MethodBinding BtnCategoryAdd}"/>
+                                </StackPanel>-->
 
                                 <!--<Label Grid.Column="0" Grid.Row="0" Content="이름" Style="{StaticResource Lable_Column}"/>-->
                                 <Line  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Bottom" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
@@ -518,7 +518,7 @@
                                                 </Grid.ColumnDefinitions>
 
                                                 <Image Grid.Column="0" x:Name="Image" Source="{Binding Image_Path}" Width="20" Height="20"/>
-                                                <ContentPresenter x:Name="Button_Text" Grid.Column="1" ContentSource="Header" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                <ContentPresenter Grid.Column="1" x:Name="Btn_Text" ContentSource="Header" HorizontalAlignment="Left" VerticalAlignment="Center"
                                                       TextBlock.Foreground="{StaticResource Color_Black}"/>
                                                 <Image Grid.Column="2" x:Name="Expander" Source="{StaticResource Img_Post_ArrowDown}" Visibility="Collapsed" 
                                                        Width="18" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -532,7 +532,7 @@
                                         <DataTrigger Binding="{Binding Parent_Id}" Value="{x:Null}">
                                             <Setter TargetName="Image" Property="Source" Value="{StaticResource Img_Folder_w}"/>
                                             <Setter TargetName="bor" Property="Background" Value="{StaticResource Color_ThinGray}"/>
-                                            <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
+                                            <Setter TargetName="Btn_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
                                         </DataTrigger>
 
                                         <!-- 자식 요소가 있으면 하위식별 표시 -->
@@ -549,13 +549,14 @@
                                         <!-- 선택 -->
                                         <Trigger Property="IsSelected" Value="True">
                                             <Setter TargetName="Parent" Property="Background" Value="{StaticResource Color_ThinGray}"/>
-                                            <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
+                                            <Setter TargetName="Btn_Text"  Property="TextBlock.Foreground" Value="Yellow"/>
+                                            <Setter TargetName="Btn_Text"  Property="TextBlock.FontWeight" Value="Bold"/>
                                         </Trigger>
 
                                         <!-- 마우스 -->
                                         <Trigger Property="IsMouseOver" Value="True">
                                             <Setter TargetName="Parent" Property="Background" Value="Gray"/>
-                                            <Setter TargetName="Button_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
+                                            <Setter TargetName="Btn_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -569,24 +570,62 @@
 
         <ControlTemplate TargetType="{x:Type Control}" x:Key="CategorySearch">
             <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <TextBox Width="156" Height="30" 
+                <TextBox Width="156" Height="30"
                          Template="{StaticResource Icon_TextBox}" ToolTip="{TemplateBinding ToolTip}" Margin="0,0,4,0"
-                         Tag="{StaticResource Img_Edit}"/>
+                         Tag="{StaticResource Img_Edit}" Text="{Binding TxtCategorySearch}"/>
                 <Button Content="검색" Width="80" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top"
-                        Tag="{StaticResource Img_Search_w}"/>
+                        Tag="{StaticResource Img_Search_w}" Click="{v:MethodBinding BtnCategorySearch}"/>
             </StackPanel>
         </ControlTemplate>
 
         <ControlTemplate TargetType="{x:Type Control}" x:Key="ListSearch">
             <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <ComboBox Width="120" Height="30" Margin="0,0,4,0"/>
+                <ComboBox Width="120" Height="30" Margin="0,0,4,0"
+                          ItemsSource="{Binding CboListSearch}" SelectedValue="{Binding CboListSearchSelected}"/>
                 <TextBox Width="300" Height="30" 
                          Template="{StaticResource Icon_TextBox}" ToolTip="{TemplateBinding ToolTip}" Margin="0,0,4,0"
-                         Tag="{StaticResource Img_Edit}"/>
+                         Tag="{StaticResource Img_Edit}" Text="{Binding TxtListSearch}"/>
                 <Button Content="검색" Width="80" Height="30"
-                        Tag="{StaticResource Img_Search_w}"/>
+                        Tag="{StaticResource Img_Search_w}" Click="{v:MethodBinding BtnListSearch}"/>
             </StackPanel>
         </ControlTemplate>
+
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserReorderColumns" Value="False"/>
+            <Setter Property="CanUserResizeColumns" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserSortColumns" Value="False"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="RowHeaderWidth" Value="0"/>
+            <Setter Property="RowHeight" Value="30"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="Gray"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBlock}" x:Key="TxtColumnHeader">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+
+        <Style TargetType="{x:Type TextBlock}" x:Key="TxtColumn">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+        </Style>
   
         <!--#region View Maping-->
         <DataTemplate DataType="{x:Type vm:VM_Home}">

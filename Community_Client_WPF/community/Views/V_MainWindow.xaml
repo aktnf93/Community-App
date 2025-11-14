@@ -69,7 +69,7 @@
                 <Grid Height="130" DataContext="{Binding CurrentUser}">
                     <Ellipse Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="http://localhost:12070/uploads/1762842668197-11.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant"/>
+                            <ImageBrush ImageSource="{Binding Image_FullPath}" Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant"/>
                         </Ellipse.Fill>
                     </Ellipse>
 
@@ -82,13 +82,13 @@
                 </Grid>
                 
                 <RadioButton Content="홈"       Tag="{StaticResource Img_Menu_Home}"      Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=1}"/>
-                <RadioButton Content="게시판"    Tag="{StaticResource Img_Menu_Post}"     Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=2}"/>
-                <RadioButton Content="채팅방"    Tag="{StaticResource Img_Menu_Chat}"     Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=3}"/>
-                <RadioButton Content="프로젝트"  Tag="{StaticResource Img_Menu_Project}"  Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=4}"/>
-                <RadioButton Content="고객사"    Tag="{StaticResource Img_Menu_Customer}" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=5}"/>
-                <RadioButton Content="재고 관리" Tag="{StaticResource Img_Menu_Product}"  Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=6}"/>
-                <RadioButton Content="직원 관리" Tag="{StaticResource Img_Menu_Employee}" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=7}"/>
-                <RadioButton Content="환경설정"  Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=8}"/>
+                <RadioButton Content="게시판"   Tag="{StaticResource Img_Menu_Post}"     Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=2}"/>
+                <RadioButton Content="채팅방"   Tag="{StaticResource Img_Menu_Chat}"     Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=3}"/>
+                <RadioButton Content="프로젝트" Tag="{StaticResource Img_Menu_Project}"  Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=4}"/>
+                <RadioButton Content="고객관리" Tag="{StaticResource Img_Menu_Customer}" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=5}"/>
+                <RadioButton Content="재고관리" Tag="{StaticResource Img_Menu_Product}"  Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=6}"/>
+                <RadioButton Content="직원관리" Tag="{StaticResource Img_Menu_Employee}" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=7}"/>
+                <RadioButton Content="환경설정" Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=8}"/>
                 <!--<RadioButton Content="TEST"     Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=9}"/>-->
             </StackPanel>
         </Border>

@@ -6,7 +6,7 @@ const logger = require('./logger');
 const server = http.createServer(app);
 
 // WebSocket 초기화
-// initSocket(server); // TCP Socket 채팅방
+initSocket(server); // TCP Socket 채팅방
 
 const PORT = 12070;
 server.listen(PORT, () => {

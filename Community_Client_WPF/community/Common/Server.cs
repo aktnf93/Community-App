@@ -16,12 +16,12 @@ namespace community.Common
     {
         public static Server API { get; } = new Server();
 
-        public string BaseUrl => "http://localhost:12070/";
+        public string BaseUrl => "http://localhost:12070";
         private readonly HttpClient httpClient;
 
         public enum Method
         {
-            // GET,
+            GET,
             POST,
             PUT,
             DELETE
@@ -61,7 +61,7 @@ namespace community.Common
 
             switch (method)
             {
-                // case Method.GET: req.Method = HttpMethod.Get;    break;
+                case Method.GET:    req.Method = HttpMethod.Get;    break;
                 case Method.POST:   req.Method = HttpMethod.Post;   break;
                 case Method.PUT:    req.Method = HttpMethod.Put;    break;
                 case Method.DELETE: req.Method = HttpMethod.Delete; break;

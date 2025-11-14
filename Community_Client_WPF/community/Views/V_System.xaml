@@ -11,11 +11,9 @@
 
     <Grid Margin="20,20,20,30">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="240" Tag="카테고리"/>
-            <ColumnDefinition Width="60"  Tag="여백"/>
             <ColumnDefinition Width="*"   Tag="리스트"/>
             <ColumnDefinition Width="60"  Tag="여백"/>
-            <ColumnDefinition Width="240" Tag="최근이력"/>
+            <ColumnDefinition Width="540" Tag="최근이력"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"  Tag="배너"/>
@@ -27,10 +25,10 @@
         </Grid.RowDefinitions>
 
         <!-- 배너 -->
-        <Control Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Template="{StaticResource BannerCard}" DataContext="{Binding BannerCard}"/>
+        <Control Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Template="{StaticResource BannerCard}" DataContext="{Binding BannerCard}"/>
 
         <!-- 대시보드 카드 -->
-        <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
             <Control Tag="{StaticResource Img_System_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[0]}" Margin="0,0,20,0"/>
             <Control Tag="{StaticResource Img_System_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[1]}" Margin="0,0,20,0"/>
             <Control Tag="{StaticResource Img_System_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[2]}" Margin="0,0,20,0"/>
@@ -38,25 +36,14 @@
             <Control Tag="{StaticResource Img_System_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[4]}"/>
         </StackPanel>
 
-        <!-- 카테고리 제어 -->
-        <Grid Grid.Column="0" Grid.Row="4">
-            <Control Template="{StaticResource CategorySearch}" ToolTip="검색"/>
-        </Grid>
 
         <!-- 리스트 제어 -->
-        <Grid Grid.Column="2" Grid.Row="4">
+        <Grid Grid.Column="0" Grid.Row="4">
             <Control Template="{StaticResource ListSearch}" ToolTip="검색"/>
         </Grid>
 
-        <!-- 카테고리 목록 -->
-        <TabControl Grid.Column="0" Grid.Row="5">
-            <TabItem Header="목록" Height="28">
-                <TreeView Grid.Column="0" Grid.Row="5" ItemsSource="{Binding CategoryList}" Style="{StaticResource CategoryView}"/>
-            </TabItem>
-        </TabControl>
-
         <!-- 리스트 목록  -->
-        <TabControl Grid.Column="2" Grid.Row="5">
+        <TabControl Grid.Column="0" Grid.Row="5">
             <TabItem Header="시스템 항목" Height="28">
                 <ItemsControl ItemsSource="{Binding SystemConfigs}">
                     <ItemsControl.ItemsPanel>
@@ -150,10 +137,192 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </TabItem>
+
+            <TabItem Header="게시판 카테고리" Height="28">
+                <StackPanel Orientation="Horizontal">
+                    <!-- 게시판 상위 그룹 -->
+                    <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
+                        <StackPanel>
+                            <Label Content="카테고리 그룹" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <!--<TextBox Width="60" Height="30" Template="{StaticResource Icon_TextBox}" HorizontalAlignment="Left" IsReadOnly="True" Cursor="No"/>-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="이름" Text="{Binding CategoryGroupSelected.Name}"/>
+                                <Button Width="30" Height="30" Content="➕️" Margin="6,0,0,0" ToolTip="추가" Click="{local:MethodBinding CategoryGroupAdd}"/>
+                                <Button Width="30" Height="30" Content="✏️"  Margin="2,0,0,0" ToolTip="수정" Click="{local:MethodBinding CategoryGroupEdit}"/>
+                                <Button Width="30" Height="30" Content="➖️" Margin="2,0,0,0" ToolTip="삭제" Click="{local:MethodBinding CategoryGroupDelete}"/>
+                            </StackPanel>
+                            <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding CategoryGroupSelected.Description}"/>
+                            <DataGrid Width="300" Height="500" Margin="0,10,0,0" ColumnHeaderHeight="30" ItemsSource="{Binding CategoryGroupList}" SelectedItem="{Binding CategoryGroupSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="이름" Binding="{Binding Name}" Width="100" ElementStyle="{StaticResource TxtColumn}"/>
+                                    <DataGridTextColumn Header="설명" Binding="{Binding Description}" Width="*" ElementStyle="{StaticResource TxtColumn}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 게시판 카테고리 -->
+                    <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
+                        <StackPanel>
+                            <Label Content="게시판 카테고리" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <!--<TextBox Width="60" Height="30" Template="{StaticResource Icon_TextBox}" HorizontalAlignment="Left" IsReadOnly="True" Cursor="No"/>-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="이름" Text="{Binding CategorySelected.Name}"/>
+                                <Button Width="30" Height="30" Content="➕️" Margin="6,0,0,0" ToolTip="추가" Click="{local:MethodBinding CategoryAdd}"/>
+                                <Button Width="30" Height="30" Content="✏️"  Margin="2,0,0,0" ToolTip="수정" Click="{local:MethodBinding CategoryEdit}"/>
+                                <Button Width="30" Height="30" Content="➖️" Margin="2,0,0,0" ToolTip="삭제" Click="{local:MethodBinding CategoryDelete}"/>
+                            </StackPanel>
+                            <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding CategorySelected.Description}"/>
+                            <DataGrid Width="300" Height="500" Margin="0,10,0,0" ColumnHeaderHeight="30" ItemsSource="{Binding CategoryList}" SelectedItem="{Binding CategorySelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="이름" Binding="{Binding Name}" Width="100" ElementStyle="{StaticResource TxtColumn}"/>
+                                    <DataGridTextColumn Header="설명" Binding="{Binding Description}" Width="*" ElementStyle="{StaticResource TxtColumn}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="  소속: 회사|부서|팀  " Height="28">
+                <StackPanel Orientation="Horizontal">
+                    
+                    <!-- 회사 정보 -->
+                    <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
+                        <StackPanel>
+                            <Label Content="회사 정보" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <!--<TextBox Width="60" Height="30" Template="{StaticResource Icon_TextBox}" HorizontalAlignment="Left" IsReadOnly="True" Cursor="No"/>-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="이름" Text="{Binding CompanySelected.Name}"/>
+                                <Button Width="30" Height="30" Content="➕️" Margin="6,0,0,0" ToolTip="추가" Click="{local:MethodBinding CompanyAdd}"/>
+                                <Button Width="30" Height="30" Content="✏️"  Margin="2,0,0,0" ToolTip="수정" Click="{local:MethodBinding CompanyEdit}"/>
+                                <Button Width="30" Height="30" Content="➖️" Margin="2,0,0,0" ToolTip="삭제" Click="{local:MethodBinding CompanyDelete}"/> 
+                            </StackPanel>
+                            <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding CompanySelected.Description}"/>
+                            <DataGrid Width="300" Height="500" Margin="0,10,0,0" ColumnHeaderHeight="30" ItemsSource="{Binding CompanyList}" SelectedItem="{Binding CompanySelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="이름" Binding="{Binding Name}" Width="100" ElementStyle="{StaticResource TxtColumn}"/>
+                                    <DataGridTextColumn Header="설명" Binding="{Binding Description}" Width="*" ElementStyle="{StaticResource TxtColumn}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 부서 정보 -->
+                    <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
+                        <StackPanel>
+                            <Label Content="부서 정보" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <!--<TextBox Width="60" Height="30" Template="{StaticResource Icon_TextBox}" HorizontalAlignment="Left" IsReadOnly="True" Cursor="No"/>-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="이름" Text="{Binding DepartmentSelected.Name}"/>
+                                <Button Width="30" Height="30" Content="➕️" Margin="6,0,0,0" ToolTip="추가" Click="{local:MethodBinding DepartmentAdd}"/>
+                                <Button Width="30" Height="30" Content="✏️"  Margin="2,0,0,0" ToolTip="수정" Click="{local:MethodBinding DepartmentEdit}"/>
+                                <Button Width="30" Height="30" Content="➖️" Margin="2,0,0,0" ToolTip="삭제" Click="{local:MethodBinding DepartmentDelete}"/>
+                            </StackPanel>
+                            <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding DepartmentSelected.Description}"/>
+                            <DataGrid Width="300" Height="500" Margin="0,10,0,0" ColumnHeaderHeight="30" ItemsSource="{Binding DepartmentList}" SelectedItem="{Binding DepartmentSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="이름" Binding="{Binding Name}" Width="100" ElementStyle="{StaticResource TxtColumn}"/>
+                                    <DataGridTextColumn Header="설명" Binding="{Binding Description}" Width="*" ElementStyle="{StaticResource TxtColumn}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 팀 정보 -->
+                    <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
+                        <StackPanel>
+                            <Label Content="팀 정보" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <!--<TextBox Width="60" Height="30" Template="{StaticResource Icon_TextBox}" HorizontalAlignment="Left" IsReadOnly="True" Cursor="No"/>-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="이름" Text="{Binding TeamSelected.Name}"/>
+                                <Button Width="30" Height="30" Content="➕️" Margin="6,0,0,0" ToolTip="추가" Click="{local:MethodBinding TeamAdd}"/>
+                                <Button Width="30" Height="30" Content="✏️"  Margin="2,0,0,0" ToolTip="수정" Click="{local:MethodBinding TeamEdit}"/>
+                                <Button Width="30" Height="30" Content="➖️" Margin="2,0,0,0" ToolTip="삭제" Click="{local:MethodBinding TeamDelete}"/>
+                            </StackPanel>
+                            <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding TeamSelected.Description}"/>
+                            <DataGrid Width="300" Height="500" Margin="0,10,0,0" ColumnHeaderHeight="30" ItemsSource="{Binding TeamList}" SelectedItem="{Binding TeamSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="이름" Binding="{Binding Name}" Width="100" ElementStyle="{StaticResource TxtColumn}"/>
+                                    <DataGridTextColumn Header="설명" Binding="{Binding Description}" Width="*" ElementStyle="{StaticResource TxtColumn}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="  담당: 직급|직책|담당  " Height="28">
+                <StackPanel Orientation="Horizontal">
+
+                    <!-- 직급 정보 -->
+                    <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
+                        <StackPanel>
+                            <Label Content="직급 정보" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <!--<TextBox Width="60" Height="30" Template="{StaticResource Icon_TextBox}" HorizontalAlignment="Left" IsReadOnly="True" Cursor="No"/>-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="이름" Text="{Binding RankSelected.Name}"/>
+                                <Button Width="30" Height="30" Content="➕️" Margin="6,0,0,0" ToolTip="추가" Click="{local:MethodBinding RankAdd}"/>
+                                <Button Width="30" Height="30" Content="✏️"  Margin="2,0,0,0" ToolTip="수정" Click="{local:MethodBinding RankEdit}"/>
+                                <Button Width="30" Height="30" Content="➖️" Margin="2,0,0,0" ToolTip="삭제" Click="{local:MethodBinding RankDelete}"/>
+                            </StackPanel>
+                            <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding RankSelected.Description}"/>
+                            <DataGrid Width="300" Height="500" Margin="0,10,0,0" ColumnHeaderHeight="30" ItemsSource="{Binding RankList}" SelectedItem="{Binding RankSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="이름" Binding="{Binding Name}" Width="100" ElementStyle="{StaticResource TxtColumn}"/>
+                                    <DataGridTextColumn Header="설명" Binding="{Binding Description}" Width="*" ElementStyle="{StaticResource TxtColumn}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 직책 정보 -->
+                    <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
+                        <StackPanel>
+                            <Label Content="직책 정보" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <!--<TextBox Width="60" Height="30" Template="{StaticResource Icon_TextBox}" HorizontalAlignment="Left" IsReadOnly="True" Cursor="No"/>-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="이름" Text="{Binding PositioSelected.Name}"/>
+                                <Button Width="30" Height="30" Content="➕️" Margin="6,0,0,0" ToolTip="추가" Click="{local:MethodBinding PositionAdd}"/>
+                                <Button Width="30" Height="30" Content="✏️"  Margin="2,0,0,0" ToolTip="수정" Click="{local:MethodBinding PositionEdit}"/>
+                                <Button Width="30" Height="30" Content="➖️" Margin="2,0,0,0" ToolTip="삭제" Click="{local:MethodBinding PositionDelete}"/>
+                            </StackPanel>
+                            <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding PositioSelected.Description}"/>
+                            <DataGrid Width="300" Height="500" Margin="0,10,0,0" ColumnHeaderHeight="30" ItemsSource="{Binding PositionList}" SelectedItem="{Binding PositioSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="이름" Binding="{Binding Name}" Width="100" ElementStyle="{StaticResource TxtColumn}"/>
+                                    <DataGridTextColumn Header="설명" Binding="{Binding Description}" Width="*" ElementStyle="{StaticResource TxtColumn}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 담당 정보 -->
+                    <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
+                        <StackPanel>
+                            <Label Content="담당 정보" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <!--<TextBox Width="60" Height="30" Template="{StaticResource Icon_TextBox}" HorizontalAlignment="Left" IsReadOnly="True" Cursor="No"/>-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="이름" Text="{Binding RoleSelected.Name}"/>
+                                <Button Width="30" Height="30" Content="➕️" Margin="6,0,0,0" ToolTip="추가" Click="{local:MethodBinding RoleAdd}"/>
+                                <Button Width="30" Height="30" Content="✏️"  Margin="2,0,0,0" ToolTip="수정" Click="{local:MethodBinding RoleEdit}"/>
+                                <Button Width="30" Height="30" Content="➖️" Margin="2,0,0,0" ToolTip="삭제" Click="{local:MethodBinding RoleDelete}"/>
+                            </StackPanel>
+                            <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding RoleSelected.Description}"/>
+                            <DataGrid Width="300" Height="500" Margin="0,10,0,0" ColumnHeaderHeight="30" ItemsSource="{Binding RoleList}" SelectedItem="{Binding RoleSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="이름" Binding="{Binding Name}" Width="100" ElementStyle="{StaticResource TxtColumn}"/>
+                                    <DataGridTextColumn Header="설명" Binding="{Binding Description}" Width="*" ElementStyle="{StaticResource TxtColumn}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </TabItem>
         </TabControl>
 
         <!-- 최근이력 목록 -->
-        <TabControl Grid.Column="4" Grid.Row="5">
+        <TabControl Grid.Column="2" Grid.Row="5">
             <TabItem Header="최근 이력" Height="28">
                 <ItemsControl>
                     <ItemsControl.ItemsPanel>

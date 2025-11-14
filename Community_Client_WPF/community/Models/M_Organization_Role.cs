@@ -4,6 +4,7 @@ using community.Common;
 
 namespace community.Models
 {
+    [DataContract]
     public class M_Organization_Role : Notify
     {
         private int id;

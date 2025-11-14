@@ -8,7 +8,8 @@ namespace community.Models
     public class M_Chat_Message : Notify
     {
         private int id;
-        private int chat_member_id;
+        private int chat_room_id;
+        private int employee_id;
         private string message;
         private DateTime created_at;
         private DateTime? deleted_at;
@@ -20,11 +21,18 @@ namespace community.Models
             set => base.OnPropertyChanged(ref this.id, value);
         }
 
-        [DataMember(Name = "chat_member_id")]
-        public int Chat_Member_Id
+        [DataMember(Name = "chat_room_id")]
+        public int Chat_Room_Id
         {
-            get => this.chat_member_id;
-            set => base.OnPropertyChanged(ref this.chat_member_id, value);
+            get => this.chat_room_id;
+            set => base.OnPropertyChanged(ref this.chat_room_id, value);
+        }
+
+        [DataMember(Name = "employee_id")]
+        public int Employee_Id
+        {
+            get => this.employee_id;
+            set => base.OnPropertyChanged(ref this.employee_id, value);
         }
 
         [DataMember(Name = "message")]

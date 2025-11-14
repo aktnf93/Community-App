@@ -1,11 +1,12 @@
 # Community-App
-WPF client, Node.js server, MariaDB backend / React client planned
+커뮤니티 그룹웨어 (WPF Client / Node.js Server / MariaDB)
 
 ## 📌 개요
 - **목적**: C#/WPF, Node.js, MariaDB 기반의 CRUD 커뮤니티 애플리케이션 제작
-- **구성**: 클라이언트(WPF v4.7.2), 서버(Node.js/Express v22.15.1), DB(MariaDB v11.8)
-
----
+- **개발 기간**: 2025.10.2 ~
+- **기술 스택**: C#/WPF v4.7.2, Node.js/Express v22.15.1, MariaDB v11.8
+- 역할: 단독 개발 (기획, 디자인, 설계, 구현, 테스트)
+- 기능: 게시판, 채팅, 프로젝트 관리, 고객사 관리, 재고 관리, 직원 관리, 시스템 설정
 
 ## 📌 구조
 ```mermaid
@@ -15,101 +16,52 @@ flowchart LR
 ```
 
 ```
-Community-App/
+📦Community-App/
+├──📁Community_Client_WPF/     # WPF 클라이언트 코드
+├──📁Community_Server_Node/    # Node.js 서버 코드
+├──📁Community_DB_MariaDB/     # DB 스키마, SQL
+├──📁Community_Document/       # 기능 설명, 캡쳐 이미지, API/쿼리 정리
+└──📄README.md                 # 전체 설명
+```
+
+
+## 📌 샘플 이미지
+
+![Post](./Community_Document/Sample/post_20251114.png)
+
+![Post](./Community_Document/Sample/setup_20251114.gif)
+
+
+## 📌 Client: C#, WPF
+```
+Community_Client_WPF
+├─community.sln
+├─📁packages
 │
-├── Community_Client_WPF/     # WPF 클라이언트 코드
-├── Community_Server_Node/    # Node.js 서버 코드
-├── Community_DB_MariaDB/     # DB 스키마, SQL
-├── Community_Document/       # 기능 설명, 캡쳐 이미지, API/쿼리 정리
-└── README.md                 # 전체 설명
-```
-
-1. Client
-- C#, WPF, MVVM
-- 진행도: 40%
-- 남은것: 뷰(파일만 있음), 뷰모델(파일만 있음), 아이콘파일
-- 디자인 진행도: 80% (ai로 만든 일부 화면 별 이미지 파일)
-
-2. Server
-- Node.js, Express, RESTful API
-- 진행도: 98%
-- 만든것: DB 테이블 별 URL 라우트 (쿼리, DML)
-- 남은것: 전체 URL 테스트, EXE 패키징, 난독화
-
-3. DB
-- MariaDB v11.8
-- 진행도: 90%
-- 만든것: 화면 및 기능 별 테이블
-- 남은것: 뷰 생성, 트리거 생성, 고정 데이터 생성
-
-
-# wpf client
-```
-client_wpf
-├─Images/
-├─Common/
-│   ├─Handlers.cs
-│   ├─Notify.cs
-│   └─Server.cs
-├─Models/
-│   ├─M_Chat_Member.cs
-│   ├─M_Chat_Message.cs
-│   ├─M_Chat_Room.cs
-│   ├─M_ComboItem.cs
-│   ├─M_Customer.cs
-│   ├─M_Customer_Product.cs
-│   ├─M_DB_Result.cs
-│   ├─M_Employee.cs
-│   ├─M_Employee_Leave.cs
-│   ├─M_Employee_Review.cs
-│   ├─M_Organization_Company.cs
-│   ├─M_Organization_Department.cs
-│   ├─M_Organization_Location.cs
-│   ├─M_Organization_Position.cs
-│   ├─M_Organization_Privileges.cs
-│   ├─M_Organization_Rank.cs
-│   ├─M_Organization_Role.cs
-│   ├─M_Organization_Team.cs
-│   ├─M_Post.cs
-│   ├─M_Post_Comment.cs
-│   ├─M_Product.cs
-│   ├─M_Product_Inventory.cs
-│   ├─M_Project.cs
-│   ├─M_Project_Member.cs
-│   ├─M_Project_Task.cs
-│   ├─M_Project_Task_Member.cs
-│   ├─M_System_Config.cs
-│   └─M_System_Log.cs
-├─ViewModels/
-│   └─ViewModelBase.cs
-│       ├─VM_Chat.cs
-│       ├─VM_Customer.cs
-│       ├─VM_Employee.cs
-│       ├─VM_Login.cs
-│       ├─VM_MainViewModel.cs
-│       ├─VM_Post.cs
-│       ├─VM_Product.cs
-│       ├─VM_Project.cs
-│       └─VM_System.cs
-├─Views/
-│   ├─MethodBinding.cs
-│   └─V_MainWindow.xaml
-│       └─ViewCacheHost.cs
-│           ├─V_Chat.xaml
-│           ├─V_Customer.xaml
-│           ├─V_Employee.xaml
-│           ├─V_Login.xaml
-│           ├─V_Post.xaml
-│           ├─V_Product.xaml
-│           ├─V_Project.xaml
-│           └─V_System.xaml
-├─View_Controls/
-├─View_Converters/
+📦community
+├─📁Images/                # .png image files
+├─📁Common/
+│   ├─Handlers.cs          # delegate
+│   ├─Notify.cs            # notify property changed
+│   ├─Server.cs            # express restful api
+│   └─Socket_IO_Client.cs  # web socket.io
+├─📁Models/
+│   └─M_ ... .cs           # 화면 모델 or DB Table 모델
+├─📁ViewModels/
+│   └─ViewModelBase.cs     # 공통 멤버 (ex: 현재 로그인 유저)
+│       └─VM_ ... .cs      # 화면 별 뷰모델
+├─📁Views/
+│   ├─MethodBinding.cs     # 바인딩 헬퍼 (메소드를 직접 바인딩)
+│   └─V_MainWindow.xaml    # 메인 윈도우
+│       └─ViewCacheHost.cs # 뷰 캐시
+│           └─V_ ... .xaml # 각 메뉴 화면
+├─📁View_Controls/         # 복합 조합 ui
+├─📁View_Converters/       # 뷰 컨버터 (ex: bool to int)
 └─App.xaml
 ```
 
 
-# express server
+## 📌 Server: Node.js Express
 
 - 프로세스 흐름
 1. app.use > 보안 헤더 설정
@@ -126,69 +78,70 @@ client_wpf
 12. app.use > 에러 핸들 처리, LOG
 
 ```
-server_node/
-├─index.js
-├─logger.js
-├─.env
-├─routes/
-│   ├─url_post.js
-│   ├─url_chat.js
-│   ├─url_project.js
-│   ├─url_customer.js
-│   ├─url_product.js
-│   ├─url_employee.js
-│   ├─url_organization.js
-│   └─url_system.js
-├─services/
-│   ├─service_databse.js
-│   ├─service_express.js
-│   └─service_socket.js
-└─utils/
-    └─pick.js
+📦Community_Server_Node/
+├─index.js                # 메인 (서버 port)
+├─logger.js               # Log 설정파일
+├─.env                    # DB 접속 정보
+├─📁routes/
+│   ├─url_post.js         # 게시판 관리 URL (/post/...)
+│   ├─url_chat.js         # 채팅방 관리 URL (/chat/...)
+│   ├─url_project.js      # 프로젝트 관리 URL (/project/...)
+│   ├─url_customer.js     # 고객사 관리 URL (/customer/...)
+│   ├─url_product.js      # 재고 관리 URL (/product/...)
+│   ├─url_employee.js     # 직원 관리 URL (/employee/...)
+│   ├─url_organization.js # 기초정보 관리 URL (/organization/...)
+│   └─url_system.js       # 시스템 정보 URL (/system/...)
+├─📁services/
+│   ├─service_databse.js  # DB 쿼리
+│   ├─service_express.js  # Express 서버 설정 (보안, 기본URL, 최종 결과)
+│   └─service_socket.js   # socket.io
+└─📁utils/
+    └─pick.js             # body.json 필터링 함수
 ```
 
 ```
-/* 끝에 select, insert, update, delete 붙음 */
-/* post:select, post:insert, put:update, delete:delete */
+로그인: post /employee/list/select { login_id, login_pw }
 
-/post/list | comment
-/chat/room | member | message
-/project/list | member | task | taskmember
-/customer/list | product
-/product/list | inventory
-/employee/list | leave | review
-/organization/location | company | department | team | rank | position | role | privileg
-/system/config | logs
+게시판: 
+- 카테고리: post /post/category/select { name }
+- 게시글 불러오기: post /post/list/select { post_category_id }
+- 게시글 작성: post /post/list/insert { employee_id, title, content }
+- 게시글 수정: put /post/list/delete { post_id, title, content }
+- 댓글 불러오기: post /comment/select { post_id }
+
+시스템: 
+- 불러오기: post /system/config/select
 ```
 
-# mariadb
-26 Tables
+## 📌 DB: MariaDB
+
 ```
-db_community
-├─tb_posts
-│   └─tb_post_comments
-├─tb_chat_rooms
-│   ├─tb_chat_members
-│   └─tb_chat_messages
-├─tb_projects
-│   ├─tb_project_members
-│   └─tb_project_tasks
-│       └─tb_project_task_members
-├─tb_customers
-│   └─tb_customer_products
-├─tb_products
-│   └─tb_product_inventory
-├─tb_employees
-│   ├─tb_employee_reviews
-│   └─tb_employee_leaves
-├─tb_organization_locations
-├─tb_organization_companies
-│   └─tb_organization_departments
-│       └─tb_organization_teams
-├─tb_organization_ranks
-├─tb_organization_positions
-├─tb_organization_roles
-├─tb_organization_privileges
-├─tb_system_config
-└─tb_system_logs
+📦community
+├─📄tb_post_category                # 게시판 카테고리
+│   └─📄tb_posts                    # 게시판 리스트
+│       └─📄tb_post_comments        # 게시판 별 댓글
+├─📄tb_chat_rooms                   # 채팅방 리스트
+│   ├─📄tb_chat_members             # 채팅방 멤버
+│   └─📄tb_chat_messages            # 채팅방 멤버 별 메시지
+├─📄tb_projects                     # 프로젝트 리스트
+│   ├─📄tb_project_members          # 프로젝트 멤버
+│   └─📄tb_project_tasks            # 프로젝트 작업
+│       └─📄tb_project_task_members # 프로젝트 작업 별 멤버
+├─📄tb_customers                    # 고객사 리스트
+│   └─📄tb_customer_products        # 고객사 제품
+├─📄tb_products                     # 제품 리스트
+│   └─📄tb_product_inventory        # 제품 입출고
+├─📄tb_employees                    # 직원 리스트
+│   ├─📄tb_employee_reviews         # 직원 평가
+│   └─📄tb_employee_leaves          # 직원 휴가
+├─📄tb_organization_locations       # 지역 정보
+├─📄tb_organization_companies       # 소속 회사
+│   └─📄tb_organization_departments # 소속 부서
+│       └─📄tb_organization_teams   # 소속 팀
+├─📄tb_organization_ranks           # 직원 직급
+├─📄tb_organization_positions       # 직원 직책
+├─📄tb_organization_roles           # 직원 담당
+├─📄tb_organization_privileges      # 시스템 권한 그룹
+├─📄tb_system_config                # 시스템 값
+└─📄tb_system_logs                  # 시스템 로그
 ```

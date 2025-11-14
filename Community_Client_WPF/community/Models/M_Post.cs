@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using community.Common;
 
@@ -7,6 +8,8 @@ namespace community.Models
     [DataContract]
     public class M_Post : Notify
     {
+        public event ActionHandler<M_Post> SelectedEvent;
+
         private int id;
         private int post_category_id;
         private string post_category_name;
@@ -20,6 +23,9 @@ namespace community.Models
         private DateTime created_at;
         private DateTime updated_at;
         private DateTime? deleted_at;
+
+        public ObservableCollection<M_Post_Comment> CommentList { get; set; }
+            = new ObservableCollection<M_Post_Comment>();
 
         [DataMember(Name = "id")]
         public int Id
@@ -110,6 +116,11 @@ namespace community.Models
         {
             get => this.deleted_at;
             set => base.OnPropertyChanged(ref this.deleted_at, value);
+        }
+
+        private void PostSelect()
+        {
+            this.SelectedEvent?.Invoke(this);
         }
     }
 }

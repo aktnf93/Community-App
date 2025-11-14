@@ -28,7 +28,7 @@ namespace community.Models
         }
 
         [DataMember(Name = "description")]
-        public string Ddescription
+        public string Description
         {
             get => this.description;
             set => base.OnPropertyChanged(ref this.description, value);

@@ -87,6 +87,12 @@ namespace community.Models
 
         public void OnConnect(M_Chat_Room room, M_Employee user)
         {
+            this.Id = room.Id;
+            this.Name = room.Name;
+            this.Description = room.Description;
+            this.Message_At = room.Message_At;
+            this.Created_At = room.Created_At;
+            this.Updated_At = room.Updated_At;
             _user = user;
             var join = new { roomId = room.Id, userId = user.Id };
             this.live.Connect(join);
@@ -136,7 +142,7 @@ namespace community.Models
                 }
 
 
-                Console.WriteLine("Live_OnSendMessage");
+                Console.WriteLine("Live_OnWelcomeMessage");
             });
         }
         private void Live_OnDisconnectedMessage(M_Chat_Message obj)
@@ -146,11 +152,12 @@ namespace community.Models
 
         private void OnMessageSend()
         {
-            var msg = new 
+            var msg = new M_Chat_Message
             {
                 Chat_Room_Id = this.Id,
                 Employee_Id = this._user.Id,
-                Message = this.SendMessage
+                Message = this.SendMessage,
+                Employee_Name = this._user.Name,
             };
 
             this.live.SendMessage(msg);

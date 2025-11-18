@@ -1,4 +1,5 @@
 ﻿using community.Models;
+using Newtonsoft.Json;
 using System;
 using Client = SocketIOClient.SocketIO;
 
@@ -35,6 +36,7 @@ namespace community.Common
             this.client.On("welcome", (response) =>
             {
                 var m = response.GetValue<M_Chat_Room>();
+
                 this.OnWelcomeMessage?.Invoke(m);
             });
 

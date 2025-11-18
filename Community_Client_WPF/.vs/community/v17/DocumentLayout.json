@@ -1,26 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\",
+  "WorkspaceRootPath": "C:\\Users\\KSH\\source\\repos\\Community-App\\Community_Client_WPF\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\models\\m_chat_room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\models\\m_chat_room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\ksh\\source\\repos\\community-app\\community_client_wpf\\community\\models\\m_project.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\models\\m_project.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\common\\scoket_io_client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\common\\scoket_io_client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\KSH\\source\\repos\\Community-App\\Community_Client_WPF\\community\\viewmodels\\vm_project.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_project.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\models\\m_chat_message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\models\\m_chat_message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\ksh\\source\\repos\\community-app\\community_client_wpf\\community\\views\\v_project.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_project.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\views\\v_chat.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_chat.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\github\\git_ksh_community\\community_client_wpf\\community\\viewmodels\\vm_chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\ksh\\source\\repos\\community-app\\community_client_wpf\\community\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -29,71 +25,63 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 101,
+          "DockedWidth": 133,
           "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "M_Chat_Message.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Models\\M_Chat_Message.cs",
-              "RelativeDocumentMoniker": "community\\Models\\M_Chat_Message.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Models\\M_Chat_Message.cs",
-              "RelativeToolTip": "community\\Models\\M_Chat_Message.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAAAeAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "VM_Project.cs",
+              "DocumentMoniker": "C:\\Users\\KSH\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Project.cs",
+              "RelativeDocumentMoniker": "community\\ViewModels\\VM_Project.cs",
+              "ToolTip": "C:\\Users\\KSH\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Project.cs",
+              "RelativeToolTip": "community\\ViewModels\\VM_Project.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABsAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T11:39:24.347Z",
+              "WhenOpened": "2025-11-16T14:18:38.2Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "M_Chat_Room.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Models\\M_Chat_Room.cs",
-              "RelativeDocumentMoniker": "community\\Models\\M_Chat_Room.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Models\\M_Chat_Room.cs",
-              "RelativeToolTip": "community\\Models\\M_Chat_Room.cs",
-              "ViewState": "AgIAAIAAAAAAAAAAAAAjwJsAAAAbAAAAAAAAAA==",
+              "Title": "M_Project.cs",
+              "DocumentMoniker": "C:\\Users\\KSH\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\M_Project.cs",
+              "RelativeDocumentMoniker": "community\\Models\\M_Project.cs",
+              "ToolTip": "C:\\Users\\KSH\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\M_Project.cs",
+              "RelativeToolTip": "community\\Models\\M_Project.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T09:30:19.216Z",
+              "WhenOpened": "2025-11-16T14:18:51.917Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "VM_Chat.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\ViewModels\\VM_Chat.cs",
-              "RelativeDocumentMoniker": "community\\ViewModels\\VM_Chat.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\ViewModels\\VM_Chat.cs",
-              "RelativeToolTip": "community\\ViewModels\\VM_Chat.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAnwEYAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T09:30:07.183Z",
+              "DocumentIndex": 2,
+              "Title": "V_Project.xaml",
+              "DocumentMoniker": "C:\\Users\\KSH\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_Project.xaml",
+              "RelativeDocumentMoniker": "community\\Views\\V_Project.xaml",
+              "ToolTip": "C:\\Users\\KSH\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_Project.xaml",
+              "RelativeToolTip": "community\\Views\\V_Project.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-16T14:18:23.042Z",
               "EditorCaption": ""
-            },
+            }
+          ]
+        },
+        {
+          "DockedWidth": 43,
+          "SelectedChildIndex": 0,
+          "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "V_Chat.xaml",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Views\\V_Chat.xaml",
-              "RelativeDocumentMoniker": "community\\Views\\V_Chat.xaml",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Views\\V_Chat.xaml",
-              "RelativeToolTip": "community\\Views\\V_Chat.xaml",
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\KSH\\source\\repos\\Community-App\\Community_Client_WPF\\community\\App.xaml",
+              "RelativeDocumentMoniker": "community\\App.xaml",
+              "ToolTip": "C:\\Users\\KSH\\source\\repos\\Community-App\\Community_Client_WPF\\community\\App.xaml",
+              "RelativeToolTip": "community\\App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-14T01:45:06.011Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Scoket_IO_Client.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Common\\Scoket_IO_Client.cs",
-              "RelativeDocumentMoniker": "community\\Common\\Scoket_IO_Client.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\GitHub\\Git_KSH_Community\\Community_Client_WPF\\community\\Common\\Scoket_IO_Client.cs",
-              "RelativeToolTip": "community\\Common\\Scoket_IO_Client.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAApwD4AAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T07:07:18.939Z",
+              "WhenOpened": "2025-11-17T13:48:43.767Z",
               "EditorCaption": ""
             }
           ]

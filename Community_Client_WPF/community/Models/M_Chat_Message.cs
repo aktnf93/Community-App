@@ -35,6 +35,8 @@ namespace community.Models
             set => base.OnPropertyChanged(ref this.employee_id, value);
         }
 
+        public string Employee_Name { get; set; }
+
         [DataMember(Name = "message")]
         public string Message
         {

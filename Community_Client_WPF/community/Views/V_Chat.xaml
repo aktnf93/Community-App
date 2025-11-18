@@ -117,10 +117,10 @@
                                                             HorizontalAlignment="Right" Margin="8,0,10,10">
                                                         <TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
                                                     </Border>
-                                                    <Ellipse Width="40" Height="40" Fill="LightPink"
+                                                        <TextBlock Text="{Binding Employee_Name}"/>
+                                                    <!--<Ellipse Width="40" Height="40" Fill="LightPink"
                                                              VerticalAlignment="Top" Margin="0,0,10,0">
-                                                        
-                                                    </Ellipse>
+                                                    </Ellipse>-->
                                                 </StackPanel>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>

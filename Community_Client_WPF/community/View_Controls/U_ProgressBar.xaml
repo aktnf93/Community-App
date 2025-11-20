@@ -19,6 +19,6 @@
         <!-- 동그라미 Thumb -->
         <Ellipse x:Name="Thumb" 
                  Width="18" Height="18" Fill="White" Stroke="#4CAF50" StrokeThickness="1" 
-                 HorizontalAlignment="Left" Margin="-8,0,0,0"/>
+                 HorizontalAlignment="Left" Margin="-8,0,0,0" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

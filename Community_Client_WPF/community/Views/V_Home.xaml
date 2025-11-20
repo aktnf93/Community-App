@@ -5,72 +5,60 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:community.Views"
              xmlns:m="clr-namespace:community.Models"
+             xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              mc:Ignorable="d" 
              Width="1810" Height="1000" d:DesignWidth="1810" d:DesignHeight="1000"
              Loaded="{local:MethodBinding Loaded}" Background="{StaticResource Color_WhiteGray}">
     
-    <Grid Margin="20,20,20,30" Width="1770">
+    <Grid Margin="20,20,20,30">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1350" Tag="대시보드"/>
+            <ColumnDefinition Width="*" Tag="대시보드"/>
             <ColumnDefinition Width="20" Tag="여백"/>
-            <ColumnDefinition Width="400" Tag="날씨뉴스"/>
+            <ColumnDefinition Width="710" Tag="날씨뉴스"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" Tag="프로필_날씨시간"/>
-            <RowDefinition Height="20" Tag="여백"/>
-            <RowDefinition Height="2*" Tag="대시보드_뉴스"/>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Column="0" Grid.Row="0" Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5">
-            <TextBlock Text="프로필" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Border>
+        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Tag="프로필" Height="300"/>
+                <RowDefinition Tag="공지사항" Height="100"/>
+                <RowDefinition Tag="최근게시글"/>
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="2" Width="1350">
-            <Border Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5" HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                    Height="100">
-                <TextBlock Text="공지사항" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Border Grid.Row="0" Style="{StaticResource HomeBorder}" Margin="0,0,0,10">
+                <Grid>
+                    <Grid Width="90" Height="130" HorizontalAlignment="Left" VerticalAlignment="Top" DataContext="{Binding CurrentUser}">
+                        <Ellipse Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding Image_FullPath}" Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <TextBlock Foreground="{StaticResource Color_White}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">
+                        <Run Text="{Binding Id, StringFormat={}{0}: , Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Run Text="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </TextBlock>
+
+                        <Line VerticalAlignment="Bottom" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
+                    </Grid>
+                    
+                </Grid>
             </Border>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top"
-                        Height="250" Margin="0,110,0,0">
-                <Border Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5" Width="510">
-                    <TextBlock Text="게시판 대시보드" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Border>
-
-                <Border Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5" Width="510" Margin="10,0,0,0">
-                    <TextBlock Text="채팅 대시보드" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Border>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                        Height="250">
-                <Border Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5" Width="337" Margin="0,0,0,0">
-                    <TextBlock Text="프로젝트 대시보드" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Border>
-                <Border Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5" Width="337" Margin="10,0,0,0">
-                    <TextBlock Text="고객사 대시보드" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Border>
-                <Border Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5" Width="336" Margin="10,0,0,0">
-                    <TextBlock Text="재고 대시보드" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Border>
-            </StackPanel>
-
-            <Border Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                    Width="310" Height="510">
-                <TextBlock Text="긴급 알람" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
+            <Border Grid.Row="1" Style="{StaticResource HomeBorder}"/>
+            <Border Grid.Row="2" Style="{StaticResource HomeBorder}" Margin="0,10,0,0"/>
         </Grid>
-        
-        
-        <!--  -->
 
         <Border Grid.Column="2" Grid.Row="0" Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5">
-            <TextBlock Text="날씨랑 시간" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <wv2:WebView2 x:Name="WeatherWebView" Margin="2"/>
         </Border>
 
         <Border Grid.Column="2" Grid.Row="2" Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5">
-            <TextBlock Text="뉴스" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <wv2:WebView2 x:Name="NewsWebView" Margin="2"/>
         </Border>
     </Grid>
 </UserControl>

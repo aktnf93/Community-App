@@ -1,0 +1,325 @@
+<h2 class="title {{toLowerCase cpName}}">주간예보</h2>
+<button type="button" class="ico_help help_icon _cnWeatherInfoLayer" aria-pressed="false" onclick="oCommon.fnSendClick(event, '{{blockPageNameEn}}.{{clickCode}}info')"><span class="blind">도움말</span></button>
+<div class="ly_help">
+    <strong class="ly_ttl">날씨아이콘</strong>
+    <span class="desc">기온단위 (℃)</span>
+    <ul class="weather_list"></ul>
+    <button class="btn_close" onclick="oCommon.fnSendClick(event, '{{blockPageNameEn}}.{{clickCode}}info')"><span class="blind">도움말 닫기</span></button>
+</div>
+<ul class="box_color">
+    {{#each weeklyData}}
+        {{#ifCond @index '<' 2}}
+            <li class="{{#if ../domestic}}item{{else}}week_item {{#ifCond ../cpName '!==' 'WEATHERNEWS'}}spread{{/ifCond}}{{/if}}">
+                {{#unless ../domestic}}<div class="week_item_inner">{{/unless}}
+                <div class="day_data">
+                    <div class="cell_date">
+                        <span class="date_inner">
+                            <strong class="day">{{convertAplYmd aplYmd tzMin}}</strong><span class="date">{{dateFormat aplYmd "YYYYMMDD" "M.D."}}</span>
+                        </span>
+                    </div>
+                    <div class="cell_weather">
+                        <span class="weather_inner" data-wetr-cd="{{amWetrCd}}" data-wetr-txt="{{amWetrTxt}}">
+                            <strong class="inner_text left">
+                                <span class="timeslot">{{#ifCond ../cpName '===' 'KMA'}}오전{{/ifCond}}{{#ifCond ../cpName '!==' 'KMA'}}낮{{/ifCond}}</span>
+                                <span class="rainfall {{#ifCond amRainProb '===' 0}}none{{/ifCond}}"><span class="blind">강수확률</span>{{amRainProb}}%</span>
+                            </strong>
+                            <i class="ico ico_wt{{amWetrCd}}" data-tooltip="{{amWetrTxt}}"></i><span class="weather_text">{{amWetrTxt}}</span>
+                        </span>
+                        <span class="weather_inner" data-wetr-cd="{{pmWetrCd}}" data-wetr-txt="{{pmWetrTxt}}">
+                            <i class="ico ico_wt{{pmWetrCd}}" data-tooltip="{{pmWetrTxt}}"></i><span class="weather_text">{{pmWetrTxt}}</span>
+                            <strong class="inner_text">
+                                <span class="timeslot">{{#ifCond ../cpName '===' 'KMA'}}오후{{/ifCond}}{{#ifCond ../cpName '!==' 'KMA'}}밤{{/ifCond}}</span>
+                                <span class="rainfall {{#ifCond pmRainProb '===' 0}}none{{/ifCond}}"><span class="blind">강수확률</span>{{pmRainProb}}%</span>
+                            </strong>
+                        </span>
+                    </div>
+                    <div class="cell_temperature">
+                        <em class="cell_temperature_target">최저 / 최고</em>
+                        <strong class="temperature">
+                            <span class="lowest"><span class="blind">최저기온</span>{{mathRound minTmpr false 0}}°</span>
+                            <span class="bar">/</span>
+                            <span class="highest"><span class="blind">최고기온</span>{{mathRound maxTmpr false 0}}°</span>
+                        </strong>
+                    </div>
+                </div>
+                {{#unless ../domestic}}
+                    {{#ifCond ../cpName '!==' 'WEATHERNEWS'}}
+                        <div class="day_info">
+                            <ul class="info_time">
+                                <li class="time_item">
+                                    <p class="time_dsc"><strong class="time">낮시간</strong> {{amWetrTxt}}</p>
+                                    <div class="info_list_wrap">
+                                        <ul class="info_list">
+                                            <li>
+                                                <dl>
+                                                    <dt>체감온도</dt>
+                                                    <dd>{{mathRound minStmpr false 0}}~{{mathRound maxStmpr false 0}}°</dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <dl>
+                                                    <dt>자외선지수</dt>
+                                                    <dd>{{uv}}</dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <dl>
+                                                    <dt>강수량</dt>
+                                                    <dd>{{dayRainAmt}}mm</dd>
+                                                </dl>
+                                            </li>
+                                            {{#ifCond daySnowAmt '>' 0}}
+                                                <li>
+                                                    <dl>
+                                                        <dt>적설량</dt>
+                                                        <dd>{{daySnowAmt}}mm</dd>
+                                                    </dl>
+                                                </li>
+                                            {{/ifCond}}
+                                            <li>
+                                                <dl>
+                                                    <dt>강수확률</dt>
+                                                    <dd>{{amRainProb}}%</dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <dl>
+                                                    <dt>바람세기</dt>
+                                                    <dd>{{dayWindSpd}}m/s {{dayWindDrctnName}}</dd>
+                                                </dl>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="time_item">
+                                    <p class="time_dsc"><strong class="time">밤시간</strong> {{pmWetrTxt}}</p>
+                                    <div class="info_list_wrap">
+                                        <ul class="info_list">
+                                            <li>
+                                                <dl>
+                                                    <dt>체감온도</dt>
+                                                    <dd>{{mathRound minStmpr false 0}}~{{mathRound maxStmpr false 0}}°</dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <dl>
+                                                    <dt>강수량</dt>
+                                                    <dd>{{nightRainAmt}}mm</dd>
+                                                </dl>
+                                            </li>
+                                            {{#ifCond nightSnowAmt '>' 0}}
+                                                <li>
+                                                    <dl>
+                                                        <dt>적설량</dt>
+                                                        <dd>{{nightSnowAmt}}mm</dd>
+                                                    </dl>
+                                                </li>
+                                            {{/ifCond}}
+                                            <li>
+                                                <dl>
+                                                    <dt>강수확률</dt>
+                                                    <dd>{{pmRainProb}}%</dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <dl>
+                                                    <dt>바람세기</dt>
+                                                    <dd>{{nightWindSpd}}m/s {{nightWindDrctnName}}</dd>
+                                                </dl>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    {{/ifCond}}
+                {{/unless}}
+                {{#unless ../domestic}}</div>{{/unless}}
+            </li>
+        {{/ifCond}}
+    {{/each}}
+</ul>
+<div class="scroll_control _cnWeeklyFcastScrollControl end_left">
+    <div class="scroll_area" id="cardWeekScroll" data-name="weekly" data-click="false" data-gesture-scroll="true" data-nclk="{{blockPageNameEn}}.{{clickCode}}scr" data-bounce="false">
+        <ul class="week_list _cnWeeklyFcastList">
+            {{#each weeklyData}}
+                <li class="week_item {{#if @first}}today{{/if}} {{#ifCond @index '<' 2}}tablet_none{{/ifCond}} {{#unless ../domestic}}{{#ifCond ../cpName '!==' 'WEATHERNEWS'}}{{#if ../isPc}}{{#ifCond @index '==' 2}}on{{/ifCond}}{{else}}{{#ifCond @index '==' 0}}on{{/ifCond}}{{/if}}{{/ifCond}}{{/unless}}">
+                    <div class="week_item_inner">
+                        <div class="day_data">
+                            <div class="cell_date">
+                                <span class="date_inner {{#ifCond dayString '===' '일'}}holiday{{/ifCond}}">
+                                    <strong class="day">{{#ifCond @index '<' 2}}{{convertAplYmd aplYmd tzMin}}{{else}}{{dayString}}{{/ifCond}}</strong>
+                                    <span class="date">{{dateFormat aplYmd "YYYYMMDD" "M.D."}}</span>
+                                </span>
+                            </div>
+                            <div class="cell_weather">
+                                <span class="weather_inner" data-wetr-cd="{{amWetrCd}}" data-wetr-txt="{{amWetrTxt}}">
+                                    <strong class="inner_text left">
+                                        <span class="timeslot">{{#ifCond ../cpName '===' 'KMA'}}오전{{/ifCond}}{{#ifCond ../cpName '!==' 'KMA'}}낮{{/ifCond}}</span>
+                                        <span class="rainfall {{#ifCond amRainProb '===' 0}}none{{/ifCond}}"><span class="blind">강수확률</span>{{amRainProb}}%</span>
+                                    </strong>
+                                    <i class="ico ico_wt{{amWetrCd}}" data-tooltip="{{amWetrTxt}}"></i><span class="weather_text">{{amWetrTxt}}</span>
+                                </span>
+                                <span class="weather_inner" data-wetr-cd="{{pmWetrCd}}" data-wetr-txt="{{pmWetrTxt}}">
+                                    <i class="ico ico_wt{{pmWetrCd}}" data-tooltip="{{pmWetrTxt}}"></i><span class="weather_text">{{pmWetrTxt}}</span>
+                                    <strong class="inner_text">
+                                        <span class="timeslot">{{#ifCond ../cpName '===' 'KMA'}}오후{{/ifCond}}{{#ifCond ../cpName '!==' 'KMA'}}밤{{/ifCond}}</span>
+                                        <span class="rainfall {{#ifCond pmRainProb '===' 0}}none{{/ifCond}}"><span class="blind">강수확률</span>{{pmRainProb}}%</span>
+                                    </strong>
+                                </span>
+                            </div>
+                            <div class="cell_temperature">
+                                {{#if @first}}<em class="cell_temperature_target">최저 / 최고</em>{{/if}}
+                                <strong class="temperature">
+                                    <span class="lowest"><span class="blind">최저기온</span>{{mathRound minTmpr false 0}}°</span>
+                                    <span class="bar">/</span>
+                                    <span class="highest"><span class="blind">최고기온</span>{{mathRound maxTmpr false 0}}°</span>
+                                </strong>
+                            </div>
+                            {{#unless ../domestic}}
+                                {{#ifCond ../cpName '!==' 'WEATHERNEWS'}}
+                                    <button type="button" class="btn_more" data-am-wetr-txt="{{amWetrTxt}}" data-min-stmpr="{{minStmpr}}" data-max-stmpr="{{maxStmpr}}" data-uv="{{uv}}" data-day-rain-amt="{{dayRainAmt}}" data-day-snow-amt="{{daySnowAmt}}" data-am-rain-prob="{{amRainProb}}" data-day-wind-spd="{{dayWindSpd}}" data-day-wind-drctn-name="{{dayWindDrctnName}}" data-pm-wetr-txt="{{pmWetrTxt}}" data-night-rain-amt="{{nightRainAmt}}" data-night-snow-amt="{{nightSnowAmt}}" data-pm-rain-prob="{{pmRainProb}}" data-night-wind-spd="{{nightWindSpd}}" data-night-wind-drctn-name="{{nightWindDrctnName}}"><span class="blind">자세히 보기</span></button>
+                                {{/ifCond}}
+                            {{/unless}}
+                        </div>
+                        {{#unless ../domestic}}
+                            <div class="day_info">
+                                <ul class="info_time">
+                                    <li class="time_item">
+                                        <p class="time_dsc"><strong class="time">낮시간</strong> {{amWetrTxt}}</p>
+                                        <div class="info_list_wrap">
+                                            <ul class="info_list">
+                                                <li>
+                                                    <dl>
+                                                        <dt>체감온도</dt>
+                                                        <dd>{{mathRound minStmpr false 0}}~{{mathRound maxStmpr false 0}}°</dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <dl>
+                                                        <dt>자외선지수</dt>
+                                                        <dd>{{uv}}</dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <dl>
+                                                        <dt>강수량</dt>
+                                                        <dd>{{dayRainAmt}}mm</dd>
+                                                    </dl>
+                                                </li>
+                                                {{#ifCond daySnowAmt '>' 0}}
+                                                    <li>
+                                                        <dl>
+                                                            <dt>적설량</dt>
+                                                            <dd>{{daySnowAmt}}mm</dd>
+                                                        </dl>
+                                                    </li>
+                                                {{/ifCond}}
+                                                <li>
+                                                    <dl>
+                                                        <dt>강수확률</dt>
+                                                        <dd>{{amRainProb}}%</dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <dl>
+                                                        <dt>바람세기</dt>
+                                                        <dd>{{dayWindSpd}}m/s {{dayWindDrctnName}}</dd>
+                                                    </dl>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="time_item">
+                                        <p class="time_dsc"><strong class="time">밤시간</strong> {{pmWetrTxt}}</p>
+                                        <div class="info_list_wrap">
+                                            <ul class="info_list">
+                                                <li>
+                                                    <dl>
+                                                        <dt>체감온도</dt>
+                                                        <dd>{{mathRound minStmpr false 0}}~{{mathRound maxStmpr false 0}}°</dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <dl>
+                                                        <dt>강수량</dt>
+                                                        <dd>{{nightRainAmt}}mm</dd>
+                                                    </dl>
+                                                </li>
+                                                {{#ifCond nightSnowAmt '>' 0}}
+                                                    <li>
+                                                        <dl>
+                                                            <dt>적설량</dt>
+                                                            <dd>{{nightSnowAmt}}mm</dd>
+                                                        </dl>
+                                                    </li>
+                                                {{/ifCond}}
+                                                <li>
+                                                    <dl>
+                                                        <dt>강수확률</dt>
+                                                        <dd>{{pmRainProb}}%</dd>
+                                                    </dl>
+                                                </li>
+                                                <li>
+                                                    <dl>
+                                                        <dt>바람세기</dt>
+                                                        <dd>{{nightWindSpd}}m/s {{nightWindDrctnName}}</dd>
+                                                    </dl>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        {{/unless}}
+                    </div>
+                </li>
+            {{/each}}
+            {{#ifCond cpName '===' 'ACCUWEATHER'}}
+                {{#each overseasMonthlyFcastList}}
+                    <li class="week_item">
+                        <div class="week_item_inner">
+                            <div class="day_data">
+                                <div class="cell_date">
+                                    <span class="date_inner">
+                                        <strong class="day">{{dayString}}</strong>
+                                        <span class="date">{{dateFormat aplYmd "YYYYMMDD" "M.D."}}</span>
+                                    </span>
+                                </div>
+                                <div class="cell_weather">
+                                    <span class="weather_inner">
+                                        <strong class="inner_text center middle">
+                                            <span class="rainfall"><span class="blind">강수확률</span>{{rainProbDay}}%</span>
+                                        </strong>
+                                        <i class="ico ico_wt{{wetrCdNew}}" data-tooltip="{{wetrTxtNew}}"></i><span class="weather_text">{{wetrTxtNew}}</span>
+                                    </span>
+                                </div>
+                                <div class="cell_temperature">
+                                    <strong class="temperature">
+                                        <span class="lowest"><span class="blind">최저기온</span>{{minTmpr}}°</span>
+                                        <span class="bar">/</span>
+                                        <span class="highest"><span class="blind">최고기온</span>{{maxTmpr}}°</span>
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {{/each}}
+            {{/ifCond}}
+        </ul>
+    </div>
+{{#if domestic}}
+    <button type="button" class="button_more _cnWeeklyBtnMore hide">더보기</button>
+{{/if}}
+    <button type="button" class="btn_prev" onclick="oCommon.fnSendClick(event, '{{blockPageNameEn}}.{{clickCode}}scrclk')"><span class="blind">이전 보기</span></button>
+    <button type="button" class="btn_next" onclick="oCommon.fnSendClick(event, '{{blockPageNameEn}}.{{clickCode}}scrclk')"><span class="blind">다음 보기</span></button>
+</div>
+{{#unless domestic}}
+    {{#ifCond cpName '!==' 'WEATHERNEWS'}}
+        <div class="day_info_dsc on"></div>
+    {{/ifCond}}
+{{/unless}}
+<p class="offer_area">
+    <span>기상청은 자정에서 정오 전이 오전, 정오에서 자정 전이 오후이고, 해외 제공사는 일출부터 일몰 전이 낮, 일몰부터 일출 전이 밤입니다.</span>
+    <a href="{{#if isPc}}https://blog.naver.com/naver_weather/222199399966{{else}}https://m.blog.naver.com/naver_weather/222199399966{{/if}}" class="link_more" target="_blank" onclick="oCommon.fnSendClick(event, '{{blockPageNameEn}}.{{clickCode}}more')">자세히보기</a>
+</p>

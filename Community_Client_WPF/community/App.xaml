@@ -64,6 +64,8 @@
         <BitmapImage x:Key="Img_Folder_w"       UriSource="Images\folder_64px_w.png"        DecodePixelWidth="24"/>
         <BitmapImage x:Key="Img_Plus"           UriSource="Images\plus_64px.png"            DecodePixelWidth="24"/>
         <BitmapImage x:Key="Img_Plus_w"         UriSource="Images\plus_64px_w.png"          DecodePixelWidth="24"/>
+        
+        <BitmapImage x:Key="Img_Alarm"         UriSource="Images\alarm.png"          DecodePixelWidth="64"/>
         <!--#endregion-->
 
         <!--#region Colors-->
@@ -74,6 +76,8 @@
         <SolidColorBrush x:Key="Color_Gray2"       Color="#CFCFCF"/>
         <SolidColorBrush x:Key="Color_Gray"        Color="#808080"/>
         <SolidColorBrush x:Key="Color_ThinGray"    Color="#4A4A4A"/>
+        <SolidColorBrush x:Key="Color_ThinGray2"    Color="#656565"/>
+        <SolidColorBrush x:Key="Color_ThinGray3"    Color="#7B7B7B"/>
         <SolidColorBrush x:Key="Color_ThinBlack"   Color="#202020"/>
         <SolidColorBrush x:Key="Color_ThinBlack2"  Color="#DADADA"/>
         <SolidColorBrush x:Key="Color_Black"       Color="#000000"/>
@@ -89,6 +93,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Background" Value="#4A4A4A"/>
             <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Grid.Row" Value="0"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="Gray"/>
@@ -603,6 +608,7 @@
             <Setter Property="HorizontalGridLinesBrush" Value="Gray"/>
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
         </Style>
 
         <Style TargetType="{x:Type TextBlock}" x:Key="TxtColumnHeader">
@@ -638,7 +644,48 @@
             <Setter Property="Grid.RowSpan" Value="2"/>
             <Setter Property="Grid.Row" Value="0"/>
         </Style>
-  
+
+        <ControlTemplate TargetType="{x:Type Control}" x:Key="StatusBox_ProjectStatus">
+            <Border CornerRadius="10">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Background" Value="Gray"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Status}" Value="대기">
+                                <Setter Property="Background" Value="Gray"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Status}" Value="진행">
+                                <Setter Property="Background" Value="Green"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Status}" Value="완료">
+                                <Setter Property="Background" Value="Blue"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Status}" Value="보류">
+                                <Setter Property="Background" Value="Orange"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Status}" Value="취소">
+                                <Setter Property="Background" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+
+                <TextBlock Text="{Binding Status}" 
+                           Foreground="{StaticResource Color_White}" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style TargetType="{x:Type Border}" x:Key="HomeBorder">
+            <Setter Property="Background" Value="{StaticResource Color_Gray}"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="0.5"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+
         <!--#region View Maping-->
         <DataTemplate DataType="{x:Type vm:VM_Home}">
             <v:V_Home/>

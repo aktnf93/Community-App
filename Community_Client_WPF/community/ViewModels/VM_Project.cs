@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace community.ViewModels
 {
@@ -39,6 +40,33 @@ namespace community.ViewModels
                 this.ProjectList.Clear();
                 foreach (var item in result)
                 {
+                    if (item.Start_Date != null && item.End_Date != null)
+                    {
+                        var start = item.Start_Date.Value.Month + (item.Start_Date.Value.Year * 10);
+                        int current = (DateTime.Now.Year * 10);
+                        var end = item.End_Date.Value.Month + (item.End_Date.Value.Year * 10);
+
+                        for (int i = 0; i < 12; i++)
+                        {
+                            current += 1;
+                            Console.WriteLine("project: {0}, {1} <= {2} && {2} <= {3}", item.Name, start, current, end);
+                            if (start <= current && current <= end)
+                            {
+                                item.Month[i].Color = Brushes.LightGreen;
+                            }
+                            else
+                            {
+                                item.Month[i].Color = Brushes.Transparent;
+                            }
+                        }
+                    }
+
+                    // Task Load
+                    item.OnProjectTaskShow += (p) =>
+                    {
+                        // var result = Server.API.HttpSend<M_Project[]>("/project/list/select");
+                    };
+
                     this.ProjectList.Add(item);
                 }
             }
@@ -46,20 +74,7 @@ namespace community.ViewModels
 
         private void ProjectAdd()
         {
-            var project = new M_Project()
-            {
-                Name = "New Project"
-            };
 
-            var result = Server.API.HttpSend<M_DB_Result>("/project/list/insert", Server.Method.POST, project);
-
-            if (result != null)
-            {
-                if (result.InsertId.HasValue && result.InsertId.Value > 0)
-                {
-                    this.ProjectList.Add(project);
-                }
-            }
         }
     }
 }

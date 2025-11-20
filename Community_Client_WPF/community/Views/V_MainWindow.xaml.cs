@@ -98,7 +98,7 @@ namespace community.Views
                 return;
 
             normalSize = new Rect(this.Left, this.Top, this.Width, this.Height);
-            Console.WriteLine("[SizeChanged] 창 크기 백업 > {0}", normalSize.ToString());
+            // Console.WriteLine("[SizeChanged] 창 크기 백업 > {0}", normalSize.ToString());
         }
 
         /// <summary>
@@ -196,6 +196,9 @@ namespace community.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Console.Clear();
+            return;
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "이미지 파일 선택";
             openFileDialog.Filter = "이미지 파일 (*.png;*.jpg;*.jpeg;*.bmp)|*.png;*.jpg;*.jpeg;*.bmp";

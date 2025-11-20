@@ -29,6 +29,7 @@ namespace community.ViewModels
             new M_Card() { Title = "재고", Content = "", Description = "2025-11-13 20:29" },
         };
 
+        public ObservableCollection<M_System_Log> SystemLogs { get; set; } = new ObservableCollection<M_System_Log>();
         public ObservableCollection<M_System_Config> SystemConfigs { get; set; } = new ObservableCollection<M_System_Config>();
         public ObservableCollection<M_Organization_Company> CompanyList { get; set; } = new ObservableCollection<M_Organization_Company>();
         public ObservableCollection<M_Organization_Department> DepartmentList { get; set; } = new ObservableCollection<M_Organization_Department>();
@@ -161,11 +162,25 @@ namespace community.ViewModels
         {
             Console.WriteLine("VM_System Loaded");
 
+            SysTemLogSearch();
             SystemConfigSearch();
             CompanySearch();
             RankSearch();
             PositionSearch();
             RoleSearch();
+        }
+
+        private void SysTemLogSearch()
+        {
+            var logs = Server.API.HttpSend<M_System_Log[]>("/system/log/select");
+            this.SystemLogs.Clear();
+            if (logs != null)
+            {
+                foreach (var c in logs)
+                {
+                    this.SystemLogs.Add(c);
+                }
+            }
         }
 
         private void SystemConfigSearch()

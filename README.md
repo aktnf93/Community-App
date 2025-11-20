@@ -112,36 +112,46 @@ Community_Client_WPF
 시스템: 
 - 불러오기: post /system/config/select
 ```
+## 📄 [API 명세서 보기](Server_API.md.md)
+
+
 
 ## 📌 DB: MariaDB
 
 ```
 📦community
-├─📄tb_post_category                # 게시판 카테고리
-│   └─📄tb_posts                    # 게시판 리스트
-│       └─📄tb_post_comments        # 게시판 별 댓글
-├─📄tb_chat_rooms                   # 채팅방 리스트
-│   ├─📄tb_chat_members             # 채팅방 멤버
-│   └─📄tb_chat_messages            # 채팅방 멤버 별 메시지
-├─📄tb_projects                     # 프로젝트 리스트
-│   ├─📄tb_project_members          # 프로젝트 멤버
-│   └─📄tb_project_tasks            # 프로젝트 작업
-│       └─📄tb_project_task_members # 프로젝트 작업 별 멤버
-├─📄tb_customers                    # 고객사 리스트
-│   └─📄tb_customer_products        # 고객사 제품
-├─📄tb_products                     # 제품 리스트
-│   └─📄tb_product_inventory        # 제품 입출고
-├─📄tb_employees                    # 직원 리스트
-│   ├─📄tb_employee_reviews         # 직원 평가
-│   └─📄tb_employee_leaves          # 직원 휴가
-├─📄tb_organization_locations       # 지역 정보
-├─📄tb_organization_companies       # 소속 회사
-│   └─📄tb_organization_departments # 소속 부서
-│       └─📄tb_organization_teams   # 소속 팀
-├─📄tb_organization_ranks           # 직원 직급
-├─📄tb_organization_positions       # 직원 직책
-├─📄tb_organization_roles           # 직원 담당
-├─📄tb_organization_privileges      # 시스템 권한 그룹
-├─📄tb_system_config                # 시스템 값
-└─📄tb_system_logs                  # 시스템 로그
+│
+├─tb_post_category                # 게시판 카테고리
+│   └─tb_posts                    # 게시판 리스트
+│       └─tb_post_comments        # 게시판 별 댓글
+│
+├─tb_chat_rooms                   # 채팅방 리스트
+│   ├─tb_chat_members             # 채팅방 멤버
+│   └─tb_chat_messages            # 채팅방 멤버 별 메시지
+│
+├─tb_projects                     # 프로젝트 리스트
+│   ├─tb_project_members          # 프로젝트 멤버
+│   └─tb_project_tasks            # 프로젝트 작업
+│       └─tb_project_task_members # 프로젝트 작업 별 멤버
+│
+├─tb_customers                    # 고객사 리스트
+│   └─tb_customer_products        # 고객사 제품
+├─tb_organization_locations       # 고객사 지역 정보
+│
+├─tb_products                     # 제품 리스트
+│   └─tb_product_inventory        # 제품 입출고
+│
+├─tb_employees                    # 직원 리스트
+│   ├─tb_employee_reviews         # 직원 평가
+│   └─tb_employee_leaves          # 직원 휴가
+├─tb_organization_companies       # 직원 소속 회사
+│   └─tb_organization_departments # 직원 소속 부서
+│       └─tb_organization_teams   # 직원 소속 팀
+├─tb_organization_ranks           # 직원 직급
+├─tb_organization_positions       # 직원 직책
+├─tb_organization_roles           # 직원 담당
+├─tb_organization_privileges      # 직원 권한 그룹
+│
+├─tb_system_config                # 시스템 값
+└─tb_system_logs                  # 시스템 로그
 ```

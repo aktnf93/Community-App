@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Timers;
 using System.Windows;
 
 namespace community.ViewModels
@@ -47,6 +49,13 @@ namespace community.ViewModels
             }
         }
 
+        public DateTime _CurrentDateTime;
+        public DateTime CurrentDateTime
+        {
+            get => this._CurrentDateTime;
+            set => base.OnPropertyChanged(ref _CurrentDateTime, value);
+        }
+
         public VM_MainViewModel()
         {
             var login = this.viewModels[0] as VM_Login;
@@ -63,6 +72,16 @@ namespace community.ViewModels
             };
 
             this.MenuSelected = 0; // 프로그램 초기 실행 시 Login 화면으로.
+
+            Timer t = new Timer(1000);
+            t.Elapsed += (sender, e) =>
+            {
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    this.CurrentDateTime = DateTime.Now;
+                });
+            };
+            t.Start();
         }
     }
 }

@@ -1,13 +1,10 @@
-using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Policy;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
+using Newtonsoft.Json;
 
 
 namespace community.Common
@@ -55,7 +52,7 @@ namespace community.Common
             return serverPath;
         }
 
-        public J HttpSend<J>(string url, Method method = Method.POST, object data = null)
+        public T HttpSend<T>(string url, Method method = Method.POST, object data = null)
         {
             HttpRequestMessage req = new HttpRequestMessage();
 
@@ -65,12 +62,13 @@ namespace community.Common
                 case Method.POST:   req.Method = HttpMethod.Post;   break;
                 case Method.PUT:    req.Method = HttpMethod.Put;    break;
                 case Method.DELETE: req.Method = HttpMethod.Delete; break;
-                default: throw new ArgumentOutOfRangeException(nameof(method), "Invalid HTTP method");
             }
 
             req.RequestUri = new Uri(httpClient.BaseAddress, url);
             req.Headers.Add("authorization", "a620");
             req.Headers.Add("User-Agent", "ClientWPF");
+
+            #region token/data
             // req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token); // 인증 토큰 설정 (예: JWT 토큰)
             // req.Headers.Authorization = null; // 로그아웃 처리 (예: 토큰 삭제 등)
 
@@ -90,12 +88,8 @@ namespace community.Common
                 string json = JsonConvert.SerializeObject(data);
                 req.Content = new StringContent(json, Encoding.UTF8, "application/json");
             }
+            #endregion
 
-            return Send<J>(req);
-        }
-
-        private J Send<J>(HttpRequestMessage req)
-        {
             try
             {
                 HttpResponseMessage res = httpClient.SendAsync(req).Result;
@@ -104,26 +98,19 @@ namespace community.Common
                 string body = res.Content.ReadAsStringAsync().Result;
                 // Console.WriteLine($"code={statusCode}, body={body}");
 
-                // Json 문자열을 객체로 변환 (Newtonsoft.Json 사용)
-                if (string.IsNullOrWhiteSpace(body))
-                {
-                    // throw new ArgumentException("json 문자열이 비어 있습니다.", nameof(body));
-                    return default(J);
-                }
-
-                J result = JsonConvert.DeserializeObject<J>(body);
+                T result = JsonConvert.DeserializeObject<T>(body);
 
                 return result;
             }
-            catch (Exception jerr)
+            catch (Exception ex)
             {
                 // Cannot deserialize the current JSON array: 배열을 단일 객체에 할당할 수 없음.
                 // Null 값을 객체 멤버에 할당할 수 없음.
                 // 객체 DataMember.Name의 이름과 json 문자열의 key 이름이 일치하지 않음.
                 // throw new Exception("서버로 부터 수신한 데이터를 처리하지 못했습니다.");
-                Console.WriteLine("서버로 부터 수신한 데이터를 처리하지 못했습니다: {0}", jerr.Message);
+                Console.WriteLine("서버로 부터 수신한 데이터를 처리하지 못했습니다: {0}", ex.Message);
 
-                return default(J);
+                return default(T);
             }
         }
     }

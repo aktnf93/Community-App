@@ -1,12 +1,24 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 using System.Runtime.Serialization;
+using System.Windows.Media;
 using community.Common;
 
 namespace community.Models
 {
+    public class MonthBox
+    {
+        public SolidColorBrush Color { get; set; }
+    }
+
     [DataContract]
     public class M_Project : Notify
     {
+        public event ActionHandler<M_Project> OnProjectEdit;
+        public event ActionHandler<M_Project> OnProjectDelete;
+        public event ActionHandler<M_Project> OnProjectTaskShow;
+
         private int id;
         private int? customer_id;
         private string name;
@@ -18,6 +30,17 @@ namespace community.Models
         private DateTime created_at;
         private DateTime updated_at;
         private DateTime? deleted_at;
+
+        public MonthBox[] Month { get; set; } = new MonthBox[12];
+        public ObservableCollection<M_Project_Task> TaskList { get; set; } = new ObservableCollection<M_Project_Task>();
+
+        public M_Project()
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                this.Month[i] = new MonthBox();
+            }
+        }
 
         [DataMember(Name = "id")]
         public int Id
@@ -94,6 +117,21 @@ namespace community.Models
         {
             get => this.deleted_at;
             set => base.OnPropertyChanged(ref this.deleted_at, value);
+        }
+
+        private void BtnOnProjectEdit()
+        {
+            this.OnProjectEdit?.Invoke(this);
+        }
+
+        private void BtnOnProjectDelete()
+        {
+            this.OnProjectDelete?.Invoke(this);
+        }
+
+        private void BtnOnProjectTaskShow()
+        {
+            this.OnProjectTaskShow?.Invoke(this);
         }
     }
 }

@@ -44,7 +44,7 @@
 
         <!-- 리스트 목록  -->
         <TabControl Grid.Column="0" Grid.Row="5">
-            <TabItem Header="시스템 항목" Height="28">
+            <TabItem Header=" ⚙️ 시스템 항목 " Height="28">
                 <ItemsControl ItemsSource="{Binding SystemConfigs}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -138,7 +138,7 @@
                 </ItemsControl>
             </TabItem>
 
-            <TabItem Header="게시판 카테고리" Height="28">
+            <TabItem Header=" 📁 게시판 카테고리 " Height="28">
                 <StackPanel Orientation="Horizontal">
                     <!-- 게시판 상위 그룹 -->
                     <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
@@ -183,8 +183,12 @@
                     </Border>
                 </StackPanel>
             </TabItem>
-            
-            <TabItem Header="  소속: 회사|부서|팀  " Height="28">
+
+            <TabItem Header=" 🏴 지역 정보 ">
+
+            </TabItem>
+
+            <TabItem Header="  👨🏻‍💼 소속: 회사|부서|팀  " Height="28">
                 <StackPanel Orientation="Horizontal">
                     
                     <!-- 회사 정보 -->
@@ -252,7 +256,7 @@
                 </StackPanel>
             </TabItem>
 
-            <TabItem Header="  담당: 직급|직책|담당  " Height="28">
+            <TabItem Header="  👨🏻‍💼 담당: 직급|직책|담당  " Height="28">
                 <StackPanel Orientation="Horizontal">
 
                     <!-- 직급 정보 -->
@@ -319,72 +323,46 @@
                     </Border>
                 </StackPanel>
             </TabItem>
+
+            <TabItem Header=" 🔑 권한 그룹 ">
+
+            </TabItem>
         </TabControl>
 
         <!-- 최근이력 목록 -->
         <TabControl Grid.Column="2" Grid.Row="5">
-            <TabItem Header="최근 이력" Height="28">
-                <ItemsControl>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel Orientation="Vertical" VirtualizingPanel.VirtualizationMode="Recycling"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+            <TabItem Header=" 👁 시스템 로그 " Height="28">
+                <Border BorderBrush="Gray" BorderThickness="0.5" Padding="0,0,0.5,0">
+                    <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalScrollBarVisibility="Visible" Background="{StaticResource Color_White}">
+                        <ItemsControl ItemsSource="{Binding SystemLogs}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Vertical" VirtualizingPanel.VirtualizationMode="Recycling"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
 
-                    <ItemsControl.Template>
-                        <ControlTemplate TargetType="{x:Type ItemsControl}">
-                            <Border BorderBrush="Gray" BorderThickness="0.5" Padding="0,0,0.5,0">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="17"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="0" MaxHeight="30"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="53"/>
-                                    </Grid.RowDefinitions>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Height="30" BorderThickness="0.5" BorderBrush="Gray">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60"/>
+                                                <ColumnDefinition Width="60"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
 
-                                    <!--<Label Grid.Column="0" Grid.Row="0" Content="최근 이력" Style="{StaticResource Lable_Column}"/>
-                            <Line  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Bottom" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>-->
-
-                                    <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalScrollBarVisibility="Visible"
-                                          Background="{StaticResource Color_White}">
-                                        <ItemsPresenter/>
-                                    </ScrollViewer>
-
-                                    <Grid Grid.Column="0"  Grid.ColumnSpan="9" Grid.Row="2">
-                                        <Line VerticalAlignment="Top" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
-
-                                        <StackPanel Grid.Column="0" Grid.ColumnSpan="9" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        </StackPanel>
-                                    </Grid>
-                                </Grid>
-                            </Border>
-                        </ControlTemplate>
-                    </ItemsControl.Template>
-
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Height="30" BorderThickness="0.5" BorderBrush="Gray">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="80"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock x:Name="Title" Grid.Column="0" Text="{Binding Title}" TextTrimming="CharacterEllipsis" 
-                                       HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0"
-                                       TextDecorations="Underline"/>
-
-                                    <TextBlock x:Name="Update" Grid.Column="1" Text="{Binding Updated_At, StringFormat={}{0:yyyy-MM-dd}}" 
-                                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                                       TextDecorations="Underline"/>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                                            <TextBlock Grid.Column="0" Text="{Binding Id}"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Category}"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding Message}" TextTrimming="CharacterEllipsis"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding Created_At}"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
             </TabItem>
         </TabControl>
     </Grid>

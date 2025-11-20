@@ -71,7 +71,8 @@ namespace community.View_Controls
                     thumbX = maxThumbX;
 
                 TrackFill.Width = thumbX + Thumb.Width / 2;
-                Thumb.Margin = new Thickness(thumbX - Thumb.Width / 2, 0, 0, 0);
+
+                //Thumb.Margin = new Thickness(thumbX - Thumb.Width / 2, 0, 0, 0);
             }
             catch (Exception ex)
             {

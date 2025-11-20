@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:community.Views"
+             xmlns:u="clr-namespace:community.View_Controls"
              xmlns:m="clr-namespace:community.Models"
              mc:Ignorable="d" 
              Width="1810" Height="1000" d:DesignWidth="1810" d:DesignHeight="1000"
@@ -32,12 +33,13 @@
         </StackPanel>
 
         <!-- 리스트 제어 -->
-        <Grid Grid.Column="0" Grid.Row="4">
-            <Control Template="{StaticResource ListSearch}" ToolTip="게시글 검색"/>
-        </Grid>
+        <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal">
+            <Control Template="{StaticResource ListSearch}" ToolTip="프로젝트 검색"/>
+            <Button Content="➕️ 새 프로젝트" Width="120" Height="30" VerticalAlignment="Top" Margin="10,0,0,0" Click="{local:MethodBinding BtnProjectAdd}"/>
+        </StackPanel>
 
         <!-- 리스트 목록  -->
-        <ItemsControl Grid.Column="0" Grid.Row="5">
+        <ItemsControl Grid.Column="0" Grid.Row="5" ItemsSource="{Binding ProjectList}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel Orientation="Vertical" VirtualizingPanel.VirtualizationMode="Recycling"/>
@@ -49,24 +51,29 @@
                     <Border BorderBrush="Gray" BorderThickness="0.5" Padding="0,0,0.5,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="260"/>
-                                <ColumnDefinition Width="130"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="40" Tag="1"/>
-                                <ColumnDefinition Width="40" Tag="2"/>
-                                <ColumnDefinition Width="40" Tag="3"/>
-                                <ColumnDefinition Width="40" Tag="4"/>
-                                <ColumnDefinition Width="40" Tag="5"/>
-                                <ColumnDefinition Width="40" Tag="6"/>
-                                <ColumnDefinition Width="40" Tag="7"/>
-                                <ColumnDefinition Width="40" Tag="8"/>
-                                <ColumnDefinition Width="40" Tag="9"/>
-                                <ColumnDefinition Width="40" Tag="10"/>
-                                <ColumnDefinition Width="40" Tag="11"/>
-                                <ColumnDefinition Width="40" Tag="12"/>
+                                <ColumnDefinition Width="60" Tag="ID"/>
+                                <ColumnDefinition Width="100" Tag="System"/>
+                                <ColumnDefinition Width="100" Tag="Tags"/>
+                                <ColumnDefinition Width="*"  Tag="Name"/>
+                                <ColumnDefinition Width="190" Tag="Status"/>
 
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="50" Tag="1"/>
+                                <ColumnDefinition Width="50" Tag="2"/>
+                                <ColumnDefinition Width="50" Tag="3"/>
+                                <ColumnDefinition Width="50" Tag="4"/>
+                                <ColumnDefinition Width="50" Tag="5"/>
+                                <ColumnDefinition Width="50" Tag="6"/>
+                                <ColumnDefinition Width="50" Tag="7"/>
+                                <ColumnDefinition Width="50" Tag="8"/>
+                                <ColumnDefinition Width="50" Tag="9"/>
+                                <ColumnDefinition Width="50" Tag="10"/>
+                                <ColumnDefinition Width="50" Tag="11"/>
+                                <ColumnDefinition Width="50" Tag="12"/>
+
+                                <ColumnDefinition Width="120" Tag="Member"/>
+                                <ColumnDefinition Width="90" Tag="Update"/>
+                                <ColumnDefinition Width="200" Tag="Action"/>
+
                                 <ColumnDefinition Width="17"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
@@ -74,34 +81,41 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <ScrollViewer Grid.Column="0" Grid.ColumnSpan="30" Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                            <ScrollViewer Grid.Column="0" Grid.ColumnSpan="30" Grid.Row="1" VerticalScrollBarVisibility="Visible"
+                                          Background="White">
                                 <ItemsPresenter/>
                             </ScrollViewer>
 
-                            <Label Grid.Column="0" Grid.Row="0" Content="ID" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="1" Grid.Row="0" Content="프로젝트" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="2" Grid.Row="0" Content="상태" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="3" Grid.Row="0" Content="기간" Style="{StaticResource Lable_Column}"/>
-                           
+                            <Label Grid.Column="0"  Content="ID" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="1" Content="System" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="2" Content="Tags" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="3"  Content="프로젝트" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="4"  Content="프로젝트 진행률" Style="{StaticResource Lable_Column}"/>
+
+                            <Label Grid.Column="5"  Content="1월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="6"  Content="2월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="7"  Content="3월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="8"  Content="4월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="9"  Content="5월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="10" Content="6월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="11" Content="7월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="12" Content="8월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="13" Content="9월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="14" Content="10월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="15" Content="11월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="16" Content="12월" Style="{StaticResource Lable_Column}"/>
                             
-                            <Label Grid.Column="4" Grid.Row="0" Content="1월" Style="{StaticResource Lable_Column}"/>
-                            
-                            <Label Grid.Column="5" Grid.Row="0" Content="2월" Style="{StaticResource Lable_Column}"/>
-                            
-                            <Label Grid.Column="6" Grid.Row="0" Content="3월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="7" Grid.Row="0" Content="4월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="8" Grid.Row="0" Content="5월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="9" Grid.Row="0" Content="6월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="10" Grid.Row="0" Content="7월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="11" Grid.Row="0" Content="8월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="12" Grid.Row="0" Content="9월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="13" Grid.Row="0" Content="10월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="14" Grid.Row="0" Content="11월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="15" Grid.Row="0" Content="12월" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="17" Content="담당" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="18" Content="업데이트" Style="{StaticResource Lable_Column}"/>
+                            <Label Grid.Column="19" Content="액션" Style="{StaticResource Lable_Column}"/>
 
                             <!-- 구분선 -->
                             <Line Grid.Column="0" Grid.ColumnSpan="30" Grid.Row="0" VerticalAlignment="Bottom" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
 
+                            <Line  Grid.Column="0"  Style="{StaticResource Line_Vertical}"/>
+                            <Line  Grid.Column="1"  Style="{StaticResource Line_Vertical}"/>
+                            <Line  Grid.Column="2"  Style="{StaticResource Line_Vertical}"/>
+                            
                             <Line  Grid.Column="3"  Style="{StaticResource Line_Vertical}"/>
                             <Line  Grid.Column="4"  Style="{StaticResource Line_Vertical}"/>
                             <Line  Grid.Column="5"  Style="{StaticResource Line_Vertical}"/>
@@ -109,12 +123,16 @@
                             <Line  Grid.Column="7"  Style="{StaticResource Line_Vertical}"/>
                             <Line  Grid.Column="8"  Style="{StaticResource Line_Vertical}"/>
                             <Line  Grid.Column="9"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="10" Style="{StaticResource Line_Vertical}"/>
+                            <Line  Grid.Column="10"  Style="{StaticResource Line_Vertical}"/>
                             <Line  Grid.Column="11" Style="{StaticResource Line_Vertical}"/>
                             <Line  Grid.Column="12" Style="{StaticResource Line_Vertical}"/>
                             <Line  Grid.Column="13" Style="{StaticResource Line_Vertical}"/>
                             <Line  Grid.Column="14" Style="{StaticResource Line_Vertical}"/>
                             <Line  Grid.Column="15" Style="{StaticResource Line_Vertical}"/>
+                            <Line  Grid.Column="16" Style="{StaticResource Line_Vertical}"/>
+                            <Line  Grid.Column="17" Style="{StaticResource Line_Vertical}"/>
+
+                            <Line  Grid.Column="18" Style="{StaticResource Line_Vertical}"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -122,7 +140,7 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Gray" BorderThickness="0.5" Height="40" Cursor="Hand">
+                    <Border BorderBrush="Gray" BorderThickness="0.5" Cursor="Hand">
                         <Border.Style>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="Background" Value="White"/>
@@ -136,71 +154,113 @@
                             </Style>
                         </Border.Style>
 
-                        <Grid VerticalAlignment="Center">
+                        <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="260"/>
-                                <ColumnDefinition Width="130"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="40" Tag="1"/>
-                                <ColumnDefinition Width="40" Tag="2"/>
-                                <ColumnDefinition Width="40" Tag="3"/>
-                                <ColumnDefinition Width="40" Tag="4"/>
-                                <ColumnDefinition Width="40" Tag="5"/>
-                                <ColumnDefinition Width="40" Tag="6"/>
-                                <ColumnDefinition Width="40" Tag="7"/>
-                                <ColumnDefinition Width="40" Tag="8"/>
-                                <ColumnDefinition Width="40" Tag="9"/>
-                                <ColumnDefinition Width="40" Tag="10"/>
-                                <ColumnDefinition Width="40" Tag="11"/>
-                                <ColumnDefinition Width="40" Tag="12"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="60" Tag="ID"/>
+                                <ColumnDefinition Width="100" Tag="System"/>
+                                <ColumnDefinition Width="100" Tag="Tags"/>
+                                <ColumnDefinition Width="*" Tag="Name"/>
+                                <ColumnDefinition Width="190" Tag="Status"/>
+
+                                <ColumnDefinition Width="50" Tag="1"/>
+                                <ColumnDefinition Width="50" Tag="2"/>
+                                <ColumnDefinition Width="50" Tag="3"/>
+                                <ColumnDefinition Width="50" Tag="4"/>
+                                <ColumnDefinition Width="50" Tag="5"/>
+                                <ColumnDefinition Width="50" Tag="6"/>
+                                <ColumnDefinition Width="50" Tag="7"/>
+                                <ColumnDefinition Width="50" Tag="8"/>
+                                <ColumnDefinition Width="50" Tag="9"/>
+                                <ColumnDefinition Width="50" Tag="10"/>
+                                <ColumnDefinition Width="50" Tag="11"/>
+                                <ColumnDefinition Width="50" Tag="12"/>
+
+                                <ColumnDefinition Width="120" Tag="Member"/>
+                                <ColumnDefinition Width="90" Tag="Update"/>
+                                <ColumnDefinition Width="200" Tag="Action"/>
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="46"/>
+                                <!--<RowDefinition Height="30"/>-->
+                            </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{Binding Id}" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Margin="10,0,0,0" TextTrimming="CharacterEllipsis">
-                                <Run Text="{Binding Name}" FontSize="12"/>
-                                <LineBreak/>
-                                <Run Text="{Binding Description, StringFormat={}desc: {0}}" FontSize="12"/>
-                            </TextBlock>
+                            <TextBlock Grid.Column="0" Text="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                            <Grid Grid.Column="2">
-                                <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100" Width="120" Height="20"/>
-                                <TextBlock Text="{Binding Status}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="70,0,0,0"/>
-                                <TextBlock Text="{Binding Progress, StringFormat={}{0}%}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Border Grid.Column="1" Background="LightBlue" CornerRadius="8" Width="60" Height="22">
+                                <TextBlock Text="에너지" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <Border Grid.Column="2" Background="LightBlue" CornerRadius="8" Width="60" Height="22">
+                                <TextBlock Text="에너지" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <Grid Grid.Column="3">
+                                <TextBlock TextTrimming="CharacterEllipsis" 
+                                           HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+                                    <Run Text="{Binding Name}" FontSize="14" FontWeight="Bold"/>
+                                    <LineBreak/>
+                                    <Run Text="{Binding Description, StringFormat={}desc: {0}}" FontSize="12"/>
+                                </TextBlock>
+
+                                <ContentControl Template="{StaticResource StatusBox_ProjectStatus}" 
+                                                Width="50" Height="20" 
+                                                HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
                             </Grid>
 
-                            <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Run Text="{Binding Start_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
-                                <Run Text="~"/>
-                                <Run Text="{Binding End_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
+                            <Grid Grid.Column="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Run Text="{Binding Start_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
+                                    <Run Text="~"/>
+                                    <Run Text="{Binding End_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
+                                </TextBlock>
+
+                                <u:U_ProgressBar Grid.Column="0" Grid.Row="1" Value="{Binding Progress}" Minimum="0" Maximum="100" Width="130" Height="20"
+                                                 HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Progress, StringFormat={}{0} %}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            </Grid>
+
+                            <Border Grid.Column="5"  Background="{Binding Month[0].Color}"  Margin="0,0"/>
+                            <Border Grid.Column="6"  Background="{Binding Month[1].Color}"  Margin="0,0"/>
+                            <Border Grid.Column="7"  Background="{Binding Month[2].Color}"  Margin="0,0"/>
+                            <Border Grid.Column="8"  Background="{Binding Month[3].Color}"  Margin="0,0"/>
+                            <Border Grid.Column="9"  Background="{Binding Month[4].Color}"  Margin="0,0"/>
+                            <Border Grid.Column="10" Background="{Binding Month[5].Color}"  Margin="0,0"/>
+                            <Border Grid.Column="11" Background="{Binding Month[6].Color}"  Margin="0,0"/>
+                            <Border Grid.Column="12" Background="{Binding Month[7].Color}"  Margin="0,0"/>
+                            <Border Grid.Column="13" Background="{Binding Month[8].Color}"  Margin="0,0"/>
+                            <Border Grid.Column="14" Background="{Binding Month[9].Color}"  Margin="0,0"/>
+                            <Border Grid.Column="15" Background="{Binding Month[10].Color}" Margin="0,0"/>
+                            <Border Grid.Column="16" Background="{Binding Month[11].Color}" Margin="0,0"/>
+
+
+                            <TextBlock Grid.Column="17" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Run Text="제임슨"/>
+                                <Run Text="차장"/>
+                                <LineBreak/>
+                                <Run Text="개발부"/>
+                                <Run Text="팀장"/>
                             </TextBlock>
+                            
+                            <TextBlock Grid.Column="18" Text="{Binding Updated_At, StringFormat={}{0:yyyy-MM-dd}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            
+                            <StackPanel Grid.Column="19" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="▼" Width="30" Height="32"/>
+                                <Button Content="✏️ 편집" Width="70" Height="32" Margin="8,0,4,0"/>
+                                <Button Content="➖️ 삭제" Width="70" Height="32"/>
+                            </StackPanel>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-
-            <ItemsControl.ItemsSource>
-                <x:Array Type="{x:Type m:M_Project}">
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                    <m:M_Project Id="1" Customer_Id="5" Name="서울 재활용 시설" Description="자동화 기계 운용 프로그램 개발" Progress="3" Start_Date="2025-11-16" End_Date="2026-05-03" Status="진행" Created_At="2025-11-16" Updated_At="2025-11-16"/>
-                </x:Array>
-            </ItemsControl.ItemsSource>
         </ItemsControl>
     </Grid>
 </UserControl>

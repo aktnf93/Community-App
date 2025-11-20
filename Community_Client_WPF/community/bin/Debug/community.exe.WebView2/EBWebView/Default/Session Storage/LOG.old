@@ -1,0 +1,15 @@
+2025/11/19-20:49:06.177 a88 Reusing MANIFEST C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\bin\Debug\community.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
+2025/11/19-20:49:06.177 a88 Recovering log #72
+2025/11/19-20:49:06.179 a88 Reusing old log C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\bin\Debug\community.exe.WebView2\EBWebView\Default\Session Storage/000072.log 
+2025/11/19-20:51:07.265 4550 Level-0 table #76: started
+2025/11/19-20:51:07.268 4550 Level-0 table #76: 32103 bytes OK
+2025/11/19-20:51:07.270 4550 Delete type=0 #72
+2025/11/19-20:51:07.270 a88 Compacting 4@0 + 1@1 files
+2025/11/19-20:51:07.274 a88 Generated table #77@0: 133 keys, 34562 bytes
+2025/11/19-20:51:07.274 a88 Compacted 4@0 + 1@1 files => 34562 bytes
+2025/11/19-20:51:07.277 a88 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/11/19-20:51:07.277 a88 Delete type=2 #67
+2025/11/19-20:51:07.277 a88 Delete type=2 #69
+2025/11/19-20:51:07.277 a88 Delete type=2 #71
+2025/11/19-20:51:07.277 a88 Delete type=2 #73
+2025/11/19-20:51:07.277 a88 Delete type=2 #76

@@ -337,8 +337,7 @@ const tables = {
 
     // __________________________________________/employee
     employee_list: {
-        table: 'tb_employees',
-        view: 'tb_employees',
+        table: 'v_employees',
         get: ['id', 'login_id', 'login_pw'],
         post: [
             'name', 'description', 'employee_code', 

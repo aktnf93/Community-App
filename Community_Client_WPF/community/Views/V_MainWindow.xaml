@@ -11,7 +11,9 @@
         WindowStyle="None" AllowsTransparency="False"
         WindowStartupLocation="CenterScreen"
         StateChanged="Window_OnStateChanged"
-        SizeChanged="Window_OnSizeChanged">
+        SizeChanged="Window_OnSizeChanged"
+        FontFamily="Noto Sans KR"
+        >
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
     </WindowChrome.WindowChrome>
@@ -93,6 +95,7 @@
                 <RadioButton Content="재고관리" Tag="{StaticResource Img_Menu_Product}"  Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=6}"/>
                 <RadioButton Content="직원관리" Tag="{StaticResource Img_Menu_Employee}" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=7}"/>
                 <RadioButton Content="환경설정" Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=8}"/>
+                <RadioButton Content="시설관리" Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=9}"/>
                 <!--<RadioButton Content="TEST"     Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=9}"/>-->
             </StackPanel>
         </Border>

@@ -1,35 +1,37 @@
-0:00:45 Tab4 FinishNav24
-0:00:45 Tab4 PageLoad
-0:00:45 Tab4 StartNav25 #renderer-script #auto_subframe
-0:00:45 Tab4 FinishNav25
-0:00:45 Tab4 PageLoad
-0:00:45 Tab4 StartNav26 #renderer-script #auto_subframe
-0:00:45 Tab4 FinishNav26
-0:00:45 Tab4 PageLoad
-0:00:45 Tab4 FinishNav22
-0:00:45 Tab4 PageLoad
-0:00:45 Tab4 StartNav27 #renderer-script #auto_subframe
-0:00:45 Tab4 FinishNav27
-0:00:45 Tab4 PageLoad
-0:00:45 Tab4 StartNav28 #renderer-script #auto_subframe
-0:00:45 Tab4 FinishNav28
-0:00:45 Tab4 PageLoad
-0:00:45 Tab3 FinishNav19
-0:00:46 Tab3 PageLoad
-0:00:47 Tab3 StartNav29 #renderer-script #auto_subframe
-0:00:47 Tab3 FinishNav29
-0:00:47 Tab3 PageLoad
-0:00:47 Tab3 StartNav30 #renderer-script #auto_subframe
-0:00:47 Tab3 FinishNav30
-0:00:47 Tab3 PageLoad
-0:00:47 Tab3 StartNav31 #renderer-script #auto_subframe
-0:00:47 Tab3 FinishNav31
-0:00:47 Tab3 PageLoad
-0:00:47 Tab3 StartNav32 #renderer-script #auto_subframe
-0:00:47 Tab3 FinishNav32
-0:00:47 Tab3 PageLoad
-0:01:00 Widget Closed: StatusBubble
-0:01:07 Widget Closed: StatusBubble
-0:01:21 Widget Closed: StatusBubble
-0:02:05 Widget Closed: StatusBubble
-0:06:42 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp
+0:54:32 Tab4 FinishNav111
+0:54:32 Tab4 PageLoad
+0:54:32 Tab4 FinishNav107
+0:54:32 Tab4 PageLoad
+0:54:33 Tab4 StartNav112 #renderer-script #auto_subframe
+0:54:33 Tab4 FinishNav112
+0:54:33 Tab4 PageLoad
+0:54:33 Tab4 StartNav113 #renderer-script #auto_subframe
+0:54:33 Tab4 FinishNav113
+0:54:33 Tab4 PageLoad
+1:00:01 Tab2 StartNav114 #renderer-script #link
+1:00:01 Tab2 FinishNav114
+1:00:01 Tab2 PageLoad
+1:00:01 Tab2 StartNav115 #renderer-script #link
+1:00:01 Tab2 FinishNav115
+1:00:01 Tab2 StartNav116 #renderer-script #auto_subframe
+1:00:01 Tab2 StartNav117 #renderer-script #auto_subframe
+1:00:01 Tab2 FinishNav117
+1:00:01 Tab2 PageLoad
+1:00:01 Tab2 StartNav118 #renderer-script #auto_subframe
+1:00:01 Tab2 FinishNav118
+1:00:01 Tab2 PageLoad
+1:00:01 Tab2 StartNav119 #renderer-script #auto_subframe
+1:00:01 Tab2 FinishNav119
+1:00:01 Tab2 PageLoad
+1:00:01 Tab2 StartNav120 #renderer-script #auto_subframe
+1:00:01 Tab2 FinishNav120
+1:00:01 Tab2 PageLoad
+1:00:01 Tab2 FinishNav116
+1:00:01 Tab2 PageLoad
+1:00:01 Tab2 StartNav121 #renderer-script #auto_subframe
+1:00:01 Tab2 FinishNav121
+1:00:01 Tab2 PageLoad
+1:00:01 Tab2 StartNav122 #renderer-script #auto_subframe
+1:00:01 Tab2 FinishNav122
+1:00:01 Tab2 PageLoad
+1:00:49 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp

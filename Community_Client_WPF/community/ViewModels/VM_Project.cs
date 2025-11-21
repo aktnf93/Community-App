@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace community.ViewModels
@@ -72,9 +73,9 @@ namespace community.ViewModels
             }
         }
 
-        private void ProjectAdd()
+        private void BtnProjectAdd()
         {
-
+            new Window().ShowDialog();
         }
     }
 }

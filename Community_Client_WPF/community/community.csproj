@@ -131,6 +131,7 @@
     <Compile Include="Models\M_DB_Result.cs" />
     <Compile Include="Models\Employee\M_Employee_Leave.cs" />
     <Compile Include="Models\Employee\M_Employee_Review.cs" />
+    <Compile Include="Models\M_HomePorts.cs" />
     <Compile Include="Models\M_ListItem.cs" />
     <Compile Include="Models\Organization\M_Organization_Company.cs" />
     <Compile Include="Models\Organization\M_Organization_Department.cs" />
@@ -151,11 +152,15 @@
     <Compile Include="Models\System\M_System_Log.cs" />
     <Compile Include="Models\M_TreeItem.cs" />
     <Compile Include="ViewModels\VM_Home.cs" />
+    <Compile Include="ViewModels\VM_ProjectDetail.cs" />
     <Compile Include="ViewModels\VM_Test.cs" />
     <Compile Include="Views\MethodBinding.cs" />
     <Compile Include="Common\Notify.cs" />
     <Compile Include="Views\V_Home.xaml.cs">
       <DependentUpon>V_Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\V_ProjectDetail.xaml.cs">
+      <DependentUpon>V_ProjectDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\V_Test.xaml.cs">
       <DependentUpon>V_Test.xaml</DependentUpon>
@@ -255,6 +260,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\V_Project.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\V_ProjectDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

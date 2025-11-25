@@ -12,7 +12,7 @@ namespace community.Models
         private string description;
         private string employee_code;
         private string gender;
-        private string birth_date;
+        private DateTime? birth_date;
         private string email;
         private string phone;
         private string address;
@@ -78,7 +78,7 @@ namespace community.Models
         }
 
         [DataMember(Name = "birth_date")]
-        public string Birth_Date
+        public DateTime? Birth_Date
         {
             get => this.birth_date;
             set => base.OnPropertyChanged(ref this.birth_date, value);

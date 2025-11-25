@@ -1,6 +1,6 @@
 {
   "showLineNumber": true,
-  "readableLineLength": true,
+  "readableLineLength": false,
   "alwaysUpdateLinks": true,
   "pdfExportSettings": {
     "pageSize": "Letter",

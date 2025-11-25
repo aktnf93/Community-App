@@ -33,12 +33,20 @@
             </Grid.RowDefinitions>
 
             <!-- 프로필 -->
-            <Border Grid.Row="0" Style="{StaticResource HomeBorder}" 
-                    TextBlock.Foreground="White" TextBlock.FontSize="14">
+            <Border Grid.Row="0" Style="{StaticResource HomeBorder}" Background="White"
+                    TextBlock.FontSize="16">
                 <Grid DataContext="{Binding CurrentUser}" Margin="20">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="60"/>
                         <ColumnDefinition Width="160"/>
+
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="160"/>
+
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="80"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -51,59 +59,175 @@
                         <RowDefinition Tag="6"/>
                         <RowDefinition Tag="7"/>
                         <RowDefinition Tag="8"/>
+                        <RowDefinition Tag="9"/>
                     </Grid.RowDefinitions>
 
-                    <Ellipse Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Width="70" Height="70" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">
+
+                    <TextBlock Grid.Column="0" Grid.Row="4" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="5" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="6" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="7" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="8" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="9" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+
+                    <TextBlock Grid.Column="1" Grid.Row="4" Text="ID" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="1" Grid.Row="5" Text="사번" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="1" Grid.Row="6" Text="이름" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="1" Grid.Row="7" Text="기타" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="1" Grid.Row="8" Text="상태" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="1" Grid.Row="9" Text="입사일" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+
+                    <Ellipse Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3" Width="70" Height="70" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="{Binding Image_FullPath}" Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant"/>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <TextBlock Grid.Column="0" Grid.Row="3" Text="• ID : 1"/>
-                    <TextBlock Grid.Column="0" Grid.Row="4" Text="• 사번 : A0001"/>
-                    <TextBlock Grid.Column="0" Grid.Row="5" Text="• 이름 : 제임스"/>
-                    <TextBlock Grid.Column="0" Grid.Row="6" Text="• 기타 : 창립멤버"/>
-                    <TextBlock Grid.Column="0" Grid.Row="7" Text="• 상태 : 재직"/>
-                    <TextBlock Grid.Column="0" Grid.Row="8" Text="• 입사일 : 2025-11-20"/>
+                    <TextBlock Grid.Column="2" Grid.Row="4" Text="{Binding Id}"/>
+                    <TextBlock Grid.Column="2" Grid.Row="5" Text="{Binding Employee_Code}"/>
+                    <TextBlock Grid.Column="2" Grid.Row="6" Text="{Binding Name}"/>
+                    <TextBlock Grid.Column="2" Grid.Row="7" Text="{Binding Description}"/>
+                    <TextBlock Grid.Column="2" Grid.Row="8" Text="{Binding Status}"/>
+                    <TextBlock Grid.Column="2" Grid.Row="9" Text="{Binding Joined_At, StringFormat={}{0:yyyy-MM-dd}}"/>
 
-                    <TextBlock Grid.Column="1" Grid.Row="2" Text="• 회사명 : 00식품"/>
-                    <TextBlock Grid.Column="1" Grid.Row="3" Text="• 부서명 : 총무"/>
-                    <TextBlock Grid.Column="1" Grid.Row="4" Text="• 팀명 : 회계"/>
-                    <TextBlock Grid.Column="1" Grid.Row="5" Text="• 직급 : 과장"/>
-                    <TextBlock Grid.Column="1" Grid.Row="6" Text="• 직책 : 팀장"/>
-                    <TextBlock Grid.Column="1" Grid.Row="7" Text="• 담당 : PM"/>
-                    <TextBlock Grid.Column="1" Grid.Row="8" Text="• 권한 : Master"/>
 
-                    <TextBlock Grid.Column="2" Grid.Row="2" Text="• 성별 : 남"/>
-                    <TextBlock Grid.Column="2" Grid.Row="3" Text="• 생년월일 : 000101"/>
-                    <TextBlock Grid.Column="2" Grid.Row="4" Text="• 이메일 : abcdefg@123.com"/>
-                    <TextBlock Grid.Column="2" Grid.Row="5" Text="• 연락처 : 000-1234-5678"/>
-                    <TextBlock Grid.Column="2" Grid.Row="6" Grid.RowSpan="3" Text="• 자택 : 00시 00구 00군 00면 00읍 00소 123-567"/>
+
+                    <TextBlock Grid.Column="3" Grid.Row="3" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="3" Grid.Row="4" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="3" Grid.Row="5" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="3" Grid.Row="6" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="3" Grid.Row="7" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="3" Grid.Row="8" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="3" Grid.Row="9" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+
+                    <TextBlock Grid.Column="4" Grid.Row="3" Text="회사명" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="4" Grid.Row="4" Text="부서명" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="4" Grid.Row="5" Text="팀명"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="4" Grid.Row="6" Text="직급"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="4" Grid.Row="7" Text="직책"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="4" Grid.Row="8" Text="담당"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="4" Grid.Row="9" Text="권한"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+
+                    <TextBlock Grid.Column="5" Grid.Row="3" Text="{Binding Company_Name}"/>
+                    <TextBlock Grid.Column="5" Grid.Row="4" Text="{Binding Department_Name}"/>
+                    <TextBlock Grid.Column="5" Grid.Row="5" Text="{Binding Team_Name}"/>
+                    <TextBlock Grid.Column="5" Grid.Row="6" Text="{Binding Rank_Name}"/>
+                    <TextBlock Grid.Column="5" Grid.Row="7" Text="{Binding Position_Name}"/>
+                    <TextBlock Grid.Column="5" Grid.Row="8" Text="{Binding Role_Name}"/>
+                    <TextBlock Grid.Column="5" Grid.Row="9" Text="{Binding Privilege_Name}"/>
+
+
+
+                    <TextBlock Grid.Column="6" Grid.Row="3" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="6" Grid.Row="4" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="6" Grid.Row="5" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="6" Grid.Row="6" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="6" Grid.Row="7" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+
+                    <TextBlock Grid.Column="7" Grid.Row="3" Text="성별"     HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="7" Grid.Row="4" Text="생년월일" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="7" Grid.Row="5" Text="이메일"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="7" Grid.Row="6" Text="연락처"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+                    <TextBlock Grid.Column="7" Grid.Row="7" Text="자택"     HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
+
+                    <TextBlock Grid.Column="8" Grid.Row="3" Text="{Binding Gender}"/>
+                    <TextBlock Grid.Column="8" Grid.Row="4" Text="{Binding Birth_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
+                    <TextBlock Grid.Column="8" Grid.Row="5" Text="{Binding Email}"/>
+                    <TextBlock Grid.Column="8" Grid.Row="6" Text="{Binding Phone}"/>
+                    <TextBlock Grid.Column="8" Grid.Row="7" Text="{Binding Address}"/>
                 </Grid>
             </Border>
 
             <!-- 공지사항 -->
-            <Border Grid.Row="2" Style="{StaticResource HomeBorder}" 
-                    TextBlock.Foreground="White" TextBlock.FontSize="20">
-                <TextBlock Text="2025-11-19 : 전 직원은 다음 주 월요일 2번 회의실로 모이시기 바랍니다."
-                           HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0"/>
+            <Border Grid.Row="2" Style="{StaticResource HomeBorder}" Background="White"
+                    TextBlock.FontSize="20">
             </Border>
             
             <!-- 최근 게시물 -->
-            <Border Grid.Row="4" Style="{StaticResource HomeBorder}">
+            <Border Grid.Row="4" Style="{StaticResource HomeBorder}" Background="White">
+                <Grid>
+                    <TextBlock Text="※ 최근 추가" FontSize="16" FontWeight="Bold"
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"/>
+                    <ItemsControl HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="20,60,0,20">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Width="1000" Height="40" Margin="0,0,0,10" TextBlock.FontSize="16" Cursor="Hand"
+                                      Background="Transparent">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="4"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="120"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border x:Name="Bor" Grid.Column="0" Grid.ColumnSpan="4" BorderBrush="Gray" BorderThickness="0.5"/>
+                                    <Rectangle x:Name="TypeBar" Grid.Column="0" Fill="Gray"/>
+                                    <TextBlock x:Name="TxtCategory" Grid.Column="1" Text="{Binding Category}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="TxtTitle" Grid.Column="2" Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="TxtCreated_At" Grid.Column="3" Text="{Binding Created_At, StringFormat={}{0:yyyy-MM-dd}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Category}" Value="post">
+                                        <Setter TargetName="TypeBar" Property="Fill" Value="Blue"/>
+                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Blue"/>
+                                        <Setter TargetName="TxtCategory" Property="Text" Value="게시글"/>
+                                    </DataTrigger>
 
-                <StackPanel Orientation="Vertical" Margin="40,40,0,0"
-                            TextBlock.Foreground="White" TextBlock.FontSize="16">
-                    <TextBlock>
-                        <Run Text="2025-11-01 : 게시글 - 경기 00엔지니어링에 기술미팅 일정 확인해주세요~"/>
-                        <Run Text="New" Foreground="Yellow"/>
-                    </TextBlock>
-                    <TextBlock Text="2025-11-01 : 채팅방 - 엑스포 전시회 지원팀"/>
-                    <TextBlock Text="2025-10-26 : 프로젝트 - 엑스포 전시회 지원팀"/>
-                    <TextBlock>
-                        <Run Text="2025-10-25 : 고객관리 - YY화학 1공장 시스템 에러"/>
-                        <Run Text="New" Foreground="Yellow"/>
-                    </TextBlock>
-                </StackPanel>
+                                    <DataTrigger Binding="{Binding Category}" Value="chat">
+                                        <Setter TargetName="TypeBar" Property="Fill" Value="Blue"/>
+                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Blue"/>
+                                        <Setter TargetName="TxtCategory" Property="Text" Value="채팅방"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Category}" Value="project">
+                                        <Setter TargetName="TypeBar" Property="Fill" Value="Purple"/>
+                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Purple"/>
+                                        <Setter TargetName="TxtCategory" Property="Text" Value="프로젝트"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Category}" Value="product">
+                                        <Setter TargetName="TypeBar" Property="Fill" Value="Purple"/>
+                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Purple"/>
+                                        <Setter TargetName="TxtCategory" Property="Text" Value="재고관리"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Category}" Value="customer">
+                                        <Setter TargetName="TypeBar" Property="Fill" Value="Purple"/>
+                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Purple"/>
+                                        <Setter TargetName="TxtCategory" Property="Text" Value="고객관리"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Category}" Value="employee">
+                                        <Setter TargetName="TypeBar" Property="Fill" Value="Green"/>
+                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Green"/>
+                                        <Setter TargetName="TxtCategory" Property="Text" Value="직원관리"/>
+                                    </DataTrigger>
+
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Bor" Property="BorderBrush" Value="ForestGreen"/>
+                                        <Setter TargetName="Bor" Property="Background" Value="Ivory"/>
+                                    </Trigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsSource>
+                            <x:Array Type="{x:Type m:M_HomePorts}">
+                                <m:M_HomePorts Category="post" Title="[공지사항] (연장) 시스템 점검 일시 11.25~27" Created_At="2025-11-20"/>
+                                <m:M_HomePorts Category="post" Title="[공지사항] 시스템 점검 일시 11.25~26" Created_At="2025-11-20"/>
+                                <m:M_HomePorts Category="post" Title="전 직원은 다음 주 월요일 2번 회의실로 모이시기 바랍니다." Created_At="2025-11-19"/>
+                                <m:M_HomePorts Category="post" Title="경기 00엔지니어링에 기술미팅 일정 확인요청" Created_At="2025-11-01"/>
+                                <m:M_HomePorts Category="chat" Title="엑스포 전시회 지원팀" Created_At="{x:Null}"/>
+                                <m:M_HomePorts Category="project" Title="엑스포 전시회 지원팀" Created_At="2025-10-26"/>
+                                <m:M_HomePorts Category="product" Title="신제품 출시 : 유선 드론" Created_At="2025-10-25"/>
+                                <m:M_HomePorts Category="customer" Title="YY화학 1공장 시스템 에러" Created_At="2025-11-22"/>
+                                <m:M_HomePorts Category="employee" Title="2026년 입사자 리스트" Created_At="2025-11-20"/>
+                            </x:Array>
+                        </ItemsControl.ItemsSource>
+                    </ItemsControl>
+                </Grid>
             </Border>
         </Grid>
 

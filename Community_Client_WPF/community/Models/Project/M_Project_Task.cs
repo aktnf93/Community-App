@@ -1,6 +1,7 @@
-﻿using System;
+﻿using community.Common;
+using System;
 using System.Runtime.Serialization;
-using community.Common;
+using System.Windows.Media;
 
 namespace community.Models
 {
@@ -17,6 +18,37 @@ namespace community.Models
         private string status;
         private DateTime created_at;
         private DateTime updated_at;
+
+        public MonthBox[] Month { get; set; } = new MonthBox[12];
+
+        public M_Project_Task()
+        {
+        }
+
+        public void UpdateMonth()
+        {
+            var start_dt = this.Start_Date;
+            var end_dt = this.End_Date;
+            if (start_dt != null && end_dt != null)
+            {
+                var start = start_dt.Value.Month + (start_dt.Value.Year * 10);
+                int current = (DateTime.Now.Year * 10);
+                var end = end_dt.Value.Month + (end_dt.Value.Year * 10);
+
+                for (int i = 0; i < 12; i++)
+                {
+                    var month = new MonthBox();
+
+                    current += 1;
+                    if (start <= current && current <= end)
+                        month.Color = Brushes.LightGreen;
+                    else
+                        month.Color = Brushes.Transparent;
+
+                    this.Month[i] = month;
+                }
+            }
+        }
 
         [DataMember(Name = "id")]
         public int Id

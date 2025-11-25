@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:community"
              xmlns:v="clr-namespace:community.Views"
              xmlns:vm="clr-namespace:community.ViewModels"
+             xmlns:m="clr-namespace:community.Models"
              xmlns:u="clr-namespace:community.View_Controls"
              xmlns:cnv="clr-namespace:community.View_Converters"
              StartupUri="Views/V_MainWindow.xaml"
@@ -685,6 +686,101 @@
             <Setter Property="BorderThickness" Value="0.5"/>
             <Setter Property="CornerRadius" Value="8"/>
         </Style>
+
+        <ControlTemplate TargetType="{x:Type Control}" x:Key="ProjectBlock">
+            <Grid x:Name="TaskGrid" Height="46">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" Tag="ID"/>
+                    <ColumnDefinition Width="*"  Tag="Name"/>
+                    <ColumnDefinition Width="190" Tag="Status"/>
+                    <ColumnDefinition Width="190" Tag="Date"/>
+
+                    <ColumnDefinition Width="50" Tag="1"/>
+                    <ColumnDefinition Width="50" Tag="2"/>
+                    <ColumnDefinition Width="50" Tag="3"/>
+                    <ColumnDefinition Width="50" Tag="4"/>
+                    <ColumnDefinition Width="50" Tag="5"/>
+                    <ColumnDefinition Width="50" Tag="6"/>
+                    <ColumnDefinition Width="50" Tag="7"/>
+                    <ColumnDefinition Width="50" Tag="8"/>
+                    <ColumnDefinition Width="50" Tag="9"/>
+                    <ColumnDefinition Width="50" Tag="10"/>
+                    <ColumnDefinition Width="50" Tag="11"/>
+                    <ColumnDefinition Width="50" Tag="12"/>
+
+                    <ColumnDefinition Width="120" Tag="Member"/>
+                    <ColumnDefinition Width="90" Tag="Update"/>
+                    <ColumnDefinition Width="200" Tag="Action"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" x:Name="TxtId" Text="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Grid Grid.Column="1">
+                    <TextBlock TextTrimming="CharacterEllipsis" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <Run Text="{Binding Name}" FontSize="14" FontWeight="Bold"/>
+                        <LineBreak/>
+                        <Run Text="{Binding Description, StringFormat={}desc: {0}}" FontSize="12"/>
+                    </TextBlock>
+
+                    <ContentControl Template="{StaticResource StatusBox_ProjectStatus}" 
+                                    Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <u:U_ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100" Width="130" Height="20"
+                                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <TextBlock Text="{Binding Progress, StringFormat={}{0} %}" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                </Grid>
+
+                <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Run Text="{Binding Start_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
+                    <Run Text="~"/>
+                    <Run Text="{Binding End_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
+                </TextBlock>
+
+                <Border Grid.Column="4"  Background="{Binding Month[0].Color}"  Margin="0"/>
+                <Border Grid.Column="5"  Background="{Binding Month[1].Color}"  Margin="0"/>
+                <Border Grid.Column="6"  Background="{Binding Month[2].Color}"  Margin="0"/>
+                <Border Grid.Column="7"  Background="{Binding Month[3].Color}"  Margin="0"/>
+                <Border Grid.Column="8"  Background="{Binding Month[4].Color}"  Margin="0"/>
+                <Border Grid.Column="9"  Background="{Binding Month[5].Color}"  Margin="0"/>
+                <Border Grid.Column="10" Background="{Binding Month[6].Color}"  Margin="0"/>
+                <Border Grid.Column="11" Background="{Binding Month[7].Color}"  Margin="0"/>
+                <Border Grid.Column="12" Background="{Binding Month[8].Color}"  Margin="0"/>
+                <Border Grid.Column="13" Background="{Binding Month[9].Color}"  Margin="0"/>
+                <Border Grid.Column="14" Background="{Binding Month[10].Color}" Margin="0"/>
+                <Border Grid.Column="15" Background="{Binding Month[11].Color}" Margin="0"/>
+
+
+                <!--<TextBlock Grid.Column="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Run Text="제임슨"/>
+                                <Run Text="차장"/>
+                                <LineBreak/>
+                                <Run Text="개발부"/>
+                                <Run Text="팀장"/>
+                </TextBlock>-->
+
+                <TextBlock Grid.Column="17" Text="{Binding Updated_At, StringFormat={}{0:yyyy-MM-dd}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <StackPanel Grid.Column="18" x:Name="BtnPanel" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="▼" Width="30" Height="32" Click="{v:MethodBinding BtnOnProjectTaskShow}"/>
+                    <Button Content="✏️ 편집" Width="70" Height="32" Margin="8,0,4,0" Click="{v:MethodBinding BtnOnProjectEdit}"/>
+                    <Button Content="➖️ 삭제" Width="70" Height="32" Click="{v:MethodBinding BtnOnProjectDelete}"/>
+                </StackPanel>
+
+                <Line x:Name="TopLine" Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="0" VerticalAlignment="Top" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"
+                      Visibility="Collapsed"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Tag" Value="Task">
+                    <Setter TargetName="TxtId" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="BtnPanel" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="TaskGrid" Property="Height" Value="30"/>
+                    <Setter TargetName="TopLine" Property="Visibility" Value="Visible"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
 
         <!--#region View Maping-->
         <DataTemplate DataType="{x:Type vm:VM_Home}">

@@ -288,8 +288,8 @@ const tables = {
     project_task: {
         table: 'tb_project_tasks',
         get: ['id', 'project_id', 'status'],
-        post: ['project_id', 'name', 'description', 'progress', 'start_date', 'end_date', 'status'],
-        put: ['id', 'name', 'description', 'progress', 'start_date', 'end_date', 'status'],
+        post: ['task_no', 'project_id', 'name', 'description', 'progress', 'start_date', 'end_date', 'status'],
+        put: ['id', 'task_no', 'name', 'description', 'progress', 'start_date', 'end_date', 'status'],
         delete: ['id']
     },
 

@@ -1,0 +1,276 @@
+﻿<Window x:Class="community.Views.V_ProjectDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:community.Views"
+        xmlns:m="clr-namespace:community.Models"
+        xmlns:u="clr-namespace:community.View_Controls"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Title="프로젝트 상세"
+        SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="{x:Type Border}" x:Key="BorArea">
+                <Setter Property="Background" Value="#F3F3F3"/>
+                <Setter Property="BorderBrush" Value="Gray"/>
+                <Setter Property="BorderThickness" Value="0.5"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Margin" Value="20"/>
+                <Setter Property="Padding" Value="20"/>
+            </Style>
+        </Grid.Resources>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Column="0" Grid.Row="0" Style="{StaticResource BorArea}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" Tag="Title"/>
+                    <RowDefinition Height="30" Tag="ID"/>
+                    <RowDefinition Height="30" Tag="Customer"/>
+                    <RowDefinition Height="30" Tag="Name"/>
+                    <RowDefinition Height="30" Tag="Desc"/>
+                    <RowDefinition Height="30" Tag="Progress"/>
+                    <RowDefinition Height="30" Tag="Date"/>
+                    <RowDefinition Height="30" Tag="Status"/>
+                    <RowDefinition Height="30" Tag="Member"/>
+                    <RowDefinition Height="200" Tag="MemberList"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="프로젝트 개요" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left"/>
+
+                <!-- 프로젝트 ID -->
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="ID"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="New" HorizontalAlignment="Left"/>
+                
+                <!-- 고객사 -->
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="고객사"/>
+                <ComboBox Grid.Column="1" Grid.Row="2" Height="26" IsEditable="True"/>
+                
+                <!-- 프로젝트명 -->
+                <TextBlock Grid.Column="0" Grid.Row="3" Text="프로젝트명"/>
+                <TextBox Grid.Column="1" Grid.Row="3" Template="{StaticResource Icon_TextBox}" ToolTip="프로젝트명" Height="26"/>
+                
+                <!-- 프로젝트 설명 -->
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="설명"/>
+                <TextBox Grid.Column="1" Grid.Row="4" Template="{StaticResource Icon_TextBox}" ToolTip="프로젝트 설명" Height="26"/>
+                
+                <!-- 진행률 -->
+                <TextBlock Grid.Column="0" Grid.Row="5" Text="진행률"/>
+                <Grid Grid.Column="1" Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox   Grid.Column="0" Grid.RowSpan="2" Text="100" Template="{StaticResource Icon_TextBox}" Width="100" Height="26" Margin="0,0,6,0" MaxLength="3"/>
+                    <TextBlock Grid.Column="0" Grid.RowSpan="2" Text="%" HorizontalAlignment="Right" Margin="0,0,16,0" IsHitTestVisible="False"/>
+                    <Button    Grid.Column="1" Content="▲" Width="30" Height="26" Margin="0,0,4,0" Click="{local:MethodBinding BtnProgressUp}"/>
+                    <Button    Grid.Column="2" Content="▼" Width="30" Height="26" Margin="0,0,10,0" Click="{local:MethodBinding BtnProgressDown}"/>
+                </Grid>
+                
+                <!-- 기간 -->
+                <TextBlock Grid.Column="0" Grid.Row="6" Text="기간"/>
+                <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal">
+                    <TextBlock Text="Start"/>
+                    <DatePicker SelectedDate="2025-11-24" Width="100" Height="24" Margin="10,0,10,0"/>
+                    <TextBlock Text="~"/>
+                    <TextBlock Text="End" Margin="10,0,10,0"/>
+                    <DatePicker SelectedDate="2025-11-25" Width="100" Height="24"/>
+                </StackPanel>
+                <!-- 상태 -->
+                <TextBlock Grid.Column="0" Grid.Row="7" Text="상태"/>
+                <ComboBox Grid.Column="1" Grid.Row="7" Width="120" Height="26" IsEditable="True" HorizontalAlignment="Left"/>
+
+                <!-- 프로젝트 멤버 -->
+                <TextBlock Grid.Column="0" Grid.Row="8" Text="프로젝트 멤버"/>
+                <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal">
+                    <ComboBox Width="200" Height="26" IsEditable="True" Margin="0,0,6,0"/>
+                    <Button Content="➕︎ 멤버 추가" Width="90" Height="26"/>
+                </StackPanel>
+                
+                <!-- 프로젝트 멤버 리스트 -->
+                <Border Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="9">
+                    <ScrollViewer>
+                        <ItemsControl>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border x:Name="Bor" Margin="2,2,2,0" BorderBrush="Gray" BorderThickness="0.5" Height="30">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Grid.Column="0" Text="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding Rank_Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding Position_Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="4" Text="{Binding Role_Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Button    Grid.Column="5" Content="X" Width="26" Height="24" Click="{local:MethodBinding BtnMemberDelete}"/>
+                                        </Grid>
+                                    </Border>
+                                    <DataTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="False">
+                                            <Setter TargetName="Bor" Property="Background" Value="White"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bor" Property="Background" Value="#E5EAEA"/>
+                                        </Trigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                            <ItemsControl.ItemsSource>
+                                <x:Array Type="{x:Type m:M_Employee}">
+                                    <m:M_Employee Id="1" Name="제임슨" Rank_Name="과장" Position_Name="팀장" Role_Name="개발"/>
+                                    <m:M_Employee Id="1" Name="제임슨" Rank_Name="과장" Position_Name="팀장" Role_Name="개발"/>
+                                    <m:M_Employee Id="1" Name="제임슨" Rank_Name="과장" Position_Name="팀장" Role_Name="개발"/>
+                                </x:Array>
+                            </ItemsControl.ItemsSource>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="1" Grid.Row="0" Style="{StaticResource BorArea}" Margin="0,20,20,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="작업 목록" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left"/>
+                <Button Grid.Row="0" Content="➕︎ 작업 추가" Width="90" Height="26" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="80,0,0,0"
+                        Click="{local:MethodBinding BtnTaskAdd}"/>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Margin="0,20,0,0">
+                    <ItemsControl>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.Template>
+                            <ControlTemplate TargetType="{x:Type ItemsControl}">
+                                <Border BorderBrush="Gray" BorderThickness="0.5" Padding="0,0,0.5,0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="200" Tag="작업명"/>
+                                            <ColumnDefinition Width="90" Tag="진행률"/>
+                                            <ColumnDefinition Width="100" Tag="상태"/>
+                                            <ColumnDefinition Width="100" Tag="시작일"/>
+                                            <ColumnDefinition Width="100" Tag="종료일"/>
+                                            <ColumnDefinition Width="200" Tag="담당"/>
+
+                                            <ColumnDefinition Width="17"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <ScrollViewer Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="1" VerticalScrollBarVisibility="Visible" Background="White">
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+
+                                        <Label Grid.Column="0"  Content="작업명" Style="{StaticResource Lable_Column}"/>
+                                        <Line  Grid.Column="0"  Style="{StaticResource Line_Vertical}"/>
+                                        
+                                        <Label Grid.Column="1"  Content="진행률" Style="{StaticResource Lable_Column}"/>
+                                        <Line  Grid.Column="1"  Style="{StaticResource Line_Vertical}"/>
+                                        
+                                        <Label Grid.Column="2"  Content="상태" Style="{StaticResource Lable_Column}"/>
+                                        <Line  Grid.Column="2"  Style="{StaticResource Line_Vertical}"/>
+                                        
+                                        <Label Grid.Column="3"  Content="시작일" Style="{StaticResource Lable_Column}"/>
+                                        <Line  Grid.Column="3"  Style="{StaticResource Line_Vertical}"/>
+
+                                        <Label Grid.Column="4"  Content="종료일" Style="{StaticResource Lable_Column}"/>
+                                        <Line  Grid.Column="4"  Style="{StaticResource Line_Vertical}"/>
+                                        
+                                        <Label Grid.Column="5"  Content="담당" Style="{StaticResource Lable_Column}"/>
+
+                                        <!-- 구분선 -->
+                                        <Line Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="0" VerticalAlignment="Bottom" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Gray" BorderThickness="0.5" Height="28">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="200" Tag="작업명"/>
+                                            <ColumnDefinition Width="90" Tag="진행률"/>
+                                            <ColumnDefinition Width="100" Tag="상태"/>
+                                            <ColumnDefinition Width="100" Tag="시작일"/>
+                                            <ColumnDefinition Width="100" Tag="종료일"/>
+                                            <ColumnDefinition Width="200" Tag="담당"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBox    Grid.Column="0" Text="{Binding Name}" Template="{StaticResource Icon_TextBox}"/>
+                                        <TextBox    Grid.Column="1" Text="{Binding Progress}" Template="{StaticResource Icon_TextBox}"/>
+                                        <ComboBox   Grid.Column="2" Text="{Binding Status}" IsEditable="True"/>
+                                        <DatePicker Grid.Column="3" SelectedDate="{Binding Start_Date}"/>
+                                        <DatePicker Grid.Column="4" SelectedDate="{Binding End_Date}"/>
+                                        <ComboBox   Grid.Column="5" IsEditable="True"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+
+                        <ItemsControl.ItemsSource>
+                            <x:Array Type="{x:Type m:M_Project_Task}">
+                                <m:M_Project_Task Name="작업1" Progress="100" Start_Date="2025-11-24" End_Date="2025-11-24" Status="대기"/>
+                                <m:M_Project_Task Name="작업1" Progress="100" Start_Date="2025-11-24" End_Date="2025-11-24" Status="대기"/>
+                                <m:M_Project_Task Name="작업1" Progress="100" Start_Date="2025-11-24" End_Date="2025-11-24" Status="대기"/>
+                                <m:M_Project_Task Name="작업1" Progress="100" Start_Date="2025-11-24" End_Date="2025-11-24" Status="대기"/>
+                            </x:Array>
+                        </ItemsControl.ItemsSource>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Style="{StaticResource BorArea}" Margin="20,0,20,20">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="➕︎ 프로젝트 생성   " Width="140" Height="36" Margin="0,0,10,0" Click="{local:MethodBinding BtnProjectAdd}"/>
+                <Button Content="✏️ 프로젝트 업데이트" Width="140" Height="36" Margin="0,0,10,0" Click="{local:MethodBinding BtnProjectUpdate}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

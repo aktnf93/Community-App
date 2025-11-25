@@ -1,5 +1,7 @@
 ﻿using community.Common;
 using community.Models;
+using community.Views;
+using MySqlX.XDevAPI.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,48 +36,78 @@ namespace community.ViewModels
         {
             Console.WriteLine("VM_Project Loaded");
 
-            var result = Server.API.HttpSend<M_Project[]>("/project/list/select");
+            var projects = Server.API.HttpSend<M_Project[]>("/project/list/select");
+            this.ProjectRead(projects);
 
-            if (result != null)
+        }
+
+        private void ProjectRead(M_Project[] projects)
+        {
+            this.ProjectList.Clear();
+            if (projects != null)
             {
-                this.ProjectList.Clear();
-                foreach (var item in result)
+                foreach (var pro in projects)
                 {
-                    if (item.Start_Date != null && item.End_Date != null)
-                    {
-                        var start = item.Start_Date.Value.Month + (item.Start_Date.Value.Year * 10);
-                        int current = (DateTime.Now.Year * 10);
-                        var end = item.End_Date.Value.Month + (item.End_Date.Value.Year * 10);
+                    pro.UpdateMonth();
 
-                        for (int i = 0; i < 12; i++)
-                        {
-                            current += 1;
-                            Console.WriteLine("project: {0}, {1} <= {2} && {2} <= {3}", item.Name, start, current, end);
-                            if (start <= current && current <= end)
-                            {
-                                item.Month[i].Color = Brushes.LightGreen;
-                            }
-                            else
-                            {
-                                item.Month[i].Color = Brushes.Transparent;
-                            }
-                        }
-                    }
-
-                    // Task Load
-                    item.OnProjectTaskShow += (p) =>
+                    // Project Edit
+                    pro.OnProjectEdit += (p) =>
                     {
-                        // var result = Server.API.HttpSend<M_Project[]>("/project/list/select");
+
                     };
 
-                    this.ProjectList.Add(item);
+                    // Project Delete
+                    pro.OnProjectDelete += (p) =>
+                    {
+                        var req = new { id = p.Id };
+                        var result = Server.API.HttpSend<M_DB_Result>("/project/list/delete", Server.Method.DELETE, req);
+
+                        if (result != null && result.AffectedRows > 0)
+                        {
+                            // 삭제 성공
+                        }
+                        else
+                        {
+                            // 삭제 실패 or 삭제할 레코드가 없음
+                        }
+
+                        Loaded();
+                    };
+
+                    // Task Read
+                    pro.OnProjectTaskShow += (p) =>
+                    {
+                        var tasks = Server.API.HttpSend<M_Project_Task[]>("/project/task/select");
+                        p.TaskList.Clear();
+
+                        if (tasks != null)
+                        {
+                            foreach (var t in tasks)
+                            {
+                                t.UpdateMonth();
+                                p.TaskList.Add(t);
+                            }
+                        }
+
+                        if (p.TaskView == Visibility.Collapsed)
+                        {
+                            p.TaskView = Visibility.Visible;
+                        }
+                        else
+                        {
+                            p.TaskView = Visibility.Collapsed;
+                        }
+                    };
+
+                    this.ProjectList.Add(pro);
                 }
             }
         }
 
         private void BtnProjectAdd()
         {
-            new Window().ShowDialog();
+            var v = new V_ProjectDetail();
+            var result = v.ShowDialog();
         }
     }
 }

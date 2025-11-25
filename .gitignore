@@ -1,3 +1,5 @@
 Community_Server_Node/.env
 Community_Server_Node/logs/
 Community_Server_Node/node_modules/
+Community_Client_WPF/community/bin/
+Community_Client_WPF/community/obj/

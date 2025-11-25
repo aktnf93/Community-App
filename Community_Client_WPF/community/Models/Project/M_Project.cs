@@ -2,14 +2,20 @@
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
+using System.Windows;
 using System.Windows.Media;
 using community.Common;
 
 namespace community.Models
 {
-    public class MonthBox
+    public class MonthBox : Notify
     {
-        public SolidColorBrush Color { get; set; }
+        private SolidColorBrush color;
+        public SolidColorBrush Color
+        {
+            get => this.color;
+            set => base.OnPropertyChanged(ref this.color, value);
+        }
     }
 
     [DataContract]
@@ -33,12 +39,40 @@ namespace community.Models
 
         public MonthBox[] Month { get; set; } = new MonthBox[12];
         public ObservableCollection<M_Project_Task> TaskList { get; set; } = new ObservableCollection<M_Project_Task>();
+        private Visibility taskView = Visibility.Collapsed;
+        public Visibility TaskView
+        {
+            get => this.taskView;
+            set => base.OnPropertyChanged(ref this.taskView, value);
+        }
 
         public M_Project()
         {
-            for (int i = 0; i < 12; i++)
+
+        }
+
+        public void UpdateMonth()
+        {
+            var start_dt = this.Start_Date;
+            var end_dt = this.End_Date;
+            if (start_dt != null && end_dt != null)
             {
-                this.Month[i] = new MonthBox();
+                var start = start_dt.Value.Month + (start_dt.Value.Year * 10);
+                int current = (DateTime.Now.Year * 10);
+                var end = end_dt.Value.Month + (end_dt.Value.Year * 10);
+
+                for (int i = 0; i < 12; i++)
+                {
+                    var month = new MonthBox();
+
+                    current += 1;
+                    if (start <= current && current <= end)
+                        month.Color = Brushes.LightGreen;
+                    else
+                        month.Color = Brushes.Transparent;
+
+                    this.Month[i] = month;
+                }
             }
         }
 

@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "포트폴리오/문서.md",
-                "mode": "preview",
+                "file": "Community_Document/Server_API.md.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "문서"
+              "title": "Server_API.md"
             }
           }
         ],
@@ -197,20 +197,21 @@
   },
   "active": "791ecf6659a48603",
   "lastOpenFiles": [
-    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Session Storage/000112.ldb",
-    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Session Storage/000111.log",
-    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Session Storage/000110.ldb",
-    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Session Storage/000109.log",
-    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Code Cache/js/afe3a521530af7fb_0",
-    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Code Cache/js/cc34434dc75ceadb_0",
-    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Code Cache/js/c1637fbc1e58291a_0",
-    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Code Cache/js/105b35aa736d6161_0",
-    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Session Storage/000108.ldb",
-    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Session Storage/000107.log",
-    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Code Cache/js/c85e4470c0a24f06_0",
+    "포폴 문서.pdf",
+    "Community_Document/Server_API.md.md",
+    "Community_Client_WPF/community/ViewModels/VM_ProjectDetail.cs",
+    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Session Storage/000378.ldb",
+    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Session Storage/000377.log",
+    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Code Cache/js/40b2a5287ca74fcd_0",
+    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Network/12acd423-a9fd-4211-840d-d372593651f3.tmp",
+    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Code Cache/js/3410c7f586f65185_0",
+    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Code Cache/js/9981304276bd7ed3_0",
+    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Code Cache/js/7fa2cc339beca08f_0",
+    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Code Cache/js/9984e7343e24b7ca_0",
+    "Community_Client_WPF/community/bin/Debug/community.exe.WebView2/EBWebView/Default/Code Cache/js/0069254899334db4_0",
+    "포폴 문서.md",
     "README.md",
     "포트폴리오/문서.md",
-    "Community_Document/Server_API.md.md",
     "Community_Document/Database_Query.md",
     "Community_Client_WPF/community/Resource_Icon/user4.png",
     "Community_Client_WPF/community/Resource_Icon/user3.png",

@@ -7,6 +7,8 @@ namespace community.Models
     [DataContract]
     public class M_Employee : Notify
     {
+        public event ActionHandler<M_Employee> OnEmployeeDelete;
+
         private int id;
         private string name;
         private string description;
@@ -121,7 +123,7 @@ namespace community.Models
         /// </summary>
         public string Image_FullPath
         {
-            get => Server.API.BaseUrl + this.Image_Path;
+            get => HTTP_Server.API.BaseUrl + this.Image_Path;
         }
 
         [DataMember(Name = "status")]
@@ -292,6 +294,11 @@ namespace community.Models
         {
             get => this.deleted_at;
             set => base.OnPropertyChanged(ref this.deleted_at, value);
+        }
+
+        private void OnDelete()
+        {
+            this.OnEmployeeDelete?.Invoke(this);
         }
     }
 }

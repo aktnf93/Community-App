@@ -317,7 +317,6 @@ C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\bin\Debug\S
 C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\bin\Debug\System.Text.Json.xml
 C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\community.csproj.AssemblyReference.cache
-C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\community.exe.config
 C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\Views\V_Customer.g.cs
 C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\Views\V_Home.g.cs
 C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\Views\V_MainWindow.g.cs
@@ -452,3 +451,11 @@ C:\Users\A\Downloads\Community-App\Community_Client_WPF\community\obj\Debug\comm
 C:\Users\A\Downloads\Community-App\Community_Client_WPF\community\obj\Debug\community.csproj.Up2Date
 C:\Users\A\Downloads\Community-App\Community_Client_WPF\community\obj\Debug\community.exe
 C:\Users\A\Downloads\Community-App\Community_Client_WPF\community\obj\Debug\community.pdb
+C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\Views\V_ProjectDetail.g.cs
+C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\Views\V_ProjectDetail.baml
+C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\Resources\R_Colors.baml
+C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\Resources\R_Images.baml
+C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\Resources\R_Styles.baml
+C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\Resources\R_Converters.baml
+C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\Resources\R_Templates.baml
+C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\Resources\R_ViewModelTemplates.baml

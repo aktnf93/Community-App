@@ -1,5 +1,6 @@
 ﻿using community.Common;
 using System;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using System.Windows.Media;
 
@@ -8,8 +9,11 @@ namespace community.Models
     [DataContract]
     public class M_Project_Task : Notify
     {
+        public event ActionHandler<M_Project_Task> OnTaskDelete;
+
         private int id;
         private int project_id;
+        private int task_no;
         private string name;
         private string description;
         private int progress;
@@ -21,34 +25,7 @@ namespace community.Models
 
         public MonthBox[] Month { get; set; } = new MonthBox[12];
 
-        public M_Project_Task()
-        {
-        }
-
-        public void UpdateMonth()
-        {
-            var start_dt = this.Start_Date;
-            var end_dt = this.End_Date;
-            if (start_dt != null && end_dt != null)
-            {
-                var start = start_dt.Value.Month + (start_dt.Value.Year * 10);
-                int current = (DateTime.Now.Year * 10);
-                var end = end_dt.Value.Month + (end_dt.Value.Year * 10);
-
-                for (int i = 0; i < 12; i++)
-                {
-                    var month = new MonthBox();
-
-                    current += 1;
-                    if (start <= current && current <= end)
-                        month.Color = Brushes.LightGreen;
-                    else
-                        month.Color = Brushes.Transparent;
-
-                    this.Month[i] = month;
-                }
-            }
-        }
+        public M_Employee TaskMember { get; set; }
 
         [DataMember(Name = "id")]
         public int Id
@@ -62,6 +39,13 @@ namespace community.Models
         {
             get => this.project_id;
             set => base.OnPropertyChanged(ref this.project_id, value);
+        }
+
+        [DataMember(Name = "task_no")]
+        public int Task_No
+        {
+            get => this.task_no;
+            set => base.OnPropertyChanged(ref this.task_no, value);
         }
 
         [DataMember(Name = "name")]
@@ -118,6 +102,36 @@ namespace community.Models
         {
             get => this.updated_at;
             set => base.OnPropertyChanged(ref this.updated_at, value);
+        }
+
+        public void UpdateMonth()
+        {
+            var start_dt = this.Start_Date;
+            var end_dt = this.End_Date;
+            if (start_dt != null && end_dt != null)
+            {
+                var start = start_dt.Value.Month + (start_dt.Value.Year * 10);
+                int current = (DateTime.Now.Year * 10);
+                var end = end_dt.Value.Month + (end_dt.Value.Year * 10);
+
+                for (int i = 0; i < 12; i++)
+                {
+                    var month = new MonthBox();
+
+                    current += 1;
+                    if (start <= current && current <= end)
+                        month.Color = Brushes.LightGreen;
+                    else
+                        month.Color = Brushes.Transparent;
+
+                    this.Month[i] = month;
+                }
+            }
+        }
+
+        private void OnDelete()
+        {
+            this.OnTaskDelete?.Invoke(this);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace community.ViewModels
         {
             Console.WriteLine("VM_Project Loaded");
 
-            var projects = Server.API.HttpSend<M_Project[]>("/project/list/select");
+            var projects = HTTP_Server.API.HttpSend<M_Project[]>("/project/list/select");
             this.ProjectRead(projects);
 
         }
@@ -59,25 +59,30 @@ namespace community.ViewModels
                     // Project Delete
                     pro.OnProjectDelete += (p) =>
                     {
-                        var req = new { id = p.Id };
-                        var result = Server.API.HttpSend<M_DB_Result>("/project/list/delete", Server.Method.DELETE, req);
-
-                        if (result != null && result.AffectedRows > 0)
+                        if(MessageBoxResult.Yes == MessageBox.Show("해당 프로젝트를 삭제 하시겠습니까?", "프로젝트 삭제",
+                            MessageBoxButton.YesNo, MessageBoxImage.Question))
                         {
-                            // 삭제 성공
-                        }
-                        else
-                        {
-                            // 삭제 실패 or 삭제할 레코드가 없음
-                        }
+                            var req = new { id = p.Id };
+                            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/project/list/delete", HTTP_Server.Method.DELETE, req);
 
-                        Loaded();
+                            if (result != null && result.AffectedRows > 0)
+                            {
+                                // 삭제 성공
+                            }
+                            else
+                            {
+                                // 삭제 실패 or 삭제할 레코드가 없음
+                            }
+
+                            Loaded();
+                        }
                     };
 
                     // Task Read
                     pro.OnProjectTaskShow += (p) =>
                     {
-                        var tasks = Server.API.HttpSend<M_Project_Task[]>("/project/task/select");
+                        var req = new { project_id = pro.Id };
+                        var tasks = HTTP_Server.API.HttpSend<M_Project_Task[]>("/project/task/select", HTTP_Server.Method.POST, req);
                         p.TaskList.Clear();
 
                         if (tasks != null)
@@ -107,7 +112,14 @@ namespace community.ViewModels
         private void BtnProjectAdd()
         {
             var v = new V_ProjectDetail();
+            var detail = v.DataContext as VM_ProjectDetail;
+            detail.OnClose += () =>
+            {
+                v.Close();
+            };
+
             var result = v.ShowDialog();
+            this.Loaded();
         }
     }
 }

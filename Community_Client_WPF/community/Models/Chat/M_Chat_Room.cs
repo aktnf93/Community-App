@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization;
 using community.Common;
+using MySqlX.XDevAPI;
 
 namespace community.Models
 {
@@ -83,17 +85,20 @@ namespace community.Models
             this.OnChatRoomJoin?.Invoke(this);
         }
 
-        private M_Employee _user;
+        public M_Employee _user { get; set; }
 
         public void OnConnect(M_Chat_Room room, M_Employee user)
         {
-            this.Id = room.Id;
-            this.Name = room.Name;
-            this.Description = room.Description;
-            this.Message_At = room.Message_At;
-            this.Created_At = room.Created_At;
-            this.Updated_At = room.Updated_At;
-            _user = user;
+            // this.Id = room.Id;
+            // this.Name = room.Name;
+            // this.Description = room.Description;
+            // this.Message_At = room.Message_At;
+            // this.Created_At = room.Created_At;
+            // this.Updated_At = room.Updated_At;
+            // _user = user;
+
+
+
             var join = new { roomId = room.Id, userId = user.Id };
             this.live.Connect(join);
         }
@@ -134,6 +139,7 @@ namespace community.Models
                 foreach (var m in obj.Members)
                 {
                     this.Members.Add(m);
+                    Console.WriteLine($"Member Add ! {this.Id} {this.Name}");
                 }
 
                 foreach (var m in obj.Messages)

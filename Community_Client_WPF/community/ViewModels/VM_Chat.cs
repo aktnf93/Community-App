@@ -59,17 +59,21 @@ namespace community.ViewModels
 
         private void ChatRoomSearch()
         {
-            var rooms = Server.API.HttpSend<M_Chat_Room[]>("/chat/room/select");
+            var rooms = HTTP_Server.API.HttpSend<M_Chat_Room[]>("/chat/room/select");
 
             this.ChatRoomList.Clear();
             if (rooms != null && rooms.Length > 0)
             {
                 foreach (var room in rooms)
                 {
+                    room._user = CurrentUser;
                     room.OnChatRoomJoin += (r) =>
                     {
+                        this.ChatRoomLive = r;
                         this.ChatRoomLive.OnConnect(r, CurrentUser);
                     };
+
+
                     this.ChatRoomList.Add(room);
                 }
             }
@@ -84,7 +88,7 @@ namespace community.ViewModels
             }
 
             var data = new { name = room.Name, description = room.Description };
-            var result = Server.API.HttpSend<M_DB_Result>("/chat/room/insert", Server.Method.POST, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/chat/room/insert", HTTP_Server.Method.POST, data);
             if (result != null && result.InsertId > 0)
             {
                 ChatRoomSearch();
@@ -101,7 +105,7 @@ namespace community.ViewModels
             }
 
             var data = new { id = room.Id, name = room.Name, description = room.Description };
-            var result = Server.API.HttpSend<M_DB_Result>("/chat/room/update", Server.Method.PUT, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/chat/room/update", HTTP_Server.Method.PUT, data);
             if (result != null && result.AffectedRows > 0)
             {
                 ChatRoomSearch();
@@ -118,7 +122,7 @@ namespace community.ViewModels
             }
 
             var data = new { id = room .Id };
-            var result = Server.API.HttpSend<M_DB_Result>("/chat/room/delete", Server.Method.DELETE, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/chat/room/delete", HTTP_Server.Method.DELETE, data);
             if (result != null && result.AffectedRows > 0)
             {
                 ChatRoomSearch();

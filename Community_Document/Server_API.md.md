@@ -57,12 +57,12 @@
 | 35  | Y   | delete | /project/member/delete          | 멤버 삭제하기       | - id                                                 | db result   |
 | 36  | Y   | post   | /project/task/select            | 작업 불러오기       | - project_id                                         | rows        |
 | 37  | Y   | post   | /project/task/insert            | 작업 추가하기       | - ...                                                | db result   |
-| 38  | Y   | put    | /project/task/update            | 작업 수정하기       |                                                      | db result   |
-| 39  | Y   | delete | /project/task/delete            | 작업 삭제하기       |                                                      | db result   |
+| 38  | Y   | put    | /project/task/update            | 작업 수정하기       | - id, ...                                            | db result   |
+| 39  | Y   | delete | /project/task/delete            | 작업 삭제하기       | - id                                                 | db result   |
 | 40  | Y   | post   | /project/taskmember/select      | 작업 멤버 불러오기    | - task_id                                            | rows        |
-| 41  | Y   | post   | /project/taskmember/insert      | 작업 멤버 추가하기    |                                                      | db result   |
-| 42  | Y   | put    | /project/taskmember/update      | 작업 멤버 수정하기    |                                                      | db result   |
-| 43  | Y   | delete | /project/taskmember/delete      | 작업 멤버 삭제하기    |                                                      | db result   |
+| 41  | Y   | post   | /project/taskmember/insert      | 작업 멤버 추가하기    | - ...                                                | db result   |
+| 42  | Y   | put    | /project/taskmember/update      | 작업 멤버 수정하기    | - ...                                                | db result   |
+| 43  | Y   | delete | /project/taskmember/delete      | 작업 멤버 삭제하기    | - id                                                 | db result   |
 |     |     |        |                                 |               |                                                      |             |
 | 44  | Y   | post   | /customer/list/select           | 고객사 불러오기      | - ...                                                | rows        |
 | 45  | Y   | post   | /customer/list/insert           | 고객사 추가하기      | - ...                                                | db result   |

@@ -11,65 +11,322 @@
              Loaded="{local:MethodBinding Loaded}" Background="{StaticResource Color_WhiteGray}">
 
     <Grid Margin="20,20,20,30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"  Tag="배너"/>
-            <RowDefinition Height="20"  Tag="여백"/>
-            <RowDefinition Height="*"   Tag="리스트"/>
+            <RowDefinition Height="90"  Tag="배너"   x:Uid="0"/>
+            <RowDefinition Height="20"  Tag="여백"   x:Uid="1"/>
+            <RowDefinition Height="120"   Tag="컨트롤" x:Uid="2"/>
+            <RowDefinition Height="*"   Tag="리스트" x:Uid="3"/>
         </Grid.RowDefinitions>
 
         <!-- 배너 -->
-        <Control Grid.Row="0" Template="{StaticResource BannerCard}" DataContext="{Binding BannerCard}"/>
+        <Control Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Template="{StaticResource BannerCard}" DataContext="{Binding BannerCard}"/>
 
-        <Grid Grid.Row="2" Margin="-20,0,0,-30">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" Tag="회사"/>
-                <ColumnDefinition Width="200" Tag="부서"/>
-                <ColumnDefinition Width="200" Tag="팀"/>
-                <ColumnDefinition Width="*" Tag="직원"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <!-- 그룹 리스트 컨트롤 -->
+        <Border Grid.Column="0" Grid.Row="2" BorderBrush="{StaticResource Color_Gray}" BorderThickness="0.5,0.5,0.5,0.5">
+            
+        </Border>
+        
+        <!-- 그룹 리스트 -->
+        <Border Grid.Column="0" Grid.Row="3" BorderBrush="{StaticResource Color_Gray}" BorderThickness="0.5,0,0.5,0.5">
+            <TreeView ItemsSource="{Binding TeamTreeList}">
+                <TreeView.Template>
+                    <ControlTemplate TargetType="{x:Type TreeView}">
+                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </TreeView.Template>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding SubTree}">
+                        <TextBlock>
+                            <Run>
+                                <Run.Style>
+                                    <Style TargetType="{x:Type Run}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Depth}" Value="0">
+                                                <Setter Property="Text" Value="[회사]"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Depth}" Value="1">
+                                                <Setter Property="Text" Value="[부서]"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Depth}" Value="2">
+                                                <Setter Property="Text" Value="[팀]"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Run.Style>
+                            </Run>
+                            <Run Text="{Binding Name}"/>
+                        </TextBlock>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                                    <StackPanel Orientation="Vertical">
+                                        <Border x:Name="bor" Height="30" Cursor="Hand" Background="{StaticResource Color_White}">
+                                            <Grid x:Name="Parent">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="20"/>
+                                                </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="{StaticResource Color_ThinGray}">
-                <StackPanel Orientation="Vertical">
-                    <RadioButton Content="00회사"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="00전자"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="00마케팅" Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="00식품"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="00가공"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                </StackPanel>
-            </Grid>
+                                                <Image Grid.Column="0" x:Name="Image" Source="{Binding Image_Path}" Width="20" Height="20"/>
+                                                
+                                                <ContentPresenter Grid.Column="1" x:Name="Btn_Text" ContentSource="Header" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                        TextBlock.Foreground="{StaticResource Color_Black}"/>
+                                                
+                                                <Image Grid.Column="2" x:Name="Expander" Source="{StaticResource Img_Post_ArrowDown}" Visibility="Collapsed" 
+                                                        Width="18" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            </Grid>
+                                        </Border>
+                                        <ItemsPresenter x:Name="Child" Margin="10,0,0,0" Visibility="Collapsed"/>
+                                    </StackPanel>
 
-            <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Background="{StaticResource Color_ThinGray2}">
-                <StackPanel Orientation="Vertical">
-                    <RadioButton Content="총무부"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="디자인부"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="개발부" Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="영업부"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="자재부"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                </StackPanel>
-            </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <!-- 부모 요소 -->
+                                        <DataTrigger Binding="{Binding Parent_Id}" Value="{x:Null}">
+                                            <Setter TargetName="Image" Property="Source" Value="{StaticResource Img_Folder_w}"/>
+                                            <Setter TargetName="bor" Property="Background" Value="{StaticResource Color_ThinGray}"/>
+                                            <Setter TargetName="Btn_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
+                                        </DataTrigger>
 
-            <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Background="{StaticResource Color_ThinGray3}">
-                <StackPanel Orientation="Vertical">
-                    <RadioButton Content="디자인 1팀"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="디자인 2팀"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="디자인 3팀" Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="아이콘 디자인"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                    <RadioButton Content="디자인 감독"  Tag="{StaticResource Img_Menu_Home}" Template="{StaticResource MenuButton}"/>
-                </StackPanel>
-            </Grid>
+                                        <!-- 자식 요소가 있으면 하위식별 표시 -->
+                                        <Trigger Property="HasItems" Value="True">
+                                            <Setter TargetName="Expander" Property="Visibility" Value="Visible"/>
+                                        </Trigger>
 
-            <Grid Grid.Column="3" Grid.Row="0">
-                <u:U_TripleSwitch HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20"/>
-            </Grid>
+                                        <!-- 자식 요소를 펼치기 -->
+                                        <Trigger Property="IsExpanded" Value="True">
+                                            <Setter TargetName="Expander" Property="Source" Value="{StaticResource Img_Post_ArrowUp}"/>
+                                            <Setter TargetName="Child" Property="Visibility" Value="Visible"/>
+                                        </Trigger>
 
-            <Grid Grid.Column="3" Grid.Row="1">
+                                        <!-- 선택 -->
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Parent" Property="Background" Value="{StaticResource Color_ThinGray}"/>
+                                            <Setter TargetName="Btn_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_Yellow}"/>
+                                            <Setter TargetName="Btn_Text"  Property="TextBlock.FontWeight" Value="Bold"/>
+                                        </Trigger>
 
-            </Grid>
-        </Grid>
+                                        <!-- 마우스 -->
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Parent" Property="Background" Value="{StaticResource Color_Gray}"/>
+                                            <Setter TargetName="Btn_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
+        </Border>
 
+        <!-- 멤버 리스트 컨트롤 -->
+        <Border Grid.Column="1" Grid.Row="2" BorderBrush="{StaticResource Color_Gray}" BorderThickness="0,0.5,0.5,0.5">
+            
+        </Border>
+
+        <!-- 멤버 리스트 -->
+        <Border Grid.Column="1" Grid.Row="3" BorderBrush="{StaticResource Color_Gray}" BorderThickness="0,0,0.5,0.5">
+            <ItemsControl ItemsSource="{Binding EmployeeList}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.Template>
+                    <ControlTemplate TargetType="{x:Type ItemsControl}">
+                        <Border Background="{StaticResource Color_White}" CornerRadius="8" Margin="10">
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" Tag="사진"/>
+                                    <ColumnDefinition Width="80" Tag="ID-Code"/>
+                                    <ColumnDefinition Width="80" Tag="이름"/>
+                                    <ColumnDefinition Width="130" Tag="상태-입사일-퇴사일"/>
+
+                                    <ColumnDefinition Width="80" Tag="성별"/>
+                                    <ColumnDefinition Width="300" Tag="이메일-핸드폰-집주소"/>
+
+                                    <ColumnDefinition Width="80" Tag="회사-부서-팀"/>
+                                    <ColumnDefinition Width="80" Tag="직급-직책-담당-권한"/>
+
+                                    <ColumnDefinition Width="80" Tag="생성-업데이트-삭제"/>
+
+                                    <ColumnDefinition Width="*" Tag="설명"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Column="0" Grid.Row="0" Text="사진"/>
+                                <TextBlock Grid.Column="1" Grid.Row="0" Text="ID-Code"/>
+                                <TextBlock Grid.Column="2" Grid.Row="0" Text="이름"/>
+                                <TextBlock Grid.Column="3" Grid.Row="0" Text="상태"/>
+
+                                <TextBlock Grid.Column="4" Grid.Row="0" Text="성별"/>
+                                <TextBlock Grid.Column="5" Grid.Row="0" Text="-"/>
+
+                                <TextBlock Grid.Column="6" Grid.Row="0" Text="소속"/>
+                                <TextBlock Grid.Column="7" Grid.Row="0" Text="직급"/>
+                                
+                                <TextBlock Grid.Column="8" Grid.Row="0" Text="일자"/>
+                                
+                                <TextBlock Grid.Column="9" Grid.Row="0" Text="비고"/>
+
+                                <Line Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="0" 
+                                      Stroke="{StaticResource Color_Gray2}" StrokeThickness="1" X1="0" X2="2000" 
+                                      HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+
+                                <ItemsPresenter Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="1"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border x:Name="Bor" Height="80"  Margin="0,10,0,0" Background="Transparent"
+                                BorderBrush="Transparent" BorderThickness="0.5" CornerRadius="4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" Tag="사진"/>
+                                    <ColumnDefinition Width="80" Tag="ID-Code"/>
+                                    <ColumnDefinition Width="80" Tag="이름"/>
+                                    <ColumnDefinition Width="130" Tag="상태-입사일-퇴사일"/>
+
+                                    <ColumnDefinition Width="80" Tag="성별"/>
+
+                                    <ColumnDefinition Width="300" Tag="이메일-핸드폰-집주소"/>
+
+                                    <ColumnDefinition Width="80" Tag="회사-부서-팀"/>
+                                    <ColumnDefinition Width="80" Tag="직급-직책-담당-권한"/>
+
+                                    <ColumnDefinition Width="80" Tag="생성-업데이트-삭제"/>
+
+                                    <ColumnDefinition Width="*" Tag="설명"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Width="70" Height="70"
+                                        BorderThickness="1" BorderBrush="{StaticResource Color_Gray}" CornerRadius="36">
+                                    <Ellipse>
+                                        <Ellipse.Fill>
+                                            <ImageBrush/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </Border>
+
+                                <TextBlock Grid.Column="1">
+                                    <Run Text="{Binding Id}"/>
+                                    <Run Text="-"/>
+                                    <Run Text="{Binding Employee_Code}"/>
+                                </TextBlock>
+
+                                <TextBlock Grid.Column="2">
+                                    <Run Text="{Binding Name}"/>
+                                </TextBlock>
+
+                                <TextBlock Grid.Column="3">
+                                    <Run Text="{Binding Status}"/>
+                                    <LineBreak/>
+                                    <Run Text="{Binding Joined_At, StringFormat={}{0:yyMMdd}}"/>
+                                    <Run Text="~"/>
+                                    <Run Text="{Binding Resigned_At, StringFormat={}{0:yyMMdd}, TargetNullValue=301120}"/>
+                                </TextBlock>
+
+                                <TextBlock Grid.Column="4">
+                                    <Run Text="{Binding Gender}"/>
+                                    <Run Text="{Binding Birth_Date, StringFormat={}{0:yyMMdd}}"/>
+                                </TextBlock>
+
+                                <TextBlock Grid.Column="5">
+                                    <Run Text="이메일"/>
+                                    <Run Text="{Binding Email}"/>
+                                    <LineBreak/>
+                                    <Run Text="핸드폰"/>
+                                    <Run Text="{Binding Phone}"/>
+                                    <LineBreak/>
+                                    <Run Text="집주소"/>
+                                    <Run Text="{Binding Address}"/>
+                                </TextBlock>
+
+
+                                <StackPanel Grid.Column="99" Orientation="Horizontal">
+                                    <StackPanel.Resources>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="FontSize" Value="14"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="VerticalAlignment" Value="Top"/>
+                                            <Setter Property="Margin" Value="10,0,0,0"/>
+                                        </Style>
+                                    </StackPanel.Resources>
+
+                                    <TextBlock>
+                                        <Run Text="{Binding Description}"/>
+                                        
+                                        <Run Text="{Binding Company_Id}"/>
+                                        <Run Text="{Binding Company_Name}"/>
+                                        <Run Text="{Binding Department_Id}"/>
+                                        <Run Text="{Binding Department_Name}"/>
+                                        <Run Text="{Binding Team_Id}"/>
+                                        <Run Text="{Binding Team_Name}"/>
+                                        
+                                        <Run Text="{Binding Rank_Id}"/>
+                                        <Run Text="{Binding Rank_Name}"/>
+                                        <Run Text="{Binding Position_Id}"/>
+                                        <Run Text="{Binding Position_Name}"/>
+                                        <Run Text="{Binding Role_id}"/>
+                                        <Run Text="{Binding Role_Name}"/>
+                                        <Run Text="{Binding Privilege_id}"/>
+                                        <Run Text="{Binding Privilege_Name}"/>
+                                        
+                                        <Run Text="{Binding Is_Active}"/>
+                                        
+                                        <Run Text="{Binding Created_At}"/>
+                                        <Run Text="{Binding Updated_Dt}"/>
+                                        <Run Text="{Binding Deleted_At}"/>
+                                    </TextBlock>
+                                    
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <DataTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bor" Property="BorderBrush" Value="Blue"/>
+                            </Trigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+
+        <!-- 신규 등록 컨트롤 -->
+        <Border Grid.Column="2" Grid.Row="2" BorderBrush="{StaticResource Color_Gray}" BorderThickness="0,0.5,0.5,0.5">
+
+        </Border>
+
+        <!-- 신규 등록 내용 -->
+        <Border Grid.Column="1" Grid.Row="3" BorderBrush="{StaticResource Color_Gray}" BorderThickness="0,0,0.5,0.5">
+            
+        </Border>
     </Grid>
 </UserControl>

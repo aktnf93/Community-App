@@ -45,7 +45,7 @@
         <Border Grid.Column="0" Grid.Row="5" BorderBrush="Gray" BorderThickness="0.5" CornerRadius="8"
                 Background="White">
             
-            <ItemsControl ItemsSource="{Binding PostList}" Margin="10">
+            <ItemsControl  Margin="10">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>
@@ -53,43 +53,24 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="Gray" BorderThickness="0.5" Height="30" Cursor="Hand">
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="Background" Value="White"/>
-                                    <Setter Property="TextBlock.Foreground" Value="Black"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="Gray"/>
-                                            <Setter Property="TextBlock.Foreground" Value="White"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-
-                            <Grid VerticalAlignment="Center">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="140"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="140"/>
-                                    <ColumnDefinition Width="140"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="100"/>
-                                </Grid.ColumnDefinitions>
-
-                                <TextBlock Grid.Column="0" Text="{Binding Id}" HorizontalAlignment="Center"/>
-                                <TextBlock Grid.Column="1" Text="{Binding Post_Category_Name}" HorizontalAlignment="Center"/>
-                                <TextBlock Grid.Column="2" Text="{Binding Title}" Margin="10,0,0,0"/>
-                                <TextBlock Grid.Column="3" Text="{Binding Employee_Name}" HorizontalAlignment="Center"/>
-                                <TextBlock Grid.Column="4" Text="{Binding Created_At, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" HorizontalAlignment="Center"/>
-                                <TextBlock Grid.Column="5" Text="{Binding Updated_At, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" HorizontalAlignment="Center"/>
-                                <TextBlock Grid.Column="6" Text="{Binding View_Count}" HorizontalAlignment="Center"/>
+                        <Border Width="200" Height="100" BorderBrush="Gray" BorderThickness="0.5" Margin="10,10,0,0">
+                            <Grid>
+                                
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsSource>
+                    <x:Array Type="{x:Type m:M_Product}">
+                        <m:M_Product Name="제품 이름" Content="상세설명" Description="간단설명" Image_Path="" Total_Count="0" Updated_At="2025-11-30"/>
+                        <m:M_Product Name="제품 이름" Content="상세설명" Description="간단설명" Image_Path="" Total_Count="0" Updated_At="2025-11-30"/>
+                        <m:M_Product Name="제품 이름" Content="상세설명" Description="간단설명" Image_Path="" Total_Count="0" Updated_At="2025-11-30"/>
+                        <m:M_Product Name="제품 이름" Content="상세설명" Description="간단설명" Image_Path="" Total_Count="0" Updated_At="2025-11-30"/>
+                        <m:M_Product Name="제품 이름" Content="상세설명" Description="간단설명" Image_Path="" Total_Count="0" Updated_At="2025-11-30"/>
+                        <m:M_Product Name="제품 이름" Content="상세설명" Description="간단설명" Image_Path="" Total_Count="0" Updated_At="2025-11-30"/>
+                        <m:M_Product Name="제품 이름" Content="상세설명" Description="간단설명" Image_Path="" Total_Count="0" Updated_At="2025-11-30"/>
+                    </x:Array>
+                </ItemsControl.ItemsSource>
             </ItemsControl>
         </Border>
 

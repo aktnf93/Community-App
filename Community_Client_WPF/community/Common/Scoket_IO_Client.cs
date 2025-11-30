@@ -16,7 +16,7 @@ namespace community.Common
 
         public Scoket_IO_Client()
         {
-            this.client = new Client(Server.API.BaseUrl);
+            this.client = new Client(HTTP_Server.API.BaseUrl);
 
             this.client.OnConnected += async (sender, e) =>
             {

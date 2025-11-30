@@ -1,6 +1,12 @@
-2025/11/20-21:40:44.881 58d0 Reusing MANIFEST C:\Users\A\Downloads\Community-App\Community_Client_WPF\community\bin\Debug\community.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
-2025/11/20-21:40:44.882 58d0 Recovering log #80
-2025/11/20-21:40:44.883 58d0 Reusing old log C:\Users\A\Downloads\Community-App\Community_Client_WPF\community\bin\Debug\community.exe.WebView2\EBWebView\Default\Session Storage/000080.log 
-2025/11/20-21:41:47.534 23ac Level-0 table #84: started
-2025/11/20-21:41:47.537 23ac Level-0 table #84: 35799 bytes OK
-2025/11/20-21:41:47.539 23ac Delete type=0 #80
+2025/11/30-12:46:00.990 4dc8 Reusing MANIFEST C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\bin\Debug\community.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
+2025/11/30-12:46:00.990 4dc8 Recovering log #472
+2025/11/30-12:46:00.992 4dc8 Reusing old log C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\bin\Debug\community.exe.WebView2\EBWebView\Default\Session Storage/000472.log 
+2025/11/30-12:56:06.584 4418 Level-0 table #477: started
+2025/11/30-12:56:06.588 4418 Level-0 table #477: 26521 bytes OK
+2025/11/30-12:56:06.589 4418 Delete type=0 #472
+2025/11/30-13:06:06.615 4418 Level-0 table #479: started
+2025/11/30-13:06:06.619 4418 Level-0 table #479: 22014 bytes OK
+2025/11/30-13:06:06.621 4418 Delete type=0 #476
+2025/11/30-13:10:59.544 4418 Level-0 table #481: started
+2025/11/30-13:10:59.546 4418 Level-0 table #481: 35296 bytes OK
+2025/11/30-13:10:59.548 4418 Delete type=0 #478

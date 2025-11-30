@@ -2,8 +2,36 @@ const express = require('express');
 const router = express.Router();
 const db = require('../services/service_database');
 
+const schema = {
 
-const tb_post_category = db.tb.post_category;
+    post_category: {
+        table: 'tb_post_category',
+        view: 'tb_post_category',
+        get: ['id'],
+        post: ['parent_id', 'name', 'description'],
+        put: ['id', 'parent_id', 'name', 'description'],
+        delete: ['id']
+    },
+
+    post_list: {
+        table: 'tb_posts',
+        view: 'v_posts',
+        get: ['id', 'post_category_id', 'employee_id'],
+        post: ['post_category_id', 'employee_id', 'title', 'content'],
+        put: ['id', 'post_category_id', 'title', 'content', 'view_count', 'deleted_at'],
+        delete: ['id']
+    },
+
+    post_comment: {
+        table: 'tb_post_comments',
+        get: ['id', 'post_id', 'employee_id'],
+        post: ['post_id', 'employee_id', 'content'],
+        put: ['id', 'content', 'deleted_at'],
+        delete: ['id']
+    }
+};
+
+const tb_post_category = schema.post_category;
 router.post('/category/select', async (req, res, next) => {
     try {
         const data = db.pick(req.body, [ 'name' ]);
@@ -35,7 +63,7 @@ router.post('/category/insert', async (req, res, next) => db.post(req, res, next
 router.put('/category/update', async (req, res, next) => db.put(req, res, next, tb_post_category));
 router.delete('/category/delete', async (req, res, next) => db.delete(req, res, next, tb_post_category));
 
-const tb_post_list = db.tb.post_list;
+const tb_post_list = schema.post_list;
 router.post('/list/select', async (req, res, next) => {
     try {
         const data = db.pick(req.body, ['id', 'post_category_id', 'employee_id', 'title', 'content']);
@@ -72,25 +100,17 @@ router.post('/list/select', async (req, res, next) => {
         next(err);
     }
 });
-
-// {id,title, content}
 router.post('/list/insert', async (req, res, next) => db.post(req, res, next, tb_post_list));
 router.put('/list/update', async (req, res, next) => db.put(req, res, next, tb_post_list));
 router.delete('/list/delete', async (req, res, next) => db.delete(req, res, next, tb_post_list));
 
-const tb_post_comment = db.tb.post_comment;
+const tb_post_comment = schema.post_comment;
 router.post('/comment/select', async (req, res, next) => {
     try {
         const data = db.pick(req.body, ['post_id']);
 
         if (data.post_id) {
-            const result = await db.query(req, `
-                SELECT c.*, e.name AS 'employee_name'
-                FROM tb_post_comments c
-                    LEFT OUTER JOIN tb_employees e ON c.employee_id = e.id
-                WHERE post_id = ? 
-                LIMIT 1000;
-                `, [data.post_id]);
+            const result = await db.query(req, `SELECT * FROM v_comments WHERE post_id = ? LIMIT 1000;`, [data.post_id]);
             res.locals.dbResult = result;   
         }
 

@@ -4,17 +4,17 @@
 exe
 C#
 .cs
-C:\Users\A\Downloads\Community-App\Community_Client_WPF\community\obj\Debug\
+C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\obj\Debug\
 community
 none
 false
 DEBUG;TRACE
-C:\Users\A\Downloads\Community-App\Community_Client_WPF\community\App.xaml
-141119626420
-3-379966655
-73-79029957
-35-714602405
-Views\V_Customer.xaml;Views\V_Home.xaml;Views\V_MainWindow.xaml;Views\V_Post.xaml;Views\V_Chat.xaml;Views\V_Employee.xaml;Views\V_Product.xaml;Views\V_Login.xaml;Views\V_Project.xaml;Views\V_System.xaml;Views\V_Test.xaml;View_Controls\U_AudioPlayer.xaml;View_Controls\U_ProgressBar.xaml;View_Controls\U_TripleSwitch.xaml;
+C:\Users\A\source\repos\Community-App\Community_Client_WPF\community\App.xaml
+21-1456075564
+3933597658
+77-1284542211
+35-1069450498
+Resources\R_Colors.xaml;Resources\R_Converters.xaml;Resources\R_Images.xaml;Resources\R_Styles.xaml;Resources\R_Templates.xaml;Resources\R_ViewModelTemplates.xaml;Views\V_Customer.xaml;Views\V_Home.xaml;Views\V_MainWindow.xaml;Views\V_Post.xaml;Views\V_Chat.xaml;Views\V_Employee.xaml;Views\V_Product.xaml;Views\V_Login.xaml;Views\V_Project.xaml;Views\V_ProjectDetail.xaml;Views\V_System.xaml;Views\V_Test.xaml;View_Controls\U_AudioPlayer.xaml;View_Controls\U_ProgressBar.xaml;View_Controls\U_TripleSwitch.xaml;
 
-False
+True
 

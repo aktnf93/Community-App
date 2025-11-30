@@ -172,7 +172,7 @@ namespace community.ViewModels
 
         private void SysTemLogSearch()
         {
-            var logs = Server.API.HttpSend<M_System_Log[]>("/system/log/select");
+            var logs = HTTP_Server.API.HttpSend<M_System_Log[]>("/system/log/select");
             this.SystemLogs.Clear();
             if (logs != null)
             {
@@ -185,7 +185,7 @@ namespace community.ViewModels
 
         private void SystemConfigSearch()
         {
-            var configs = Server.API.HttpSend<M_System_Config[]>("/system/config/select");
+            var configs = HTTP_Server.API.HttpSend<M_System_Config[]>("/system/config/select");
             this.SystemConfigs.Clear();
             if (configs != null)
             {
@@ -199,7 +199,7 @@ namespace community.ViewModels
         // Company
         private void CompanySearch()
         {
-            var data = Server.API.HttpSend<M_Organization_Company[]>("/organization/company/select", Server.Method.POST);
+            var data = HTTP_Server.API.HttpSend<M_Organization_Company[]>("/organization/company/select", HTTP_Server.Method.POST);
             this.CompanyList.Clear();
             this.DepartmentList.Clear();
             this.TeamList.Clear();
@@ -216,7 +216,7 @@ namespace community.ViewModels
         {
             var add = this.CompanySelected;
             var data = add;
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/company/insert", Server.Method.POST, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/company/insert", HTTP_Server.Method.POST, data);
             if (result != null && result.InsertId > 0)
             {
                 CompanySearch();
@@ -233,7 +233,7 @@ namespace community.ViewModels
 
             var edit = this.CompanySelected;
             var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/company/update", Server.Method.PUT, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/company/update", HTTP_Server.Method.PUT, data);
             if (result != null && result.AffectedRows > 0)
             {
                 CompanySearch();
@@ -250,7 +250,7 @@ namespace community.ViewModels
 
             var del = this.CompanySelected;
             var data = new { id = del.Id };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/company/delete", Server.Method.DELETE, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/company/delete", HTTP_Server.Method.DELETE, data);
             if (result != null && result.AffectedRows > 0)
             {
                 CompanySearch();
@@ -262,7 +262,7 @@ namespace community.ViewModels
         {
             var ser = this.CompanySelected;
             var data = new { company_id = ser.Id };
-            var result = Server.API.HttpSend<M_Organization_Department[]>("/organization/department/select", Server.Method.POST, data);
+            var result = HTTP_Server.API.HttpSend<M_Organization_Department[]>("/organization/department/select", HTTP_Server.Method.POST, data);
             this.DepartmentList.Clear();
             if (result != null)
             {
@@ -283,7 +283,7 @@ namespace community.ViewModels
             var add = this.DepartmentSelected;
             add.Company_Id = this.CompanySelected.Id;
             var data = add;
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/department/insert", Server.Method.POST, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/department/insert", HTTP_Server.Method.POST, data);
             if (result != null && result.InsertId > 0)
             {
                 DepartmentSearch();
@@ -299,7 +299,7 @@ namespace community.ViewModels
 
             var edit = this.DepartmentSelected;
             var data = new { id = edit.Id, name = edit.Name, description = edit.Description, company_id = edit.Company_Id };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/department/update", Server.Method.PUT, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/department/update", HTTP_Server.Method.PUT, data);
             if (result != null && result.AffectedRows > 0)
             {
                 DepartmentSearch();
@@ -315,7 +315,7 @@ namespace community.ViewModels
 
             var del = this.DepartmentSelected;
             var data = new { id = del.Id };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/department/delete", Server.Method.DELETE, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/department/delete", HTTP_Server.Method.DELETE, data);
             if (result != null && result.AffectedRows > 0)
             {
                 DepartmentSearch();
@@ -327,7 +327,7 @@ namespace community.ViewModels
         {
             var ser = this.DepartmentSelected;
             var data = new { department_id = ser.Id };
-            var result = Server.API.HttpSend<M_Organization_Team[]>("/organization/team/select", Server.Method.POST, data);
+            var result = HTTP_Server.API.HttpSend<M_Organization_Team[]>("/organization/team/select", HTTP_Server.Method.POST, data);
             this.TeamList.Clear();
             if (result != null)
             {
@@ -348,7 +348,7 @@ namespace community.ViewModels
             var add = this.TeamSelected;
             add.Department_Id = this.DepartmentSelected.Id;
             var data = add;
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/team/insert", Server.Method.POST, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/team/insert", HTTP_Server.Method.POST, data);
             if (result != null && result.InsertId > 0)
             {
                 TeamSearch();
@@ -364,7 +364,7 @@ namespace community.ViewModels
 
             var edit = this.TeamSelected;
             var data = new { id = edit.Id, name = edit.Name, description = edit.Description, department_id = edit.Department_Id };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/team/update", Server.Method.PUT, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/team/update", HTTP_Server.Method.PUT, data);
             if (result != null && result.AffectedRows > 0)
             {
                 TeamSearch();
@@ -380,7 +380,7 @@ namespace community.ViewModels
 
             var del = this.TeamSelected;
             var data = new { id = del.Id };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/team/delete", Server.Method.DELETE, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/team/delete", HTTP_Server.Method.DELETE, data);
             if (result != null && result.AffectedRows > 0)
             {
                 TeamSearch();
@@ -391,7 +391,7 @@ namespace community.ViewModels
         private void RankSearch()
         {
             var ser = this.RankSelected;
-            var result = Server.API.HttpSend<M_Organization_Rank[]>("/organization/rank/select", Server.Method.POST);
+            var result = HTTP_Server.API.HttpSend<M_Organization_Rank[]>("/organization/rank/select", HTTP_Server.Method.POST);
             this.RankList.Clear();
             if (result != null)
             {
@@ -411,7 +411,7 @@ namespace community.ViewModels
 
             var add = this.RankSelected;
             var data = add;
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/rank/insert", Server.Method.POST, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/rank/insert", HTTP_Server.Method.POST, data);
             if (result != null && result.InsertId > 0)
             {
                 RankSearch();
@@ -427,7 +427,7 @@ namespace community.ViewModels
 
             var edit = this.RankSelected;
             var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/rank/update", Server.Method.PUT, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/rank/update", HTTP_Server.Method.PUT, data);
             if (result != null && result.AffectedRows > 0)
             {
                 RankSearch();
@@ -443,7 +443,7 @@ namespace community.ViewModels
 
             var del = this.RankSelected;
             var data = new { id = del.Id };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/rank/delete", Server.Method.DELETE, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/rank/delete", HTTP_Server.Method.DELETE, data);
             if (result != null && result.AffectedRows > 0)
             {
                 RankSearch();
@@ -454,7 +454,7 @@ namespace community.ViewModels
         private void PositionSearch()
         {
             var ser = this.PositioSelected;
-            var result = Server.API.HttpSend<M_Organization_Position[]>("/organization/position/select", Server.Method.POST);
+            var result = HTTP_Server.API.HttpSend<M_Organization_Position[]>("/organization/position/select", HTTP_Server.Method.POST);
             this.PositionList.Clear();
             if (result != null)
             {
@@ -474,7 +474,7 @@ namespace community.ViewModels
 
             var add = this.PositioSelected;
             var data = add;
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/position/insert", Server.Method.POST, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/position/insert", HTTP_Server.Method.POST, data);
             if (result != null && result.InsertId > 0)
             {
                 PositionSearch();
@@ -490,7 +490,7 @@ namespace community.ViewModels
 
             var edit = this.PositioSelected;
             var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/position/update", Server.Method.PUT, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/position/update", HTTP_Server.Method.PUT, data);
             if (result != null && result.AffectedRows > 0)
             {
                 PositionSearch();
@@ -506,7 +506,7 @@ namespace community.ViewModels
 
             var del = this.PositioSelected;
             var data = new { id = del.Id };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/position/delete", Server.Method.DELETE, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/position/delete", HTTP_Server.Method.DELETE, data);
             if (result != null && result.AffectedRows > 0)
             {
                 PositionSearch();
@@ -517,7 +517,7 @@ namespace community.ViewModels
         private void RoleSearch()
         {
             var ser = this.RoleSelected;
-            var result = Server.API.HttpSend<M_Organization_Role[]>("/organization/role/select", Server.Method.POST);
+            var result = HTTP_Server.API.HttpSend<M_Organization_Role[]>("/organization/role/select", HTTP_Server.Method.POST);
             this.RoleList.Clear();
             if (result != null)
             {
@@ -537,7 +537,7 @@ namespace community.ViewModels
 
             var add = this.RoleSelected;
             var data = add;
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/role/insert", Server.Method.POST, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/role/insert", HTTP_Server.Method.POST, data);
             if (result != null && result.InsertId > 0)
             {
                 RoleSearch();
@@ -553,7 +553,7 @@ namespace community.ViewModels
 
             var edit = this.RoleSelected;
             var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/role/update", Server.Method.PUT, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/role/update", HTTP_Server.Method.PUT, data);
             if (result != null && result.AffectedRows > 0)
             {
                 RoleSearch();
@@ -569,7 +569,7 @@ namespace community.ViewModels
 
             var del = this.RoleSelected;
             var data = new { id = del.Id };
-            var result = Server.API.HttpSend<M_DB_Result>("/organization/role/delete", Server.Method.DELETE, data);
+            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/role/delete", HTTP_Server.Method.DELETE, data);
             if (result != null && result.AffectedRows > 0)
             {
                 RoleSearch();

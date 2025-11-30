@@ -1,7 +1,7 @@
 const http = require('http');
 const app = require('./services/service_express');
 const initSocket = require('./services/service_socket');
-const logger = require('./logger');
+const logger = require('./utils/logger');
 
 const server = http.createServer(app);
 

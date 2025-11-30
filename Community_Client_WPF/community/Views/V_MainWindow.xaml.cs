@@ -206,7 +206,7 @@ namespace community.Views
             if (openFileDialog.ShowDialog() == true)
             {
                 string imagePath = openFileDialog.FileName;
-                Server.API.UploadImageSync(imagePath);
+                HTTP_Server.API.UploadImageSync(imagePath);
 
                 // 예: 이미지 컨트롤에 표시
                 // myImage.Source = new BitmapImage(new Uri(imagePath));

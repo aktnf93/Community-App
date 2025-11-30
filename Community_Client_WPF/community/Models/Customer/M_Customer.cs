@@ -8,7 +8,7 @@ namespace community.Models
     public class M_Customer : Notify
     {
         private int id;
-        private int location_id;
+        private int? location_id;
         private string name;
         private string description;
         private string image_path;
@@ -24,7 +24,7 @@ namespace community.Models
         }
 
         [DataMember(Name = "location_id")]
-        public int Location_Id
+        public int? Location_Id
         {
             get => this.location_id;
             set => base.OnPropertyChanged(ref this.location_id, value);
@@ -70,6 +70,11 @@ namespace community.Models
         {
             get => this.deleted_at;
             set => base.OnPropertyChanged(ref this.deleted_at, value);
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Id} : {this.Name} - {this.Description}";
         }
     }
 }

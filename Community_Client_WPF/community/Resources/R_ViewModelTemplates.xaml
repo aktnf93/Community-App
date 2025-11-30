@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:community.Views"
+                    xmlns:vm="clr-namespace:community.ViewModels">
+
+    <DataTemplate DataType="{x:Type vm:VM_Home}">
+        <v:V_Home/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VM_Login}">
+        <v:V_Login/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VM_Post}">
+        <v:V_Post/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VM_Chat}">
+        <v:V_Chat/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VM_Project}">
+        <v:V_Project/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VM_Customer}">
+        <v:V_Customer/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VM_Product}">
+        <v:V_Product/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VM_Employee}">
+        <v:V_Employee/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VM_System}">
+        <v:V_System/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VM_Test}">
+        <v:V_Test/>
+    </DataTemplate>
+</ResourceDictionary>

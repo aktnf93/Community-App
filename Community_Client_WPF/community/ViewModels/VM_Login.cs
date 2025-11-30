@@ -42,7 +42,7 @@ namespace community.ViewModels
                 param.Add("login_id", login.Login_Id);
                 param.Add("login_pw", login.Login_Pw);
 
-                var user = Server.API.HttpSend<M_Employee[]>("/employee/list/select", Server.Method.POST, param);
+                var user = HTTP_Server.API.HttpSend<M_Employee[]>("/employee/list/select", HTTP_Server.Method.POST, param);
 
                 if (user.Length > 0)
                 {
@@ -55,10 +55,11 @@ namespace community.ViewModels
                 else
                 {
                     // 로그인 실패
-                    new Exception("아이디 또는 비밀번호가 올바르지 않습니다.");
+                    MessageBox.Show("아이디 또는 비밀번호가 올바르지 않습니다.", "로그인 실패",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 MessageBox.Show(ex.Message, "로그인 실패",
                     MessageBoxButton.OK, MessageBoxImage.Error);
@@ -80,7 +81,7 @@ namespace community.ViewModels
             if (u.Login_Id != "")
             {
                 object id = new { login_id = u.Login_Id };
-                M_Employee e = Server.API.HttpSend<M_Employee>("/employee/list/select", Server.Method.POST, id);
+                M_Employee e = HTTP_Server.API.HttpSend<M_Employee>("/employee/list/select", HTTP_Server.Method.POST, id);
 
                 if (e != null)
                 {
@@ -116,7 +117,7 @@ namespace community.ViewModels
                 return;
             }
 
-            M_DB_Result d = Server.API.HttpSend<M_DB_Result>("/employee/list/insert", Server.Method.POST, u);
+            M_DB_Result d = HTTP_Server.API.HttpSend<M_DB_Result>("/employee/list/insert", HTTP_Server.Method.POST, u);
             if (d != null && d.InsertId > 0)
             {
                 this.SignupVisibility = Visibility.Collapsed;

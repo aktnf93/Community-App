@@ -27,10 +27,17 @@ flowchart LR
 
 ## 📌 샘플 이미지
 
+### ※ 게시판
+
 ![Post](./Community_Document/Sample/post_20251114.png)
+
+### ※ 기초코드 생성
 
 ![Post](./Community_Document/Sample/setup_20251114.gif)
 
+### ※ 프로젝트 생성, 삭제
+
+![Post](./Community_Document/Sample/project_20251127.gif)
 
 ## 📌 Client: C#, WPF
 ```

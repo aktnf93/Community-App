@@ -4,242 +4,219 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:community.Views"
+             xmlns:vm="clr-namespace:community.ViewModels"
              xmlns:m="clr-namespace:community.Models"
              mc:Ignorable="d" 
              Width="1810" Height="1000" d:DesignWidth="1810" d:DesignHeight="1000"
              Loaded="{local:MethodBinding Loaded}" Background="{StaticResource Color_WhiteGray}">
+    <!--<UserControl.DataContext>
+        <vm:VM_Chat/>
+    </UserControl.DataContext>-->
 
     <Grid Margin="20,20,20,30">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"   Tag="리스트"/>
-            <ColumnDefinition Width="60"  Tag="여백"/>
-            <ColumnDefinition Width="240" Tag="최근이력"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"  Tag="배너"/>
             <RowDefinition Height="20"  Tag="여백"/>
-            <RowDefinition Height="90"  Tag="대시보드"/>
-            <RowDefinition Height="20"  Tag="여백"/>
-            <RowDefinition Height="40"  Tag="컨트롤러"/>
             <RowDefinition Height="*"   Tag="리스트"/>
         </Grid.RowDefinitions>
 
         <!-- 배너 -->
-        <Control Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Template="{StaticResource BannerCard}" DataContext="{Binding BannerCard}"/>
-
-        <!-- 대시보드 카드 -->
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Control Tag="{StaticResource Img_Chat_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[0]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Chat_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[1]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Chat_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[2]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Chat_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[3]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Chat_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[4]}"/>
-        </StackPanel>
-
-        <!-- 리스트 제어 -->
-        <Grid Grid.Column="0" Grid.Row="4">
-            <Control Template="{StaticResource ListSearch}" ToolTip="게시글 검색"/>
-        </Grid>
+        <Control Grid.Row="0" Template="{StaticResource BannerCard}" DataContext="{Binding BannerCard}"/>
 
         <!-- 리스트 목록  -->
-        <Border Grid.Column="0" Grid.Row="5" 
-                Background="{StaticResource Color_ThinBlack2}"
-                BorderBrush="{StaticResource Color_ThinBlack}" BorderThickness="0.5"
-                CornerRadius="12">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+        <Grid Grid.Row="2" Background="{StaticResource Color_White}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-                <!-- 채팅방 목록 -->
-                <StackPanel Grid.Column="0" Width="300" VerticalAlignment="Top" Margin="20">
-                    <Label Content="채팅방" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
-                    <StackPanel Orientation="Horizontal">
+            <!-- 채팅방 목록 -->
+            <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="0.5">
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                
+                    <WrapPanel Grid.Row="0" Orientation="Horizontal" Width="300" VerticalAlignment="Center">
                         <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="이름" Text="{Binding ChatRoomSelected.Name}"/>
                         <Button Width="30" Height="30" Content="➕️" Margin="6,0,0,0" ToolTip="추가" Click="{local:MethodBinding ChatRoomAdd}"/>
                         <Button Width="30" Height="30" Content="✏️"  Margin="2,0,0,0" ToolTip="수정" Click="{local:MethodBinding ChatRoomEdit}"/>
                         <Button Width="30" Height="30" Content="➖️" Margin="2,0,0,0" ToolTip="삭제" Click="{local:MethodBinding ChatRoomDelete}"/>
-                    </StackPanel>
-                    <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding ChatRoomSelected.Description}"/>
-                    <DataGrid Width="300" Height="500" Margin="0,10,0,0" ColumnHeaderHeight="30" ItemsSource="{Binding ChatRoomList}" SelectedItem="{Binding ChatRoomSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="이름" Binding="{Binding Name}" Width="100" ElementStyle="{StaticResource TxtColumn}"/>
-                            <DataGridTextColumn Header="설명" Binding="{Binding Description}" Width="*" ElementStyle="{StaticResource TxtColumn}"/>
-                            <DataGridTemplateColumn Header="접속" Width="50">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Content="On" Click="{local:MethodBinding OnChatRoomEnter}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </StackPanel>
-                
-                <!-- 채팅방 -->
-                <Border Grid.Column="1" Margin="20" Background="LightBlue" BorderBrush="White" BorderThickness="0.5" CornerRadius="8"
-                        DataContext="{Binding ChatRoomLive}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="400"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding ChatRoomSelected.Description}"/>
+                    </WrapPanel>
 
-                        <Border Grid.Column="0" Margin="20" Padding="10" Background="{StaticResource Color_White}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="60"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="80"/>
-                                </Grid.RowDefinitions>
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding ChatRoomList}" Visibility="Collapsed">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
 
-                                <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Margin="0,0,0,20" Background="LightBlue"
-                                              VerticalScrollBarVisibility="Visible">
-                                    <!--ItemsSource="{Binding Messages}"-->
-                                    <ItemsControl ItemsSource="{Binding Messages}" Margin="0,10,0,10">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <VirtualizingStackPanel Orientation="Vertical"/>
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                                    <TextBlock Text="{Binding Created_At, StringFormat={}{0:HH:mm}}" VerticalAlignment="Bottom" Margin="0,0,0,10"
-                                                               Foreground="Gray"/>
-                                                    <Border Background="Yellow" CornerRadius="8"
-                                                            MaxWidth="200"
-                                                            Padding="10"
-                                                            HorizontalAlignment="Right" Margin="8,0,10,10">
-                                                        <TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
-                                                    </Border>
-                                                        <TextBlock Text="{Binding Employee_Name}"/>
-                                                    <!--<Ellipse Width="40" Height="40" Fill="LightPink"
-                                                             VerticalAlignment="Top" Margin="0,0,10,0">
-                                                    </Ellipse>-->
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </ScrollViewer>
-                                <TextBox Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding SendMessage}"/>
-                                <Button Grid.Column="1" Grid.Row="1" Content="보내기" Click="{local:MethodBinding OnMessageSend}"/>
-                            </Grid>
-                        </Border>
+                                        <Grid Grid.Row="0">
+                                            <TextBlock Text="{Binding Name}"/>
 
-                        <ItemsControl Grid.Column="1" ItemsSource="{Binding Members}">
+                                            <Button Content="접속" Click="{local:MethodBinding OnChatRoomEnter}" 
+                                                    Width="60" Height="30" HorizontalAlignment="Right" Margin="0,0,40,0"/>
+                                        </Grid>
+
+                                        <ItemsControl Grid.Row="1" ItemsSource="{Binding Members}" Background="Purple" Height="100">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <TextBlock Text="{Binding Name}"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
+                    
+
+                    <TreeView Grid.Row="1" ItemsSource="{Binding ChatRoomList}" >
+                        <TreeView.Template>
+                            <ControlTemplate TargetType="{x:Type TreeView}">
+                                <Border BorderBrush="Gray" BorderThickness="0,0.5,0,0">
+                                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </ControlTemplate>
+                        </TreeView.Template>
+                        
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding Members}">
+                                <TextBlock Text="{Binding Name}"/>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                                            <StackPanel Orientation="Vertical">
+                                                <Border x:Name="bor" Height="50" Cursor="Hand" Background="Transparent">
+                                                    <Grid x:Name="Parent">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="30"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="20"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Image Grid.Column="0" x:Name="Image" Source="{Binding Image_Path}" Width="20" Height="20"/>
+                                                    
+                                                        <ContentPresenter Grid.Column="1" x:Name="Btn_Text" ContentSource="Header" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                          TextBlock.Foreground="{StaticResource Color_Black}"/>
+                                                    
+                                                        <Image Grid.Column="2" x:Name="Expander" Source="{StaticResource Img_Post_ArrowDown}" Visibility="Collapsed" 
+                                                           Width="18" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"/>
+
+                                                        <Button Grid.Column="0" Grid.ColumnSpan="3" Content="접속" Click="{local:MethodBinding OnChatRoomEnter}" 
+                                                                Width="60" Height="30"
+                                                                HorizontalAlignment="Right" Margin="0,0,40,0"/>
+                                                    </Grid>
+                                                </Border>
+                                                <ItemsPresenter x:Name="Child" Margin="10,0,0,0" Visibility="Collapsed"/>
+                                            </StackPanel>
+
+                                            <ControlTemplate.Triggers>
+
+                                                <!-- 자식 요소가 있으면 하위식별 표시 -->
+                                                <Trigger Property="HasItems" Value="True">
+                                                    <Setter TargetName="Expander" Property="Visibility" Value="Visible"/>
+                                                </Trigger>
+
+                                                <!-- 자식 요소를 펼치기 -->
+                                                <Trigger Property="IsExpanded" Value="True">
+                                                    <Setter TargetName="Expander" Property="Source" Value="{StaticResource Img_Post_ArrowUp}"/>
+                                                    <Setter TargetName="Child" Property="Visibility" Value="Visible"/>
+                                                </Trigger>
+
+                                                <!-- 선택 -->
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Parent" Property="Background" Value="{StaticResource Color_ThinGray}"/>
+                                                    <Setter TargetName="Btn_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_Yellow}"/>
+                                                    <Setter TargetName="Btn_Text"  Property="TextBlock.FontWeight" Value="Bold"/>
+                                                </Trigger>
+
+                                                <!-- 마우스 -->
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Parent" Property="Background" Value="{StaticResource Color_Gray}"/>
+                                                    <Setter TargetName="Btn_Text"  Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                    </TreeView>
+                </Grid>
+            </Border>
+
+            <!-- 채팅방 -->
+            <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="0,0.5,0.5,0.5"
+                    DataContext="{Binding ChatRoomLive}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="160"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0,0,0,0.5">
+                        
+                    </Border>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Margin="0.5">
+                        <ItemsControl ItemsSource="{Binding Messages}" Margin="0,20,0,20">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal"/>
+                                    <VirtualizingStackPanel Orientation="Vertical"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Width="160" Height="140" Margin="20,20,0,0" Background="LightYellow">
-                                        <Grid>
-                                            <StackPanel Orientation="Vertical" Margin="0,20,0,0">
-                                                <Ellipse Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <Ellipse.Fill>
-                                                        <ImageBrush ImageSource="http://localhost:12070/uploads/1762842668197-11.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant"/>
-                                                    </Ellipse.Fill>
-                                                </Ellipse>
-                                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0">
-                                                    <Run Text="(방장)"/>
-                                                    <Run Text="존 제임스"/>
-                                                </TextBlock>
-                                            </StackPanel>
-
-                                            <Border Width="120" Height="30" Background="LightGray" HorizontalAlignment="Right" VerticalAlignment="Top" CornerRadius="8" Margin="0,-10,-67,0">
-                                                <TextBlock Text="안녕하세요" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </Grid>
-                                    </Border>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+                                        <TextBlock Text="{Binding Created_At, StringFormat={}{0:HH:mm}}" VerticalAlignment="Bottom" Margin="0,0,0,10"
+                                                        Foreground="Gray"/>
+                                        <Border Background="Yellow" CornerRadius="8"
+                                                    MaxWidth="200"
+                                                    Padding="10"
+                                                    HorizontalAlignment="Right" Margin="8,0,10,10">
+                                            <TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
+                                        </Border>
+                                        <TextBlock Text="{Binding Employee_Name}"/>
+                                        <!--<Ellipse Width="40" Height="40" Fill="LightPink"
+                                                        VerticalAlignment="Top" Margin="0,0,10,0">
+                                            </Ellipse>-->
+                                    </StackPanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                    </Grid>
-                </Border>
-            </Grid>
-        </Border>
+                    </ScrollViewer>
 
-        <!-- 최근이력 목록 -->
-        <TabControl Grid.Column="2" Grid.Row="5">
-            <TabItem Header="최근 이력" Height="28">
-                <ItemsControl>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel Orientation="Vertical" VirtualizingPanel.VirtualizationMode="Recycling"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-
-                    <ItemsControl.Template>
-                        <ControlTemplate TargetType="{x:Type ItemsControl}">
-                            <Border BorderBrush="Gray" BorderThickness="0.5" Padding="0,0,0.5,0">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="17"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="0" MaxHeight="30"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="53"/>
-                                    </Grid.RowDefinitions>
-
-                                    <!--<Label Grid.Column="0" Grid.Row="0" Content="최근 이력" Style="{StaticResource Lable_Column}"/>
-                            <Line  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Bottom" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>-->
-
-                                    <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalScrollBarVisibility="Visible"
-                                          Background="{StaticResource Color_White}">
-                                        <ItemsPresenter/>
-                                    </ScrollViewer>
-
-                                    <Grid Grid.Column="0"  Grid.ColumnSpan="9" Grid.Row="2">
-                                        <Line VerticalAlignment="Top" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
-
-                                        <StackPanel Grid.Column="0" Grid.ColumnSpan="9" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        </StackPanel>
-                                    </Grid>
-                                </Grid>
-                            </Border>
-                        </ControlTemplate>
-                    </ItemsControl.Template>
-
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Height="30" BorderThickness="0.5" BorderBrush="Gray">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="80"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock x:Name="Title" Grid.Column="0" Text="{Binding Title}" TextTrimming="CharacterEllipsis" 
-                                       HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0"
-                                       TextDecorations="Underline"/>
-
-                                    <TextBlock x:Name="Update" Grid.Column="1" Text="{Binding Updated_At, StringFormat={}{0:yyyy-MM-dd}}" 
-                                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                                       TextDecorations="Underline"/>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-
-                    <ItemsControl.ItemsSource>
-                        <x:Array Type="{x:Type m:M_Post}">
-                            <m:M_Post Id="1" Title="게시글 제목 예시 1" Updated_At="2024-06-12"/>
-                            <m:M_Post Id="2" Title="게시글 제목 예시 2" Updated_At="2021-07-01"/>
-                            <m:M_Post Id="3" Title="게시글 제목 예시 3" Updated_At="2024-05-01"/>
-                            <m:M_Post Id="4" Title="게시글 제목 예시 4" Updated_At="2025-01-01"/>
-                        </x:Array>
-                    </ItemsControl.ItemsSource>
-                </ItemsControl>
-            </TabItem>
-        </TabControl>
+                    <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="0,0.5,0,0">
+                        <Grid>
+                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding SendMessage}" 
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Bottom" 
+                                     Height="80"
+                                     Margin="20,0,120,20"/>
+                            <Button Content="보내기" Click="{local:MethodBinding OnMessageSend}" 
+                                    HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                    Width="80" Height="30" Margin="0,0,20,70"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

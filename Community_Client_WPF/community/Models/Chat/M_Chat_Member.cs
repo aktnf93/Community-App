@@ -14,6 +14,8 @@ namespace community.Models
         private DateTime created_at;
         private DateTime? deleted_at;
 
+        public string Name { get; set; } = "123";
+
         [DataMember(Name = "id")]
         public int Id
         {

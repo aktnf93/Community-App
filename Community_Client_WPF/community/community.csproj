@@ -141,6 +141,7 @@
     <Compile Include="Models\Organization\M_Organization_Rank.cs" />
     <Compile Include="Models\Organization\M_Organization_Role.cs" />
     <Compile Include="Models\Organization\M_Organization_Team.cs" />
+    <Compile Include="Models\Organization\M_TeamTree.cs" />
     <Compile Include="Models\Post\M_Post_Category.cs" />
     <Compile Include="Models\Product\M_Product.cs" />
     <Compile Include="Models\Product\M_Product_Inventory.cs" />
@@ -166,7 +167,7 @@
       <DependentUpon>V_Test.xaml</DependentUpon>
     </Compile>
     <Compile Include="View_Controls\PasswordBoxHelper.cs" />
-    <Compile Include="Common\Server.cs" />
+    <Compile Include="Common\HTTP_Server.cs" />
     <Compile Include="Views\ViewCacheHost.cs" />
     <Compile Include="View_Controls\U_TripleSwitch.xaml.cs">
       <DependentUpon>U_TripleSwitch.xaml</DependentUpon>
@@ -219,6 +220,30 @@
     <Compile Include="View_Controls\U_ProgressBar.xaml.cs">
       <DependentUpon>U_ProgressBar.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resources\R_Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\R_Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\R_Images.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\R_Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\R_Templates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\R_ViewModelTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\V_Customer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

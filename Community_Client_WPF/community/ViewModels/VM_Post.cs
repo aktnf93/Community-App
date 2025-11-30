@@ -95,7 +95,7 @@ namespace community.ViewModels
         private void BtnCategorySearch()
         {
             var obj = new { name = this.TxtCategorySearch };
-            var categorys = Server.API.HttpSend<M_Post_Category[]>("/post/category/select", data: obj);
+            var categorys = HTTP_Server.API.HttpSend<M_Post_Category[]>("/post/category/select", data: obj);
             this.CategoryList.Clear();
 
             if (categorys != null)
@@ -114,7 +114,7 @@ namespace community.ViewModels
             Dictionary<string, object> obj = new Dictionary<string, object>();
             obj.Add("post_category_id", this.CategorySelected.Id);
 
-            var posts = Server.API.HttpSend<M_Post[]>("/post/list/select", Server.Method.POST, obj);
+            var posts = HTTP_Server.API.HttpSend<M_Post[]>("/post/list/select", HTTP_Server.Method.POST, obj);
             this.PostList.Clear();
             if (posts != null)
             {
@@ -155,7 +155,7 @@ namespace community.ViewModels
 
 
 
-            var posts = Server.API.HttpSend<M_Post[]>("/post/list/select", Server.Method.POST, obj);
+            var posts = HTTP_Server.API.HttpSend<M_Post[]>("/post/list/select", HTTP_Server.Method.POST, obj);
             this.PostList.Clear();
             if (posts != null)
             {
@@ -179,7 +179,7 @@ namespace community.ViewModels
             this.PostAdd.Post_Category_Id = this.CategorySelected.Id;
             this.PostAdd.Employee_Id = CurrentUser.Id;
 
-            M_DB_Result result = Server.API.HttpSend<M_DB_Result>("/post/list/insert", Server.Method.POST, this.PostAdd);
+            M_DB_Result result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/list/insert", HTTP_Server.Method.POST, this.PostAdd);
 
             if (result != null && result.InsertId > 0)
             {
@@ -201,7 +201,7 @@ namespace community.ViewModels
 
             if (p != null)
             {
-                M_DB_Result result = Server.API.HttpSend<M_DB_Result>("/post/list/update", Server.Method.PUT, p);
+                M_DB_Result result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/list/update", HTTP_Server.Method.PUT, p);
 
                 if (result != null && result.InsertId > 0)
                 {
@@ -224,7 +224,7 @@ namespace community.ViewModels
             if (p != null)
             {
                 var obj = new { post_id = p.Id };
-                var getComments = Server.API.HttpSend<M_Post_Comment[]>("/post/comment/select", Server.Method.POST, obj);
+                var getComments = HTTP_Server.API.HttpSend<M_Post_Comment[]>("/post/comment/select", HTTP_Server.Method.POST, obj);
 
                 p.CommentList.Clear();
                 if (getComments != null && getComments.Length > 0)
@@ -244,7 +244,7 @@ namespace community.ViewModels
             if (p != null)
             {
                 var obj = new { post_id = p.Id, employee_id = CurrentUser.Id, content = CommentAdd.Content };
-                M_DB_Result result = Server.API.HttpSend<M_DB_Result>("/post/comment/insert", Server.Method.POST, obj);
+                M_DB_Result result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/comment/insert", HTTP_Server.Method.POST, obj);
 
                 if (result != null && result.InsertId > 0)
                 {

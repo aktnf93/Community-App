@@ -5,4 +5,5 @@
     <cnv:C_PageNumberButton  x:Key="PageNumberToIsCheckedMultiConverter"/>
     <cnv:Converter_Bool_Enum x:Key="Converter_Bool_Enum"/>
     <cnv:Converter_Bool_Int  x:Key="Converter_Bool_Int"/>
+    <cnv:Converter_Visibility_Bool  x:Key="Conv_Visibility_Bool"/>
 </ResourceDictionary>

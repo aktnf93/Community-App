@@ -1,11 +1,7 @@
-﻿using community.Common;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+using community.Common;
 
 namespace community.Models
 {
@@ -27,17 +23,28 @@ namespace community.Models
             = new ObservableCollection<M_TeamTree>();
 
         private bool isSelected;
+        private bool isExpanded;
         public bool IsSelected
         {
             get => this.isSelected;
             set
             {
-                this.isSelected = value;
-                OnSelected?.Invoke(this);
-                base.OnPropertyChanged(nameof(IsSelected));
+                base.OnPropertyChanged(ref this.isSelected, value);
+
+                if (value)
+                {
+                    OnSelected?.Invoke(this);
+                }
             }
         }
-
+        public bool IsExpanded
+        {
+            get => this.isExpanded;
+            set
+            {
+                base.OnPropertyChanged(ref this.isExpanded, value);
+            }
+        }
 
         [DataMember(Name = "id")]
         public int Id

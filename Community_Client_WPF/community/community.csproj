@@ -121,8 +121,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\Extensions.cs" />
     <Compile Include="Common\Handlers.cs" />
     <Compile Include="Common\Scoket_IO_Client.cs" />
+    <Compile Include="Models\Employee\M_Employee_Attendance.cs" />
     <Compile Include="Models\M_Card.cs" />
     <Compile Include="Models\Chat\M_Chat_Message.cs" />
     <Compile Include="Models\Chat\M_Chat_Member.cs" />
@@ -152,23 +154,51 @@
     <Compile Include="Models\Post\M_Post_Comment.cs" />
     <Compile Include="Models\System\M_System_Log.cs" />
     <Compile Include="Models\M_TreeItem.cs" />
+    <Compile Include="ViewModels\VM_EmployeeAttendance.cs" />
     <Compile Include="ViewModels\VM_Home.cs" />
     <Compile Include="ViewModels\VM_ProjectDetail.cs" />
     <Compile Include="ViewModels\VM_Test.cs" />
     <Compile Include="Views\MethodBinding.cs" />
     <Compile Include="Common\Notify.cs" />
+    <Compile Include="Views\V_ChatList.xaml.cs">
+      <DependentUpon>V_ChatList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\V_EmployeeAttendance.xaml.cs">
+      <DependentUpon>V_EmployeeAttendance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\V_EmployeeLeave.xaml.cs">
+      <DependentUpon>V_EmployeeLeave.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\V_EmployeeList.xaml.cs">
+      <DependentUpon>V_EmployeeList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\V_EmployeeReview.xaml.cs">
+      <DependentUpon>V_EmployeeReview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\V_EmployeeSchedule.xaml.cs">
+      <DependentUpon>V_EmployeeSchedule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\V_Home.xaml.cs">
       <DependentUpon>V_Home.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\V_ProjectDetail.xaml.cs">
       <DependentUpon>V_ProjectDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\V_ProjectList.xaml.cs">
+      <DependentUpon>V_ProjectList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\V_Test.xaml.cs">
       <DependentUpon>V_Test.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\V_CustomerList.xaml.cs">
+      <DependentUpon>V_CustomerList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View_Controls\PasswordBoxHelper.cs" />
     <Compile Include="Common\HTTP_Server.cs" />
     <Compile Include="Views\ViewCacheHost.cs" />
+    <Compile Include="View_Controls\U_RadialProgressBar.xaml.cs">
+      <DependentUpon>U_RadialProgressBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View_Controls\U_TripleSwitch.xaml.cs">
       <DependentUpon>U_TripleSwitch.xaml</DependentUpon>
     </Compile>
@@ -220,6 +250,14 @@
     <Compile Include="View_Controls\U_ProgressBar.xaml.cs">
       <DependentUpon>U_ProgressBar.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resources\R_Border.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\R_Calendar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\R_Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -240,11 +278,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\R_TreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\R_ViewModelTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\V_ChatList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\V_Customer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\V_EmployeeAttendance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\V_EmployeeLeave.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\V_EmployeeList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\V_EmployeeReview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\V_EmployeeSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,6 +358,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\V_ProjectList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\V_System.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -300,11 +370,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\V_CustomerList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View_Controls\U_AudioPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View_Controls\U_ProgressBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View_Controls\U_RadialProgressBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -459,6 +537,30 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\alarm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_open_doc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_close_doc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\building.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Cursor\Normal.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Employee\in_list.png" />
+    <Resource Include="Images\Employee\out_list.png" />
+    <Resource Include="Images\Employee\star_list.png" />
+    <Resource Include="Images\Employee\total_list.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />

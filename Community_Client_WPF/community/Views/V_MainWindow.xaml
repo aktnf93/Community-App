@@ -12,7 +12,10 @@
         WindowStartupLocation="CenterScreen"
         StateChanged="Window_OnStateChanged"
         SizeChanged="Window_OnSizeChanged"
-        FontFamily="Noto Sans KR"
+        FocusVisualStyle="{x:Null}"
+        Cursor="{StaticResource Cur_Normal}"
+        FontFamily="Spoqa Han Sans Neo" Foreground="#262626"
+        Language="ko-KR"
         >
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
@@ -32,7 +35,7 @@
         </Grid.RowDefinitions>
 
         <!-- 타이틀 바 -->
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="{StaticResource Color_White}">
+        <Grid Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Background="{StaticResource Color_White}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="170"/>
@@ -46,8 +49,18 @@
             <Border x:Name="TitleBar" Grid.Column="0" Grid.ColumnSpan="4" PreviewMouseLeftButtonDown="Window_OnMove" MouseLeftButtonDown="Window_OnResize" Background="Transparent"/>
 
             <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="FontSize" Value="13"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="IsHitTestVisible" Value="False"/>
+                        <Setter Property="Margin" Value="0,0,10,0"/>
+                    </Style>
+                </StackPanel.Resources>
                 <Image Source="{StaticResource Img_Window_Logo2}" HorizontalAlignment="Left" Margin="10,6,10,6" IsHitTestVisible="False" RenderOptions.BitmapScalingMode="Fant"/>
-                <TextBlock Text="SH ELECTRONIC" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" IsHitTestVisible="False"/>
+                <TextBlock Text="SH ELECTRONIC" FontWeight="Bold" Foreground="#161D87"/>
+                <TextBlock Text="그룹웨어 시스템" Foreground="#5F68E4"/>
+                <TextBlock Text="v1.0.18-2025-12-03-11-13" Foreground="#404040"/>
             </StackPanel>
 
             <!--<TextBlock Grid.Column="1" Text="{Binding CurrentDateTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}, FallbackValue=2025-11-19 14:57:55}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
@@ -71,7 +84,7 @@
                 </Style>
             </Border.Style>
 
-            <StackPanel Margin="0,0,0,0">
+            <StackPanel Margin="0,50,0,0">
                 <!--<Grid Height="130" DataContext="{Binding CurrentUser}">
                     <Ellipse Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Width="70" Height="70" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
                         <Ellipse.Fill>
@@ -91,18 +104,27 @@
                 <RadioButton Content="게시판"   Tag="{StaticResource Img_Menu_Post}"     Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=2}"/>
                 <RadioButton Content="채팅방"   Tag="{StaticResource Img_Menu_Chat}"     Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=3}"/>
                 <RadioButton Content="프로젝트" Tag="{StaticResource Img_Menu_Project}"  Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=4}"/>
-                <RadioButton Content="고객관리" Tag="{StaticResource Img_Menu_Customer}" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=5}"/>
-                <RadioButton Content="재고관리" Tag="{StaticResource Img_Menu_Product}"  Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=6}"/>
+                <RadioButton Content="거래처" Tag="{StaticResource Img_Menu_Customer}" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=5}"/>
+                <!--<RadioButton Content="재고관리" Tag="{StaticResource Img_Menu_Product}"  Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=6}"/>-->
                 <RadioButton Content="직원관리" Tag="{StaticResource Img_Menu_Employee}" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=7}"/>
                 <RadioButton Content="환경설정" Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=8}"/>
-                <RadioButton Content="시설관리" Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=9}"/>
+                <!--<RadioButton Content="시설관리" Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=9}"/>-->
                 <!--<RadioButton Content="TEST"     Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=9}"/>-->
             </StackPanel>
         </Border>
             
         <!-- 오른쪽 메뉴 화면 -->
-        <ScrollViewer Grid.Column="1" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Background="Red">
-            <local:ViewCacheHost Content="{Binding CurrentViewModel}"/>
-        </ScrollViewer>
+                 <!--TextOptions.TextFormattingMode="Display"
+                 TextOptions.TextRenderingMode="ClearType"
+                 UseLayoutRounding="True"-->
+        <Viewbox Grid.Column="1" Grid.Row="1" 
+                 Stretch="Fill"
+                 >
+            <local:ViewCacheHost Content="{Binding CurrentViewModel}">
+                <!--<local:ViewCacheHost.LayoutTransform>
+                    <ScaleTransform x:Name="RootScale"/>
+                </local:ViewCacheHost.LayoutTransform>-->
+            </local:ViewCacheHost>
+        </Viewbox>
     </Grid>
 </Window>

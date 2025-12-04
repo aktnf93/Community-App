@@ -39,7 +39,7 @@ namespace community.Views
                         view.DataContext = newContent;
                         this.viewCache[vmType] = view; // 캐시에 저장.
 
-                        Console.WriteLine("[ViewCacheHost]\tNew\t\tView=\"{0}\", DataContext=\"{1}\"", view.GetType().Name, view.DataContext.GetType().Name);
+                        // Console.WriteLine("[ViewCacheHost]\tNew\t\tView=\"{0}\", DataContext=\"{1}\"", view.GetType().Name, view.DataContext.GetType().Name);
                     }
                 }
             }
@@ -47,7 +47,7 @@ namespace community.Views
             {
                 // 재사용.
                 view.DataContext = newContent;
-                Console.WriteLine("[ViewCacheHost]\tRecycling\tView=\"{0}\", DataContext=\"{1}\"", view.GetType().Name, view.DataContext.GetType().Name);
+                // Console.WriteLine("[ViewCacheHost]\tRecycling\tView=\"{0}\", DataContext=\"{1}\"", view.GetType().Name, view.DataContext.GetType().Name);
             }
 
             base.OnContentChanged(oldContent, view);

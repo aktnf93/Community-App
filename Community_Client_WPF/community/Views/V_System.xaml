@@ -101,7 +101,7 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Gray" BorderThickness="0.5" Height="30" Cursor="Hand">
+                            <Border BorderBrush="Gray" BorderThickness="0.5" Height="30" >
                                 <Border.Style>
                                     <Style TargetType="{x:Type Border}">
                                         <Setter Property="Background" Value="White"/>

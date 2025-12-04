@@ -90,6 +90,35 @@ namespace community.ViewModels
         private void Loaded()
         {
             Console.WriteLine("VM_Board Loaded");
+
+            // Category Load
+            var categorys = HTTP_Server.API.HttpSend<M_Post_Category[]>("/post/category/select");
+            this.CategoryList.Clear();
+
+            if (categorys != null)
+            {
+                this.CategoryList = new ObservableCollection<M_Post_Category>(BuildTree(categorys));
+                base.OnPropertyChanged(nameof(CategoryList));
+            }
+
+            // Post Load
+            var posts = HTTP_Server.API.HttpSend<M_Post[]>("/post/list/select");
+            this.PostList.Clear();
+            if (posts != null)
+            {
+                foreach (var p in posts)
+                {
+                    p.SelectedEvent += (item) =>
+                    {
+                        this.PostSelected = item;
+                        this.CommentAdd = new M_Post_Comment() { Post_Id = item.Id, Employee_Id = CurrentUser.Id };
+                        this.ListTabIndex = 2;
+                        BtnCommentSearch();
+                    };
+
+                    this.PostList.Add(p);
+                }
+            }
         }
 
         private void BtnCategorySearch()

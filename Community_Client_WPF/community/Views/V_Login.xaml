@@ -8,6 +8,7 @@
              xmlns:u="clr-namespace:community.View_Controls"
              mc:Ignorable="d" 
              d:DesignWidth="1600" d:DesignHeight="870"
+             Width="1600" Height="870"
              Background="{StaticResource Color_Gray}" Opacity="1">
 
     <Grid>

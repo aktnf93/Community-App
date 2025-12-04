@@ -127,7 +127,7 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Gray" BorderThickness="0.5" Height="30" Cursor="Hand" MouseLeftButtonDown="{local:MethodBinding PostSelect}">
+                            <Border BorderBrush="Gray" BorderThickness="0.5" Height="30" MouseLeftButtonDown="{local:MethodBinding PostSelect}">
                                 <Border.Style>
                                     <Style TargetType="{x:Type Border}">
                                         <Setter Property="Background" Value="White"/>

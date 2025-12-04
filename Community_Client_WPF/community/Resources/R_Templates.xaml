@@ -49,8 +49,8 @@
 
     <!--#region  기본 버튼 템플릿 -->
     <ControlTemplate TargetType="{x:Type Button}" x:Key="BaseButton">
-        <Grid Cursor="Hand">
-            <Border x:Name="Border" CornerRadius="4" Background="{StaticResource Color_ThinGray}"/>
+        <Grid>
+            <Border x:Name="Border" CornerRadius="4" Background="#3795EC"/>
             <Image x:Name="Img" Source="{TemplateBinding Tag}" HorizontalAlignment="Left" VerticalAlignment="Center"
                        Width="20" Height="20" Margin="8,0,0,0" Visibility="Visible"/>
             <ContentPresenter x:Name="Button_Text" Content="{TemplateBinding Content}" 
@@ -75,7 +75,7 @@
 
     <!--#region 아이콘 버튼 템플릿 -->
     <ControlTemplate TargetType="{x:Type Button}" x:Key="IconButton">
-        <Border x:Name="Border" Background="{StaticResource Color_Transparent}" Cursor="Hand">
+        <Border x:Name="Border" Background="{StaticResource Color_Transparent}">
             <Image Source="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         <ControlTemplate.Triggers>
@@ -88,7 +88,7 @@
 
     <!--#region 메인 메뉴 라디오 버튼 템플릿-->
     <ControlTemplate TargetType="{x:Type RadioButton}" x:Key="MenuButton">
-        <Border x:Name="Border" Height="90" Cursor="Hand" Background="{StaticResource Color_Transparent}"
+        <Border x:Name="Border" Height="90"  Background="{StaticResource Color_Transparent}"
                     CornerRadius="6" Margin="2,0,2,0">
             <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="8">
                 <Image Source="{TemplateBinding Tag}" Width="34" Height="34" Margin="0,0,0,8"/>
@@ -106,12 +106,12 @@
 
             <!-- 마우스 -->
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource Color_LightGray}"/>
-                <Setter TargetName="ButtonText" Property="TextBlock.Foreground" Value="{StaticResource Color_Black}"/>
+                <Setter TargetName="Border" Property="Background" Value="#2189EA"/>
+                <Setter TargetName="ButtonText" Property="TextBlock.Foreground" Value="White"/>
             </Trigger>
 
             <!-- 선택 + 마우스 -->
-            <MultiTrigger>
+            <!--<MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsChecked" Value="True"/>
                     <Condition Property="IsMouseOver" Value="True"/>
@@ -120,7 +120,7 @@
                     <Setter TargetName="Border" Property="Background" Value="{StaticResource Color_ThinGray}"/>
                     <Setter TargetName="ButtonText" Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
                 </MultiTrigger.Setters>
-            </MultiTrigger>
+            </MultiTrigger>-->
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <!--#endregion-->
@@ -296,6 +296,49 @@
     </ControlTemplate>
     <!--#endregion-->
 
+    <ControlTemplate TargetType="CheckBox" x:Key="BaseCheckBox">
+        <Border x:Name="Bor" Background="Transparent" BorderThickness="0.5" Padding="4" CornerRadius="4">
+            <StackPanel Orientation="Horizontal" Width="80">
+                <!-- 박스 -->
+                <Border x:Name="Box" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" Background="LightGray">
+                    <!-- 체크 표시 -->
+                    <Viewbox Stretch="Uniform">
+                        <Path x:Name="CheckMark" Data="M 2 10 L 8 16 L 18 4" Stroke="White" StrokeThickness="3" Visibility="Collapsed" Margin="1,0,2,4"/>
+                    </Viewbox>
+                </Border>
+
+
+                <!-- 텍스트 -->
+                <ContentPresenter VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <!-- 상태 트리거 -->
+        <ControlTemplate.Triggers>
+            <!-- 체크 되었을 때 -->
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="Box" Property="Background" Value="DodgerBlue"/>
+                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+            </Trigger>
+
+            <!-- 마우스 오버 시 강조 -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="Bor" Property="BorderBrush" Value="DarkGray"/>
+            </Trigger>
+
+            <!-- 비활성화 상태 -->
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Box" Property="Background" Value="LightGray"/>
+                <Setter TargetName="CheckMark" Property="Stroke" Value="Gray"/>
+                <Setter Property="Foreground" Value="Gray"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type CheckBox}">
+        <Setter Property="Template" Value="{StaticResource BaseCheckBox}"/>
+    </Style>
+
     <ControlTemplate TargetType="{x:Type Control}" x:Key="CategorySearch">
         <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
             <TextBox Width="156" Height="30"
@@ -330,16 +373,16 @@
                             <Setter Property="Background" Value="Gray"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Status}" Value="진행">
-                            <Setter Property="Background" Value="Green"/>
+                            <Setter Property="Background" Value="#89C148"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Status}" Value="완료">
-                            <Setter Property="Background" Value="Blue"/>
+                            <Setter Property="Background" Value="#3498DB"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Status}" Value="보류">
-                            <Setter Property="Background" Value="Orange"/>
+                            <Setter Property="Background" Value="#F7B000"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Status}" Value="취소">
-                            <Setter Property="Background" Value="Red"/>
+                            <Setter Property="Background" Value="#E74C3C"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -389,7 +432,7 @@
                 <Grid>
                     <!-- 드롭다운 버튼 -->
                     <ToggleButton x:Name="PART_ToggleButton" Focusable="False"
-                                  Cursor="Hand" Margin="1.8"
+                                  Margin="1.8"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                   IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                   Background="Transparent" BorderThickness="0"
@@ -485,7 +528,7 @@
                 </TextBlock>
 
                 <ContentControl Template="{StaticResource StatusBox_Project}" 
-                                    Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                Width="50" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
             </Grid>
 
             <Grid Grid.Column="2">
@@ -496,23 +539,23 @@
             </Grid>
 
             <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Run Text="{Binding Start_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
-                    <Run Text="~"/>
-                    <Run Text="{Binding End_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
+                <Run Text="{Binding Start_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
+                <Run Text="~"/>
+                <Run Text="{Binding End_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
             </TextBlock>
 
-            <Border Grid.Column="4"  Background="{Binding Month[0].Color}"  Margin="0"/>
-            <Border Grid.Column="5"  Background="{Binding Month[1].Color}"  Margin="0"/>
-            <Border Grid.Column="6"  Background="{Binding Month[2].Color}"  Margin="0"/>
-            <Border Grid.Column="7"  Background="{Binding Month[3].Color}"  Margin="0"/>
-            <Border Grid.Column="8"  Background="{Binding Month[4].Color}"  Margin="0"/>
-            <Border Grid.Column="9"  Background="{Binding Month[5].Color}"  Margin="0"/>
-            <Border Grid.Column="10" Background="{Binding Month[6].Color}"  Margin="0"/>
-            <Border Grid.Column="11" Background="{Binding Month[7].Color}"  Margin="0"/>
-            <Border Grid.Column="12" Background="{Binding Month[8].Color}"  Margin="0"/>
-            <Border Grid.Column="13" Background="{Binding Month[9].Color}"  Margin="0"/>
-            <Border Grid.Column="14" Background="{Binding Month[10].Color}" Margin="0"/>
-            <Border Grid.Column="15" Background="{Binding Month[11].Color}" Margin="0"/>
+            <Border Grid.Column="4"  Background="{Binding Month[0].Color}"  Margin="0,8,0,8"/>
+            <Border Grid.Column="5"  Background="{Binding Month[1].Color}"  Margin="0,8,0,8"/>
+            <Border Grid.Column="6"  Background="{Binding Month[2].Color}"  Margin="0,8,0,8"/>
+            <Border Grid.Column="7"  Background="{Binding Month[3].Color}"  Margin="0,8,0,8"/>
+            <Border Grid.Column="8"  Background="{Binding Month[4].Color}"  Margin="0,8,0,8"/>
+            <Border Grid.Column="9"  Background="{Binding Month[5].Color}"  Margin="0,8,0,8"/>
+            <Border Grid.Column="10" Background="{Binding Month[6].Color}"  Margin="0,8,0,8"/>
+            <Border Grid.Column="11" Background="{Binding Month[7].Color}"  Margin="0,8,0,8"/>
+            <Border Grid.Column="12" Background="{Binding Month[8].Color}"  Margin="0,8,0,8"/>
+            <Border Grid.Column="13" Background="{Binding Month[9].Color}"  Margin="0,8,0,8"/>
+            <Border Grid.Column="14" Background="{Binding Month[10].Color}" Margin="0,8,0,8"/>
+            <Border Grid.Column="15" Background="{Binding Month[11].Color}" Margin="0,8,0,8"/>
 
 
             <!--<TextBlock Grid.Column="16" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -541,6 +584,24 @@
                 <Setter TargetName="BtnPanel" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="TaskGrid" Property="Height" Value="30"/>
                 <Setter TargetName="TopLine" Property="Visibility" Value="Visible"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate TargetType="{x:Type RadioButton}" x:Key="ChkSubMenu">
+        <Border x:Name="Bor" Background="Transparent" Width="200">
+            <ContentPresenter Content="{TemplateBinding Content}" 
+                              HorizontalAlignment="Center" VerticalAlignment="Center" 
+                              TextBlock.Foreground="{StaticResource Color_White}"
+                              TextBlock.FontSize="15">
+            </ContentPresenter>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="Bor" Property="Background" Value="#1673D3"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="Bor" Property="Background" Value="#4B93DD"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

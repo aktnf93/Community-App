@@ -64,15 +64,15 @@ namespace community.View_Controls
             {
                 case 0:
                     SwitchBackground.Background = Brushes.DarkSlateBlue;
-                    StateText.Text = "1번";
+                    StateText.Text = "직원목록";
                     break;
                 case 1:
                     SwitchBackground.Background = Brushes.DarkGreen;
-                    StateText.Text = "2번";
+                    StateText.Text = "직원평가";
                     break;
                 case 2:
                     SwitchBackground.Background = Brushes.DarkRed;
-                    StateText.Text = "3번";
+                    StateText.Text = "직원휴가";
                     break;
             }
         }

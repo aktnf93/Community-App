@@ -1,12 +1,14 @@
-﻿using System;
+﻿using community.Common;
+using Newtonsoft.Json;
+using System;
 using System.Runtime.Serialization;
-using community.Common;
 
 namespace community.Models
 {
     [DataContract]
     public class M_Employee : Notify
     {
+        public event ActionHandler<M_Employee> OnEmployeeSelect;
         public event ActionHandler<M_Employee> OnEmployeeDelete;
 
         private int id;
@@ -294,6 +296,11 @@ namespace community.Models
         {
             get => this.deleted_at;
             set => base.OnPropertyChanged(ref this.deleted_at, value);
+        }
+
+        private void OnSelect()
+        {
+            this.OnEmployeeSelect?.Invoke(this);
         }
 
         private void OnDelete()

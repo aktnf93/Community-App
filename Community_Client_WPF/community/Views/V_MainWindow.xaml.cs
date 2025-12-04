@@ -3,7 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.Windows;
 using System.Windows.Input;
-
+using System.Windows.Media;
 
 namespace community.Views
 {
@@ -15,6 +15,8 @@ namespace community.Views
         public V_MainWindow()
         {
             InitializeComponent();
+
+            this.WindowState = WindowState.Maximized;
 
             // this.Closing += (sender, e) =>
             // {
@@ -94,6 +96,14 @@ namespace community.Views
 
         private void Window_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
+            //double scaleX = e.NewSize.Width / 1920;
+            //double scaleY = e.NewSize.Height / 1040;
+
+            //RootScale.ScaleX = scaleX;
+            //RootScale.ScaleY = scaleY;
+            // ___________________________________________________________
+
+
             if (isHandlingStateChange)
                 return;
 

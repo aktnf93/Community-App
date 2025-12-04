@@ -10,174 +10,20 @@
              Width="1810" Height="1000" d:DesignWidth="1810" d:DesignHeight="1000"
              Loaded="{local:MethodBinding Loaded}" Background="{StaticResource Color_WhiteGray}">
 
-    <Grid Margin="20,20,20,30">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"  Tag="배너"/>
-            <RowDefinition Height="20"  Tag="여백"/>
-            <RowDefinition Height="90"  Tag="대시보드"/>
-            <RowDefinition Height="20"  Tag="여백"/>
-            <RowDefinition Height="40"  Tag="컨트롤러"/>
+            <RowDefinition Height="50"  Tag="서브메뉴"/>
             <RowDefinition Height="*"   Tag="리스트"/>
         </Grid.RowDefinitions>
 
-        <!-- 배너 -->
-        <Control Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Template="{StaticResource BannerCard}" DataContext="{Binding BannerCard}"/>
+        <!-- 서브메뉴 -->
+        <Border Grid.Row="0" TextBlock.FontFamily="고도 M" Background="{StaticResource Color_SubMenuBar}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="30"/>
+                <RadioButton Content="프로젝트 관리" Template="{StaticResource ChkSubMenu}" IsChecked="True"/>
+            </StackPanel>
+        </Border>
 
-        <!-- 대시보드 카드 -->
-        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Control Tag="{StaticResource Img_Project_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[0]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Project_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[1]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Project_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[2]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Project_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[3]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Project_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[4]}"/>
-        </StackPanel>
-
-        <!-- 리스트 제어 -->
-        <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal">
-            <Control Template="{StaticResource ListSearch}" ToolTip="프로젝트 검색"/>
-            <Button Content="➕️ 새 프로젝트" Width="120" Height="30" VerticalAlignment="Top" Margin="10,0,0,0" Click="{local:MethodBinding BtnProjectAdd}"/>
-        </StackPanel>
-
-        <!-- 리스트 목록  -->
-        <ItemsControl Grid.Column="0" Grid.Row="5" ItemsSource="{Binding ProjectList}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Vertical" VirtualizingPanel.VirtualizationMode="Recycling"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-
-            <ItemsControl.Template>
-                <ControlTemplate TargetType="{x:Type ItemsControl}">
-                    <Border BorderBrush="Gray" BorderThickness="0.5" Padding="0,0,0.5,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="60" Tag="ID"/>
-                                <ColumnDefinition Width="*"  Tag="Name"/>
-                                <ColumnDefinition Width="190" Tag="Status"/>
-                                <ColumnDefinition Width="190" Tag="Date"/>
-
-                                <ColumnDefinition Width="50" Tag="1"/>
-                                <ColumnDefinition Width="50" Tag="2"/>
-                                <ColumnDefinition Width="50" Tag="3"/>
-                                <ColumnDefinition Width="50" Tag="4"/>
-                                <ColumnDefinition Width="50" Tag="5"/>
-                                <ColumnDefinition Width="50" Tag="6"/>
-                                <ColumnDefinition Width="50" Tag="7"/>
-                                <ColumnDefinition Width="50" Tag="8"/>
-                                <ColumnDefinition Width="50" Tag="9"/>
-                                <ColumnDefinition Width="50" Tag="10"/>
-                                <ColumnDefinition Width="50" Tag="11"/>
-                                <ColumnDefinition Width="50" Tag="12"/>
-
-                                <ColumnDefinition Width="120" Tag="Member"/>
-                                <ColumnDefinition Width="90" Tag="Update"/>
-                                <ColumnDefinition Width="200" Tag="Action"/>
-
-                                <ColumnDefinition Width="17"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <ScrollViewer Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="1" VerticalScrollBarVisibility="Visible"
-                                          Background="White">
-                                <ItemsPresenter/>
-                            </ScrollViewer>
-
-                            <Label Grid.Column="0"  Content="ID" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="1"  Content="프로젝트" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="2"  Content="진행률" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="3"  Content="기간" Style="{StaticResource Lable_Column}"/>
-
-                            <Label Grid.Column="4"  Content="1월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="5"  Content="2월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="6"  Content="3월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="7"  Content="4월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="8"  Content="5월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="9" Content="6월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="10" Content="7월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="11" Content="8월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="12" Content="9월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="13" Content="10월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="14" Content="11월" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="15" Content="12월" Style="{StaticResource Lable_Column}"/>
-                            
-                            <Label Grid.Column="16" Content="담당" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="17" Content="업데이트" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="18" Content="액션" Style="{StaticResource Lable_Column}"/>
-
-                            <!-- 구분선 -->
-                            <Line Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="0" VerticalAlignment="Bottom" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
-
-                            <Line  Grid.Column="0"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="1"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="2"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="3"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="4"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="5"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="6"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="7"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="8"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="9"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="10"  Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="11" Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="12" Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="13" Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="14" Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="15" Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="16" Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="17" Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="18" Style="{StaticResource Line_Vertical}"/>
-                            <Line  Grid.Column="19" Style="{StaticResource Line_Vertical}"/>
-                        </Grid>
-                    </Border>
-                </ControlTemplate>
-            </ItemsControl.Template>
-
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border>
-                        <Border.Style>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="Cursor" Value="Hand"/>
-                                <Setter Property="BorderThickness" Value="0.5"/>
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="BorderBrush" Value="Gray"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#E5EAEA"/>
-                                        <Setter Property="BorderBrush" Value="SkyBlue"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <ContentControl Grid.Row="0" Template="{StaticResource ProjectBlock}"/>
-
-                            <ItemsControl Grid.Row="1" ItemsSource="{Binding TaskList}" Visibility="{Binding TaskView}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <VirtualizingStackPanel Orientation="Vertical"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <ContentControl Template="{StaticResource ProjectBlock}" Tag="Task"/>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <local:V_ProjectList Grid.Row="1"/>
     </Grid>
 </UserControl>

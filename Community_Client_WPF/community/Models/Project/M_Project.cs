@@ -67,9 +67,41 @@ namespace community.Models
 
                     current += 1;
                     if (start <= current && current <= end)
-                        month.Color = Brushes.LightGreen;
+                    {
+                        string colorCode = "";
+
+                        switch (this.Status)
+                        {
+                            case "대기":
+                                colorCode = "#808080";
+                                break;
+
+                            case "진행":
+                                colorCode = "#89C148";
+                                break;
+
+                            case "완료":
+                                colorCode = "#3498DB";
+                                break;
+
+                            case "보류":
+                                colorCode = "#F7B000";
+                                break;
+
+                            case "취소":
+                                colorCode = "#E74C3C";
+                                break;
+
+                            default:
+                                break;
+                        }
+
+                        month.Color = (SolidColorBrush)(new BrushConverter().ConvertFrom(colorCode));
+                    }
                     else
+                    {
                         month.Color = Brushes.Transparent;
+                    }
 
                     this.Month[i] = month;
                 }

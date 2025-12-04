@@ -64,15 +64,16 @@ namespace community.View_Controls
                 // 최소~최대 범위
                 double ratio = (Value - Minimum) / (Maximum - Minimum);
 
-                double maxThumbX = this.ActualWidth - Thumb.Width / 2;
-                double thumbX = this.ActualWidth * ratio;
+                double maxThumbX = Root.ActualWidth - Thumb.Width / 2;
+                double thumbX = (Root.ActualWidth - 25) * ratio;
 
                 if (thumbX > maxThumbX)
                     thumbX = maxThumbX;
 
                 TrackFill.Width = thumbX + Thumb.Width / 2;
 
-                //Thumb.Margin = new Thickness(thumbX - Thumb.Width / 2, 0, 0, 0);
+                // 동그라미
+                Thumb.Margin = new Thickness((thumbX - (Thumb.Width / 2)), 0, 0, 0);
             }
             catch (Exception ex)
             {

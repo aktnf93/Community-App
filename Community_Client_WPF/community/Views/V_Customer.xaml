@@ -9,88 +9,20 @@
              Width="1810" Height="1000" d:DesignWidth="1810" d:DesignHeight="1000"
              Loaded="{local:MethodBinding Loaded}" Background="{StaticResource Color_WhiteGray}">
 
-    <Grid Margin="20,20,20,30">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"   Tag="리스트"/>
-            <ColumnDefinition Width="20"   Tag="여백"/>
-            <ColumnDefinition Width="*"   Tag="리스트"/>
-        </Grid.ColumnDefinitions>
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"  Tag="배너"/>
-            <RowDefinition Height="20"  Tag="여백"/>
-            <RowDefinition Height="*"   Tag="리스트"/>
-            <RowDefinition Height="20"  Tag="여백"/>
+            <RowDefinition Height="50"  Tag="서브메뉴"/>
             <RowDefinition Height="*"   Tag="리스트"/>
         </Grid.RowDefinitions>
 
-        <!-- 배너 -->
-        <Control Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Template="{StaticResource BannerCard}" DataContext="{Binding BannerCard}"/>
-
-        <!-- 고객사 리스트 -->
-        <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Background="{StaticResource Color_ThinBlack2}" CornerRadius="8">
-            <StackPanel Orientation="Vertical" Margin="20">
-                
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <TextBlock Text="고객사 리스트" FontSize="18" FontWeight="Bold" Margin="0,0,20,0"/>
-                    <Button Content="고객사 추가" Width="80" Height="26" VerticalAlignment="Center" Click="{local:MethodBinding BtnCustomerAdd}"/>
-                </StackPanel>
-
-                <DataGrid Height="330">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="지역" Width="100"/>
-                        <DataGridTextColumn Header="이름" Width="100"/>
-                        <DataGridTextColumn Header="설명" Width="200"/>
-                        <DataGridTextColumn Header="사진" Width="80"/>
-                        <DataGridTextColumn Header="계약 형태" Width="80"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+        <!-- 서브메뉴 -->
+        <Border Grid.Row="0" TextBlock.FontFamily="고도 M" Background="{StaticResource Color_SubMenuBar}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="30"/>
+                <RadioButton Content="고객사 관리" Template="{StaticResource ChkSubMenu}" IsChecked="True"/>
             </StackPanel>
         </Border>
 
-        <!-- 고객사 제품 목록 -->
-        <Border Grid.Column="0" Grid.Row="4" Background="{StaticResource Color_ThinBlack2}" CornerRadius="8">
-            <StackPanel Orientation="Vertical" Margin="20">
-                
-                <TextBlock Text="제품 목록" FontSize="18" FontWeight="Bold"/>
-                
-                <DataGrid Height="300" Margin="0,6,0,10">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="번호" Width="60"/>
-                        <DataGridTextColumn Header="내용" Width="*"/>
-                        <DataGridTextColumn Header="최종 날짜" Width="100"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-
-                <StackPanel Orientation="Horizontal" Height="30">
-                    <ComboBox Width="100" Margin="0,0,10,0"/>
-                    <TextBox Width="300" Margin="0,0,10,0"/>
-                    <Button Width="100"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
-
-        <!-- 고객사 서비스/금액 -->
-        <Border Grid.Column="2" Grid.Row="4" Background="{StaticResource Color_ThinBlack2}" CornerRadius="8">
-            <StackPanel Orientation="Vertical" Margin="20">
-                <TextBlock Text="서비스/금액" FontSize="18" FontWeight="Bold"/>
-
-                <DataGrid Height="300" Margin="0,6,0,10">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="번호" Width="60"/>
-                        <DataGridTextColumn Header="날짜" Width="100"/>
-                        <DataGridTextColumn Header="구분" Width="80"/>
-                        <DataGridTextColumn Header="내용" Width="*"/>
-                        <DataGridTextColumn Header="금액" Width="120"/>
-                        <DataGridTextColumn Header="담당" Width="120"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-
-                <StackPanel Orientation="Horizontal" Height="30">
-                    <ComboBox Width="100" Margin="0,0,10,0"/>
-                    <TextBox Width="300" Margin="0,0,10,0"/>
-                    <Button Width="100"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
+        <local:V_CustomerList Grid.Row="1"/>
     </Grid>
 </UserControl>

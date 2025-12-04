@@ -14,6 +14,10 @@
                 <ResourceDictionary Source="Resources/R_Styles.xaml"/>
                 <ResourceDictionary Source="Resources/R_Templates.xaml"/>
 
+                <ResourceDictionary Source="/Resources/R_Border.xaml"/>
+                <ResourceDictionary Source="/Resources/R_Calendar.xaml"/>
+                <ResourceDictionary Source="/Resources/R_TreeView.xaml"/>
+
                 <ResourceDictionary Source="Resources/R_ViewModelTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

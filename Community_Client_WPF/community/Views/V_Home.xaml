@@ -4,150 +4,188 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:community.Views"
+             xmlns:vm="clr-namespace:community.ViewModels"
              xmlns:m="clr-namespace:community.Models"
+             xmlns:u="clr-namespace:community.View_Controls"
              xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              mc:Ignorable="d" 
              Width="1810" Height="1000" d:DesignWidth="1810" d:DesignHeight="1000"
              Loaded="{local:MethodBinding Loaded}" Background="{StaticResource Color_WhiteGray}">
 
-    <Grid Margin="20,20,20,30">
+    <Grid Margin="20,30,20,30">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" Tag="대시보드"/>
+            <ColumnDefinition Width="420"  Tag="프로필"/>
             <ColumnDefinition Width="20" Tag="여백"/>
-            <ColumnDefinition Width="710" Tag="날씨뉴스"/>
+            <ColumnDefinition Width="*"  Tag="기타"/>
         </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="350"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <!-- 명함 프로필 -->
+        <Grid Grid.Column="0" Height="220" VerticalAlignment="Top" DataContext="{Binding CurrentUser}">
+            <Border Style="{StaticResource BaseCard}"/>
 
-        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Tag="프로필" Height="300"/>
-                <RowDefinition Tag="여백" Height="10"/>
-                <RowDefinition Tag="공지사항" Height="100"/>
-                <RowDefinition Tag="여백" Height="10"/>
-                <RowDefinition Tag="최근게시글"/>
-            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding Company_Name}" FontSize="16" FontWeight="Bold" Foreground="#161D87" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30"/>
 
-            <!-- 프로필 -->
-            <Border Grid.Row="0" Style="{StaticResource HomeBorder}" Background="White"
-                    TextBlock.FontSize="16">
-                <Grid DataContext="{Binding CurrentUser}" Margin="20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="10"/>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="160"/>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30">
+                <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                
+                <TextBlock Foreground="{StaticResource Color_ThinGray}" Margin="0,0,0,6">
+                    <Run Text="{Binding Team_Name}"/>
+                    <Run Text="|"/>
+                    <Run Text="{Binding Rank_Name}"/>
+                </TextBlock>
 
-                        <ColumnDefinition Width="10"/>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="160"/>
+                <TextBlock>
+                    <Run Text="E  " FontWeight="Bold" Foreground="{StaticResource Color_ThinGray}"/>
+                    <Run Text="{Binding Email}"/>
+                    <LineBreak/>
+                    <Run Text="P  " FontWeight="Bold" Foreground="{StaticResource Color_ThinGray}"/>
+                    <Run Text="{Binding Phone}"/>
+                    <LineBreak/>
+                    <Run Text="A  " FontWeight="Bold" Foreground="{StaticResource Color_ThinGray}"/>
+                    <Run Text="{Binding Address}"/>
+                </TextBlock>
+            </StackPanel>
 
-                        <ColumnDefinition Width="10"/>
-                        <ColumnDefinition Width="80"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+            <Ellipse Width="80" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding Image_FullPath}" Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant"/>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Grid>
+
+        <!-- 출퇴근 -->
+        <Border Grid.Column="0" Style="{StaticResource BaseCard}" Height="690" VerticalAlignment="Bottom" Padding="20,30,20,30">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="210"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text="출근등록" Height="60" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinBlack}"/>
+
+                        <TextBlock Text="{Binding CurrentAt, StringFormat={}{0:yyyy-MM-dd dddd}}" FontSize="14" Margin="0,0,0,2"/>
+                        <TextBlock FontSize="24">
+                            <Run Text="{Binding CurrentAt, StringFormat={}{0:tt }}"/>
+                            <Run Text="{Binding CurrentAt, StringFormat={}{0:HH:mm:ss}}" Foreground="#1673D3"/>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,0,0" DataContext="{Binding CurrentUserAttendance}">
+                        <TextBlock Grid.Row="0" FontSize="14">
+                                <Run Text="출근시간  " Foreground="{StaticResource Color_Gray}"/>
+                                <Run Text="{Binding Start_Work_At, StringFormat={}{0:tt HH:mm:ss}, TargetNullValue=-- --:--:--, FallbackValue=-- --:--:--}"/>
+                        </TextBlock>
+
+                        <TextBlock Grid.Row="1" FontSize="14">
+                                <Run Text="퇴근시간  " Foreground="{StaticResource Color_Gray}"/>
+                                <Run Text="{Binding End_Work_At, StringFormat={}{0:tt HH:mm:ss}, TargetNullValue=-- --:--:--, FallbackValue=-- --:--:--}"/>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <ContentControl FontSize="14" Height="50" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,130,0,0">
+                        <ContentControl.Style>
+                            <Style TargetType="{x:Type ContentControl}">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Button Content="수고하셨습니다"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CurrentUserAttendance.End_Work_At}" Value="{x:Null}">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <Button Content="퇴근하기" Click="{local:MethodBinding BtnCheckOut}"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding CurrentUserAttendance.Start_Work_At}" Value="{x:Null}">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <Button Content="출근하기" Click="{local:MethodBinding BtnCheckIn}"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
+
+                    <Line Stroke="{StaticResource Color_Gray}" StrokeThickness="1" X1="0" X2="500" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="0,30,0,0">
+                    <TextBlock Text="주간 근무현황" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinBlack}"/>
+                    
+                    <u:U_RadialProgressBar Width="260" Height="260" 
+                                           Minimum="0" Maximum="100" Value="9"
+                                           StrokeThickness="16" ProgressBrush="#8044FB" ProgressBackground="Transparent"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    
+                    <u:U_RadialProgressBar Width="220" Height="220" 
+                                           Minimum="0" Maximum="100" Value="65" 
+                                           StrokeThickness="25" ProgressBrush="#3B82F6" ProgressBackground="#E5E7EB"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,290,0">
+                        <Run Text="잔여 근무" FontSize="16"/>
+                        <LineBreak/>
+                        <Run Text="12" FontSize="16" Foreground="#3B82F6"/>
+                        <Run Text="시간" FontSize="14" Foreground="{StaticResource Color_Gray}"/>
+                    </TextBlock>
+
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,20,0,0">
+                        <Run Text="연장 근무" FontSize="16"/>
+                        <LineBreak/>
+                        <Run Text="2" FontSize="16" Foreground="#8044FB"/>
+                        <Run Text="시간" FontSize="14" Foreground="{StaticResource Color_Gray}"/>
+                        <Run Text="/" FontSize="16" Foreground="{StaticResource Color_Gray}"/>
+                        <Run Text="20" FontSize="16" Foreground="{StaticResource Color_Gray}"/>
+                        <Run Text="시간" FontSize="14" Foreground="{StaticResource Color_Gray}"/>
+                    </TextBlock>
+
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Run Text="기본 근무" FontSize="20"/>
+                        <LineBreak/>
+                        <Run Text="40" FontSize="30" Foreground="#3B82F6"/>
+                        <Run Text="시간" FontSize="14" Foreground="{StaticResource Color_Gray}"/>
+                    </TextBlock>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,20,20">
+                        <Border CornerRadius="18" Margin="0,0,10,0">
+                            <TextBlock Text="총 근무시간" FontSize="20" VerticalAlignment="Center"/>
+                        </Border>
+                        
+                        <TextBlock Text="42" FontSize="30"/>
+                        <TextBlock Text="시간" FontSize="14" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBlock Text="0" FontSize="30"/>
+                        <TextBlock Text="분" FontSize="14" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </Border>
+
+        <Grid Grid.Column="2" Height="390" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource BaseCard}">
+                <Grid Margin="30,40,30,20">
                     <Grid.RowDefinitions>
-                        <RowDefinition Tag="0"/>
-                        <RowDefinition Tag="1"/>
-                        <RowDefinition Tag="2"/>
-                        <RowDefinition Tag="3"/>
-                        <RowDefinition Tag="4"/>
-                        <RowDefinition Tag="5"/>
-                        <RowDefinition Tag="6"/>
-                        <RowDefinition Tag="7"/>
-                        <RowDefinition Tag="8"/>
-                        <RowDefinition Tag="9"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
+                    <TextBlock Grid.Row="0" Text="공지사항" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinBlack}"/>
 
-                    <TextBlock Grid.Column="0" Grid.Row="4" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="0" Grid.Row="5" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="0" Grid.Row="6" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="0" Grid.Row="7" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="0" Grid.Row="8" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="0" Grid.Row="9" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-
-                    <TextBlock Grid.Column="1" Grid.Row="4" Text="ID" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="1" Grid.Row="5" Text="사번" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="1" Grid.Row="6" Text="이름" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="1" Grid.Row="7" Text="기타" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="1" Grid.Row="8" Text="상태" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="1" Grid.Row="9" Text="입사일" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-
-                    <Ellipse Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="3" Width="70" Height="70" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="{Binding Image_FullPath}" Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant"/>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <TextBlock Grid.Column="2" Grid.Row="4" Text="{Binding Id}"/>
-                    <TextBlock Grid.Column="2" Grid.Row="5" Text="{Binding Employee_Code}"/>
-                    <TextBlock Grid.Column="2" Grid.Row="6" Text="{Binding Name}"/>
-                    <TextBlock Grid.Column="2" Grid.Row="7" Text="{Binding Description}"/>
-                    <TextBlock Grid.Column="2" Grid.Row="8" Text="{Binding Status}"/>
-                    <TextBlock Grid.Column="2" Grid.Row="9" Text="{Binding Joined_At, StringFormat={}{0:yyyy-MM-dd}}"/>
-
-
-
-                    <TextBlock Grid.Column="3" Grid.Row="3" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="3" Grid.Row="4" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="3" Grid.Row="5" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="3" Grid.Row="6" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="3" Grid.Row="7" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="3" Grid.Row="8" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="3" Grid.Row="9" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-
-                    <TextBlock Grid.Column="4" Grid.Row="3" Text="회사명" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="4" Grid.Row="4" Text="부서명" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="4" Grid.Row="5" Text="팀명"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="4" Grid.Row="6" Text="직급"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="4" Grid.Row="7" Text="직책"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="4" Grid.Row="8" Text="담당"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="4" Grid.Row="9" Text="권한"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-
-                    <TextBlock Grid.Column="5" Grid.Row="3" Text="{Binding Company_Name}"/>
-                    <TextBlock Grid.Column="5" Grid.Row="4" Text="{Binding Department_Name}"/>
-                    <TextBlock Grid.Column="5" Grid.Row="5" Text="{Binding Team_Name}"/>
-                    <TextBlock Grid.Column="5" Grid.Row="6" Text="{Binding Rank_Name}"/>
-                    <TextBlock Grid.Column="5" Grid.Row="7" Text="{Binding Position_Name}"/>
-                    <TextBlock Grid.Column="5" Grid.Row="8" Text="{Binding Role_Name}"/>
-                    <TextBlock Grid.Column="5" Grid.Row="9" Text="{Binding Privilege_Name}"/>
-
-
-
-                    <TextBlock Grid.Column="6" Grid.Row="3" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="6" Grid.Row="4" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="6" Grid.Row="5" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="6" Grid.Row="6" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="6" Grid.Row="7" Text="•" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-
-                    <TextBlock Grid.Column="7" Grid.Row="3" Text="성별"     HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="7" Grid.Row="4" Text="생년월일" HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="7" Grid.Row="5" Text="이메일"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="7" Grid.Row="6" Text="연락처"   HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-                    <TextBlock Grid.Column="7" Grid.Row="7" Text="자택"     HorizontalAlignment="Center" Foreground="{StaticResource Color_Gray}"/>
-
-                    <TextBlock Grid.Column="8" Grid.Row="3" Text="{Binding Gender}"/>
-                    <TextBlock Grid.Column="8" Grid.Row="4" Text="{Binding Birth_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
-                    <TextBlock Grid.Column="8" Grid.Row="5" Text="{Binding Email}"/>
-                    <TextBlock Grid.Column="8" Grid.Row="6" Text="{Binding Phone}"/>
-                    <TextBlock Grid.Column="8" Grid.Row="7" Text="{Binding Address}"/>
-                </Grid>
-            </Border>
-
-            <!-- 공지사항 -->
-            <Border Grid.Row="2" Style="{StaticResource HomeBorder}" Background="White"
-                    TextBlock.FontSize="20">
-            </Border>
-            
-            <!-- 최근 게시물 -->
-            <Border Grid.Row="4" Style="{StaticResource HomeBorder}" Background="White">
-                <Grid>
-                    <TextBlock Text="※ 최근 추가" FontSize="16" FontWeight="Bold"
-                               HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0"/>
-                    <ItemsControl HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="20,60,0,20">
+                    <ItemsControl Grid.Row="1">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel Orientation="Vertical"/>
@@ -155,75 +193,87 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Width="1000" Height="40" Margin="0,0,0,10" TextBlock.FontSize="16" Cursor="Hand"
-                                      Background="Transparent">
+                                <Grid Height="46" TextBlock.FontSize="14">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="4"/>
-                                        <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="Auto" Tag="Bar"/>
+                                        <ColumnDefinition Width="100" Tag="PostType"/>
+                                        <ColumnDefinition Width="*" Tag="PostTitle"/>
+                                        <ColumnDefinition Width="100" Tag="PostDate"/>
+                                        <ColumnDefinition Width="30" Tag="PostView"/>
                                     </Grid.ColumnDefinitions>
-                                    <Border x:Name="Bor" Grid.Column="0" Grid.ColumnSpan="4" BorderBrush="Gray" BorderThickness="0.5"/>
-                                    <Rectangle x:Name="TypeBar" Grid.Column="0" Fill="Gray"/>
-                                    <TextBlock x:Name="TxtCategory" Grid.Column="1" Text="{Binding Category}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    <TextBlock x:Name="TxtTitle" Grid.Column="2" Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                    <TextBlock x:Name="TxtCreated_At" Grid.Column="3" Text="{Binding Created_At, StringFormat={}{0:yyyy-MM-dd}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                    <Border    Grid.Column="0" Background="#76AEE2" Width="3" Margin="0,2,0,2"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Post_Category_Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Center" TextTrimming="WordEllipsis" Margin="10,0,0,0"/>
+                                    <TextBlock Grid.Column="3" Text="{Binding Created_At, StringFormat={}{0:yyyy-MM-dd}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Border    Grid.Column="4" Background="{StaticResource Color_Transparent}" Cursor="Hand" Margin="6">
+                                        <TextBlock Text="〉" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Line Grid.Column="0" Grid.ColumnSpan="10" 
+                                          Stroke="{StaticResource Color_Gray2}" StrokeThickness="0.5" X1="0" X2="900"
+                                          HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
                                 </Grid>
-                                <DataTemplate.Triggers>
-                                    <DataTrigger Binding="{Binding Category}" Value="post">
-                                        <Setter TargetName="TypeBar" Property="Fill" Value="Blue"/>
-                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Blue"/>
-                                        <Setter TargetName="TxtCategory" Property="Text" Value="게시글"/>
-                                    </DataTrigger>
-
-                                    <DataTrigger Binding="{Binding Category}" Value="chat">
-                                        <Setter TargetName="TypeBar" Property="Fill" Value="Blue"/>
-                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Blue"/>
-                                        <Setter TargetName="TxtCategory" Property="Text" Value="채팅방"/>
-                                    </DataTrigger>
-
-                                    <DataTrigger Binding="{Binding Category}" Value="project">
-                                        <Setter TargetName="TypeBar" Property="Fill" Value="Purple"/>
-                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Purple"/>
-                                        <Setter TargetName="TxtCategory" Property="Text" Value="프로젝트"/>
-                                    </DataTrigger>
-
-                                    <DataTrigger Binding="{Binding Category}" Value="product">
-                                        <Setter TargetName="TypeBar" Property="Fill" Value="Purple"/>
-                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Purple"/>
-                                        <Setter TargetName="TxtCategory" Property="Text" Value="재고관리"/>
-                                    </DataTrigger>
-
-                                    <DataTrigger Binding="{Binding Category}" Value="customer">
-                                        <Setter TargetName="TypeBar" Property="Fill" Value="Purple"/>
-                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Purple"/>
-                                        <Setter TargetName="TxtCategory" Property="Text" Value="고객관리"/>
-                                    </DataTrigger>
-
-                                    <DataTrigger Binding="{Binding Category}" Value="employee">
-                                        <Setter TargetName="TypeBar" Property="Fill" Value="Green"/>
-                                        <Setter TargetName="TxtCategory" Property="Foreground" Value="Green"/>
-                                        <Setter TargetName="TxtCategory" Property="Text" Value="직원관리"/>
-                                    </DataTrigger>
-
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="Bor" Property="BorderBrush" Value="ForestGreen"/>
-                                        <Setter TargetName="Bor" Property="Background" Value="Ivory"/>
-                                    </Trigger>
-                                </DataTemplate.Triggers>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemsSource>
-                            <x:Array Type="{x:Type m:M_HomePorts}">
-                                <m:M_HomePorts Category="post" Title="[공지사항] (연장) 시스템 점검 일시 11.25~27" Created_At="2025-11-20"/>
-                                <m:M_HomePorts Category="post" Title="[공지사항] 시스템 점검 일시 11.25~26" Created_At="2025-11-20"/>
-                                <m:M_HomePorts Category="post" Title="전 직원은 다음 주 월요일 2번 회의실로 모이시기 바랍니다." Created_At="2025-11-19"/>
-                                <m:M_HomePorts Category="post" Title="경기 00엔지니어링에 기술미팅 일정 확인요청" Created_At="2025-11-01"/>
-                                <m:M_HomePorts Category="chat" Title="엑스포 전시회 지원팀" Created_At="{x:Null}"/>
-                                <m:M_HomePorts Category="project" Title="엑스포 전시회 지원팀" Created_At="2025-10-26"/>
-                                <m:M_HomePorts Category="product" Title="신제품 출시 : 유선 드론" Created_At="2025-10-25"/>
-                                <m:M_HomePorts Category="customer" Title="YY화학 1공장 시스템 에러" Created_At="2025-11-22"/>
-                                <m:M_HomePorts Category="employee" Title="2026년 입사자 리스트" Created_At="2025-11-20"/>
+                            <x:Array Type="{x:Type m:M_Post}">
+                                <m:M_Post Title="연말회식 공지 12월 마지막 주" Post_Category_Name="공지사항" Created_At="2021-02-25"/>
+                                <m:M_Post Title="COVID-19 방역지침 안내합니다." Post_Category_Name="방역지침" Created_At="2021-02-25"/>
+                                <m:M_Post Title="2026년 영업본부 신규 입사자 OJT 및 연수기간 안내" Post_Category_Name="업무협조" Created_At="2021-02-25"/>
+                                <m:M_Post Title="2025-12-13 시스템 점검 안내" Post_Category_Name="점검" Created_At="2021-02-25"/>
+                                <m:M_Post Title="프로젝트 운영 규칙 안내" Post_Category_Name="운영지침" Created_At="2021-02-25"/>
+                                <m:M_Post Title="프로젝트 운영 규칙 안내" Post_Category_Name="운영지침" Created_At="2021-02-25"/>
+                            </x:Array>
+                        </ItemsControl.ItemsSource>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource BaseCard}">
+                <Grid Margin="30,40,30,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="최근게시물" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinBlack}"/>
+
+                    <ItemsControl Grid.Row="1">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="46" TextBlock.FontSize="14">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" Tag="Bar"/>
+                                        <ColumnDefinition Width="100" Tag="PostType"/>
+                                        <ColumnDefinition Width="*" Tag="PostTitle"/>
+                                        <ColumnDefinition Width="100" Tag="PostDate"/>
+                                        <ColumnDefinition Width="30" Tag="PostView"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border    Grid.Column="0" Background="Transparent" Width="3" Margin="0,2,0,2"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Post_Category_Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Center" TextTrimming="WordEllipsis" Margin="10,0,0,0"/>
+                                    <TextBlock Grid.Column="3" Text="{Binding Created_At, StringFormat={}{0:yyyy-MM-dd}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Border    Grid.Column="4" Background="{StaticResource Color_Transparent}" Cursor="Hand" Margin="6">
+                                        <TextBlock Text="〉" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Line Grid.Column="0" Grid.ColumnSpan="10" Stroke="{StaticResource Color_Gray2}" StrokeThickness="0.5" X1="0" X2="900" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsSource>
+                            <x:Array Type="{x:Type m:M_Post}">
+                                <m:M_Post Title="디자이너 연말 회식 모집" Post_Category_Name="디자인팀" Created_At="2021-02-25"/>
+                                <m:M_Post Title="주말 동호회 모집합니다" Post_Category_Name="동호회" Created_At="2021-02-25"/>
+                                <m:M_Post Title="휴게시설 건의사항" Post_Category_Name="시설 게시판" Created_At="2021-02-25"/>
+                                <m:M_Post Title="시스템 건의사항" Post_Category_Name="시스템 건의" Created_At="2021-02-25"/>
+                                <m:M_Post Title="고객사 업무 지원 건의합니다 ^^" Post_Category_Name="고객지원" Created_At="2021-02-25"/>
+                                <m:M_Post Title="고객사 업무 지원 건의합니다 ^^" Post_Category_Name="고객지원" Created_At="2021-02-25"/>
                             </x:Array>
                         </ItemsControl.ItemsSource>
                     </ItemsControl>
@@ -231,14 +281,79 @@
             </Border>
         </Grid>
 
-        <!-- 날씨 링크 -->
-        <Border Grid.Column="2" Grid.Row="0" Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5">
-            <wv2:WebView2 x:Name="WeatherWebView" Margin="2"/>
-        </Border>
+        <Grid Grid.Column="2" Height="530" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- 뉴스 링크 -->
-        <Border Grid.Column="2" Grid.Row="2" Background="{StaticResource Color_Gray}" BorderBrush="Gray" BorderThickness="0.5">
-            <wv2:WebView2 x:Name="NewsWebView" Margin="2"/>
-        </Border>
+            <Border Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource BaseCard}">
+                <Grid Margin="30,40,30,40">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="프로젝트" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinBlack}"/>
+
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding ProjectList}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="60" TextBlock.FontSize="14">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" Tag="Bar"/>
+                                        <ColumnDefinition Width="90"   Tag="ProjectStatus"/>
+                                        <ColumnDefinition Width="200"    Tag="ProjectName"/>
+                                        <ColumnDefinition Width="*"  Tag="ProjectProgress"/>
+                                        <ColumnDefinition Width="0"  Tag="ProjectDate"/>
+                                        <ColumnDefinition Width="30"   Tag="PostView"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border          Grid.Column="0" Background="#76AEE2" Width="3" Margin="0,2,0,2"/>
+                                    <ContentControl  Grid.Column="1" Template="{StaticResource StatusBox_Project}" Width="60" Height="24"/>
+                                    <TextBlock       Grid.Column="2" Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <Grid Grid.Column="3">
+                                        <u:U_ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100"
+                                                         Margin="50,0,10,0" Height="20"/>
+                                        <TextBlock Text="{Binding Progress, StringFormat={}{0} %}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    </Grid>
+                                    <TextBlock       Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Run Text="{Binding Start_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
+                                        <Run Text="~"/>
+                                        <Run Text="{Binding End_Date, StringFormat={}{0:yyyy-MM-dd}}"/>
+                                    </TextBlock>
+                                    <Border    Grid.Column="5" Background="{StaticResource Color_Transparent}" Cursor="Hand" Margin="6">
+                                        <TextBlock Text="〉" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Line Grid.Column="0" Grid.ColumnSpan="10" 
+                                          Stroke="{StaticResource Color_Gray2}" StrokeThickness="0.5" X1="0" X2="900"
+                                          HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="4" Style="{StaticResource BaseCard}">
+                <Grid Margin="20,30,20,30">
+                    
+                    <!-- 커스텀 스타일 적용 -->
+                    <Calendar Grid.Row="1" VerticalAlignment="Top"
+                              Style="{StaticResource Cal}"
+                              CalendarDayButtonStyle="{StaticResource Day}" 
+                              SelectionMode="SingleDate"/>
+
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Timers;
 using System.Windows;
 
@@ -76,10 +77,14 @@ namespace community.ViewModels
             Timer t = new Timer(1000);
             t.Elapsed += (sender, e) =>
             {
-                App.Current.Dispatcher.Invoke(() =>
+                if (App.Current != null)
                 {
-                    this.CurrentDateTime = DateTime.Now;
-                });
+                    App.Current.Dispatcher.Invoke(() =>
+                    {
+                        var home = this.viewModels[1] as VM_Home;
+                        home.CurrentAt = DateTime.Now;
+                    });
+                }
             };
             t.Start();
         }

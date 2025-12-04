@@ -6,19 +6,22 @@
              xmlns:local="clr-namespace:community.View_Controls"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="300">
-    
+
     <Grid x:Name="Root" Background="Transparent" CacheMode="BitmapCache">
         <!-- 회색 배경 -->
-        <Border Background="#DDD" 
-                CornerRadius="2" Height="6"/>
+        <Border Background="#DDD" CornerRadius="2" Height="16" Margin="0,0,24,0"/>
 
         <!-- 진행된 영역 -->
-        <Rectangle x:Name="TrackFill" Fill="#4CAF50" HorizontalAlignment="Left"
-                   RadiusX="2" RadiusY="2" Width="0" Height="6"/>
+        <Rectangle x:Name="TrackFill" HorizontalAlignment="Left" RadiusX="2" RadiusY="2" Width="0" Height="16" Margin="0,0,24,0">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#3795EC" Offset="0.0"/>
+                    <GradientStop Color="#80BBF3" Offset="0.2"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
 
         <!-- 동그라미 Thumb -->
-        <Ellipse x:Name="Thumb" 
-                 Width="18" Height="18" Fill="White" Stroke="#4CAF50" StrokeThickness="1" 
-                 HorizontalAlignment="Left" Margin="-8,0,0,0" Visibility="Collapsed"/>
+        <Ellipse x:Name="Thumb" Width="18" Height="18" Fill="White" Stroke="Gray" StrokeThickness="1" HorizontalAlignment="Left" Margin="-8,0,0,0" Visibility="Visible"/>
     </Grid>
 </UserControl>

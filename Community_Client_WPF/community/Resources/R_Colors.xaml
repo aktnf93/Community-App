@@ -19,4 +19,9 @@
 
 
     <SolidColorBrush x:Key="Color_NormalGreen"      Color="#5AC601"/>
+
+    <LinearGradientBrush x:Key="Color_SubMenuBar" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#2189EA" Offset="0.0"/>
+        <GradientStop Color="#80BBF3" Offset="1.0"/>
+    </LinearGradientBrush>
 </ResourceDictionary>

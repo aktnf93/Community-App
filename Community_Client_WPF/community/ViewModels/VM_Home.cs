@@ -1,12 +1,11 @@
-﻿using community.Common;
-using community.Models;
-using Mysqlx.Crud;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using community.Common;
+using community.Models;
 
 namespace community.ViewModels
 {
@@ -26,13 +25,7 @@ namespace community.ViewModels
         {
             Console.WriteLine("Home");
 
-            // 프로필 및 근태 정보 불러오기
-            var req = new { employee_id = base.CurrentUser.Id, select_type = "single" };
-            var result = HTTP_Server.API.HttpSend<M_Employee_Attendance[]>("/employee/attendance/select", data: req);
-            if (result != null && result.Length > 0)
-            {
-                base.CurrentUserAttendance = result[0];
-            }
+            ProfileLoad();
 
             // 게시글 중 공지사항 불러오기
             //
@@ -40,11 +33,34 @@ namespace community.ViewModels
             // 공지사항 제외한 게시글 불러오기
             //
 
+            ProjectLoad();
+        }
+
+        private void ProfileLoad()
+        {
+            // 프로필 및 근태 정보 불러오기
+            var req = new { employee_id = base.CurrentUser.Id, select_type = "single" };
+            var result = HTTP_Server.API.HttpSend<M_Employee_Attendance[]>("/employee/attendance/select", HTTP_Server.Method.POST, req);
+            if (result != null && result.Length > 0)
+            {
+                base.CurrentUserAttendance = result[0];
+            }
+        }
+
+        private void PostLoad()
+        {
+            // var result = HTTP_Server.API.HttpSend<M_Employee_Attendance[]>("/post/list/select");
+        }
+
+
+        private void ProjectLoad()
+        {
             // 프로젝트 불러오기
-            var projects = HTTP_Server.API.HttpSend<M_Project[]>("/project/list/select");
-            this.ProjectList = new ObservableCollection<M_Project>(projects);
+            var result = HTTP_Server.API.HttpSend<M_Project[]>("/project/list/select");
+            this.ProjectList = new ObservableCollection<M_Project>(result);
             base.OnPropertyChanged(nameof(this.ProjectList));
         }
+        
 
         private void BtnCheckIn()
         {

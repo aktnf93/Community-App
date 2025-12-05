@@ -5,15 +5,15 @@
     <BitmapImage x:Key="Img_Login_PW"       UriSource="..\Images\icon_password_24px.png" DecodePixelWidth="24"/>
     <BitmapImage x:Key="Img_Login_Logout"   UriSource="..\Images\icon_logout_24px.png"   DecodePixelWidth="24"/>
 
-    <BitmapImage x:Key="Img_Window_Logo"    UriSource="..\Images\sh_electronic_logo.png" />
-    <BitmapImage x:Key="Img_Window_Logo2"   UriSource="..\Images\sh_electronic_logo2.png"/>
-    <BitmapImage x:Key="Img_Window_Logo3"   UriSource="..\Images\sh_electronic_logo3.png"/>
-    <BitmapImage x:Key="Img_Window_Logo4"   UriSource="..\Images\sh_electronic_logo4.png"/>
-    <BitmapImage x:Key="Img_Window_Logo5"   UriSource="..\Images\sh_electronic_logo5.png"/>
+    <BitmapImage x:Key="Img_Window_Logo"    UriSource="..\Images\Img_Logo\sh_electronic_logo.png" />
+    <BitmapImage x:Key="Img_Window_Logo2"   UriSource="..\Images\Img_Logo\sh_electronic_logo2.png"/>
+    <BitmapImage x:Key="Img_Window_Logo3"   UriSource="..\Images\Img_Logo\sh_electronic_logo3.png"/>
+    <BitmapImage x:Key="Img_Window_Logo4"   UriSource="..\Images\Img_Logo\sh_electronic_logo4.png"/>
+    <BitmapImage x:Key="Img_Window_Logo5"   UriSource="..\Images\Img_Logo\sh_electronic_logo5.png"/>
 
-    <BitmapImage x:Key="Img_Window_Min"     UriSource="..\Images\window_min_64px.png"/>
-    <BitmapImage x:Key="Img_Window_Max"     UriSource="..\Images\window_max_64px.png"/>
-    <BitmapImage x:Key="Img_Window_Close"   UriSource="..\Images\window_close_64px.png"/>
+    <BitmapImage x:Key="Img_Window_Min"     UriSource="..\Images\Img_Window\window_min_64px.png"/>
+    <BitmapImage x:Key="Img_Window_Max"     UriSource="..\Images\Img_Window\window_max_64px.png"/>
+    <BitmapImage x:Key="Img_Window_Close"   UriSource="..\Images\Img_Window\window_close_64px.png"/>
 
     <BitmapImage x:Key="Img_Menu_Home"      UriSource="..\Images\menu_home_64px_w.png"     DecodePixelWidth="64"/>
     <BitmapImage x:Key="Img_Menu_Post"      UriSource="..\Images\menu_post_64px_w.png"     DecodePixelWidth="64"/>
@@ -49,20 +49,18 @@
     <BitmapImage x:Key="Img_Plus"           UriSource="..\Images\plus_64px.png"            DecodePixelWidth="24"/>
     <BitmapImage x:Key="Img_Plus_w"         UriSource="..\Images\plus_64px_w.png"          DecodePixelWidth="24"/>
 
-    <BitmapImage x:Key="Img_Alarm"         UriSource="..\Images\alarm.png"          DecodePixelWidth="64"/>
+    <BitmapImage x:Key="Img_FolderClose"    UriSource="..\Images\folder_close.png"         DecodePixelWidth="64"/>
+    <BitmapImage x:Key="Img_FolderCloseDoc" UriSource="..\Images\folder_close_doc.png"     DecodePixelWidth="64"/>
+    <BitmapImage x:Key="Img_FolderOpen"     UriSource="..\Images\folder_open.png"          DecodePixelWidth="64"/>
+    <BitmapImage x:Key="Img_FolderOpenDoc"  UriSource="..\Images\folder_open_doc.png"      DecodePixelWidth="64"/>
+    <BitmapImage x:Key="Img_Building"       UriSource="..\Images\building.png"             DecodePixelWidth="64"/>
 
-    <BitmapImage x:Key="Img_FolderClose"        UriSource="..\Images\folder_close.png"         DecodePixelWidth="64"/>
-    <BitmapImage x:Key="Img_FolderCloseDoc"    UriSource="..\Images\folder_close_doc.png"     DecodePixelWidth="64"/>
-    <BitmapImage x:Key="Img_FolderOpen"         UriSource="..\Images\folder_open.png"          DecodePixelWidth="64"/>
-    <BitmapImage x:Key="Img_FolderOpenDoc"     UriSource="..\Images\folder_open_doc.png"      DecodePixelWidth="64"/>
-
-    <BitmapImage x:Key="Img_Building"     UriSource="..\Images\building.png"      DecodePixelWidth="64"/>
-
-    <BitmapImage x:Key="Img_InList"     UriSource="..\Images\Employee\in_list.png"      DecodePixelWidth="64"/>
-    <BitmapImage x:Key="Img_OutList"     UriSource="..\Images\Employee\out_list.png"      DecodePixelWidth="64"/>
-    <BitmapImage x:Key="Img_StarList"     UriSource="..\Images\Employee\star_list.png"      DecodePixelWidth="64"/>
-    <BitmapImage x:Key="Img_TotalListg"     UriSource="..\Images\Employee\total_list.png"      DecodePixelWidth="64"/>
+    <BitmapImage x:Key="Img_InList"         UriSource="..\Images\Employee\in_list.png"     DecodePixelWidth="64"/>
+    <BitmapImage x:Key="Img_OutList"        UriSource="..\Images\Employee\out_list.png"    DecodePixelWidth="64"/>
+    <BitmapImage x:Key="Img_StarList"       UriSource="..\Images\Employee\star_list.png"   DecodePixelWidth="64"/>
+    <BitmapImage x:Key="Img_TotalListg"     UriSource="..\Images\Employee\total_list.png"  DecodePixelWidth="64"/>
 
 
     <Cursor x:Key="Cur_Normal">..\Images\Cursor\Normal.cur</Cursor>
+    
 </ResourceDictionary>

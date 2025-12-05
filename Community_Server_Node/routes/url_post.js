@@ -34,27 +34,48 @@ const schema = {
 const tb_post_category = schema.post_category;
 router.post('/category/select', async (req, res, next) => {
     try {
-        const data = db.pick(req.body, [ 'name' ]);
+        const data = db.pick(req.body, [ 'select_type', 'parent_id' ]);
 
-        if(data.name) {
-            data.name = `%${data.name}%`;
-            const result = await db.query(req, `
-                SELECT * 
-                FROM tb_post_category 
-                WHERE id IN (
-                    SELECT id FROM tb_post_category WHERE name like ?
-                    UNION
-                    SELECT parent_id FROM tb_post_category WHERE name like ?
-                );`, [data.name, data.name]);
-            res.locals.dbResult = result;
+        console.log(req.body);
+
+        switch (data.select_type)
+        {
+            case 'all': // 전체 조회
+                {
+                    const sql = 'select * from tb_post_category c WHERE 1 = 1;';
+                    const result = await db.query(req, sql, []);
+                    res.locals.dbResult = result;
+                }
+                break;
+
+            case 'parent': // 부모 요소만 조회
+                {
+                    const sql = 'select * from tb_post_category c WHERE c.parent_id IS NULL';
+                    const result = await db.query(req, sql, []);
+                    res.locals.dbResult = result;
+                }
+                break;
+
+            case 'child': // 부모 id에 맞는 자식 요소만 조회
+                {
+                    const sql = 'select * from tb_post_category c WHERE c.parent_id = ?;';
+                    const result = await db.query(req, sql, [data.parent_id]);
+                    res.locals.dbResult = result;
+                }
+                break;
+
+            case 'name': // 전체 이름 검색 조회
+                {
+                    data.name = `%${data.name}%`;
+                    const sql = 'SELECT *  FROM tb_post_category WHERE id IN (SELECT id FROM tb_post_category WHERE name like ? UNION SELECT parent_id FROM tb_post_category WHERE name like ?);';
+                    const result = await db.query(req, sql, [data.name, data.name]);
+                    res.locals.dbResult = result;
+                }
+                break;
         }
-        else {
-            const result = await db.query(req, 'select * from tb_post_category where 1 = 1;', data);
-            res.locals.dbResult = result;
-        }
-        
+
         next();
-    } 
+    }
     catch (err) {
         next(err);
     }
@@ -84,12 +105,22 @@ router.post('/list/select', async (req, res, next) => {
                 ORDER BY p.created_at desc;`, [data.post_category_id, data.post_category_id, `%${data.content}%`]);
             res.locals.dbResult = result;
         }
-        else {
+        else if (data.post_category_id) {
             const result = await db.query(req, `
                 SELECT * 
                 FROM v_posts p 
                 WHERE p.post_category_id = ? OR p.parent_id = ? 
                 ORDER BY p.created_at desc;`, 
+                [data.post_category_id, data.post_category_id]);
+            res.locals.dbResult = result;
+        }
+        else {
+            const result = await db.query(req, `
+                SELECT * 
+                FROM v_posts p 
+                WHERE 1 = 1
+                ORDER BY p.created_at desc
+                LIMIT 10;`, 
                 [data.post_category_id, data.post_category_id]);
             res.locals.dbResult = result;
         }

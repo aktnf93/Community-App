@@ -72,15 +72,12 @@
     <Style TargetType="{x:Type Path}" x:Key="PathDropDown">
         <Setter Property="Data" Value="
             M 2,4 
-            L 6,8 
-            A 1,1 0 0 1 7,8 
-            L 11,4 
-            A 1,1 0 0 1 10,3 
-            L 7,6 
-            A 1,1 0 0 1 6,6 
-            L 3,3 
-            A 1,1 0 0 1 2,4 Z
-                "/>
+            L 6,8  A 1,1 0 0 1 7,8 
+            L 11,4 A 1,1 0 0 1 10,3 
+            L 7,6  A 1,1 0 0 1 6,6 
+            L 3,3  A 1,1 0 0 1 2,4 
+            Z
+        "/>
         <Setter Property="Fill" Value="{StaticResource Color_Gray}"/>
         <Setter Property="Width" Value="12"/>
         <Setter Property="Height" Value="12"/>

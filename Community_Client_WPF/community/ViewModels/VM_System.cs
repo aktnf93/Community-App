@@ -1,36 +1,88 @@
-﻿using community.Common;
-using community.Models;
-using Mysqlx.Session;
-using MySqlX.XDevAPI.Common;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
+using community.Common;
+using community.Models;
 
 namespace community.ViewModels
 {
     public class VM_System : ViewModelBase
     {
-        public M_Card BannerCard { get; set; } = new M_Card()
-        {
-            Title = "환경설정"
-        };
+        private bool _ChkSystemListView = true;
+        private bool _ChkSystemPostView = false;
+        private bool _ChkSystemEmployeeView = false;
 
-        public M_Card[] DashboardCard { get; set; } =
+        public bool ChkSystemListView
         {
-            new M_Card() { Title = "게시판", Content = "", Description = "2025-11-13 20:29" },
-            new M_Card() { Title = "채팅방", Content = "", Description = "2025-11-13 20:29" },
-            new M_Card() { Title = "프로젝트", Content = "", Description = "2025-11-13 20:29" },
-            new M_Card() { Title = "고객사", Content = "", Description = "2025-11-13 20:29" },
-            new M_Card() { Title = "재고", Content = "", Description = "2025-11-13 20:29" },
-        };
+            get => this._ChkSystemListView;
+            set => base.OnPropertyChanged(ref this._ChkSystemListView, value);
+        }
+
+        public bool ChkSystemPostView
+        {
+            get => this._ChkSystemPostView;
+            set => base.OnPropertyChanged(ref this._ChkSystemPostView, value);
+        }
+
+        public bool ChkSystemEmployeeView
+        {
+            get => this._ChkSystemEmployeeView;
+            set => base.OnPropertyChanged(ref this._ChkSystemEmployeeView, value);
+        }
 
         public ObservableCollection<M_System_Log> SystemLogs { get; set; } = new ObservableCollection<M_System_Log>();
         public ObservableCollection<M_System_Config> SystemConfigs { get; set; } = new ObservableCollection<M_System_Config>();
+        
+
+
+        public ObservableCollection<M_Post_Category> PostCategoryParentList { get; set; } = new ObservableCollection<M_Post_Category>();
+        public M_Post_Category _PostCategoryParentSelected = new M_Post_Category();
+        public M_Post_Category PostCategoryParentSelected
+        {
+            get => this._PostCategoryParentSelected;
+            set
+            {
+                if (value is null)
+                {
+                    this._PostCategoryParentSelected = new M_Post_Category();
+                }
+                else
+                {
+                    this._PostCategoryParentSelected = Utility.DeepCopy<M_Post_Category>(value);
+
+                    this.PostCategorySearch(value.Id);
+                }
+
+                base.OnPropertyChanged(nameof(this.PostCategoryParentSelected));
+            }
+        }
+
+        public ObservableCollection<M_Post_Category> PostCategoryList { get; set; } = new ObservableCollection<M_Post_Category>();
+        public M_Post_Category _PostCategorySelected = new M_Post_Category();
+        public M_Post_Category PostCategorySelected
+        {
+            get => this._PostCategorySelected;
+            set
+            {
+                if (value is null)
+                {
+                    this._PostCategorySelected = new M_Post_Category();
+                }
+                else
+                {
+                    this._PostCategorySelected = Utility.DeepCopy<M_Post_Category>(value); ;
+                }
+
+                base.OnPropertyChanged(nameof(this.PostCategorySelected));
+            }
+        }
+
+
+
+
+
         public ObservableCollection<M_Organization_Company> CompanyList { get; set; } = new ObservableCollection<M_Organization_Company>();
         public ObservableCollection<M_Organization_Department> DepartmentList { get; set; } = new ObservableCollection<M_Organization_Department>();
         public ObservableCollection<M_Organization_Team> TeamList { get; set; } = new ObservableCollection<M_Organization_Team>();
@@ -164,6 +216,9 @@ namespace community.ViewModels
 
             SysTemLogSearch();
             SystemConfigSearch();
+
+            PostCategorySearch(0);
+
             CompanySearch();
             RankSearch();
             PositionSearch();
@@ -182,7 +237,6 @@ namespace community.ViewModels
                 }
             }
         }
-
         private void SystemConfigSearch()
         {
             var configs = HTTP_Server.API.HttpSend<M_System_Config[]>("/system/config/select");
@@ -192,6 +246,186 @@ namespace community.ViewModels
                 foreach (var c in configs)
                 {
                     this.SystemConfigs.Add(c);
+                }
+            }
+        }
+
+
+        // PostCategory
+        private void PostCategorySearch(int parent_id)
+        {
+            if (parent_id > 0)
+            {
+                var req = new { select_type = "child", parent_id = parent_id };
+                var result = HTTP_Server.API.HttpSend<M_Post_Category[]>("/post/category/select", HTTP_Server.Method.POST, req);
+
+                this.PostCategoryList = new ObservableCollection<M_Post_Category>(result);
+                base.OnPropertyChanged(nameof(this.PostCategoryList));
+            }
+            else
+            {
+                var req = new { select_type = "parent", parent_id = parent_id };
+                var result = HTTP_Server.API.HttpSend<M_Post_Category[]>("/post/category/select", HTTP_Server.Method.POST, req);
+
+                this.PostCategoryParentList = new ObservableCollection<M_Post_Category>(result);
+                base.OnPropertyChanged(nameof(this.PostCategoryParentList));
+            }
+        }
+        private void PostCategoryAdd(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                if (btn.Uid == "parent")
+                {
+                    var selected = this.PostCategoryParentSelected;
+
+                    if (string.IsNullOrEmpty(selected.Name))
+                    {
+                        MessageBox.Show("추가할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "상위 카테고리 추가",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        return;
+                    }
+
+                    var req = new { selected.Name, selected.Description };
+                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/insert", HTTP_Server.Method.POST, req);
+                    if (result != null && result.InsertId > 0)
+                    {
+                        PostCategorySearch(0);
+                    }
+                }
+                else
+                {
+                    var selected = this.PostCategorySelected;
+
+                    if (selected.Parent_Id is null || selected.Parent_Id == 0)
+                    {
+                        MessageBox.Show("선택된 상위 카테고리가 없습니다.\n상위 카테고리를 선택해주세요.", "하위 카테고리 추가",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(selected.Name))
+                    {
+                        MessageBox.Show("추가할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "하위 카테고리 추가",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        return;
+                    }
+
+                    var req = new { selected.Name, selected.Description, selected.Parent_Id };
+                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/insert", HTTP_Server.Method.POST, req);
+                    if (result != null && result.InsertId > 0)
+                    {
+                        PostCategorySearch(selected.Parent_Id.Value);
+                    }
+                }
+            }
+        }
+        private void PostCategoryEdit(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                if (btn.Uid == "parent")
+                {
+                    var selected = this.PostCategoryParentSelected;
+
+                    if (selected.Id == 0)
+                    {
+                        MessageBox.Show("수정할 카테고리를 선택해주세요.", "상위 카테고리 수정",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(selected.Name))
+                    {
+                        MessageBox.Show("수정할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "상위 카테고리 수정",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        return;
+                    }
+
+                    // var req = new { Id = selected.Id, Name = selected.Name, Description = selected.Description };
+
+                    var req = new { id = selected.Id, name = selected.Name, description = selected.Description };
+                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/update", HTTP_Server.Method.PUT, req);
+                    if (result != null && result.AffectedRows > 0)
+                    {
+                        PostCategorySearch(0);
+                    }
+                }
+                else
+                {
+                    var selected = this.PostCategorySelected;
+
+                    if (selected.Id == 0)
+                    {
+                        MessageBox.Show("수정할 카테고리를 선택해주세요.", "하위 카테고리 수정",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(selected.Name))
+                    {
+                        MessageBox.Show("수정할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "하위 카테고리 수정",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        return;
+                    }
+
+                    var req = new { selected.Id, selected.Name, selected.Description };
+                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/update", HTTP_Server.Method.PUT, req);
+                    if (result != null && result.AffectedRows > 0)
+                    {
+                        PostCategorySearch(selected.Parent_Id.Value);
+                    }
+                }
+            }
+        }
+        private void PostCategoryDelete(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                if (btn.Uid == "parent")
+                {
+                    var selected = this.PostCategoryParentSelected;
+
+                    if (selected.Id == 0)
+                    {
+                        MessageBox.Show("삭제할 카테고리를 선택해주세요.", "상위 카테고리 삭제",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        return;
+                    }
+
+                    var req = new { selected.Id };
+                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/delete", HTTP_Server.Method.DELETE, req);
+                    if (result != null && result.AffectedRows > 0)
+                    {
+                        PostCategorySearch(0);
+                    }
+                }
+                else
+                {
+                    var selected = this.PostCategorySelected;
+
+                    if (selected.Id == 0)
+                    {
+                        MessageBox.Show("삭제할 카테고리를 선택해주세요.", "하위 카테고리 삭제",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        return;
+                    }
+
+                    var req = new { selected.Id, selected.Name, selected.Description };
+                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/delete", HTTP_Server.Method.DELETE, req);
+                    if (result != null && result.AffectedRows > 0)
+                    {
+                        PostCategorySearch(selected.Parent_Id.Value);
+                    }
                 }
             }
         }
@@ -211,7 +445,6 @@ namespace community.ViewModels
                 }
             }
         }
-
         private void CompanyAdd()
         {
             var add = this.CompanySelected;
@@ -222,7 +455,6 @@ namespace community.ViewModels
                 CompanySearch();
             }
         }
-
         private void CompanyEdit()
         {
             if (this.CompanySelected.Id == 0)
@@ -239,7 +471,6 @@ namespace community.ViewModels
                 CompanySearch();
             }
         }
-
         private void CompanyDelete()
         {
             if (this.CompanySelected.Id == 0)

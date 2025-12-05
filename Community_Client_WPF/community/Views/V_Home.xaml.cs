@@ -11,8 +11,6 @@ namespace community.Views
         public V_Home()
         {
             InitializeComponent();
-            // WeatherWebView.Source = new Uri("https://weather.naver.com/");
-            // NewsWebView.Source = new Uri("https://news.naver.com/section/101");
         }
     }
 }

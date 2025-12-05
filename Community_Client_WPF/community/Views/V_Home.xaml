@@ -7,7 +7,6 @@
              xmlns:vm="clr-namespace:community.ViewModels"
              xmlns:m="clr-namespace:community.Models"
              xmlns:u="clr-namespace:community.View_Controls"
-             xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
              mc:Ignorable="d" 
              Width="1810" Height="1000" d:DesignWidth="1810" d:DesignHeight="1000"
              Loaded="{local:MethodBinding Loaded}" Background="{StaticResource Color_WhiteGray}">
@@ -345,13 +344,13 @@
 
             <Border Grid.Column="4" Style="{StaticResource BaseCard}">
                 <Grid Margin="20,30,20,30">
-                    
-                    <!-- 커스텀 스타일 적용 -->
-                    <Calendar Grid.Row="1" VerticalAlignment="Top"
-                              Style="{StaticResource Cal}"
-                              CalendarDayButtonStyle="{StaticResource Day}" 
-                              SelectionMode="SingleDate"/>
+                    <Calendar Style="{StaticResource CalendarStyle}"
+                              CalendarButtonStyle="{StaticResource HeaderButtonStyle}"
+                              CalendarDayButtonStyle="{StaticResource DayButtonStyle}"
+                              SelectionMode="SingleDate"
+                              VerticalAlignment="Center"/>
 
+                    <!--<Calendar SelectionMode="SingleDate" Style="{StaticResource CalendarStyle}"/>-->
                 </Grid>
             </Border>
         </Grid>

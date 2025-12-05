@@ -57,7 +57,7 @@ namespace community.ViewModels
             get => this.employeeSelected;
             set
             {
-                var copy = Extensions.DeepCopy<M_Employee>(value);
+                var copy = Utility.DeepCopy<M_Employee>(value);
                 this.employeeSelected = copy;
 
                 base.OnPropertyChanged(nameof(employeeSelected));

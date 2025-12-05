@@ -43,7 +43,11 @@ const schema = {
 
 const tb_employee_list = schema.employee_list;
 router.post('/list/select', async (req, res, next) => db.get(req, res, next, tb_employee_list));
-router.post('/list/insert', async (req, res, next) => db.post(req, res, next, tb_employee_list));
+
+const employee_insert = tb_employee_list;
+employee_insert.table = 'tb_employees';
+router.post('/list/insert', async (req, res, next) => db.post(req, res, next, employee_insert));
+
 router.put('/list/update', async (req, res, next) => db.put(req, res, next, tb_employee_list));
 router.delete('/list/delete', async (req, res, next) => db.delete(req, res, next, tb_employee_list));
 

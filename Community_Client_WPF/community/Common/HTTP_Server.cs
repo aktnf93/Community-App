@@ -87,6 +87,8 @@ namespace community.Common
             {
                 string json = JsonConvert.SerializeObject(data);
                 req.Content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                Console.WriteLine("{0:HH:mm:ss}\t{1}", DateTime.Now, json);
             }
             #endregion
 

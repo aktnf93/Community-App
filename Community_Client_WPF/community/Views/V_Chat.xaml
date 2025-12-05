@@ -20,7 +20,7 @@
         <Border Grid.Row="0" TextBlock.FontFamily="고도 M" Background="{StaticResource Color_SubMenuBar}">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Width="30"/>
-                <RadioButton Content="채팅방" Template="{StaticResource ChkSubMenu}" IsChecked="True"/>
+                <RadioButton Content="채팅방" Template="{StaticResource SubMenuButton}" IsChecked="True"/>
             </StackPanel>
         </Border>
 

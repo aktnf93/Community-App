@@ -31,10 +31,10 @@ namespace community.Views
                 var dataContext = frameworkElement.DataContext;
 
                 // 단일 파라미터 적용
-                InvokeWithSingleParameter(dataContext, MethodName, args);
+                // InvokeWithSingleParameter(dataContext, MethodName, args);
 
                 // 다중 파라미터 적용
-                // InvokeWithMatchingParameters(dataContext, MethodName, sender, args);
+                InvokeWithMatchingParameters(dataContext, MethodName, sender, args);
             };
 
             return handler;

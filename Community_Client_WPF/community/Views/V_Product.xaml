@@ -24,18 +24,6 @@
             <RowDefinition Height="*"   Tag="리스트"/>
         </Grid.RowDefinitions>
 
-        <!-- 배너 -->
-        <Control Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Template="{StaticResource BannerCard}" DataContext="{Binding BannerCard}"/>
-
-        <!-- 대시보드 카드 -->
-        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Control Tag="{StaticResource Img_Product_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[0]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Product_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[1]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Product_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[2]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Product_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[3]}" Margin="0,0,20,0"/>
-            <Control Tag="{StaticResource Img_Product_w}" Template="{StaticResource DashboardCard}" DataContext="{Binding DashboardCard[4]}"/>
-        </StackPanel>
-
         <!-- 리스트 제어 -->
         <Grid Grid.Column="0" Grid.Row="4">
             <Control Template="{StaticResource ListSearch}" ToolTip="게시글 검색"/>

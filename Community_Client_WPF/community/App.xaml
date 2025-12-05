@@ -12,9 +12,15 @@
                 <ResourceDictionary Source="Resources/R_Converters.xaml"/>
 
                 <ResourceDictionary Source="Resources/R_Styles.xaml"/>
-                <ResourceDictionary Source="Resources/R_Templates.xaml"/>
 
                 <ResourceDictionary Source="/Resources/R_Border.xaml"/>
+                <ResourceDictionary Source="/Resources/R_Button.xaml"/>
+                <ResourceDictionary Source="/Resources/R_CheckBox.xaml"/>
+                <ResourceDictionary Source="/Resources/R_ComboBox.xaml"/>
+                <ResourceDictionary Source="/Resources/R_Control.xaml"/>
+                <ResourceDictionary Source="/Resources/R_ProgressBar.xaml"/>
+                <ResourceDictionary Source="/Resources/R_RadioButton.xaml"/>
+                <ResourceDictionary Source="/Resources/R_TextBox.xaml"/>
                 <ResourceDictionary Source="/Resources/R_Calendar.xaml"/>
                 <ResourceDictionary Source="/Resources/R_TreeView.xaml"/>
 

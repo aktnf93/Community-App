@@ -12,20 +12,6 @@ namespace community.ViewModels
 {
     public class VM_Post : ViewModelBase
     {
-        public M_Card BannerCard { get; set; } = new M_Card()
-        {
-            Title = "게시판"
-        };
-
-        public M_Card[] DashboardCard { get; set; } =
-        {
-            new M_Card() { Title = "전체 게시글", Content = "1260", Description = "오늘 10" },
-            new M_Card() { Title = "전체 댓글", Content = "1092", Description = "오늘 3" },
-            new M_Card() { Title = "전체 조회수", Content = "6103", Description = "오늘 16" },
-            new M_Card() { Title = "", Content = "", Description = "" },
-            new M_Card() { Title = "", Content = "", Description = "" },
-        };
-
         private string _txtCategorySearch = string.Empty;
         public string TxtCategorySearch
         {
@@ -92,7 +78,8 @@ namespace community.ViewModels
             Console.WriteLine("VM_Board Loaded");
 
             // Category Load
-            var categorys = HTTP_Server.API.HttpSend<M_Post_Category[]>("/post/category/select");
+            var req = new { select_type = "all" };
+            var categorys = HTTP_Server.API.HttpSend<M_Post_Category[]>("/post/category/select", HTTP_Server.Method.POST, req);
             this.CategoryList.Clear();
 
             if (categorys != null)

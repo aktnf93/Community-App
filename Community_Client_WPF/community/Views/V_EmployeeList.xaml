@@ -381,16 +381,17 @@
 
                 <TextBlock Grid.Column="0" Grid.Row="20" Text="계정"/>
                 <StackPanel Grid.Column="1" Grid.Row="20" Orientation="Horizontal" Grid.ColumnSpan="4" HorizontalAlignment="Right">
-                    <TextBlock Text="ID" Width="30" TextAlignment="Center"/>
+                    <TextBlock Text="ID" Width="30" TextAlignment="Center" Foreground="Blue"/>
                     <TextBox Width="130" Height="26"/>
-                    <TextBlock Text="PW" Width="30" TextAlignment="Center"/>
+                    <TextBlock Text="PW" Width="30" TextAlignment="Center" Foreground="Blue"/>
                     <TextBox Width="130" Height="26"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Grid.Row="21" Orientation="Horizontal" Grid.ColumnSpan="4" HorizontalAlignment="Right">
-                    <TextBlock Text="PW 확인" Width="56" TextAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBlock Text="PW 확인" Width="56" TextAlignment="Center" HorizontalAlignment="Right" Foreground="Blue"/>
                     <TextBox Width="130" Height="26"/>
                 </StackPanel>
                 <TextBlock Grid.Column="0" Grid.Row="21" Text="계정 상태"/>
+                <ComboBox  Grid.Column="1" Grid.Row="21" Height="26" Grid.ColumnSpan="2"/>
 
                 <StackPanel Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0" Height="30">
                     <Button Content="저장" Width="140" Margin="0,0,10,0"/>

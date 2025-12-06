@@ -15,6 +15,7 @@ namespace community.Models
         private string name;
         private string description;
         private string employee_code;
+        private string employee_type;
         private string gender;
         private DateTime? birth_date;
         private string email;
@@ -72,6 +73,13 @@ namespace community.Models
         {
             get => this.employee_code;
             set => base.OnPropertyChanged(ref this.employee_code, value);
+        }
+
+        [DataMember(Name = "employee_type")]
+        public string Employee_Type
+        {
+            get => this.employee_type;
+            set => base.OnPropertyChanged(ref this.employee_type, value);
         }
 
         [DataMember(Name = "gender")]

@@ -32,6 +32,7 @@ namespace community.Views
             // 최대화 시 작업표시줄을 가리지 않게 최대 사이즈 설정.
             // this.MaxWidth = SystemParameters.WorkArea.Width + 7;
             this.MaxHeight = SystemParameters.WorkArea.Height + 7;
+            // MaxWidth = "1920" MaxHeight = "1040"
         }
 
         private bool isHandlingStateChange = false;

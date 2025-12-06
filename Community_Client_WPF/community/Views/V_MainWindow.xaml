@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:community.ViewModels"
         mc:Ignorable="d"
         Title="Community App" 
-        Width="1600" Height="900" MaxWidth="1920" MaxHeight="1040"
+        Width="1600" Height="900" 
         WindowStyle="None" AllowsTransparency="False"
         WindowStartupLocation="CenterScreen"
         StateChanged="Window_OnStateChanged"
@@ -99,8 +99,9 @@
 
                     <Line VerticalAlignment="Bottom" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
                 </Grid>-->
-                
+
                 <RadioButton Content="홈"       Tag="{StaticResource Img_Menu_Home}"      Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=1}"/>
+                <RadioButton Content="마이페이지"       Tag="{StaticResource Img_Menu_Home}"      Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=10}"/>
                 <RadioButton Content="게시판"   Tag="{StaticResource Img_Menu_Post}"     Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=2}"/>
                 <RadioButton Content="채팅방"   Tag="{StaticResource Img_Menu_Chat}"     Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=3}"/>
                 <RadioButton Content="프로젝트" Tag="{StaticResource Img_Menu_Project}"  Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=4}"/>
@@ -114,17 +115,9 @@
         </Border>
             
         <!-- 오른쪽 메뉴 화면 -->
-                 <!--TextOptions.TextFormattingMode="Display"
-                 TextOptions.TextRenderingMode="ClearType"
-                 UseLayoutRounding="True"-->
-        <Viewbox Grid.Column="1" Grid.Row="1" 
-                 Stretch="Fill"
-                 >
-            <local:ViewCacheHost Content="{Binding CurrentViewModel}">
-                <!--<local:ViewCacheHost.LayoutTransform>
-                    <ScaleTransform x:Name="RootScale"/>
-                </local:ViewCacheHost.LayoutTransform>-->
-            </local:ViewCacheHost>
+        <!--TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType" UseLayoutRounding="True"-->
+        <Viewbox Grid.Column="1" Grid.Row="1" Stretch="Fill">
+            <local:ViewCacheHost Content="{Binding CurrentViewModel}"/>
         </Viewbox>
     </Grid>
 </Window>

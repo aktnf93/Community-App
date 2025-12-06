@@ -47,6 +47,58 @@ namespace community.ViewModels
             set => base.OnPropertyChanged(ref this.chkReviewView, value);
         }
 
+        // 성별
+        public ObservableCollection<string> E_GanderList { get; set; }
+            = new ObservableCollection<string>()
+            {
+                "남성",
+                "여성",
+                "기타"
+            };
+        // 회사
+        public ObservableCollection<M_Organization_Company> E_CompanyList { get; set; }
+            = new ObservableCollection<M_Organization_Company>();
+        // 부서
+        public ObservableCollection<M_Organization_Department> E_DepartmentList { get; set; }
+            = new ObservableCollection<M_Organization_Department>();
+        // 팀
+        public ObservableCollection<M_Organization_Team> E_TeamList { get; set; }
+            = new ObservableCollection<M_Organization_Team>();
+        // 직급
+        public ObservableCollection<M_Organization_Rank> E_RankList { get; set; }
+            = new ObservableCollection<M_Organization_Rank>();
+        // 직책
+        public ObservableCollection<M_Organization_Position> E_PositionList { get; set; }
+            = new ObservableCollection<M_Organization_Position>();
+        // 담당
+        public ObservableCollection<M_Organization_Role> E_RoleList { get; set; }
+            = new ObservableCollection<M_Organization_Role>();
+        // 권한
+        public ObservableCollection<M_Organization_Privileges> E_PrivilegesList { get; set; }
+            = new ObservableCollection<M_Organization_Privileges>();
+        // 상태
+        public ObservableCollection<string> E_StatusList { get; set; }
+            = new ObservableCollection<string>()
+            {
+                "재직중",
+                "휴직중",
+                "퇴사"
+            };
+        // 계약유형
+        public ObservableCollection<string> E_ContractTypeList { get; set; }
+            = new ObservableCollection<string>()
+            {
+                "정규직",
+                "계약직",
+                "인턴직"
+            };
+        // 계정상태
+        public ObservableCollection<string> E_AccountStatusList { get; set; }
+            = new ObservableCollection<string>()
+            {
+                "활성",
+                "비활성"
+            };
 
         public ObservableCollection<M_Employee> EmployeeList { get; set; }
             = new ObservableCollection<M_Employee>();

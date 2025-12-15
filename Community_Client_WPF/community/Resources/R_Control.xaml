@@ -109,9 +109,9 @@
             <TextBlock Grid.Column="17" Text="{Binding Updated_At, StringFormat={}{0:yyyy-MM-dd}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <StackPanel Grid.Column="18" x:Name="BtnPanel" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="▼" Width="30" Height="32" Click="{v:MethodBinding BtnOnProjectTaskShow}"/>
-                <Button Content="✏️ 편집" Width="70" Height="32" Margin="8,0,4,0" Click="{v:MethodBinding BtnOnProjectEdit}"/>
-                <Button Content="➖️ 삭제" Width="70" Height="32" Click="{v:MethodBinding BtnOnProjectDelete}"/>
+                <Button Content="▼" Width="30" Height="32" Click="{v:MethodBinding BtnOnProjectTaskShow}" Background="{StaticResource Color_Blue}"/>
+                <Button Content="✏️ 편집" Width="70" Height="32" Margin="8,0,4,0" Click="{v:MethodBinding BtnOnProjectEdit}" Background="{StaticResource Color_Blue}"/>
+                <Button Content="➖️ 삭제" Width="70" Height="32" Click="{v:MethodBinding BtnOnProjectDelete}" Background="{StaticResource Color_Blue}"/>
             </StackPanel>
 
             <Line x:Name="TopLine" Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="0" 

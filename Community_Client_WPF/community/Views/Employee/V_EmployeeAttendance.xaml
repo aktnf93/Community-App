@@ -112,12 +112,12 @@
             <ContentControl Grid.Column="6" Grid.Row="1" Template="{StaticResource Card_EmployeeAttendance}" Name="연차사용" Background="#FFFFFF" Foreground="#F7B000" Uid="{Binding Cards[3].Content}" Tag="{StaticResource Img_StarList}"/>
         </Grid>
 
-        <StackPanel Grid.Column="3" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,4"
+        <!--<StackPanel Grid.Column="3" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,4"
                     TextBlock.FontSize="13">
             <TextBlock Text="[회사] SH ELECTRONIC  >  [부서] 경영지원본부  >  [팀] 총무팀"/>
             <TextBlock Text="6" Margin="6,0,6,0"/>
             <TextBlock Text="명"/>
-        </StackPanel>
+        </StackPanel>-->
         
         <!-- 멤버 리스트 -->
         <ItemsControl Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="4" ItemsSource="{Binding AttendanceList}">
@@ -190,7 +190,7 @@
             </ItemsControl.Template>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border x:Name="Bor" Height="40"  Margin="0,0,0,0" Background="Transparent"
+                    <Border x:Name="Bor" Height="40" Background="Transparent"
                             BorderBrush="Transparent" BorderThickness="0.5" CornerRadius="4" MouseLeftButtonDown="{local:MethodBinding OnSelect}">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -214,52 +214,25 @@
                                 </Style>
                             </Grid.Resources>
 
-                            <TextBlock Grid.Column="0">
-                                <Run Text="{Binding SelectedDate, StringFormat={}{0:MM월 dd일 dddd}}" Language="ko-KR"/>
-                            </TextBlock>
-
+                            <TextBlock Grid.Column="0" Text="{Binding SelectedDate, StringFormat={}{0:MM월 dd일 dddd}}"/>
                             <TextBlock Grid.Column="1">
                                 <Run Text="{Binding Employee_Id}"/>
                                 <Run Text="-"/>
                                 <Run Text="{Binding Employee_Code}"/>
                             </TextBlock>
-
-                            <TextBlock Grid.Column="2">
-                                <Run Text="{Binding Name}"/>
-                            </TextBlock>
-
-                            <TextBlock Grid.Column="3">
-                                <Run Text="{Binding Department_Name}"/>
-                            </TextBlock>
-
-                            <TextBlock Grid.Column="4">
-                                <Run Text="{Binding Rank_Name}"/>
-                            </TextBlock>
-
-                            <TextBlock Grid.Column="5">
-                                <Run Text="정규직"/>
-                            </TextBlock>
-
-                            <TextBlock Grid.Column="6">
-                                <Run Text="{Binding Start_Work_At, StringFormat={}{0:tt HH시 mm분}, TargetNullValue=-}" Language="ko-KR"/>
-                            </TextBlock>
-
-                            <TextBlock Grid.Column="7">
-                                <Run Text="{Binding End_Work_At, StringFormat={}{0:tt HH시 mm분}, TargetNullValue=-}" Language="ko-KR"/>
-                            </TextBlock>
-
-                            <TextBlock Grid.Column="8">
-                                <Run Text="{Binding Total_Work_Minutes, StringFormat={}{0:HH시간 mm분}, TargetNullValue=-}"/>
-                            </TextBlock>
-
+                            <TextBlock Grid.Column="2" Text="{Binding Name}"/>
+                            <TextBlock Grid.Column="3" Text="{Binding Department_Name}"/>
+                            <TextBlock Grid.Column="4" Text="{Binding Rank_Name}"/>
+                            <TextBlock Grid.Column="5" Text="정규직"/>
+                            <TextBlock Grid.Column="6" Text="{Binding Start_Work_At, StringFormat={}{0:tt HH시 mm분}, TargetNullValue=-}"/>
+                            <TextBlock Grid.Column="7" Text="{Binding End_Work_At, StringFormat={}{0:tt HH시 mm분}, TargetNullValue=-}"/>
+                            <TextBlock Grid.Column="8" Text="{Binding Total_Work_Minutes, StringFormat={}{0:HH시간 mm분}, TargetNullValue=-}"/>
                             <TextBlock Grid.Column="9" Text="{Binding Description}" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-
                             <ContentControl Grid.Column="10" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <ContentControl.Template>
                                     <ControlTemplate TargetType="{x:Type ContentControl}">
                                         <Border x:Name="Bor" BorderThickness="2" CornerRadius="14" Width="80" Height="28">
-                                            <TextBlock x:Name="Txt" Text="{Binding Status}" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                       Foreground="White"/>
+                                            <TextBlock x:Name="Txt" Text="{Binding Status}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <DataTrigger Binding="{Binding Status}" Value="정상근무">

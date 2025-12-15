@@ -49,7 +49,7 @@
                             <Border Height="30" BorderThickness="0.5" BorderBrush="Gray" CornerRadius="8" Margin="0,0,10,0">
                                 <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="60"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="100"/>
@@ -58,7 +58,7 @@
                                     <TextBlock Grid.Column="0" Text="{Binding Id}"/>
                                     <TextBlock Grid.Column="1" Text="{Binding Category}"/>
                                     <TextBlock Grid.Column="2" Text="{Binding Message}" TextTrimming="CharacterEllipsis"/>
-                                    <TextBlock Grid.Column="3" Text="{Binding Created_At}"/>
+                                    <TextBlock Grid.Column="3" Text="{Binding Created_At, StringFormat={}{0:yyMMdd HHmmss}}"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -78,46 +78,48 @@
 
             <ItemsControl.Template>
                 <ControlTemplate TargetType="{x:Type ItemsControl}">
-                    <Border BorderBrush="Gray" BorderThickness="0.5" Padding="0,0,0.5,0">
+                    <Border Style="{StaticResource BaseCard}">
                         <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                </Style>
+                            </Grid.Resources>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="240"/>
-                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="140"/>
-                                <ColumnDefinition Width="17"/>
+                                <ColumnDefinition Width="240"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="40"/>
                                 <RowDefinition Height="*"/>
-                                <RowDefinition Height="53"/>
                             </Grid.RowDefinitions>
 
-                            <Label Grid.Column="0" Grid.Row="0" Content="ID" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="1" Grid.Row="0" Content="이름" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="2" Grid.Row="0" Content="Num" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="3" Grid.Row="0" Content="Text" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="4" Grid.Row="0" Content="설명" Style="{StaticResource Lable_Column}"/>
-                            <Label Grid.Column="5" Grid.Row="0" Content="업데이트" Style="{StaticResource Lable_Column}"/>
+                            <Border Grid.Row="0" Grid.ColumnSpan="20" Background="{StaticResource Color_LightGray}" CornerRadius="8,8,0,0"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="ID"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="이름"/>
+                            <TextBlock Grid.Column="2" Grid.Row="0" Text="Num"/>
+                            <TextBlock Grid.Column="3" Grid.Row="0" Text="Text"/>
+                            <TextBlock Grid.Column="4" Grid.Row="0" Text="설명"/>
+                            <TextBlock Grid.Column="5" Grid.Row="0" Text="업데이트"/>
 
                             <!-- 구분선 -->
                             <Line Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="0" VerticalAlignment="Bottom" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
 
-                            <ScrollViewer Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                            <ScrollViewer Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="1" VerticalScrollBarVisibility="Hidden">
                                 <ItemsPresenter/>
                             </ScrollViewer>
-                            <Line Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" X1="0" Y2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
-                            <Line Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" X1="0" Y2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
-                            <Line Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" X1="0" Y2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
-                            <Line Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" X1="0" Y2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
-                            <Line Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Stretch" X1="0" Y2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
-
-                            <!-- 페이지 -->
-                            <Grid Grid.Column="0"  Grid.ColumnSpan="9" Grid.Row="2">
-                                <Line VerticalAlignment="Top" X1="0" X2="100" Stretch="Fill" StrokeThickness="0.5" Stroke="Gray"/>
-                            </Grid>
+                            <Line Grid.Column="0" Style="{StaticResource Line_Vertical}"/>
+                            <Line Grid.Column="1" Style="{StaticResource Line_Vertical}"/>
+                            <Line Grid.Column="2" Style="{StaticResource Line_Vertical}"/>
+                            <Line Grid.Column="3" Style="{StaticResource Line_Vertical}"/>
+                            <Line Grid.Column="4" Style="{StaticResource Line_Vertical}"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -125,38 +127,40 @@
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Gray" BorderThickness="0.5" Height="30" >
-                        <Border.Style>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="Background" Value="White"/>
-                                <Setter Property="TextBlock.Foreground" Value="Black"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="Gray"/>
-                                        <Setter Property="TextBlock.Foreground" Value="White"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
-
-                        <Grid VerticalAlignment="Center">
+                    <Border x:Name="Bor" Height="40" Background="Transparent"
+                            BorderBrush="Transparent" BorderThickness="0.5" CornerRadius="4">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="240"/>
-                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="200"/>
                                 <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="240"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
                             </Grid.ColumnDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="FontSize" Value="13"/>
+                                </Style>
+                            </Grid.Resources>
 
-                            <TextBlock Grid.Column="0" Text="{Binding Id}" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Text="{Binding Name}"         Margin="10,0,0,0"/>
-                            <TextBlock Grid.Column="2" Text="{Binding Value_Number}" Margin="10,0,0,0"/>
-                            <TextBlock Grid.Column="3" Text="{Binding Value_Text}"   Margin="10,0,0,0"/>
-                            <TextBlock Grid.Column="4" Text="{Binding Description}"  Margin="10,0,0,0"/>
-                            <TextBlock Grid.Column="5" Text="{Binding Updated_At, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="0" Text="{Binding Id}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}"         HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Value_Number}" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                            <TextBlock Grid.Column="3" Text="{Binding Value_Text}"   HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                            <TextBlock Grid.Column="4" Text="{Binding Description}"  HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                            <TextBlock Grid.Column="5" Text="{Binding Updated_At, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"/>
+
+                            <Line Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="0" Stroke="{StaticResource Color_Gray2}" StrokeThickness="1" X1="0" X2="2000" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
                         </Grid>
                     </Border>
+                    <DataTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="Blue"/>
+                        </Trigger>
+                    </DataTemplate.Triggers>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

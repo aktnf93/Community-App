@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:community.View_Controls"
              mc:Ignorable="d" 
              Width="160" Height="160">
+
     <Grid>
         <!-- 배경 원 (트랙) 기본색 #E5E7EB -->
         <Ellipse x:Name="Track"

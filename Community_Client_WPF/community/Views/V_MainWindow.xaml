@@ -37,16 +37,13 @@
         <!-- 타이틀 바 -->
         <Grid Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Background="{StaticResource Color_White}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="170"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"   Tag="Title"/>
+                <ColumnDefinition Width="50" Tag="Min"/>
+                <ColumnDefinition Width="50" Tag="Max"/>
+                <ColumnDefinition Width="50" Tag="Close"/>
             </Grid.ColumnDefinitions>
             
-            <Border x:Name="TitleBar" Grid.Column="0" Grid.ColumnSpan="4" PreviewMouseLeftButtonDown="Window_OnMove" MouseLeftButtonDown="Window_OnResize" Background="Transparent"/>
+            <Border x:Name="TitleBar" Grid.Column="0" Grid.ColumnSpan="1" PreviewMouseLeftButtonDown="Window_OnMove" MouseLeftButtonDown="Window_OnResize" Background="Transparent"/>
 
             <StackPanel Orientation="Horizontal" Grid.Column="0">
                 <StackPanel.Resources>
@@ -63,12 +60,10 @@
                 <TextBlock Text="v1.0.18-2025-12-03-11-13" Foreground="#404040"/>
             </StackPanel>
 
-            <!--<TextBlock Grid.Column="1" Text="{Binding CurrentDateTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}, FallbackValue=2025-11-19 14:57:55}" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False"/>
-            <Image Grid.Column="2" Source="{StaticResource Img_Alarm}" Margin="6"/>-->
-            <Button Grid.Column="3" ToolTip="TEST" Click="Button_Click" Template="{StaticResource IconButton}"/>
-            <Button Grid.Column="4" ToolTip="최소화" Click="Window_OnMinimize" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Min}"/>
-            <Button Grid.Column="5" ToolTip="최대화" Click="Window_OnMaximize" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Max}"/>
-            <Button Grid.Column="6" ToolTip="닫기"   Click="Window_OnClose" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Close}"/>
+            <!--<Button Grid.Column="3" ToolTip="TEST" Click="Button_Click" Template="{StaticResource IconButton}"/>-->
+            <Button Grid.Column="1" ToolTip="최소화" Click="Window_OnMinimize" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Min}"/>
+            <Button Grid.Column="2" ToolTip="최대화" Click="Window_OnMaximize" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Max}"/>
+            <Button Grid.Column="3" ToolTip="닫기"   Click="Window_OnClose" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Close}"/>
         </Grid>
 
         <!-- 왼쪽 메뉴 패널 -->
@@ -101,7 +96,9 @@
                 </Grid>-->
 
                 <RadioButton Content="홈"       Tag="{StaticResource Img_Menu_Home}"      Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=1}"/>
-                <RadioButton Content="마이페이지"       Tag="{StaticResource Img_Menu_Home}"      Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=10}"/>
+                <!--<RadioButton Content="마이페이지"       Tag="{StaticResource Img_Menu_Home}"      Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=10}"/>-->
+                <RadioButton Content="일정관리" Tag="{StaticResource Img_Menu_Home}"      Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=11}"/>
+                <RadioButton Content="전자결재" Tag="{StaticResource Img_Menu_Home}"      Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=12}"/>
                 <RadioButton Content="게시판"   Tag="{StaticResource Img_Menu_Post}"     Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=2}"/>
                 <RadioButton Content="채팅방"   Tag="{StaticResource Img_Menu_Chat}"     Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=3}"/>
                 <RadioButton Content="프로젝트" Tag="{StaticResource Img_Menu_Project}"  Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=4}"/>

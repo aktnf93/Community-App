@@ -22,7 +22,7 @@ const schema = {
 };
 
 const tb_system_config = schema.system_config;
-router.post('/config/select', async (req, res, next) => db.post(req, res, next, tb_system_config));
+router.post('/config/select', async (req, res, next) => db.get(req, res, next, tb_system_config));
 // router.post('/config/insert', async (req, res, next) => db.post(req, res, next, tb_system_config));
 router.put('/config/update', async (req, res, next) => db.put(req, res, next, tb_system_config));
 // router.delete('/config/delete', async (req, res, next) => db.delete(req, res, next, tb_system_config));

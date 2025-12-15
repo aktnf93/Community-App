@@ -20,7 +20,7 @@ const checkerSet = (req, res, next) => {
   
   const t_autho_key = req.headers['authorization'];
   if (!t_autho_key || t_autho_key !== 'a620') {
-    logger.error(`[ip=${clientIp}] Unauthorized: ${t_autho_key}`)
+    // logger.error(`[ip=${clientIp}] Unauthorized: ${t_autho_key}`)
     // return res.status(401).end(); // Unauthorized
   }
   

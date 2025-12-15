@@ -20,7 +20,7 @@
 
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="Border" Property="Background" Value="#2189EA"/>
-                <Setter TargetName="ButtonText" Property="TextBlock.Foreground" Value="White"/>
+                <Setter TargetName="ButtonText" Property="TextBlock.Foreground" Value="{StaticResource Color_White}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

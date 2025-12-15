@@ -1,7 +1,6 @@
-﻿using community.Common;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
+using community.Common;
 
 namespace community.Models
 {
@@ -25,6 +24,7 @@ namespace community.Models
         private string status;
         private DateTime? joined_at;
         private DateTime? resigned_at;
+        private string resigned_desc;
         private int? company_id;
         private string company_name;
         private int? department_id;
@@ -155,6 +155,13 @@ namespace community.Models
         {
             get => this.resigned_at;
             set => base.OnPropertyChanged(ref this.resigned_at, value);
+        }
+
+        [DataMember(Name = "resigned_desc")]
+        public string Resigned_Desc
+        {
+            get => this.resigned_desc;
+            set => base.OnPropertyChanged(ref this.resigned_desc, value);
         }
 
         [DataMember(Name = "company_id")]

@@ -5,10 +5,11 @@ using community.Common;
 namespace community.Models
 {
     [DataContract]
-    public class M_Organization_Privileges : Notify
+    public class M_Organization_Privilege : Notify
     {
         private int id;
         private string name;
+        private int auth_level;
         private string auth_post;
         private string auth_chat;
         private string auth_project;
@@ -32,6 +33,13 @@ namespace community.Models
         {
             get => this.name;
             set => base.OnPropertyChanged(ref this.name, value);
+        }
+
+        [DataMember(Name = "auth_level")]
+        public int Auth_Level
+        {
+            get => this.auth_level;
+            set => base.OnPropertyChanged(ref this.auth_level, value);
         }
 
         [DataMember(Name = "auth_post")]

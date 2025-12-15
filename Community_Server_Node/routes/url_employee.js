@@ -1,28 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../services/service_database');
+const pick = require('../utils/pick');
 
 const schema = {
-
-    employee_list: {
-        table: 'v_employees',
-        get: ['id', 'login_id', 'login_pw'],
-        post: [
-            'name', 'description', 'employee_code', 
-            'gender', 'birth_date', 'email', 'phone', 'address', 'image_path', 
-            'status', 'joined_at', 'resigned_at', 
-            'team_id', 'rank_id', 'position_id', 'role_id', 'privilege_id',
-            'login_id', 'login_pw', 'is_active', 'deleted_at'
-        ],
-        put: [
-            'id', 'name', 'description', 'employee_code', 
-            'gender', 'birth_date', 'email', 'phone', 'address', 'image_path', 
-            'status', 'joined_at', 'resigned_at', 
-            'team_id', 'rank_id', 'position_id', 'role_id', 'privilege_id',
-            'login_id', 'login_pw', 'is_active', 'deleted_at'
-        ],
-        delete: ['id']
-    },
 
     employee_leave: {
         table: 'tb_employee_leaves',
@@ -41,15 +22,99 @@ const schema = {
     }
 };
 
-const tb_employee_list = schema.employee_list;
-router.post('/list/select', async (req, res, next) => db.get(req, res, next, tb_employee_list));
 
-const employee_insert = tb_employee_list;
-employee_insert.table = 'tb_employees';
-router.post('/list/insert', async (req, res, next) => db.post(req, res, next, employee_insert));
+router.post('/list/login', async (req, res, next) => {
+    try {
+        const data = pick(req.body, [ 'login_id', 'login_pw' ]);
+        const result = await db.query(req, 'SELECT * FROM v_employees WHERE login_id = ? AND login_pw = ?;', [data.login_id, data.login_pw]);
+        res.locals.dbResult = result;
 
-router.put('/list/update', async (req, res, next) => db.put(req, res, next, tb_employee_list));
-router.delete('/list/delete', async (req, res, next) => db.delete(req, res, next, tb_employee_list));
+        next();
+    } 
+    catch (err) {
+        next(err);
+    }
+});
+
+router.post('/list/select', async (req, res, next) => {
+    try {
+        const data = pick(req.body, [
+            'login_id', 'login_pw', 
+            'company_id', 'department_id', 'team_id', 
+            'id', 'employee_code', 'name'
+        ]);
+
+        db.setCondition(data, 'login_id', '=');
+        db.setCondition(data, 'login_pw', '=');
+        db.setCondition(data, 'company_id', '=');
+        db.setCondition(data, 'department_id', '=');
+        db.setCondition(data, 'team_id', '=');
+        db.setCondition(data, 'id', '=');
+        db.setCondition(data, 'employee_code', 'LIKE');
+        db.setCondition(data, 'name', 'LIKE');
+
+        const result = await db.select_query_operator(req, 'v_employees', data);
+        res.locals.dbResult = result;
+
+        next();
+    } 
+    catch (err) {
+        next(err);
+    }
+});
+router.post('/list/insert', async (req, res, next) => {
+    try {
+        const data = pick(req.body, [
+            'name', 'description', 'employee_code', 'employee_type', 
+            'gender', 'birth_date', 'email', 'phone', 'address', 'image_path', 
+            'status', 'joined_at', 'resigned_at', 'resigned_desc', 
+            'team_id', 'rank_id', 'position_id', 'role_id', 'privilege_id',
+            'login_id', 'login_pw', 'is_active', 'deleted_at'
+        ]);
+
+        if (data.birth_date)
+            data.birth_date = new Date(data.birth_date);
+
+        const result = await db.insert_query(req, 'tb_employees', data);
+        res.locals.dbResult = result;
+        next();
+    } 
+    catch (err) {
+        next(err);
+    }
+});
+router.put('/list/update', async (req, res, next) => {
+    try {
+        const data = pick(req.body, [
+            'id', 'name', 'description', 'employee_code', 'employee_type', 
+            'gender', 'birth_date', 'email', 'phone', 'address', 'image_path', 
+            'status', 'joined_at', 'resigned_at', 'resigned_desc', 
+            'team_id', 'rank_id', 'position_id', 'role_id', 'privilege_id',
+            'login_id', 'login_pw', 'is_active', 'deleted_at'
+        ]);
+
+        if (data.birth_date)
+            data.birth_date = new Date(data.birth_date);
+
+        const result = await db.update_query(req, 'tb_employees', data);
+        res.locals.dbResult = result;
+        next();
+    } 
+    catch (err) {
+        next(err);
+    }
+});
+router.delete('/list/delete', async (req, res, next) => {
+    try {
+        const data = pick(req.body, ['id']);
+        const result = await db.delete_query(req, 'tb_employees', data);
+        res.locals.dbResult = result;
+        next();
+    } 
+    catch (err) {
+        next(err);
+    }
+});
 
 const tb_employee_leave = schema.employee_leave;
 router.post('/leave/select', async (req, res, next) => db.get(req, res, next, tb_employee_leave));
@@ -67,64 +132,24 @@ router.delete('/review/delete', async (req, res, next) => db.delete(req, res, ne
 router.post('/attendance/select', async (req, res, next) => {
     try {
         const data = db.pick(req.body, [ 
-            'select_type', 'select_total', 'date',
-
-            'employee_id',          // 당일 조회, 그 외
-            'created_at',           // 특정 날짜 조회
-            'start_at', 'end_at',   // 날짜 범위 조회
-            'base_at', 'count'      // 기준일부터 N일 이내 조회
+            'select_type', 'date', 'employee_id'
         ]);
+
+        if(!('employee_id' in data)) data.employee_id = null;
 
         switch (data.select_type) {
 
-            case 'today': // 오늘 날짜 조회
+            case 'day_time': // 일간 근무시간 조회
                 {
-                    const sql = 'SELECT * FROM v_employee_attendance a WHERE DATE(a.created_at) = CURDATE() LIMIT 1000;';
-                    const result = await db.query(req, sql, [data.employee_id]);
-                    res.locals.dbResult = result;
+                    const [rows, fields] = await db.query(req, `CALL p_employee_daytime(?, ?);`, [data.date, data.employee_id]);
+                    res.locals.dbResult = rows;
                 }
                 break;
 
-            case 'single': // 개별 조회
+            case 'week_time': // 주간 근무시간 조회
                 {
-                    const sql = 'SELECT * FROM v_employee_attendance a WHERE DATE(a.created_at) = CURDATE() AND a.employee_id = ? LIMIT 1;';
-                    const result = await db.query(req, sql, [data.employee_id]);
-                    res.locals.dbResult = result;
-                }
-                break;
-
-            case 'date':
-                {
-                        // 특정 날짜 집계 조회
-                        const sql = `
-                            SELECT 
-                                e.id AS 'employee_id', e.employee_code, e.name,
-                                e.company_name, e.department_name, e.team_name,
-                                e.rank_name, e.position_name, e.role_name, e.privilege_name,
-                                a.id,
-                                a.start_work_at, a.end_work_at,
-                                SEC_TO_TIME(a.total_work_minutes * 60) AS 'total_work_minutes',
-                                a.description, a.created_at, a.updated_at
-                            FROM v_employees e
-                                LEFT OUTER JOIN tb_employee_attendance a ON 
-                                a.employee_id = e.id AND DATE(a.start_work_at) = DATE(?);
-                        `;
-                        const result = await db.query(req, sql, [data.date]);
-                        res.locals.dbResult = result;
-                }
-                break;
-
-            case 'range':
-                {
-                    // 날짜 범위 조회
-                    // SELECT * FROM v_employee_attendance a WHERE a.created_at BETWEEN ? AND ?;
-                }
-                break;
-
-            case 'days':
-                {
-            // 기준일부터 N일 이내 조회
-            // SELECT * FROM v_employee_attendance a WHERE DATEDIFF(a.created_at, ?) BETWEEN 0 AND ?;
+                    const [rows, fields] = await db.query(req, `CALL p_employee_weektime(?, ?, ?);`, [2400, data.date, data.employee_id]);
+                    res.locals.dbResult = rows;
                 }
                 break;
         }

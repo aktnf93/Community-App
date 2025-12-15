@@ -41,13 +41,13 @@
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <TextBlock Text="검색옵션" FontSize="13" FontWeight="Bold" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="320,0,0,0"/>
-                    <CheckBox Content="전체" IsChecked="True" Margin="20,0,0,0"/>
-                    <CheckBox Content="재직"/>
-                    <CheckBox Content="휴가"/>
-                    <CheckBox Content="정직"/>
-                    <CheckBox Content="퇴직"/>
-                    <CheckBox Content="대기"/>
-                    <CheckBox Content="계약해지"/>
+                    <CheckBox Content="전체"     IsChecked="{Binding ChkSearchAll, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="20,0,0,0"/>
+                    <CheckBox Content="재직"     IsChecked="{Binding ChkSearchIn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="휴가"     IsChecked="{Binding ChkSearchLeave, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="정직"     IsChecked="{Binding ChkSearchStop, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="퇴직"     IsChecked="{Binding ChkSearchOut, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="대기"     IsChecked="{Binding ChkSearchWate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox Content="계약해지" IsChecked="{Binding ChkSearchOutContract, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <Line Grid.Row="0" Stroke="{StaticResource Color_Gray}" StrokeThickness="0.5" X1="0" X2="2000"
@@ -56,11 +56,11 @@
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <TextBlock Text="검색명" FontSize="13" FontWeight="Bold" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="320,0,0,0"/>
 
-                    <ComboBox Width="200" Height="28" Margin="20,0,0,0"/>
+                    <ComboBox Width="200" Height="28" Margin="20,0,0,0" ItemsSource="{Binding CboSearchType}" SelectedValue="{Binding CboSearchTypeSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <TextBox Width="220" Height="28" ToolTip="검색어를 입력해주세요." Margin="20,0,0,0"/>
+                    <TextBox Width="220" Height="28" ToolTip="검색어를 입력해주세요." Margin="20,0,0,0" Text="{Binding TxtSearchValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Button Width="70" Height="28" Content="검색" ToolTip="검색" Margin="20,0,0,0"/>
+                    <Button Width="70" Height="28" Content="검색" ToolTip="검색" Margin="20,0,0,0" Click="{local:MethodBinding BtnEmployeeSearch}"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -111,10 +111,8 @@
 
                             <Border Grid.Row="0" Grid.ColumnSpan="20" Background="{StaticResource Color_LightGray}" CornerRadius="8,8,0,0"/>
                             <TextBlock Grid.Column="0" Grid.Row="0" Text="사원번호"/>
-
                             <TextBlock Grid.Column="1" Grid.Row="0" Text="이미지"/>
                             <TextBlock Grid.Column="2" Grid.Row="0" Text="이름"/>
-
                             <TextBlock Grid.Column="3" Grid.Row="0" Text="직급"/>
                             <TextBlock Grid.Column="4" Grid.Row="0" Text="직책"/>
                             <TextBlock Grid.Column="5" Grid.Row="0" Text="연락처"/>
@@ -139,7 +137,7 @@
             </ItemsControl.Template>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border x:Name="Bor" Height="70" Margin="0,0,0,0" Background="Transparent"
+                    <Border x:Name="Bor" Height="70" Background="Transparent"
                             BorderBrush="Transparent" BorderThickness="0.5" CornerRadius="4" MouseLeftButtonDown="{local:MethodBinding OnSelect}">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -263,13 +261,8 @@
         </ItemsControl>
 
         <!-- 신규 등록 내용 -->
-        <Border Grid.Column="5" Grid.Row="4" Background="{StaticResource Color_White}" CornerRadius="8">
-            <Border.Effect>
-                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="5" Direction="320" Opacity="0.5"/>
-            </Border.Effect>
-
-            <Grid DataContext="{Binding EmployeeSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  ShowGridLines="False" Margin="20,30,20,10">
+        <Border Grid.Column="5" Grid.Row="4" Style="{StaticResource BaseCard}">
+            <Grid ShowGridLines="False" Margin="20,30,20,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="60"/>
@@ -278,6 +271,8 @@
                     <ColumnDefinition Width="140"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
@@ -322,80 +317,129 @@
                     </Style>
                 </Grid.Resources>
 
-                <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="3" 
+                <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" Content="새로 입력하기 (신규 직원)" Width="180" Height="30"
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Click="{local:MethodBinding BtnEmployeeNewEdit}"/>
+
+                <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="3" 
                         Width="80" Height="80" BorderThickness="0" BorderBrush="{StaticResource Color_Gray}" CornerRadius="26"
                         HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">
                     <Border.Background>
-                        <ImageBrush ImageSource="{Binding Image_FullPath}"/>
+                        <ImageBrush ImageSource="{Binding EmployeeSelected.Image_FullPath}"/>
                     </Border.Background>
                 </Border>
 
+                <TextBlock  Grid.Column="2" Grid.Row="1" Text="ID"/>
+                <TextBox    Grid.Column="3" Grid.Row="1" Height="26" IsEnabled="False" Grid.ColumnSpan="2" 
+                            Text="{Binding EmployeeSelected.Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="2" Grid.Row="2" Text="사번"/>
+                <TextBox    Grid.Column="3" Grid.Row="2" Height="26" Grid.ColumnSpan="2" 
+                            Text="{Binding EmployeeSelected.Employee_Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="2" Grid.Row="3" Text="이름"/>
+                <TextBox    Grid.Column="3" Grid.Row="3" Height="26" Grid.ColumnSpan="2" 
+                            Text="{Binding EmployeeSelected.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Column="2" Grid.Row="0" Text="ID"/>
-                <TextBox   Grid.Column="3" Grid.Row="0" Text="{Binding Id}" Height="26" IsEnabled="False" Grid.ColumnSpan="2"/>
-                <TextBlock Grid.Column="2" Grid.Row="1" Text="사번"/>
-                <TextBox   Grid.Column="3" Grid.Row="1" Text="{Binding Employee_Code}" Height="26" Grid.ColumnSpan="2"/>
-                <TextBlock Grid.Column="2" Grid.Row="2" Text="이름"/>
-                <TextBox   Grid.Column="3" Grid.Row="2" Text="{Binding Name}" Height="26" Grid.ColumnSpan="2"/>
+                <TextBlock  Grid.Column="0" Grid.Row="5" Text="성별"/>
+                <ComboBox   Grid.Column="1" Grid.Row="5" Height="26" Grid.ColumnSpan="2" 
+                            ItemsSource="{Binding E_GanderList}" 
+                            SelectedValue="{Binding EmployeeSelected.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="3" Grid.Row="5" Text="생년월일"/>
+                <DatePicker Grid.Column="4" Grid.Row="5" Height="26" 
+                            SelectedDate="{Binding EmployeeSelected.Birth_Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="0" Grid.Row="6" Text="이메일"/>
+                <TextBox    Grid.Column="1" Grid.Row="6" Height="26" Grid.ColumnSpan="4" 
+                            Text="{Binding EmployeeSelected.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="0" Grid.Row="7" Text="핸드폰"/>
+                <TextBox    Grid.Column="1" Grid.Row="7" Height="26" Grid.ColumnSpan="4" 
+                            Text="{Binding EmployeeSelected.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="0" Grid.Row="8" Text="집주소"/>
+                <TextBox    Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="4" 
+                            Text="{Binding EmployeeSelected.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="4" Text="성별"/>
-                <ComboBox  Grid.Column="1" Grid.Row="4" Height="26" Grid.ColumnSpan="2"/>
-                <TextBlock Grid.Column="3" Grid.Row="4" Text="생년월일"/>
-                <DatePicker Grid.Column="4" Grid.Row="4" SelectedDate="{Binding Birth_Date}" Height="26"/>
-                <TextBlock Grid.Column="0" Grid.Row="5" Text="이메일"/>
-                <TextBox   Grid.Column="1" Grid.Row="5" Text="{Binding Email}" Height="26" Grid.ColumnSpan="4"/>
-                <TextBlock Grid.Column="0" Grid.Row="6" Text="핸드폰"/>
-                <TextBox   Grid.Column="1" Grid.Row="6" Text="{Binding Phone}" Height="26" Grid.ColumnSpan="4"/>
-                <TextBlock Grid.Column="0" Grid.Row="7" Text="집주소"/>
-                <TextBox   Grid.Column="1" Grid.Row="7" Text="{Binding Address}" Grid.ColumnSpan="4"/>
+                <TextBlock  Grid.Column="0" Grid.Row="10" Text="회사"/>
+                <ComboBox   Grid.Column="1" Grid.Row="10" Height="26" Grid.ColumnSpan="2" x:Uid="Company"
+                            DisplayMemberPath="Name" SelectedValuePath="Id" 
+                            ItemsSource="{Binding E_CompanyList}" 
+                            SelectedValue="{Binding EmployeeSelected.Company_Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectionChanged="{local:MethodBinding CboGroupSelected}"/>
+                <TextBlock  Grid.Column="0" Grid.Row="11" Text="부서"/>
+                <ComboBox   Grid.Column="1" Grid.Row="11" Height="26" Grid.ColumnSpan="2" x:Uid="Department"
+                            DisplayMemberPath="Name" SelectedValuePath="Id" 
+                            ItemsSource="{Binding E_DepartmentList}"
+                            SelectedValue="{Binding EmployeeSelected.Department_Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectionChanged="{local:MethodBinding CboGroupSelected}"/>
+                <TextBlock  Grid.Column="0" Grid.Row="12" Text="팀"/>
+                <ComboBox   Grid.Column="1" Grid.Row="12" Height="26" Grid.ColumnSpan="2" x:Uid="Team"
+                            DisplayMemberPath="Name" SelectedValuePath="Id" 
+                            ItemsSource="{Binding E_TeamList}"
+                            SelectedValue="{Binding EmployeeSelected.Team_Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectionChanged="{local:MethodBinding CboGroupSelected}"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="9" Text="회사"/>
-                <ComboBox  Grid.Column="1" Grid.Row="9" Height="26" Grid.ColumnSpan="2"/>
-                <TextBlock Grid.Column="0" Grid.Row="10" Text="부서"/>
-                <ComboBox  Grid.Column="1" Grid.Row="10" Height="26" Grid.ColumnSpan="2"/>
-                <TextBlock Grid.Column="0" Grid.Row="11" Text="팀"/>
-                <ComboBox  Grid.Column="1" Grid.Row="11" Height="26" Grid.ColumnSpan="2"/>
+                <TextBlock  Grid.Column="3" Grid.Row="10" Text="직급"/>
+                <ComboBox   Grid.Column="4" Grid.Row="10" Height="26" 
+                            DisplayMemberPath="Name" SelectedValuePath="Id" 
+                            ItemsSource="{Binding E_RankList}"
+                            SelectedValue="{Binding EmployeeSelected.Rank_Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="3" Grid.Row="11" Text="직책"/>
+                <ComboBox   Grid.Column="4" Grid.Row="11" Height="26" 
+                            DisplayMemberPath="Name" SelectedValuePath="Id" 
+                            ItemsSource="{Binding E_PositionList}"
+                            SelectedValue="{Binding EmployeeSelected.Position_Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="3" Grid.Row="12" Text="담당"/>
+                <ComboBox   Grid.Column="4" Grid.Row="12" Height="26" 
+                            DisplayMemberPath="Name" SelectedValuePath="Id" 
+                            ItemsSource="{Binding E_RoleList}"
+                            SelectedValue="{Binding EmployeeSelected.Role_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="3" Grid.Row="13" Text="권한"/>
+                <ComboBox   Grid.Column="4" Grid.Row="13" Height="26" 
+                            DisplayMemberPath="Name" SelectedValuePath="Id" 
+                            ItemsSource="{Binding E_PrivilegesList}"
+                            SelectedValue="{Binding EmployeeSelected.Privilege_id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Column="3" Grid.Row="9" Text="직급"/>
-                <ComboBox  Grid.Column="4" Grid.Row="9" Height="26"/>
-                <TextBlock Grid.Column="3" Grid.Row="10" Text="직책"/>
-                <ComboBox  Grid.Column="4" Grid.Row="10" Height="26"/>
-                <TextBlock Grid.Column="3" Grid.Row="11" Text="담당"/>
-                <ComboBox  Grid.Column="4" Grid.Row="11" Height="26"/>
-                <TextBlock Grid.Column="3" Grid.Row="12" Text="권한"/>
-                <ComboBox  Grid.Column="4" Grid.Row="12" Height="26"/>
+                <TextBlock  Grid.Column="0" Grid.Row="15" Text="상태"/>
+                <ComboBox   Grid.Column="1" Grid.Row="15" Height="26" Grid.ColumnSpan="2" 
+                            ItemsSource="{Binding E_StatusList}"
+                            SelectedValue="{Binding EmployeeSelected.Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="3" Grid.Row="15" Text="계약유형"/>
+                <ComboBox   Grid.Column="4" Grid.Row="15" Height="26" 
+                            ItemsSource="{Binding E_ContractTypeList}"
+                            SelectedValue="{Binding EmployeeSelected.Employee_Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="0" Grid.Row="16" Text="입사일"/>
+                <DatePicker Grid.Column="1" Grid.Row="16" Height="26" Grid.ColumnSpan="2"
+                            SelectedDate="{Binding EmployeeSelected.Joined_At, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="3" Grid.Row="16" Text="퇴사일"/>
+                <DatePicker Grid.Column="4" Grid.Row="16" Height="26" Grid.ColumnSpan="2"
+                            SelectedDate="{Binding EmployeeSelected.Resigned_At, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock  Grid.Column="0" Grid.Row="17" Text="퇴사 사유"/>
+                <TextBox    Grid.Column="1" Grid.Row="17" Height="26" Grid.ColumnSpan="4"
+                            Text="{Binding EmployeeSelected.Resigned_Desc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="14" Text="상태"/>
-                <ComboBox  Grid.Column="1" Grid.Row="14" Height="26" Grid.ColumnSpan="2"/>
-                <TextBlock Grid.Column="3" Grid.Row="14" Text="계약유형"/>
-                <ComboBox  Grid.Column="4" Grid.Row="14" Height="26"/>
-                <TextBlock Grid.Column="0" Grid.Row="15" Text="입사일"/>
-                <DatePicker Grid.Column="1" Grid.Row="15" Height="26" Grid.ColumnSpan="2"/>
-                <TextBlock Grid.Column="3" Grid.Row="15" Text="퇴사일"/>
-                <DatePicker Grid.Column="4" Grid.Row="15" Height="26" Grid.ColumnSpan="2"/>
-                <TextBlock Grid.Column="0" Grid.Row="16" Text="퇴사 사유"/>
-                <TextBox   Grid.Column="1" Grid.Row="16" Height="26" Grid.ColumnSpan="4"/>
+                <TextBlock  Grid.Column="0" Grid.Row="19" Text="비고"/>
+                <TextBox    Grid.Column="1" Grid.Row="19" Height="26" Grid.ColumnSpan="4"
+                            Text="{Binding EmployeeSelected.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Column="0" Grid.Row="18" Text="비고"/>
-                <TextBox   Grid.Column="1" Grid.Row="18" Text="{Binding Description}" Height="26" Grid.ColumnSpan="4"/>
-
-                <TextBlock Grid.Column="0" Grid.Row="20" Text="계정"/>
-                <StackPanel Grid.Column="1" Grid.Row="20" Orientation="Horizontal" Grid.ColumnSpan="4" HorizontalAlignment="Right">
-                    <TextBlock Text="ID" Width="30" TextAlignment="Center" Foreground="Blue"/>
-                    <TextBox Width="130" Height="26"/>
-                    <TextBlock Text="PW" Width="30" TextAlignment="Center" Foreground="Blue"/>
-                    <TextBox Width="130" Height="26"/>
-                </StackPanel>
+                <TextBlock  Grid.Column="0" Grid.Row="21" Text="계정"/>
                 <StackPanel Grid.Column="1" Grid.Row="21" Orientation="Horizontal" Grid.ColumnSpan="4" HorizontalAlignment="Right">
-                    <TextBlock Text="PW 확인" Width="56" TextAlignment="Center" HorizontalAlignment="Right" Foreground="Blue"/>
-                    <TextBox Width="130" Height="26"/>
+                    <TextBlock Text="ID" Width="30" TextAlignment="Center" Foreground="DarkBlue"/>
+                    <TextBox Width="130" Height="26"
+                             Text="{Binding EmployeeSelected.Login_Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="PW" Width="30" TextAlignment="Center" Foreground="DarkBlue"/>
+                    <TextBox Width="130" Height="26"
+                             Text="{Binding EmployeeSelected.Login_Pw, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
-                <TextBlock Grid.Column="0" Grid.Row="21" Text="계정 상태"/>
-                <ComboBox  Grid.Column="1" Grid.Row="21" Height="26" Grid.ColumnSpan="2"/>
-
-                <StackPanel Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="23" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0" Height="30">
-                    <Button Content="저장" Width="140" Margin="0,0,10,0"/>
-                    <Button Content="취소" Width="140" Margin="10,0,0,0"/>
+                <StackPanel Grid.Column="1" Grid.Row="22" Orientation="Horizontal" Grid.ColumnSpan="4" HorizontalAlignment="Right">
+                    <TextBlock Text="PW 확인" Width="56" TextAlignment="Center" HorizontalAlignment="Right" Foreground="DarkBlue"/>
+                    <TextBox Width="130" Height="26"
+                             Text="{Binding EmployeeSelected.Login_Pw_Check, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <TextBlock  Grid.Column="0" Grid.Row="22" Text="계정 상태"/>
+                <ComboBox   Grid.Column="1" Grid.Row="22" Height="26" Grid.ColumnSpan="2" 
+                            ItemsSource="{Binding E_AccountStatusList}"
+                            SelectedValue="{Binding EmployeeSelected.Is_Active, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <StackPanel Grid.Column="0" Grid.Row="24" Grid.ColumnSpan="5" Orientation="Horizontal" HorizontalAlignment="Center" Height="30">
+                    <Button Content="직원 정보 저장" Width="140" Margin="0,0,10,0" Click="{local:MethodBinding BtnEmployeeSave}"/>
+                    
+                    <Button Content="직원 정보 삭제" Width="140" Margin="10,0,0,0" Click="{local:MethodBinding BtnEmployeeDelete}" Background="{StaticResource Color_PointRed}"/>
                 </StackPanel>
             </Grid>
         </Border>

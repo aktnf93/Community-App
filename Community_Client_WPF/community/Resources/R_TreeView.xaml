@@ -14,7 +14,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TreeView}">
-                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
                         <ItemsPresenter/>
                     </ScrollViewer>
                 </ControlTemplate>
@@ -24,8 +24,8 @@
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type TreeViewItem}">
@@ -55,9 +55,14 @@
                                         <Setter TargetName="Image" Property="Source" Value="{StaticResource Img_FolderClose}"/>
                                         <Setter TargetName="Expander" Property="Visibility" Value="Collapsed"/>
                                     </DataTrigger>
-                                    
-                                    <!-- 상위 카테고리 -->
+
+                                    <!-- 전체 카테고리 -->
                                     <DataTrigger Binding="{Binding Parent_Id}" Value="{x:Null}">
+                                        <Setter TargetName="Image" Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+
+                                    <!-- 상위 카테고리 -->
+                                    <DataTrigger Binding="{Binding Parent_Id}" Value="0">
                                         <Setter TargetName="Image" Property="Source" Value="{StaticResource Img_FolderClose}"/>
                                     </DataTrigger>
 
@@ -180,13 +185,13 @@
                                 <Run.Style>
                                     <Style TargetType="{x:Type Run}">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Depth}" Value="0">
+                                            <DataTrigger Binding="{Binding Depth}" Value="1">
                                                 <Setter Property="Text" Value="[회사]"/>
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding Depth}" Value="1">
+                                            <DataTrigger Binding="{Binding Depth}" Value="2">
                                                 <Setter Property="Text" Value="[부서]"/>
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding Depth}" Value="2">
+                                            <DataTrigger Binding="{Binding Depth}" Value="3">
                                                 <Setter Property="Text" Value="[팀]"/>
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -245,13 +250,18 @@
                                         <Setter TargetName="Expander" Property="Visibility" Value="Collapsed"/>
                                     </DataTrigger>
 
-                                    <!-- 회사 -->
+                                    <!-- 전체 -->
                                     <DataTrigger Binding="{Binding Depth}" Value="0">
+                                        <Setter TargetName="Image" Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+
+                                    <!-- 회사 -->
+                                    <DataTrigger Binding="{Binding Depth}" Value="1">
                                         <Setter TargetName="Image" Property="Source" Value="{StaticResource Img_Building}"/>
                                     </DataTrigger>
 
                                     <!-- 부서 -->
-                                    <DataTrigger Binding="{Binding Depth}" Value="1">
+                                    <DataTrigger Binding="{Binding Depth}" Value="2">
                                         <Setter TargetName="Image" Property="Source" Value="{StaticResource Img_FolderClose}"/>
                                         <Setter TargetName="Image" Property="Width" Value="18"/>
                                         <Setter TargetName="Image" Property="Height" Value="18"/>
@@ -259,7 +269,7 @@
                                     </DataTrigger>
 
                                     <!-- 팀 -->
-                                    <DataTrigger Binding="{Binding Depth}" Value="2">
+                                    <DataTrigger Binding="{Binding Depth}" Value="3">
                                         <Setter TargetName="Image" Property="Source" Value="{StaticResource Img_Customer_w}"/>
                                         <Setter TargetName="Image" Property="Width" Value="16"/>
                                         <Setter TargetName="Image" Property="Height" Value="16"/>

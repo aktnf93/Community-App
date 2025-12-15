@@ -14,11 +14,15 @@
     <SolidColorBrush x:Key="Color_ThinBlack2"  Color="#DADADA"/>
     <SolidColorBrush x:Key="Color_Black"       Color="#000000"/>
     <SolidColorBrush x:Key="Color_LightBlue"   Color="#6F93CE"/>
+    <SolidColorBrush x:Key="Color_LightBlue2"  Color="#CDD6E4"/>
     <SolidColorBrush x:Key="Color_Blue"        Color="#384992"/>
     <SolidColorBrush x:Key="Color_Yellow"      Color="#FFFF00"/>
 
+    <SolidColorBrush x:Key="Color_NormalGreen" Color="#5AC601"/>
 
-    <SolidColorBrush x:Key="Color_NormalGreen"      Color="#5AC601"/>
+
+    <SolidColorBrush x:Key="Color_PointBlue"   Color="#3795EC"/>
+    <SolidColorBrush x:Key="Color_PointRed"    Color="#E74C3C"/>
 
     <LinearGradientBrush x:Key="Color_SubMenuBar" StartPoint="0,0" EndPoint="1,0">
         <GradientStop Color="#2189EA" Offset="0.0"/>

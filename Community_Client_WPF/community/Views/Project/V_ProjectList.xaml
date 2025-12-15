@@ -112,6 +112,8 @@
                                 </Style>
                             </Grid.Resources>
 
+                            <Border Grid.Row="0" Grid.ColumnSpan="20" Background="{StaticResource Color_LightGray}" CornerRadius="8,8,0,0"/>
+
                             <ScrollViewer Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="1" VerticalScrollBarVisibility="Hidden">
                                 <ItemsPresenter/>
                             </ScrollViewer>

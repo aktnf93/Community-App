@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace community.View_Controls
 {
@@ -23,7 +14,11 @@ namespace community.View_Controls
         public U_RadialProgressBar()
         {
             InitializeComponent();
-            SizeChanged += (_, __) => UpdateArc();
+
+            SizeChanged += (sender, e) =>
+            {
+                UpdateArc();
+            };
         }
 
         public static readonly DependencyProperty MinimumProperty =
@@ -59,9 +54,22 @@ namespace community.View_Controls
 
         private static void OnPropsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+
+            // var control = (U_RadialProgressBar)d;
+            // 
+            // if (e.Property == ValueProperty)
+            // {
+            //     control.AnimateTo((double)e.NewValue);
+            // }
+            // else
+            // {
+            //     control.UpdateArc();
+            // }
+
             ((U_RadialProgressBar)d).UpdateArc();
         }
 
+        /*
         private void UpdateArc()
         {
             double w = ActualWidth;
@@ -99,6 +107,49 @@ namespace community.View_Controls
             geometry.Figures.Add(figure);
             ProgressArc.Data = geometry;
         }
+        */
+
+        private void UpdateArc()
+        {
+            double w = ActualWidth;
+            double h = ActualHeight;
+            if (w <= 0 || h <= 0) return;
+
+            double radius = Math.Min(w, h) / 2 - StrokeThickness / 2;
+            Point center = new Point(w / 2, h / 2);
+
+            double clamped = Math.Max(Minimum, Math.Min(Value, Maximum));
+            double pct = (clamped - Minimum) / (Maximum - Minimum);
+            double angle = pct * 360.0;
+
+            if (angle >= 360.0)
+            {
+                // 전체 원을 그려줌
+                ProgressArc.Data = new EllipseGeometry(center, radius, radius);
+                return;
+            }
+
+            Point start = PointOnCircle(center, radius, -90);
+            Point end = PointOnCircle(center, radius, -90 + angle);
+
+            bool isLargeArc = angle > 180.0;
+
+            var figure = new PathFigure { StartPoint = start, IsFilled = false, IsClosed = false };
+            var arc = new ArcSegment
+            {
+                Point = end,
+                Size = new Size(radius, radius),
+                IsLargeArc = isLargeArc,
+                SweepDirection = SweepDirection.Clockwise
+            };
+            figure.Segments.Clear();
+            figure.Segments.Add(arc);
+
+            var geometry = new PathGeometry();
+            geometry.Figures.Add(figure);
+            ProgressArc.Data = geometry;
+        }
+
 
         private static Point PointOnCircle(Point center, double radius, double degrees)
         {
@@ -106,6 +157,5 @@ namespace community.View_Controls
             return new Point(center.X + radius * Math.Cos(rad),
                              center.Y + radius * Math.Sin(rad));
         }
-
     }
 }

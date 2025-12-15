@@ -19,7 +19,6 @@ namespace community.Models
 
         private bool isSelected = false;
         private bool isExpanded = true;
-        private string image_path = string.Empty;
 
         [DataMember(Name = "id")]
         public int Id
@@ -83,12 +82,6 @@ namespace community.Models
         {
             get => this.isExpanded;
             set => base.OnPropertyChanged(ref this.isExpanded, value);
-        }
-
-        public string Image_Path
-        {
-            get => this.image_path;
-            set => base.OnPropertyChanged(ref this.image_path, value);
         }
 
         private void BtnCategorySelect()

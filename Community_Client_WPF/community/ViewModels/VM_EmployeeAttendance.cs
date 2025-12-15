@@ -1,77 +1,44 @@
-﻿using community.Common;
-using community.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Documents;
-using System.Xml.Schema;
+using community.Common;
+using community.Models;
 
 namespace community.ViewModels
 {
     public class VM_EmployeeAttendance : ViewModelBase
     {
-        public M_Card[] Cards { get; set; } =
-        {
-            new M_Card(), 
-            new M_Card(), 
-            new M_Card(),
-            new M_Card()
-        };
+        public M_Card[] Cards { get; set; } = { new M_Card(), new M_Card(), new M_Card(), new M_Card() };
 
-        public ObservableCollection<M_TeamTree> TeamTreeList { get; set; }
-            = new ObservableCollection<M_TeamTree>();
+        public ObservableCollection<M_TeamTree> TeamTreeList { get; set; } = new ObservableCollection<M_TeamTree>();
 
         public M_TeamTree TeamTreeSelected { get; set; }
 
-        public ObservableCollection<M_Employee_Attendance> AttendanceList { get; set; }
-            = new ObservableCollection<M_Employee_Attendance>();
+        public ObservableCollection<M_Employee_Attendance> AttendanceList { get; set; } = new ObservableCollection<M_Employee_Attendance>();
 
         private DateTime attendanceToDay;
         public DateTime AttendanceToDay
         {
             get => this.attendanceToDay;
-            set
-            {
-                base.OnPropertyChanged(ref this.attendanceToDay, value);
-
-                // 근태 집계 불러오기
-                // LoadAttendanceTotal("date", "y", this.attendanceToDay);
-
-                // 근태 목록 불러오기
-                LoadAttendanceList("date", "n", this.attendanceToDay);
-            }
+            set => base.OnPropertyChanged(ref this.attendanceToDay, value);
         }
 
-        private void Loaded()
+        private async Task Loaded()
         {
             // 오늘 날짜로 갱신
             this.AttendanceToDay = DateTime.Now;
+            await LoadAttendanceList();
 
             // 소속 불러오기
-            LoadTeam();
+            await LoadTeam();
         }
 
-        private void LoadAttendanceTotal(string select_type, string select_total, DateTime date)
+        private async Task LoadAttendanceList()
         {
-            var req = new { select_type, select_total, date };
-            var result = HTTP_Server.API.HttpSend<DataTable>("/employee/attendance/select", HTTP_Server.Method.POST, req);
-            if (result != null)
-            {
-                Cards[0].Content = string.Format("{0}", result.Rows[0]["total"]);
-                Cards[1].Content = string.Format("{0}", result.Rows[0]["check_in"]);
-                Cards[2].Content = string.Format("{0}", result.Rows[0]["check_out"]);
-            }
-        }
-
-        private void LoadAttendanceList(string select_type, string select_total, DateTime date)
-        {
-            var req = new { select_type, select_total, date };
-            var result = HTTP_Server.API.HttpSend<M_Employee_Attendance[]>("/employee/attendance/select", HTTP_Server.Method.POST, req);
+            var req = new { select_type = "day_time", date = this.AttendanceToDay.ToString("yyyy-MM-dd") };
+            var result = await HTTP_Server.API.HttpSendAsync<M_Employee_Attendance[]>("/employee/attendance/select", HTTP_Server.Method.POST, req);
             this.AttendanceList.Clear();
 
             int totalCount = 0;
@@ -96,16 +63,15 @@ namespace community.ViewModels
                 }
             }
 
-
             Cards[0].Content = totalCount.ToString();
             Cards[1].Content = inCount.ToString();
             Cards[2].Content = outCount.ToString();
             Cards[3].Content = 0.ToString();
         }
 
-        private void LoadTeam()
+        private async Task LoadTeam()
         {
-            var teams = HTTP_Server.API.HttpSend<M_TeamTree[]>("/organization/team/tree");
+            var teams = await HTTP_Server.API.HttpSendAsync<M_TeamTree[]>("/organization/team/tree", HTTP_Server.Method.POST, null);
             this.TeamTreeList.Clear();
             if (teams != null)
             {
@@ -127,7 +93,7 @@ namespace community.ViewModels
 
             foreach (var item in flatList)
             {
-                if (item.Depth == 0)
+                if (item.Depth == 0 || item.Depth == 1)
                     item.IsExpanded = true;
 
                 if (item.Parent_Id == null)
@@ -145,20 +111,28 @@ namespace community.ViewModels
             return rootList;
         }
 
-        private void BtnToDayDown()
+        private async Task BtnToDayDown()
         {
-            if (this.AttendanceToDay != null)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                this.AttendanceToDay = this.AttendanceToDay.AddDays(-1);
-            }
+                if (this.AttendanceToDay != null)
+                {
+                    this.AttendanceToDay = this.AttendanceToDay.AddDays(-1);
+                    await LoadAttendanceList();
+                }
+            });
         }
 
-        private void BtnToDayUp()
+        private async Task BtnToDayUp()
         {
-            if (this.AttendanceToDay != null)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                this.AttendanceToDay = this.AttendanceToDay.AddDays(+1);
-            }
+                if (this.AttendanceToDay != null)
+                {
+                    this.AttendanceToDay = this.AttendanceToDay.AddDays(+1);
+                    await LoadAttendanceList();
+                }
+            });
         }
     }
 }

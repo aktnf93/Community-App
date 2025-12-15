@@ -11,7 +11,7 @@ namespace community.Models
         private int post_id;
         private int employee_id;
         private string employee_name;
-        private string content;
+        private string content = string.Empty;
         private DateTime created_at;
         private DateTime updated_at;
         private DateTime? deleted_at;

@@ -22,16 +22,16 @@
                 <TextBlock Width="30"/>
                 <RadioButton Content="직원 정보 관리" Template="{StaticResource SubMenuButton}" IsChecked="{Binding ChkListView}"/>
                 <RadioButton Content="직원 근태 관리" Template="{StaticResource SubMenuButton}" IsChecked="{Binding ChkAtteendanceView}"/>
-                <RadioButton Content="직원 일정 관리" Template="{StaticResource SubMenuButton}" IsChecked="{Binding ChkScheduleView}"/>
-                <RadioButton Content="직원 휴가 관리" Template="{StaticResource SubMenuButton}" IsChecked="{Binding ChkLeaveView}"/>
-                <RadioButton Content="직원 평가 관리" Template="{StaticResource SubMenuButton}" IsChecked="{Binding ChkReviewView}"/>
+                <!--<RadioButton Content="직원 일정 관리" Template="{StaticResource SubMenuButton}" IsChecked="{Binding ChkScheduleView}"/>-->
+                <!--<RadioButton Content="직원 휴가 관리" Template="{StaticResource SubMenuButton}" IsChecked="{Binding ChkLeaveView}"/>-->
+                <!--<RadioButton Content="직원 평가 관리" Template="{StaticResource SubMenuButton}" IsChecked="{Binding ChkReviewView}"/>-->
             </StackPanel>
         </Border>
 
         <local:V_EmployeeList       Grid.Row="1" Visibility="{Binding ChkListView,        Converter={StaticResource Conv_Visibility_Bool}}"/>
         <local:V_EmployeeAttendance Grid.Row="1" Visibility="{Binding ChkAtteendanceView, Converter={StaticResource Conv_Visibility_Bool}}"/>
-        <local:V_EmployeeSchedule   Grid.Row="1" Visibility="{Binding ChkScheduleView,    Converter={StaticResource Conv_Visibility_Bool}}"/>
+        <!--<local:V_EmployeeSchedule   Grid.Row="1" Visibility="{Binding ChkScheduleView,    Converter={StaticResource Conv_Visibility_Bool}}"/>
         <local:V_EmployeeLeave      Grid.Row="1" Visibility="{Binding ChkLeaveView,       Converter={StaticResource Conv_Visibility_Bool}}"/>
-        <local:V_EmployeeReview     Grid.Row="1" Visibility="{Binding ChkReviewView,      Converter={StaticResource Conv_Visibility_Bool}}"/>
+        <local:V_EmployeeReview     Grid.Row="1" Visibility="{Binding ChkReviewView,      Converter={StaticResource Conv_Visibility_Bool}}"/>-->
     </Grid>
 </UserControl>

@@ -18,7 +18,8 @@ namespace community.Models
         private string title;
         private string content;
         private int view_count;
-        private int comments;
+        private int comment_count;
+        private int? post_level;
         private DateTime? comment_at;
         private DateTime created_at;
         private DateTime updated_at;
@@ -83,11 +84,18 @@ namespace community.Models
             set => base.OnPropertyChanged(ref this.view_count, value);
         }
 
-        [DataMember(Name = "comments")]
-        public int Comments
+        [DataMember(Name = "comment_count")]
+        public int Comment_Count
         {
-            get => this.comments;
-            set => base.OnPropertyChanged(ref this.comments, value);
+            get => this.comment_count;
+            set => base.OnPropertyChanged(ref this.comment_count, value);
+        }
+
+        [DataMember(Name = "post_level")]
+        public int? Post_Level
+        {
+            get => this.post_level;
+            set => base.OnPropertyChanged(ref this.post_level, value);
         }
 
         [DataMember(Name = "comment_at")]

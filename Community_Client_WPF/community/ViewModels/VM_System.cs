@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using community.Common;
@@ -35,8 +35,6 @@ namespace community.ViewModels
         public ObservableCollection<M_System_Log> SystemLogs { get; set; } = new ObservableCollection<M_System_Log>();
         public ObservableCollection<M_System_Config> SystemConfigs { get; set; } = new ObservableCollection<M_System_Config>();
         
-
-
         public ObservableCollection<M_Post_Category> PostCategoryParentList { get; set; } = new ObservableCollection<M_Post_Category>();
         public M_Post_Category _PostCategoryParentSelected = new M_Post_Category();
         public M_Post_Category PostCategoryParentSelected
@@ -78,10 +76,6 @@ namespace community.ViewModels
                 base.OnPropertyChanged(nameof(this.PostCategorySelected));
             }
         }
-
-
-
-
 
         public ObservableCollection<M_Organization_Company> CompanyList { get; set; } = new ObservableCollection<M_Organization_Company>();
         public ObservableCollection<M_Organization_Department> DepartmentList { get; set; } = new ObservableCollection<M_Organization_Department>();
@@ -210,24 +204,24 @@ namespace community.ViewModels
             }
         }
 
-        private void Loaded()
+        private async Task Loaded()
         {
             Console.WriteLine("VM_System Loaded");
 
-            SysTemLogSearch();
-            SystemConfigSearch();
+            await SysTemLogSearch();
+            await SystemConfigSearch();
 
-            PostCategorySearch(0);
+            await PostCategorySearch(0);
 
-            CompanySearch();
-            RankSearch();
-            PositionSearch();
-            RoleSearch();
+            await CompanySearch();
+            await RankSearch();
+            await PositionSearch();
+            await RoleSearch();
         }
 
-        private void SysTemLogSearch()
+        private async Task SysTemLogSearch()
         {
-            var logs = HTTP_Server.API.HttpSend<M_System_Log[]>("/system/log/select");
+            var logs = await HTTP_Server.API.HttpSendAsync<M_System_Log[]>("/system/log/select", HTTP_Server.Method.POST, null);
             this.SystemLogs.Clear();
             if (logs != null)
             {
@@ -237,9 +231,9 @@ namespace community.ViewModels
                 }
             }
         }
-        private void SystemConfigSearch()
+        private async Task SystemConfigSearch()
         {
-            var configs = HTTP_Server.API.HttpSend<M_System_Config[]>("/system/config/select");
+            var configs = await HTTP_Server.API.HttpSendAsync<M_System_Config[]>("/system/config/select", HTTP_Server.Method.POST, null);
             this.SystemConfigs.Clear();
             if (configs != null)
             {
@@ -252,12 +246,12 @@ namespace community.ViewModels
 
 
         // PostCategory
-        private void PostCategorySearch(int parent_id)
+        private async Task PostCategorySearch(int parent_id)
         {
             if (parent_id > 0)
             {
                 var req = new { select_type = "child", parent_id = parent_id };
-                var result = HTTP_Server.API.HttpSend<M_Post_Category[]>("/post/category/select", HTTP_Server.Method.POST, req);
+                var result = await HTTP_Server.API.HttpSendAsync<M_Post_Category[]>("/post/category/select", HTTP_Server.Method.POST, req);
 
                 this.PostCategoryList = new ObservableCollection<M_Post_Category>(result);
                 base.OnPropertyChanged(nameof(this.PostCategoryList));
@@ -265,175 +259,162 @@ namespace community.ViewModels
             else
             {
                 var req = new { select_type = "parent", parent_id = parent_id };
-                var result = HTTP_Server.API.HttpSend<M_Post_Category[]>("/post/category/select", HTTP_Server.Method.POST, req);
+                var result = await HTTP_Server.API.HttpSendAsync<M_Post_Category[]>("/post/category/select", HTTP_Server.Method.POST, req);
 
                 this.PostCategoryParentList = new ObservableCollection<M_Post_Category>(result);
                 base.OnPropertyChanged(nameof(this.PostCategoryParentList));
             }
         }
-        private void PostCategoryAdd(object sender, RoutedEventArgs e)
+        private async Task PostCategoryAdd(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                if (btn.Uid == "parent")
+                if (sender is Button btn)
                 {
-                    var selected = this.PostCategoryParentSelected;
-
-                    if (string.IsNullOrEmpty(selected.Name))
+                    if (btn.Uid == "parent")
                     {
-                        MessageBox.Show("추가할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "상위 카테고리 추가",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        var selected = this.PostCategoryParentSelected;
 
-                        return;
+                        if (string.IsNullOrEmpty(selected.Name))
+                        {
+                            MessageBox.Show("추가할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "상위 카테고리 추가", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        var req = new { selected.Name, selected.Description };
+                        var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/post/category/insert", HTTP_Server.Method.POST, req);
+                        if (result != null && result.InsertId > 0)
+                        {
+                            await PostCategorySearch(0);
+                        }
                     }
-
-                    var req = new { selected.Name, selected.Description };
-                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/insert", HTTP_Server.Method.POST, req);
-                    if (result != null && result.InsertId > 0)
+                    else
                     {
-                        PostCategorySearch(0);
+                        var selected = this.PostCategorySelected;
+
+                        if (selected.Parent_Id is null || selected.Parent_Id == 0)
+                        {
+                            MessageBox.Show("선택된 상위 카테고리가 없습니다.\n상위 카테고리를 선택해주세요.", "하위 카테고리 추가", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        if (string.IsNullOrEmpty(selected.Name))
+                        {
+                            MessageBox.Show("추가할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "하위 카테고리 추가", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        var req = new { selected.Name, selected.Description, selected.Parent_Id };
+                        var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/post/category/insert", HTTP_Server.Method.POST, req);
+                        if (result != null && result.InsertId > 0)
+                        {
+                            await PostCategorySearch(selected.Parent_Id.Value);
+                        }
                     }
                 }
-                else
-                {
-                    var selected = this.PostCategorySelected;
-
-                    if (selected.Parent_Id is null || selected.Parent_Id == 0)
-                    {
-                        MessageBox.Show("선택된 상위 카테고리가 없습니다.\n상위 카테고리를 선택해주세요.", "하위 카테고리 추가",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        return;
-                    }
-
-                    if (string.IsNullOrEmpty(selected.Name))
-                    {
-                        MessageBox.Show("추가할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "하위 카테고리 추가",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        return;
-                    }
-
-                    var req = new { selected.Name, selected.Description, selected.Parent_Id };
-                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/insert", HTTP_Server.Method.POST, req);
-                    if (result != null && result.InsertId > 0)
-                    {
-                        PostCategorySearch(selected.Parent_Id.Value);
-                    }
-                }
-            }
+            });
         }
-        private void PostCategoryEdit(object sender, RoutedEventArgs e)
+        private async Task PostCategoryEdit(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                if (btn.Uid == "parent")
+                if (sender is Button btn)
                 {
-                    var selected = this.PostCategoryParentSelected;
-
-                    if (selected.Id == 0)
+                    if (btn.Uid == "parent")
                     {
-                        MessageBox.Show("수정할 카테고리를 선택해주세요.", "상위 카테고리 수정",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        var selected = this.PostCategoryParentSelected;
 
-                        return;
+                        if (selected.Id == 0)
+                        {
+                            MessageBox.Show("수정할 카테고리를 선택해주세요.", "상위 카테고리 수정", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        if (string.IsNullOrEmpty(selected.Name))
+                        {
+                            MessageBox.Show("수정할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "상위 카테고리 수정", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        var req = new { id = selected.Id, name = selected.Name, description = selected.Description };
+                        var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/update", HTTP_Server.Method.PUT, req);
+                        if (result != null && result.AffectedRows > 0)
+                        {
+                            await PostCategorySearch(0);
+                        }
                     }
-
-                    if (string.IsNullOrEmpty(selected.Name))
+                    else
                     {
-                        MessageBox.Show("수정할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "상위 카테고리 수정",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        var selected = this.PostCategorySelected;
 
-                        return;
-                    }
+                        if (selected.Id == 0)
+                        {
+                            MessageBox.Show("수정할 카테고리를 선택해주세요.", "하위 카테고리 수정", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
 
-                    // var req = new { Id = selected.Id, Name = selected.Name, Description = selected.Description };
+                        if (string.IsNullOrEmpty(selected.Name))
+                        {
+                            MessageBox.Show("수정할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "하위 카테고리 수정", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
 
-                    var req = new { id = selected.Id, name = selected.Name, description = selected.Description };
-                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/update", HTTP_Server.Method.PUT, req);
-                    if (result != null && result.AffectedRows > 0)
-                    {
-                        PostCategorySearch(0);
+                        var req = new { id = selected.Id, name = selected.Name, description = selected.Description };
+                        var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/update", HTTP_Server.Method.PUT, req);
+                        if (result != null && result.AffectedRows > 0)
+                        {
+                            await PostCategorySearch(selected.Parent_Id.Value);
+                        }
                     }
                 }
-                else
-                {
-                    var selected = this.PostCategorySelected;
-
-                    if (selected.Id == 0)
-                    {
-                        MessageBox.Show("수정할 카테고리를 선택해주세요.", "하위 카테고리 수정",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        return;
-                    }
-
-                    if (string.IsNullOrEmpty(selected.Name))
-                    {
-                        MessageBox.Show("수정할 카테고리 이름이 없습니다.\n이름을 입력해주세요.", "하위 카테고리 수정",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        return;
-                    }
-
-                    var req = new { selected.Id, selected.Name, selected.Description };
-                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/update", HTTP_Server.Method.PUT, req);
-                    if (result != null && result.AffectedRows > 0)
-                    {
-                        PostCategorySearch(selected.Parent_Id.Value);
-                    }
-                }
-            }
+            });
         }
-        private void PostCategoryDelete(object sender, RoutedEventArgs e)
+        private async Task PostCategoryDelete(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                if (btn.Uid == "parent")
+                if (sender is Button btn)
                 {
-                    var selected = this.PostCategoryParentSelected;
-
-                    if (selected.Id == 0)
+                    if (btn.Uid == "parent")
                     {
-                        MessageBox.Show("삭제할 카테고리를 선택해주세요.", "상위 카테고리 삭제",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        var selected = this.PostCategoryParentSelected;
+                        if (selected.Id == 0)
+                        {
+                            MessageBox.Show("삭제할 카테고리를 선택해주세요.", "상위 카테고리 삭제", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
 
-                        return;
+                        var req = new { id = selected.Id };
+                        var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/post/category/delete", HTTP_Server.Method.DELETE, req);
+                        if (result != null && result.AffectedRows > 0)
+                        {
+                            await PostCategorySearch(0);
+                        }
                     }
-
-                    var req = new { selected.Id };
-                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/delete", HTTP_Server.Method.DELETE, req);
-                    if (result != null && result.AffectedRows > 0)
+                    else
                     {
-                        PostCategorySearch(0);
+                        var selected = this.PostCategorySelected;
+                        if (selected.Id == 0)
+                        {
+                            MessageBox.Show("삭제할 카테고리를 선택해주세요.", "하위 카테고리 삭제", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        var req = new { id = selected.Id };
+                        var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/post/category/delete", HTTP_Server.Method.DELETE, req);
+                        if (result != null && result.AffectedRows > 0)
+                        {
+                            await PostCategorySearch(selected.Parent_Id.Value);
+                        }
                     }
                 }
-                else
-                {
-                    var selected = this.PostCategorySelected;
-
-                    if (selected.Id == 0)
-                    {
-                        MessageBox.Show("삭제할 카테고리를 선택해주세요.", "하위 카테고리 삭제",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        return;
-                    }
-
-                    var req = new { selected.Id, selected.Name, selected.Description };
-                    var result = HTTP_Server.API.HttpSend<M_DB_Result>("/post/category/delete", HTTP_Server.Method.DELETE, req);
-                    if (result != null && result.AffectedRows > 0)
-                    {
-                        PostCategorySearch(selected.Parent_Id.Value);
-                    }
-                }
-            }
+            });
         }
 
         // Company
-        private void CompanySearch()
+        private async Task CompanySearch()
         {
-            var data = HTTP_Server.API.HttpSend<M_Organization_Company[]>("/organization/company/select", HTTP_Server.Method.POST);
+            var data = await HTTP_Server.API.HttpSendAsync<M_Organization_Company[]>("/organization/company/select", HTTP_Server.Method.POST, null);
             this.CompanyList.Clear();
             this.DepartmentList.Clear();
             this.TeamList.Clear();
@@ -445,184 +426,217 @@ namespace community.ViewModels
                 }
             }
         }
-        private void CompanyAdd()
+        private async Task CompanyAdd()
         {
-            var add = this.CompanySelected;
-            var data = add;
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/company/insert", HTTP_Server.Method.POST, data);
-            if (result != null && result.InsertId > 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                CompanySearch();
-            }
+                var add = this.CompanySelected;
+                var data = add;
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/company/insert", HTTP_Server.Method.POST, data);
+                if (result != null && result.InsertId > 0)
+                {
+                    await CompanySearch();
+                }
+            });
         }
-        private void CompanyEdit()
+        private async Task CompanyEdit()
         {
-            if (this.CompanySelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("수정할 회사를 선택해주세요.", "회사 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.CompanySelected.Id == 0)
+                {
+                    MessageBox.Show("수정할 회사를 선택해주세요.", "회사 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var edit = this.CompanySelected;
-            var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/company/update", HTTP_Server.Method.PUT, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                CompanySearch();
-            }
+                var edit = this.CompanySelected;
+                var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
+                var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/company/update", HTTP_Server.Method.PUT, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await CompanySearch();
+                }
+            });
         }
-        private void CompanyDelete()
+        private async Task CompanyDelete()
         {
-            if (this.CompanySelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("삭제할 회사를 선택해주세요.", "회사 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.CompanySelected.Id == 0)
+                {
+                    MessageBox.Show("삭제할 회사를 선택해주세요.", "회사 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var del = this.CompanySelected;
-            var data = new { id = del.Id };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/company/delete", HTTP_Server.Method.DELETE, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                CompanySearch();
-            }
+                var del = this.CompanySelected;
+                var data = new { id = del.Id };
+                var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/company/delete", HTTP_Server.Method.DELETE, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await CompanySearch();
+                }
+            });
         }
 
         // Department
-        private void DepartmentSearch()
+        private async Task DepartmentSearch()
         {
-            var ser = this.CompanySelected;
-            var data = new { company_id = ser.Id };
-            var result = HTTP_Server.API.HttpSend<M_Organization_Department[]>("/organization/department/select", HTTP_Server.Method.POST, data);
-            this.DepartmentList.Clear();
-            if (result != null)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                foreach (var d in result)
+                var ser = this.CompanySelected;
+                var data = new { company_id = ser.Id };
+                var result = await HTTP_Server.API.HttpSendAsync<M_Organization_Department[]>("/organization/department/select", HTTP_Server.Method.POST, data);
+                this.DepartmentList.Clear();
+                if (result != null)
                 {
-                    this.DepartmentList.Add(d);
+                    foreach (var d in result)
+                    {
+                        this.DepartmentList.Add(d);
+                    }
                 }
-            }
+            });
         }
-        private void DepartmentAdd()
+        private async Task DepartmentAdd()
         {
-            if (this.CompanySelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("부서를 추가할 회사를 선택해주세요.", "부서 추가", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.CompanySelected.Id == 0)
+                {
+                    MessageBox.Show("부서를 추가할 회사를 선택해주세요.", "부서 추가", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var add = this.DepartmentSelected;
-            add.Company_Id = this.CompanySelected.Id;
-            var data = add;
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/department/insert", HTTP_Server.Method.POST, data);
-            if (result != null && result.InsertId > 0)
-            {
-                DepartmentSearch();
-            }
+                var add = this.DepartmentSelected;
+                add.Company_Id = this.CompanySelected.Id;
+                var data = add;
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/department/insert", HTTP_Server.Method.POST, data);
+                if (result != null && result.InsertId > 0)
+                {
+                    await DepartmentSearch();
+                }
+            });
         }
-        private void DepartmentEdit()
+        private async Task DepartmentEdit()
         {
-            if (this.DepartmentSelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("수정할 부서를 선택해주세요.", "부서 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.DepartmentSelected.Id == 0)
+                {
+                    MessageBox.Show("수정할 부서를 선택해주세요.", "부서 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var edit = this.DepartmentSelected;
-            var data = new { id = edit.Id, name = edit.Name, description = edit.Description, company_id = edit.Company_Id };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/department/update", HTTP_Server.Method.PUT, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                DepartmentSearch();
-            }
+                var edit = this.DepartmentSelected;
+                var data = new { id = edit.Id, name = edit.Name, description = edit.Description, company_id = edit.Company_Id };
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/department/update", HTTP_Server.Method.PUT, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await DepartmentSearch();
+                }
+            });
         }
-        private void DepartmentDelete()
+        private async Task DepartmentDelete()
         {
-            if (this.DepartmentSelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("삭제할 부서를 선택해주세요.", "부서 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.DepartmentSelected.Id == 0)
+                {
+                    MessageBox.Show("삭제할 부서를 선택해주세요.", "부서 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var del = this.DepartmentSelected;
-            var data = new { id = del.Id };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/department/delete", HTTP_Server.Method.DELETE, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                DepartmentSearch();
-            }
+                var del = this.DepartmentSelected;
+                var data = new { id = del.Id };
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/department/delete", HTTP_Server.Method.DELETE, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await DepartmentSearch();
+                }
+            });
         }
 
         // Team
-        private void TeamSearch()
+        private async Task TeamSearch()
         {
-            var ser = this.DepartmentSelected;
-            var data = new { department_id = ser.Id };
-            var result = HTTP_Server.API.HttpSend<M_Organization_Team[]>("/organization/team/select", HTTP_Server.Method.POST, data);
-            this.TeamList.Clear();
-            if (result != null)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                foreach (var t in result)
+                var ser = this.DepartmentSelected;
+                var data = new { department_id = ser.Id };
+                var result = await HTTP_Server.API.HttpSendAsync<M_Organization_Team[]>("/organization/team/select", HTTP_Server.Method.POST, data);
+                this.TeamList.Clear();
+                if (result != null)
                 {
-                    this.TeamList.Add(t);
+                    foreach (var t in result)
+                    {
+                        this.TeamList.Add(t);
+                    }
                 }
-            }
+            });
         }
-        private void TeamAdd()
+        private async Task TeamAdd()
         {
-            if (this.DepartmentSelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("부서를 선택해주세요.", "팀 추가", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.DepartmentSelected.Id == 0)
+                {
+                    MessageBox.Show("부서를 선택해주세요.", "팀 추가", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var add = this.TeamSelected;
-            add.Department_Id = this.DepartmentSelected.Id;
-            var data = add;
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/team/insert", HTTP_Server.Method.POST, data);
-            if (result != null && result.InsertId > 0)
-            {
-                TeamSearch();
-            }
+                var add = this.TeamSelected;
+                add.Department_Id = this.DepartmentSelected.Id;
+                var data = add;
+                var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/team/insert", HTTP_Server.Method.POST, data);
+                if (result != null && result.InsertId > 0)
+                {
+                    await TeamSearch();
+                }
+            });
         }
-        private void TeamEdit()
+        private async Task TeamEdit()
         {
-            if (this.TeamSelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("수정할 팀을 선택해주세요.", "팀 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.TeamSelected.Id == 0)
+                {
+                    MessageBox.Show("수정할 팀을 선택해주세요.", "팀 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var edit = this.TeamSelected;
-            var data = new { id = edit.Id, name = edit.Name, description = edit.Description, department_id = edit.Department_Id };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/team/update", HTTP_Server.Method.PUT, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                TeamSearch();
-            }
+                var edit = this.TeamSelected;
+                var data = new { id = edit.Id, name = edit.Name, description = edit.Description, department_id = edit.Department_Id };
+                var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/team/update", HTTP_Server.Method.PUT, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await TeamSearch();
+                }
+            });
         }
-        private void TeamDelete()
+        private async Task TeamDelete()
         {
-            if (this.TeamSelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("삭제할 팀을 선택해주세요.", "팀 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.TeamSelected.Id == 0)
+                {
+                    MessageBox.Show("삭제할 팀을 선택해주세요.", "팀 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var del = this.TeamSelected;
-            var data = new { id = del.Id };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/team/delete", HTTP_Server.Method.DELETE, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                TeamSearch();
-            }
+                var del = this.TeamSelected;
+                var data = new { id = del.Id };
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/team/delete", HTTP_Server.Method.DELETE, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await TeamSearch();
+                }
+            });
         }
 
         // Rank
-        private void RankSearch()
+        private async Task RankSearch()
         {
             var ser = this.RankSelected;
-            var result = HTTP_Server.API.HttpSend<M_Organization_Rank[]>("/organization/rank/select", HTTP_Server.Method.POST);
+            var result = await HTTP_Server.API.HttpSendAsync<M_Organization_Rank[]>("/organization/rank/select", HTTP_Server.Method.POST, null);
             this.RankList.Clear();
             if (result != null)
             {
@@ -632,60 +646,69 @@ namespace community.ViewModels
                 }
             }
         }
-        private void RankAdd()
+        private async Task RankAdd()
         {
-            if (this.RankSelected.Name == string.Empty)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("직급 정보를 입력해주세요.", "직급 추가", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.RankSelected.Name == string.Empty)
+                {
+                    MessageBox.Show("직급 정보를 입력해주세요.", "직급 추가", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var add = this.RankSelected;
-            var data = add;
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/rank/insert", HTTP_Server.Method.POST, data);
-            if (result != null && result.InsertId > 0)
-            {
-                RankSearch();
-            }
+                var add = this.RankSelected;
+                var data = add;
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/rank/insert", HTTP_Server.Method.POST, data);
+                if (result != null && result.InsertId > 0)
+                {
+                    await RankSearch();
+                }
+            });
         }
-        private void RankEdit()
+        private async Task RankEdit()
         {
-            if (this.RankSelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("수정할 직급을 선택해주세요.", "직급 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.RankSelected.Id == 0)
+                {
+                    MessageBox.Show("수정할 직급을 선택해주세요.", "직급 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var edit = this.RankSelected;
-            var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/rank/update", HTTP_Server.Method.PUT, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                RankSearch();
-            }
+                var edit = this.RankSelected;
+                var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/rank/update", HTTP_Server.Method.PUT, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await RankSearch();
+                }
+            });
         }
-        private void RankDelete()
+        private async Task RankDelete()
         {
-            if (this.RankSelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("삭제할 직급을 선택해주세요.", "직급 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.RankSelected.Id == 0)
+                {
+                    MessageBox.Show("삭제할 직급을 선택해주세요.", "직급 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var del = this.RankSelected;
-            var data = new { id = del.Id };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/rank/delete", HTTP_Server.Method.DELETE, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                RankSearch();
-            }
+                var del = this.RankSelected;
+                var data = new { id = del.Id };
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/rank/delete", HTTP_Server.Method.DELETE, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await RankSearch();
+                }
+            });
         }
 
         // Position
-        private void PositionSearch()
+        private async Task PositionSearch()
         {
             var ser = this.PositioSelected;
-            var result = HTTP_Server.API.HttpSend<M_Organization_Position[]>("/organization/position/select", HTTP_Server.Method.POST);
+            var result = await HTTP_Server.API.HttpSendAsync<M_Organization_Position[]>("/organization/position/select", HTTP_Server.Method.POST, null);
             this.PositionList.Clear();
             if (result != null)
             {
@@ -695,60 +718,69 @@ namespace community.ViewModels
                 }
             }
         }
-        private void PositionAdd()
+        private async Task PositionAdd()
         {
-            if (this.PositioSelected.Name == string.Empty)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("직책 정보를 입력해주세요.", "직책 추가", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.PositioSelected.Name == string.Empty)
+                {
+                    MessageBox.Show("직책 정보를 입력해주세요.", "직책 추가", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var add = this.PositioSelected;
-            var data = add;
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/position/insert", HTTP_Server.Method.POST, data);
-            if (result != null && result.InsertId > 0)
-            {
-                PositionSearch();
-            }
+                var add = this.PositioSelected;
+                var data = add;
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/position/insert", HTTP_Server.Method.POST, data);
+                if (result != null && result.InsertId > 0)
+                {
+                    await PositionSearch();
+                }
+            });
         }
-        private void PositionEdit()
+        private async Task PositionEdit()
         {
-            if (this.PositioSelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("수정할 직책을 선택해주세요.", "직책 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.PositioSelected.Id == 0)
+                {
+                    MessageBox.Show("수정할 직책을 선택해주세요.", "직책 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var edit = this.PositioSelected;
-            var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/position/update", HTTP_Server.Method.PUT, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                PositionSearch();
-            }
+                var edit = this.PositioSelected;
+                var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/position/update", HTTP_Server.Method.PUT, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await PositionSearch();
+                }
+            });
         }
-        private void PositionDelete()
+        private async Task PositionDelete()
         {
-            if (this.PositioSelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("삭제할 직책을 선택해주세요.", "직책 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.PositioSelected.Id == 0)
+                {
+                    MessageBox.Show("삭제할 직책을 선택해주세요.", "직책 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var del = this.PositioSelected;
-            var data = new { id = del.Id };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/position/delete", HTTP_Server.Method.DELETE, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                PositionSearch();
-            }
+                var del = this.PositioSelected;
+                var data = new { id = del.Id };
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/position/delete", HTTP_Server.Method.DELETE, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await PositionSearch();
+                }
+            });
         }
 
         // Role
-        private void RoleSearch()
+        private async Task RoleSearch()
         {
             var ser = this.RoleSelected;
-            var result = HTTP_Server.API.HttpSend<M_Organization_Role[]>("/organization/role/select", HTTP_Server.Method.POST);
+            var result = await HTTP_Server.API.HttpSendAsync<M_Organization_Role[]>("/organization/role/select", HTTP_Server.Method.POST, null);
             this.RoleList.Clear();
             if (result != null)
             {
@@ -758,53 +790,62 @@ namespace community.ViewModels
                 }
             }
         }
-        private void RoleAdd()
+        private async Task RoleAdd()
         {
-            if (this.RoleSelected.Name == string.Empty)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("담당 정보를 입력해주세요.", "담당 추가", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.RoleSelected.Name == string.Empty)
+                {
+                    MessageBox.Show("담당 정보를 입력해주세요.", "담당 추가", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var add = this.RoleSelected;
-            var data = add;
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/role/insert", HTTP_Server.Method.POST, data);
-            if (result != null && result.InsertId > 0)
-            {
-                RoleSearch();
-            }
+                var add = this.RoleSelected;
+                var data = add;
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/role/insert", HTTP_Server.Method.POST, data);
+                if (result != null && result.InsertId > 0)
+                {
+                    await RoleSearch();
+                }
+            });
         }
-        private void RoleEdit()
+        private async Task RoleEdit()
         {
-            if (this.RoleSelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("수정할 담당을 선택해주세요.", "담당 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.RoleSelected.Id == 0)
+                {
+                    MessageBox.Show("수정할 담당을 선택해주세요.", "담당 수정", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var edit = this.RoleSelected;
-            var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/role/update", HTTP_Server.Method.PUT, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                RoleSearch();
-            }
+                var edit = this.RoleSelected;
+                var data = new { id = edit.Id, name = edit.Name, description = edit.Description };
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/role/update", HTTP_Server.Method.PUT, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await RoleSearch();
+                }
+            });
         }
-        private void RoleDelete()
+        private async Task RoleDelete()
         {
-            if (this.RoleSelected.Id == 0)
+            await UiAction.Instance.ExecuteAsync(async () =>
             {
-                MessageBox.Show("삭제할 담당을 선택해주세요.", "담당 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                if (this.RoleSelected.Id == 0)
+                {
+                    MessageBox.Show("삭제할 담당을 선택해주세요.", "담당 삭제", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            var del = this.RoleSelected;
-            var data = new { id = del.Id };
-            var result = HTTP_Server.API.HttpSend<M_DB_Result>("/organization/role/delete", HTTP_Server.Method.DELETE, data);
-            if (result != null && result.AffectedRows > 0)
-            {
-                RoleSearch();
-            }
+                var del = this.RoleSelected;
+                var data = new { id = del.Id };
+                var result = await HTTP_Server.API.HttpSendAsync<M_DB_Result>("/organization/role/delete", HTTP_Server.Method.DELETE, data);
+                if (result != null && result.AffectedRows > 0)
+                {
+                    await RoleSearch();
+                }
+            });
         }
     }
 }

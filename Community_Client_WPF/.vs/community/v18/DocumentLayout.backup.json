@@ -3,44 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\viewmodels\\vm_login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\viewmodels\\vm_postdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_postdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\viewmodels\\vm_system.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_system.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\viewmodels\\vm_home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\common\\http_server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\common\\http_server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\views\\v_home.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_home.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\v_employee.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_employee.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\viewmodels\\vm_mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\v_systempost.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_systempost.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\views\\post\\v_postlist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\post\\v_postlist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\v_systemlist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_systemlist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\viewmodels\\vm_post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\v_systememployee.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_systememployee.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\models\\post\\m_post_category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\models\\post\\m_post_category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\v_chatlist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_chatlist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\views\\v_postdetail.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_postdetail.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\v_employeeattendance.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_employeeattendance.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\resources\\r_colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\resources\\r_colors.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\v_chat.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\v_chat.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\viewmodels\\vm_employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -49,131 +49,125 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 2477,
-          "SelectedChildIndex": 0,
+          "DockedWidth": 1824,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "VM_Login.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Login.cs",
-              "RelativeDocumentMoniker": "community\\ViewModels\\VM_Login.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Login.cs",
-              "RelativeToolTip": "community\\ViewModels\\VM_Login.cs",
-              "ViewState": "AgIAAEoAAAAAAAAAAAAswAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "VM_MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_MainViewModel.cs",
+              "RelativeDocumentMoniker": "community\\ViewModels\\VM_MainViewModel.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_MainViewModel.cs",
+              "RelativeToolTip": "community\\ViewModels\\VM_MainViewModel.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAiwHoAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-05T05:25:37.764Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-12T08:31:21.898Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "HTTP_Server.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Common\\HTTP_Server.cs",
-              "RelativeDocumentMoniker": "community\\Common\\HTTP_Server.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Common\\HTTP_Server.cs",
-              "RelativeToolTip": "community\\Common\\HTTP_Server.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAuwFoAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-05T05:11:59.327Z",
-              "EditorCaption": ""
+              "Title": "V_Home.xaml",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_Home.xaml",
+              "RelativeDocumentMoniker": "community\\Views\\V_Home.xaml",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_Home.xaml",
+              "RelativeToolTip": "community\\Views\\V_Home.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-12T07:20:47.826Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "VM_System.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_System.cs",
-              "RelativeDocumentMoniker": "community\\ViewModels\\VM_System.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_System.cs",
-              "RelativeToolTip": "community\\ViewModels\\VM_System.cs",
-              "ViewState": "AgIAAEgBAAAAAAAAAAAUwFMBAAAVAAAAAAAAAA==",
+              "Title": "VM_Home.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Home.cs",
+              "RelativeDocumentMoniker": "community\\ViewModels\\VM_Home.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Home.cs",
+              "RelativeToolTip": "community\\ViewModels\\VM_Home.cs",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAgwL4AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-05T05:11:19.079Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-12T06:56:53.874Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "V_SystemList.xaml",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_SystemList.xaml",
-              "RelativeDocumentMoniker": "community\\Views\\V_SystemList.xaml",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_SystemList.xaml",
-              "RelativeToolTip": "community\\Views\\V_SystemList.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-05T05:07:08.004Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "V_SystemPost.xaml",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_SystemPost.xaml",
-              "RelativeDocumentMoniker": "community\\Views\\V_SystemPost.xaml",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_SystemPost.xaml",
-              "RelativeToolTip": "community\\Views\\V_SystemPost.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-05T05:06:30.294Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "V_Employee.xaml",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_Employee.xaml",
-              "RelativeDocumentMoniker": "community\\Views\\V_Employee.xaml",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_Employee.xaml",
-              "RelativeToolTip": "community\\Views\\V_Employee.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-05T05:01:03.024Z",
-              "EditorCaption": ""
+              "DocumentIndex": 6,
+              "Title": "M_Post_Category.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\Post\\M_Post_Category.cs",
+              "RelativeDocumentMoniker": "community\\Models\\Post\\M_Post_Category.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\Post\\M_Post_Category.cs",
+              "RelativeToolTip": "community\\Models\\Post\\M_Post_Category.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB4AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T05:51:25.399Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "V_EmployeeAttendance.xaml",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_EmployeeAttendance.xaml",
-              "RelativeDocumentMoniker": "community\\Views\\V_EmployeeAttendance.xaml",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_EmployeeAttendance.xaml",
-              "RelativeToolTip": "community\\Views\\V_EmployeeAttendance.xaml",
+              "Title": "R_Colors.xaml",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Resources\\R_Colors.xaml",
+              "RelativeDocumentMoniker": "community\\Resources\\R_Colors.xaml",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Resources\\R_Colors.xaml",
+              "RelativeToolTip": "community\\Resources\\R_Colors.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-05T04:59:15.027Z",
+              "WhenOpened": "2025-12-12T06:51:23.782Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "VM_PostDetail.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_PostDetail.cs",
+              "RelativeDocumentMoniker": "community\\ViewModels\\VM_PostDetail.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_PostDetail.cs",
+              "RelativeToolTip": "community\\ViewModels\\VM_PostDetail.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T01:34:45.912Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "V_ChatList.xaml",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_ChatList.xaml",
-              "RelativeDocumentMoniker": "community\\Views\\V_ChatList.xaml",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_ChatList.xaml",
-              "RelativeToolTip": "community\\Views\\V_ChatList.xaml",
+              "Title": "V_PostDetail.xaml",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_PostDetail.xaml",
+              "RelativeDocumentMoniker": "community\\Views\\V_PostDetail.xaml",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_PostDetail.xaml",
+              "RelativeToolTip": "community\\Views\\V_PostDetail.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-05T04:56:47.465Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-12T02:58:05.47Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "V_Chat.xaml",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_Chat.xaml",
-              "RelativeDocumentMoniker": "community\\Views\\V_Chat.xaml",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_Chat.xaml",
-              "RelativeToolTip": "community\\Views\\V_Chat.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-05T04:56:22.075Z",
-              "EditorCaption": ""
+              "Title": "VM_Employee.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Employee.cs",
+              "RelativeDocumentMoniker": "community\\ViewModels\\VM_Employee.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Employee.cs",
+              "RelativeToolTip": "community\\ViewModels\\VM_Employee.cs",
+              "ViewState": "AgIAAAYBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T05:25:54.862Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "V_SystemEmployee.xaml",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_SystemEmployee.xaml",
-              "RelativeDocumentMoniker": "community\\Views\\V_SystemEmployee.xaml",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\V_SystemEmployee.xaml",
-              "RelativeToolTip": "community\\Views\\V_SystemEmployee.xaml",
+              "DocumentIndex": 4,
+              "Title": "V_PostList.xaml",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Post\\V_PostList.xaml",
+              "RelativeDocumentMoniker": "community\\Views\\Post\\V_PostList.xaml",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Post\\V_PostList.xaml",
+              "RelativeToolTip": "community\\Views\\Post\\V_PostList.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-04T14:06:01.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T11:17:21.25Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "VM_Post.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Post.cs",
+              "RelativeDocumentMoniker": "community\\ViewModels\\VM_Post.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Post.cs",
+              "RelativeToolTip": "community\\ViewModels\\VM_Post.cs",
+              "ViewState": "AgIAALkAAAAAAAAAAAAwwOEAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-12T01:32:40.808Z"
             }
           ]
         }

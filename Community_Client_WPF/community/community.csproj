@@ -112,10 +112,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\GlobalData.cs" />
+    <Compile Include="Common\Singleton.cs" />
+    <Compile Include="Common\UiAction.cs" />
     <Compile Include="Common\Utility.cs" />
     <Compile Include="Common\Handlers.cs" />
     <Compile Include="Common\Scoket_IO_Client.cs" />
     <Compile Include="Models\Employee\M_Employee_Attendance.cs" />
+    <Compile Include="Models\Employee\M_Employee_WeekTime.cs" />
     <Compile Include="Models\M_Card.cs" />
     <Compile Include="Models\Chat\M_Chat_Message.cs" />
     <Compile Include="Models\Chat\M_Chat_Member.cs" />
@@ -130,7 +134,7 @@
     <Compile Include="Models\Organization\M_Organization_Department.cs" />
     <Compile Include="Models\Organization\M_Organization_Location.cs" />
     <Compile Include="Models\Organization\M_Organization_Position.cs" />
-    <Compile Include="Models\Organization\M_Organization_Privileges.cs" />
+    <Compile Include="Models\Organization\M_Organization_Privilege.cs" />
     <Compile Include="Models\Organization\M_Organization_Rank.cs" />
     <Compile Include="Models\Organization\M_Organization_Role.cs" />
     <Compile Include="Models\Organization\M_Organization_Team.cs" />
@@ -147,53 +151,63 @@
     <Compile Include="Models\M_TreeItem.cs" />
     <Compile Include="ViewModels\VM_EmployeeAttendance.cs" />
     <Compile Include="ViewModels\VM_Home.cs" />
+    <Compile Include="ViewModels\VM_PostDetail.cs" />
     <Compile Include="ViewModels\VM_ProjectDetail.cs" />
     <Compile Include="ViewModels\VM_Test.cs" />
     <Compile Include="Views\MethodBinding.cs" />
     <Compile Include="Common\Notify.cs" />
-    <Compile Include="Views\V_ChatList.xaml.cs">
+    <Compile Include="Views\Chat\V_ChatList.xaml.cs">
       <DependentUpon>V_ChatList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_EmployeeAttendance.xaml.cs">
+    <Compile Include="Views\Employee\V_EmployeeAttendance.xaml.cs">
       <DependentUpon>V_EmployeeAttendance.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_EmployeeLeave.xaml.cs">
+    <Compile Include="Views\Employee\V_EmployeeLeave.xaml.cs">
       <DependentUpon>V_EmployeeLeave.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_EmployeeList.xaml.cs">
+    <Compile Include="Views\Employee\V_EmployeeList.xaml.cs">
       <DependentUpon>V_EmployeeList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_EmployeeReview.xaml.cs">
+    <Compile Include="Views\Employee\V_EmployeeReview.xaml.cs">
       <DependentUpon>V_EmployeeReview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_EmployeeSchedule.xaml.cs">
+    <Compile Include="Views\Employee\V_EmployeeSchedule.xaml.cs">
       <DependentUpon>V_EmployeeSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\V_Home.xaml.cs">
       <DependentUpon>V_Home.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_PostList.xaml.cs">
+    <Compile Include="Views\Post\V_PostList.xaml.cs">
       <DependentUpon>V_PostList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_ProjectDetail.xaml.cs">
+    <Compile Include="Views\Project\V_ProjectDetail.xaml.cs">
       <DependentUpon>V_ProjectDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_ProjectList.xaml.cs">
+    <Compile Include="Views\Project\V_ProjectList.xaml.cs">
       <DependentUpon>V_ProjectList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_SystemEmployee.xaml.cs">
+    <Compile Include="Views\Schedule\V_Schedule.xaml.cs">
+      <DependentUpon>V_Schedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Schedule\V_ScheduleCalendar.xaml.cs">
+      <DependentUpon>V_ScheduleCalendar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\System\V_SystemEmployee.xaml.cs">
       <DependentUpon>V_SystemEmployee.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_SystemList.xaml.cs">
+    <Compile Include="Views\System\V_SystemList.xaml.cs">
       <DependentUpon>V_SystemList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_SystemPost.xaml.cs">
+    <Compile Include="Views\System\V_SystemPost.xaml.cs">
       <DependentUpon>V_SystemPost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\V_PostDetail.xaml.cs">
+      <DependentUpon>V_PostDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\V_Test.xaml.cs">
       <DependentUpon>V_Test.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_CustomerList.xaml.cs">
+    <Compile Include="Views\Customer\V_CustomerList.xaml.cs">
       <DependentUpon>V_CustomerList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View_Controls\PasswordBoxHelper.cs" />
@@ -221,28 +235,28 @@
     <Compile Include="ViewModels\VM_Post.cs" />
     <Compile Include="ViewModels\VM_System.cs" />
     <Compile Include="ViewModels\VM_Project.cs" />
-    <Compile Include="Views\V_Post.xaml.cs">
+    <Compile Include="Views\Post\V_Post.xaml.cs">
       <DependentUpon>V_Post.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_Chat.xaml.cs">
+    <Compile Include="Views\Chat\V_Chat.xaml.cs">
       <DependentUpon>V_Chat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_Customer.xaml.cs">
+    <Compile Include="Views\Customer\V_Customer.xaml.cs">
       <DependentUpon>V_Customer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_Employee.xaml.cs">
+    <Compile Include="Views\Employee\V_Employee.xaml.cs">
       <DependentUpon>V_Employee.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_Product.xaml.cs">
+    <Compile Include="Views\Product\V_Product.xaml.cs">
       <DependentUpon>V_Product.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\V_Login.xaml.cs">
       <DependentUpon>V_Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_Project.xaml.cs">
+    <Compile Include="Views\Project\V_Project.xaml.cs">
       <DependentUpon>V_Project.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_System.xaml.cs">
+    <Compile Include="Views\System\V_System.xaml.cs">
       <DependentUpon>V_System.xaml</DependentUpon>
     </Compile>
     <Compile Include="View_Controls\U_AudioPlayer.xaml.cs">
@@ -312,31 +326,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_ChatList.xaml">
+    <Page Include="Views\Chat\V_ChatList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_Customer.xaml">
+    <Page Include="Views\Customer\V_Customer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_EmployeeAttendance.xaml">
+    <Page Include="Views\Employee\V_EmployeeAttendance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_EmployeeLeave.xaml">
+    <Page Include="Views\Employee\V_EmployeeLeave.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_EmployeeList.xaml">
+    <Page Include="Views\Employee\V_EmployeeList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_EmployeeReview.xaml">
+    <Page Include="Views\Employee\V_EmployeeReview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_EmployeeSchedule.xaml">
+    <Page Include="Views\Employee\V_EmployeeSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -356,23 +370,23 @@
       <DependentUpon>V_MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\V_Post.xaml">
+    <Page Include="Views\Post\V_Post.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_Chat.xaml">
+    <Page Include="Views\Chat\V_Chat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_Employee.xaml">
+    <Page Include="Views\Employee\V_Employee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_PostList.xaml">
+    <Page Include="Views\Post\V_PostList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_Product.xaml">
+    <Page Include="Views\Product\V_Product.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -380,31 +394,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_Project.xaml">
+    <Page Include="Views\Project\V_Project.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_ProjectDetail.xaml">
+    <Page Include="Views\Project\V_ProjectDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_ProjectList.xaml">
+    <Page Include="Views\Project\V_ProjectList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_System.xaml">
+    <Page Include="Views\Schedule\V_Schedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_SystemEmployee.xaml">
+    <Page Include="Views\Schedule\V_ScheduleCalendar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_SystemList.xaml">
+    <Page Include="Views\System\V_System.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_SystemPost.xaml">
+    <Page Include="Views\System\V_SystemEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\System\V_SystemList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\System\V_SystemPost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\V_PostDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -412,7 +438,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_CustomerList.xaml">
+    <Page Include="Views\Customer\V_CustomerList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

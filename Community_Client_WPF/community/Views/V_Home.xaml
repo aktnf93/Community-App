@@ -72,7 +72,7 @@
                         </TextBlock>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,0,0" DataContext="{Binding CurrentUserAttendance}">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,60,0,0" DataContext="{Binding CurrentUserDayTime}">
                         <TextBlock Grid.Row="0" FontSize="14">
                                 <Run Text="출근시간  " Foreground="{StaticResource Color_Gray}"/>
                                 <Run Text="{Binding Start_Work_At, StringFormat={}{0:tt HH:mm:ss}, TargetNullValue=-- --:--:--, FallbackValue=-- --:--:--}"/>
@@ -93,7 +93,7 @@
                                     </Setter.Value>
                                 </Setter>
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding CurrentUserAttendance.End_Work_At}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding CurrentUserDayTime.End_Work_At}" Value="{x:Null}">
                                         <Setter Property="Content">
                                             <Setter.Value>
                                                 <Button Content="퇴근하기" Click="{local:MethodBinding BtnCheckOut}"/>
@@ -101,7 +101,7 @@
                                         </Setter>
                                     </DataTrigger>
 
-                                    <DataTrigger Binding="{Binding CurrentUserAttendance.Start_Work_At}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding CurrentUserDayTime.Start_Work_At}" Value="{x:Null}">
                                         <Setter Property="Content">
                                             <Setter.Value>
                                                 <Button Content="출근하기" Click="{local:MethodBinding BtnCheckIn}"/>
@@ -116,40 +116,40 @@
                     <Line Stroke="{StaticResource Color_Gray}" StrokeThickness="1" X1="0" X2="500" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
                 </Grid>
 
-                <Grid Grid.Row="1" Margin="0,30,0,0">
+                <Grid Grid.Row="1" Margin="0,30,0,0" DataContext="{Binding CurrentUserWeekTime}">
                     <TextBlock Text="주간 근무현황" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinBlack}"/>
                     
                     <u:U_RadialProgressBar Width="260" Height="260" 
-                                           Minimum="0" Maximum="100" Value="9"
+                                           Minimum="0" Maximum="40" Value="{Binding Overtime_Minutes.TotalHours, Mode=OneWay, StringFormat={}{0:F1}}"
                                            StrokeThickness="16" ProgressBrush="#8044FB" ProgressBackground="Transparent"
                                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     
                     <u:U_RadialProgressBar Width="220" Height="220" 
-                                           Minimum="0" Maximum="100" Value="65" 
+                                           Minimum="0" Maximum="40" Value="{Binding Base_Minutes.TotalHours, Mode=OneWay, StringFormat={}{0:F1}}" 
                                            StrokeThickness="25" ProgressBrush="#3B82F6" ProgressBackground="#E5E7EB"
                                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,90,290,0">
                         <Run Text="잔여 근무" FontSize="16"/>
                         <LineBreak/>
-                        <Run Text="12" FontSize="16" Foreground="#3B82F6"/>
+                        <Run Text="{Binding Remaining_Minutes.TotalHours, Mode=OneWay, StringFormat={}{0:F1}}" FontSize="16" Foreground="#3B82F6"/>
                         <Run Text="시간" FontSize="14" Foreground="{StaticResource Color_Gray}"/>
                     </TextBlock>
 
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,20,0,0">
                         <Run Text="연장 근무" FontSize="16"/>
                         <LineBreak/>
-                        <Run Text="2" FontSize="16" Foreground="#8044FB"/>
+                        <Run Text="{Binding Overtime_Minutes.TotalHours, Mode=OneWay, StringFormat={}{0:F1}}" FontSize="16" Foreground="#8044FB"/>
                         <Run Text="시간" FontSize="14" Foreground="{StaticResource Color_Gray}"/>
                         <Run Text="/" FontSize="16" Foreground="{StaticResource Color_Gray}"/>
-                        <Run Text="20" FontSize="16" Foreground="{StaticResource Color_Gray}"/>
+                        <Run Text="40" FontSize="16" Foreground="{StaticResource Color_Gray}"/>
                         <Run Text="시간" FontSize="14" Foreground="{StaticResource Color_Gray}"/>
                     </TextBlock>
 
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Run Text="기본 근무" FontSize="20"/>
                         <LineBreak/>
-                        <Run Text="40" FontSize="30" Foreground="#3B82F6"/>
+                        <Run Text="{Binding Base_Minutes.TotalHours, Mode=OneWay, StringFormat={}{0:F1}}" FontSize="30" Foreground="#3B82F6"/>
                         <Run Text="시간" FontSize="14" Foreground="{StaticResource Color_Gray}"/>
                     </TextBlock>
 
@@ -157,10 +157,10 @@
                         <Border CornerRadius="18" Margin="0,0,10,0">
                             <TextBlock Text="총 근무시간" FontSize="20" VerticalAlignment="Center"/>
                         </Border>
-                        
-                        <TextBlock Text="42" FontSize="30"/>
+
+                        <TextBlock Text="{Binding Total_Minutes.TotalHours, Mode=OneWay, StringFormat={}{0:F1}}" FontSize="30"/>
                         <TextBlock Text="시간" FontSize="14" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                        <TextBlock Text="0" FontSize="30"/>
+                        <TextBlock Text="{Binding Total_Minutes.Minutes, Mode=OneWay, StringFormat={}{0:F0}}" FontSize="30"/>
                         <TextBlock Text="분" FontSize="14" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
@@ -168,6 +168,7 @@
             </Grid>
         </Border>
 
+        <!-- 공지사항, 최근 게시물 -->
         <Grid Grid.Column="2" Height="390" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -183,8 +184,14 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Text="공지사항" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinBlack}"/>
+                    
+                    <Border Grid.Row="0" HorizontalAlignment="Right" x:Uid="notice" MouseLeftButtonDown="{local:MethodBinding BtnGoPostMenu}"
+                            Background="Transparent" Cursor="Hand">
+                        <TextBlock  Text="더보기" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinGray2}"
+                                    IsHitTestVisible="False"/>
+                    </Border>
 
-                    <ItemsControl Grid.Row="1">
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding NoticePosts}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel Orientation="Vertical"/>
@@ -195,7 +202,7 @@
                                 <Grid Height="46" TextBlock.FontSize="14">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" Tag="Bar"/>
-                                        <ColumnDefinition Width="100" Tag="PostType"/>
+                                        <ColumnDefinition Width="120" Tag="PostType"/>
                                         <ColumnDefinition Width="*" Tag="PostTitle"/>
                                         <ColumnDefinition Width="100" Tag="PostDate"/>
                                         <ColumnDefinition Width="30" Tag="PostView"/>
@@ -214,16 +221,6 @@
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemsSource>
-                            <x:Array Type="{x:Type m:M_Post}">
-                                <m:M_Post Title="연말회식 공지 12월 마지막 주" Post_Category_Name="공지사항" Created_At="2021-02-25"/>
-                                <m:M_Post Title="COVID-19 방역지침 안내합니다." Post_Category_Name="방역지침" Created_At="2021-02-25"/>
-                                <m:M_Post Title="2026년 영업본부 신규 입사자 OJT 및 연수기간 안내" Post_Category_Name="업무협조" Created_At="2021-02-25"/>
-                                <m:M_Post Title="2025-12-13 시스템 점검 안내" Post_Category_Name="점검" Created_At="2021-02-25"/>
-                                <m:M_Post Title="프로젝트 운영 규칙 안내" Post_Category_Name="운영지침" Created_At="2021-02-25"/>
-                                <m:M_Post Title="프로젝트 운영 규칙 안내" Post_Category_Name="운영지침" Created_At="2021-02-25"/>
-                            </x:Array>
-                        </ItemsControl.ItemsSource>
                     </ItemsControl>
                 </Grid>
             </Border>
@@ -236,8 +233,14 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Text="최근게시물" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinBlack}"/>
+                    
+                    <Border Grid.Row="0" HorizontalAlignment="Right" MouseLeftButtonDown="{local:MethodBinding BtnGoPostMenu}"
+                            Background="Transparent" Cursor="Hand">
+                        <TextBlock  Text="더보기" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinGray2}"
+                                    IsHitTestVisible="False"/>
+                    </Border>
 
-                    <ItemsControl Grid.Row="1">
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding RecentPosts}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel Orientation="Vertical"/>
@@ -248,14 +251,14 @@
                                 <Grid Height="46" TextBlock.FontSize="14">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" Tag="Bar"/>
-                                        <ColumnDefinition Width="100" Tag="PostType"/>
+                                        <ColumnDefinition Width="120" Tag="PostType"/>
                                         <ColumnDefinition Width="*" Tag="PostTitle"/>
                                         <ColumnDefinition Width="100" Tag="PostDate"/>
                                         <ColumnDefinition Width="30" Tag="PostView"/>
                                     </Grid.ColumnDefinitions>
 
                                     <Border    Grid.Column="0" Background="Transparent" Width="3" Margin="0,2,0,2"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding Post_Category_Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Post_Category_Name}" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="WordEllipsis"/>
                                     <TextBlock Grid.Column="2" Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Center" TextTrimming="WordEllipsis" Margin="10,0,0,0"/>
                                     <TextBlock Grid.Column="3" Text="{Binding Created_At, StringFormat={}{0:yyyy-MM-dd}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     <Border    Grid.Column="4" Background="{StaticResource Color_Transparent}" Cursor="Hand" Margin="6">
@@ -265,21 +268,12 @@
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemsSource>
-                            <x:Array Type="{x:Type m:M_Post}">
-                                <m:M_Post Title="디자이너 연말 회식 모집" Post_Category_Name="디자인팀" Created_At="2021-02-25"/>
-                                <m:M_Post Title="주말 동호회 모집합니다" Post_Category_Name="동호회" Created_At="2021-02-25"/>
-                                <m:M_Post Title="휴게시설 건의사항" Post_Category_Name="시설 게시판" Created_At="2021-02-25"/>
-                                <m:M_Post Title="시스템 건의사항" Post_Category_Name="시스템 건의" Created_At="2021-02-25"/>
-                                <m:M_Post Title="고객사 업무 지원 건의합니다 ^^" Post_Category_Name="고객지원" Created_At="2021-02-25"/>
-                                <m:M_Post Title="고객사 업무 지원 건의합니다 ^^" Post_Category_Name="고객지원" Created_At="2021-02-25"/>
-                            </x:Array>
-                        </ItemsControl.ItemsSource>
                     </ItemsControl>
                 </Grid>
             </Border>
         </Grid>
 
+        <!-- 프로젝트, 캘린더 -->
         <Grid Grid.Column="2" Height="530" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -344,13 +338,7 @@
 
             <Border Grid.Column="4" Style="{StaticResource BaseCard}">
                 <Grid Margin="20,30,20,30">
-                    <Calendar Style="{StaticResource CalendarStyle}"
-                              CalendarButtonStyle="{StaticResource HeaderButtonStyle}"
-                              CalendarDayButtonStyle="{StaticResource DayButtonStyle}"
-                              SelectionMode="SingleDate"
-                              VerticalAlignment="Center"/>
-
-                    <!--<Calendar SelectionMode="SingleDate" Style="{StaticResource CalendarStyle}"/>-->
+                    <Calendar Style="{StaticResource CalendarStyle}" SelectionMode="SingleDate" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
         </Grid>

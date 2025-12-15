@@ -1,4 +1,5 @@
-﻿using System;
+﻿using community.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Timers;
@@ -57,11 +58,24 @@ namespace community.ViewModels
             set => base.OnPropertyChanged(ref _CurrentDateTime, value);
         }
 
+
+        private bool is_start = false;
+
         public VM_MainViewModel()
         {
+            
+
+            this.MenuSelected = 0; // 프로그램 초기 실행 시 Login 화면으로.
+
             var login = this.viewModels[0] as VM_Login;
-            login.LoginEvent += (loginUser) =>
+            login.LoginEvent += async (loginUser) =>
             {
+                if (!is_start)
+                {
+                    is_start = true;
+                    await GD.Instance.LoadBaseCode();
+                }
+
                 CurrentUser = loginUser;
 
                 foreach (var vm in viewModels)
@@ -72,7 +86,31 @@ namespace community.ViewModels
                 MenuSelected = 1; // 로그인 시 Home 화면으로.
             };
 
-            this.MenuSelected = 0; // 프로그램 초기 실행 시 Login 화면으로.
+            var home = this.viewModels[1] as VM_Home;
+            home.OnQuickView += (index) =>
+            {
+                var post = this.viewModels[2] as VM_Post;
+
+                if (index == 0)
+                {
+                    this.MenuSelected = 1;
+                    
+                    if (post.CategoryList.Count > 0)
+                    {
+                        post.CategoryList[0].IsSelected = true;
+                    }
+                }
+                else
+                {
+                    this.MenuSelected = 1;
+
+                    if (post.CategoryList.Count > 1)
+                    {
+                        post.CategoryList[1].IsSelected = true;
+                    }
+                }
+            };
+
 
             Timer t = new Timer(1000);
             t.Elapsed += (sender, e) =>
@@ -81,9 +119,12 @@ namespace community.ViewModels
                 {
                     App.Current.Dispatcher.Invoke(() =>
                     {
-                        var home = this.viewModels[1] as VM_Home;
-                        home.CurrentAt = DateTime.Now;
+                        var h = this.viewModels[1] as VM_Home;
+                        h.CurrentAt = DateTime.Now;
                     });
+
+                    // 기초코드 로드
+                    // 
                 }
             };
             t.Start();

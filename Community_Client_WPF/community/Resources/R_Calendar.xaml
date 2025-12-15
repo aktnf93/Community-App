@@ -188,6 +188,9 @@
 
     <!-- 캘린더 스타일 -->
     <Style x:Key="CalendarStyle" TargetType="{x:Type Calendar}">
+        <Setter Property="CalendarButtonStyle" Value="{StaticResource HeaderButtonStyle}"/>
+        <Setter Property="CalendarDayButtonStyle" Value="{StaticResource DayButtonStyle}"/>
+        <Setter Property="SelectionMode" Value="SingleDate"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Calendar}">

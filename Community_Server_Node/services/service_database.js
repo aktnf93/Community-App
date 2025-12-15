@@ -57,6 +57,60 @@ const query = async (req, sql, params = []) => {
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * *
+const setCondition = (data, field, operator = '=') => {
+
+    if (field in data) {
+        const value = data[field];
+        const op = operator.toUpperCase();
+
+        if (value === null) {
+            // null 검색 → IS NULL
+            // data[field] = { operator: 'IS NULL', value: null, isRaw: true };
+
+            delete data[field];
+        } 
+        else if (value.toString().trim() === '') {
+            // 빈 문자열 검색 → = ''
+            // data[field] = { operator: '=', value: '' };
+
+            delete data[field];
+        } 
+        else {
+            switch (op) {
+                case 'LIKE':
+                    data[field] = { operator: op, value: `%${value}%` };
+                    break;
+                default:
+                    data[field] = { operator: op, value };
+                    break;
+            }
+        }
+    }
+};
+
+const select_query_operator = async (req, table, conditions = {}, columns = ['*']) => {
+    
+    const selectColumns = columns.join(', ');
+
+    const whereKeys = Object.keys(conditions);
+
+    const whereClause = (whereKeys.length > 0) ? 'WHERE ' + whereKeys.map(key => {
+        const cond = conditions[key];
+        if (cond.isRaw) {
+            return `${key} ${cond.operator}`; // ex) "employee_code IS NULL"
+        }
+        return `${key} ${cond.operator} ?`;
+    }).join(' AND ') : '';
+
+    const sqlValues = whereKeys
+        .filter(key => !conditions[key].isRaw)
+        .map(key => conditions[key].value);
+
+    const sql = `SELECT ${selectColumns} FROM ${table} ${whereClause} LIMIT 1000;`;
+    const result = await query(req, sql, sqlValues);
+    return result;
+};
+
 
 /**
  * SELECT 쿼리를 동적으로 생성하는 함수 ( SELECT * FROM Table WHERE id = 1 AND name = 'A' LIMIT 1000; )
@@ -65,16 +119,13 @@ const query = async (req, sql, params = []) => {
  * @param {string[]} columns - 조회할 컬럼 목록 (기본값: ['*'])
  */
 const select_query = async (req, table, conditions = {}, columns = ['*']) => {
-    // ******************************************
+
     const selectColumns = columns.join(', ');
     const whereKeys = Object.keys(conditions);
-    const whereClause = whereKeys.length > 0
-        ? 'WHERE ' + whereKeys.map(key => `${key} = ?`).join(' AND ')
-        : '';
+    const whereClause = (whereKeys.length > 0) ? 'WHERE ' + whereKeys.map(key => `${key} = ?`).join(' AND ') : '';
     const sqlValues = whereKeys.map(key => conditions[key]);
 
     const sql = `SELECT ${selectColumns} FROM ${table} ${whereClause} LIMIT 1000;`;
-    // ******************************************
 
     const result = await query(req, sql, sqlValues);
     return result;
@@ -209,5 +260,12 @@ module.exports = {
     get: route_get,
     post: route_post, 
     put: route_put,
-    delete: route_delete
+    delete: route_delete, 
+
+    setCondition, 
+    select_query_operator, 
+    select_query, 
+    insert_query, 
+    update_query, 
+    delete_query
 };

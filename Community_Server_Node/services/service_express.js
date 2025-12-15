@@ -163,6 +163,10 @@ app.use((err, req, res, next) => {
       case 'ECONNREFUSED':
         res.status(409).json({ error: 'DB 연결 실패 오류입니다.' }); 
         break;
+
+      case 'ER_TRUNCATED_WRONG_VALUE':
+        res.status(500).json({ error: '서버 내부 오류입니다.' });
+        break;
     
       default:
         res.status(500).json({ error: '서버 내부 오류입니다.' });

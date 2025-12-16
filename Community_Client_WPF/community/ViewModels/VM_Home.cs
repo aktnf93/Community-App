@@ -186,22 +186,31 @@ namespace community.ViewModels
             await ProfileLoad();
         }
 
-        private async Task BtnGoPostMenu(object sender, RoutedEvent e)
+        /// <summary>
+        /// 공지사항 더보기
+        /// </summary>
+        /// <returns></returns>
+        private async Task BtnGoNoticePosts()
         {
-            var bor = sender as Border;
-            if (bor is null)
-            {
-                MessageBox.Show("[1113] 게시글 더보기 오류");
-            }
+            this.OnQuickView?.Invoke(0);
+        }
 
-            if (bor.Uid == "notice")
-            {
-                this.OnQuickView?.Invoke(0);
-            }
-            else
-            {
-                this.OnQuickView?.Invoke(1);
-            }
+        /// <summary>
+        /// 최근 게시물 더보기
+        /// </summary>
+        /// <returns></returns>
+        private async Task BtnGoRecentPosts()
+        {
+            this.OnQuickView?.Invoke(1);
+        }
+
+        /// <summary>
+        /// 최근 프로젝트 더보기
+        /// </summary>
+        /// <returns></returns>
+        private async Task BtnGoProjects()
+        {
+            this.OnQuickView?.Invoke(2);
         }
     }
 }

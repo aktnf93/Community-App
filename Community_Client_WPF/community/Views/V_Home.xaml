@@ -176,19 +176,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" Style="{StaticResource BaseCard}">
-                <Grid Margin="30,40,30,20">
+            <Border Grid.Column="0" Style="{StaticResource BaseCard}" Padding="30,40,30,20">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Text="공지사항" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinBlack}"/>
-                    
-                    <Border Grid.Row="0" HorizontalAlignment="Right" x:Uid="notice" MouseLeftButtonDown="{local:MethodBinding BtnGoPostMenu}"
-                            Background="Transparent" Cursor="Hand">
-                        <TextBlock  Text="더보기" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinGray2}"
-                                    IsHitTestVisible="False"/>
+
+                    <Border Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Cursor="Hand" MouseLeftButtonDown="{local:MethodBinding BtnGoNoticePosts}">
+                        <TextBlock  Text="더보기" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinGray2}" IsHitTestVisible="False"/>
                     </Border>
 
                     <ItemsControl Grid.Row="1" ItemsSource="{Binding NoticePosts}">
@@ -225,19 +223,17 @@
                 </Grid>
             </Border>
 
-            <Border Grid.Column="2" Style="{StaticResource BaseCard}">
-                <Grid Margin="30,40,30,20">
+            <Border Grid.Column="2" Style="{StaticResource BaseCard}" Padding="30,40,30,20">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Text="최근게시물" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinBlack}"/>
-                    
-                    <Border Grid.Row="0" HorizontalAlignment="Right" MouseLeftButtonDown="{local:MethodBinding BtnGoPostMenu}"
-                            Background="Transparent" Cursor="Hand">
-                        <TextBlock  Text="더보기" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinGray2}"
-                                    IsHitTestVisible="False"/>
+
+                    <Border Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Cursor="Hand" MouseLeftButtonDown="{local:MethodBinding BtnGoRecentPosts}">
+                        <TextBlock  Text="더보기" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinGray2}" IsHitTestVisible="False"/>
                     </Border>
 
                     <ItemsControl Grid.Row="1" ItemsSource="{Binding RecentPosts}">
@@ -283,14 +279,18 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource BaseCard}">
-                <Grid Margin="30,40,30,40">
+            <Border Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource BaseCard}" Padding="30,40,30,20">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Text="프로젝트" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinBlack}"/>
+
+                    <Border Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" Cursor="Hand" MouseLeftButtonDown="{local:MethodBinding BtnGoProjects}">
+                        <TextBlock  Text="더보기" FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_ThinGray2}" IsHitTestVisible="False"/>
+                    </Border>
 
                     <ItemsControl Grid.Row="1" ItemsSource="{Binding ProjectList}">
                         <ItemsControl.ItemsPanel>
@@ -336,8 +336,8 @@
                 </Grid>
             </Border>
 
-            <Border Grid.Column="4" Style="{StaticResource BaseCard}">
-                <Grid Margin="20,30,20,30">
+            <Border Grid.Column="4" Style="{StaticResource BaseCard}" Padding="30,40,30,20">
+                <Grid>
                     <Calendar Style="{StaticResource CalendarStyle}" SelectionMode="SingleDate" VerticalAlignment="Center"/>
                 </Grid>
             </Border>

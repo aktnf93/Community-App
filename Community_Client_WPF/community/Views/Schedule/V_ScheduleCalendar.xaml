@@ -28,19 +28,15 @@
 
         <!-- 타이틀 -->
         <Grid Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="0" TextBlock.FontFamily="고도 M">
-            <TextBlock Text="종합 일정" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+            <TextBlock Text="일정관리" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         </Grid>
 
-        <Border Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Style="{StaticResource BaseCard}">
+        <Border Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource BaseCard}">
 
         </Border>
 
-        <Border Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="4" Style="{StaticResource BaseCard}">
-
-        </Border>
-
-        <Border Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="4" Style="{StaticResource BaseCard}">
-            <Calendar Style="{StaticResource CalendarStyle}"/>
+        <Border Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource BaseCard}">
+            <Calendar Style="{StaticResource CalendarManager}"/>
         </Border>
     </Grid>
 </UserControl>

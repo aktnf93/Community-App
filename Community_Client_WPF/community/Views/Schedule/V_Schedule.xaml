@@ -18,7 +18,7 @@
         <Border Grid.Row="0" TextBlock.FontFamily="고도 M" Background="{StaticResource Color_SubMenuBar}">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Width="30"/>
-                <RadioButton x:Name="RadSystem"   Content="종합 일정표"     Template="{StaticResource SubMenuButton}" IsChecked="True"/>
+                <RadioButton x:Name="RadSystem"   Content="일정관리"     Template="{StaticResource SubMenuButton}" IsChecked="True"/>
             </StackPanel>
 
         </Border>

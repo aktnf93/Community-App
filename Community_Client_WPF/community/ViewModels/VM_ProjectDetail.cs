@@ -285,11 +285,16 @@ namespace community.ViewModels
                     }).ToArray()
                 };
                 
-                var db_result = HTTP_Server.API.HttpSend<object>("/project/list/insert", data: project_box);
+                var db_result = HTTP_Server.API.HttpSend<M_DB_Result>("/project/list/insert", data: project_box);
 
-                if (db_result != null)
+                if (db_result != null && db_result.InsertId > 0)
                 {
                     this.OnClose?.Invoke();
+                }
+                else
+                {
+                    MessageBox.Show("프로젝트 생성에 실패하였습니다.", "프로젝트 생성 실패",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

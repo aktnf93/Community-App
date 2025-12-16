@@ -20,7 +20,8 @@ namespace community.ViewModels
             { 6, new VM_Product() }, // 제품 관리
             { 7, new VM_Employee() }, // 직원 관리
             { 8, new VM_System() }, // 시스템
-            { 9, new VM_Test() }    // TEST
+            { 9, new VM_Test() },    // TEST
+            { 11, new VM_Schedule() }
         };
 
         private ViewModelBase currentViewModel = null;
@@ -51,16 +52,6 @@ namespace community.ViewModels
             }
         }
 
-        public DateTime _CurrentDateTime;
-        public DateTime CurrentDateTime
-        {
-            get => this._CurrentDateTime;
-            set => base.OnPropertyChanged(ref _CurrentDateTime, value);
-        }
-
-
-        private bool is_start = false;
-
         public VM_MainViewModel()
         {
             
@@ -70,11 +61,7 @@ namespace community.ViewModels
             var login = this.viewModels[0] as VM_Login;
             login.LoginEvent += async (loginUser) =>
             {
-                if (!is_start)
-                {
-                    is_start = true;
-                    await GD.Instance.LoadBaseCode();
-                }
+                await GD.Instance.LoadBaseCode();
 
                 CurrentUser = loginUser;
 
@@ -89,25 +76,18 @@ namespace community.ViewModels
             var home = this.viewModels[1] as VM_Home;
             home.OnQuickView += (index) =>
             {
-                var post = this.viewModels[2] as VM_Post;
-
-                if (index == 0)
+                switch (index)
                 {
-                    this.MenuSelected = 1;
-                    
-                    if (post.CategoryList.Count > 0)
-                    {
-                        post.CategoryList[0].IsSelected = true;
-                    }
-                }
-                else
-                {
-                    this.MenuSelected = 1;
+                    default:
+                    case 0: // 게시글
+                        var post_vm = this.viewModels[2] as VM_Post;
+                        this.MenuSelected = 2;
+                        break;
 
-                    if (post.CategoryList.Count > 1)
-                    {
-                        post.CategoryList[1].IsSelected = true;
-                    }
+                    case 2: // 프로젝트
+                        this.MenuSelected = 4;
+                        break;
+
                 }
             };
 
@@ -117,14 +97,13 @@ namespace community.ViewModels
             {
                 if (App.Current != null)
                 {
+                    var current_home = this.viewModels[1] as VM_Home;
+
                     App.Current.Dispatcher.Invoke(() =>
                     {
-                        var h = this.viewModels[1] as VM_Home;
-                        h.CurrentAt = DateTime.Now;
+                        if (currentViewModel is VM_Home)
+                            current_home.CurrentAt = DateTime.Now;
                     });
-
-                    // 기초코드 로드
-                    // 
                 }
             };
             t.Start();

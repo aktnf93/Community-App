@@ -130,6 +130,7 @@
     <Compile Include="Models\Employee\M_Employee_Review.cs" />
     <Compile Include="Models\M_HomePorts.cs" />
     <Compile Include="Models\M_ListItem.cs" />
+    <Compile Include="Models\M_Schedule.cs" />
     <Compile Include="Models\Organization\M_Organization_Company.cs" />
     <Compile Include="Models\Organization\M_Organization_Department.cs" />
     <Compile Include="Models\Organization\M_Organization_Location.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="ViewModels\VM_Home.cs" />
     <Compile Include="ViewModels\VM_PostDetail.cs" />
     <Compile Include="ViewModels\VM_ProjectDetail.cs" />
+    <Compile Include="ViewModels\VM_Schedule.cs" />
     <Compile Include="ViewModels\VM_Test.cs" />
     <Compile Include="Views\MethodBinding.cs" />
     <Compile Include="Common\Notify.cs" />
@@ -625,6 +627,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icons\icon_2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Schedule\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

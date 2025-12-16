@@ -33,4 +33,7 @@
     <DataTemplate DataType="{x:Type vm:VM_Test}">
         <v:V_Test/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VM_Schedule}">
+        <v:V_Schedule/>
+    </DataTemplate>
 </ResourceDictionary>

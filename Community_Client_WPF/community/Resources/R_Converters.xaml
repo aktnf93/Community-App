@@ -6,4 +6,5 @@
     <cnv:Converter_Bool_Enum x:Key="Converter_Bool_Enum"/>
     <cnv:Converter_Bool_Int  x:Key="Converter_Bool_Int"/>
     <cnv:Converter_Visibility_Bool  x:Key="Conv_Visibility_Bool"/>
+    <cnv:Converter_DateToSchedules  x:Key="Conv_Date_Schedules"/>
 </ResourceDictionary>

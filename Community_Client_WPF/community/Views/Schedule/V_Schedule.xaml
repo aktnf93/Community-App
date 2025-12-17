@@ -22,6 +22,6 @@
             </StackPanel>
 
         </Border>
-            <local:V_ScheduleCalendar Grid.Row="1"/>
+        <local:V_ScheduleCalendar Grid.Row="1"/>
     </Grid>
 </UserControl>

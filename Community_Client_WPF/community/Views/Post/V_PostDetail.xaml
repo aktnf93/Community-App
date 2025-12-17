@@ -70,8 +70,8 @@
             </Grid>
         </Border>
 
-        <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="0,1,0,0">
-            <Grid Margin="10,6,10,0">
+        <Border Grid.Row="1" BorderBrush="{StaticResource Color_Gray}" BorderThickness="0,1,0,0" Padding="10,6,10,0">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" Tag="작성자"/>
                     <ColumnDefinition Width="Auto" Tag="댓글"/>
@@ -110,7 +110,6 @@
             </Grid.ColumnDefinitions>
 
             <!-- 본문 -->
-
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -122,7 +121,6 @@
             </Grid>
 
             <!-- 댓글 -->
-
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -130,7 +128,7 @@
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
-                <ItemsControl Grid.Row="0" ItemsSource="{Binding PostEdit.CommentList}" BorderBrush="Gray" BorderThickness="0.5">
+                <ItemsControl Grid.Row="0" ItemsSource="{Binding PostEdit.CommentList}" BorderBrush="{StaticResource Color_Gray}" BorderThickness="0.5">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel Orientation="Vertical"/>

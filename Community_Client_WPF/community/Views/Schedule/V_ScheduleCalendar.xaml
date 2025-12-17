@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:community.Views"
+             xmlns:vm="clr-namespace:community.ViewModels"
+             xmlns:u="clr-namespace:community.View_Controls"
+             xmlns:m="clr-namespace:community.Models"
              mc:Ignorable="d" 
              Width="1810" Height="950"
              Background="{StaticResource Color_WhiteGray}">
+    <UserControl.DataContext>
+        <vm:VM_Schedule/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"  Tag="여백"/>
@@ -32,11 +38,351 @@
         </Grid>
 
         <Border Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource BaseCard}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
+                <ItemsControl>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="{x:Type ItemsControl}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Text="이번 달 일정" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <Button    Grid.Row="0" Content="추가" Width="60" Height="26" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+                                <ScrollViewer Grid.Row="1">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </Grid>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="30">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0">
+                                <Run Text="{Binding Start_At, StringFormat={}{0:dd}}"/>
+                                <Run Text="{Binding End_At, StringFormat={}~{0:dd} 일}"/>
+                                </TextBlock>
+                                <TextBlock Grid.Column="1" Text="{Binding Title}"/>
+
+                                <Grid Grid.Column="2">
+                                    <ComboBox />
+
+                                    <Border IsHitTestVisible="False" Background="White">
+                                        <TextBlock Text="색상" IsHitTestVisible="False"/>
+                                    </Border>
+                                </Grid>
+
+                                <Border Grid.Column="3" Cursor="Hand">
+                                    <TextBlock Text="X" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                    <ItemsControl.ItemsSource>
+                        <x:Array Type="{x:Type m:M_Schedule}">
+                            <m:M_Schedule Title="송년회1" Start_At="2025-12-17" End_At="2025-12-20"/>
+                            <m:M_Schedule Title="송년회2"/>
+                        </x:Array>
+                    </ItemsControl.ItemsSource>
+                </ItemsControl>
+            </Grid>
         </Border>
 
         <Border Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource BaseCard}">
-            <Calendar Style="{StaticResource CalendarManager}"/>
+            <Calendar Margin="8">
+                <Calendar.Style>
+                    
+                    <!-- 캘린더 스타일 -->
+                    <Style TargetType="{x:Type Calendar}">
+                        <Setter Property="SelectionMode" Value="SingleDate"/>
+
+                        <!-- 월/연도 버튼 스타일 -->
+                        <Setter Property="CalendarButtonStyle">
+                            <Setter.Value>
+                                <Style TargetType="{x:Type CalendarButton}">
+                                    <Setter Property="Foreground" Value="#1673D3"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type CalendarButton}">
+                                                <Border x:Name="Root" Background="Transparent" Margin="0">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="Root" Property="Background" Value="#F3F4F6"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+
+                        <!-- 일 버튼 스타일 -->
+                        <Setter Property="CalendarDayButtonStyle">
+                            <Setter.Value>
+                                <Style TargetType="{x:Type CalendarDayButton}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type CalendarDayButton}">
+                                                <Border x:Name="Root" Background="{StaticResource Color_Transparent}" BorderBrush="{StaticResource Color_Gray}" BorderThickness="0.5" Padding="2">
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <!-- 날짜 표시 -->
+                                                        <ContentPresenter Grid.Row="0" TextBlock.FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                                        <!--<TextBlock Text="{Binding}" FontSize="14" FontWeight="Bold" Foreground="Blue"/>-->
+                                                        <TextBlock x:Name="TxtToDay" Grid.Row="0" TextBlock.FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,0,0,0" Text="오늘" Visibility="Collapsed"/>
+
+                                                        <!-- 일정 목록 표시 -->
+                                                        <ItemsControl Grid.Row="1">
+                                                            <ItemsControl.ItemsSource>
+                                                                <MultiBinding Converter="{StaticResource Conv_Date_Schedules}">
+                                                                    <!-- ViewModel의 전체 일정 컬렉션 -->
+                                                                    <Binding RelativeSource="{RelativeSource AncestorType=Calendar}" Path="DataContext.Schedules"/>
+                                                                    <!-- 현재 DayButton의 날짜 (DataContext) -->
+                                                                    <Binding/>
+                                                                </MultiBinding>
+                                                            </ItemsControl.ItemsSource>
+
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <Border Height="20" Background="LightBlue" Margin="0,0,0,2" CornerRadius="8">
+                                                                        <TextBlock Text="{Binding Title}" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                                                                    </Border>
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                        </ItemsControl>
+                                                    </Grid>
+                                                </Border>
+
+                                                <ControlTemplate.Triggers>
+                                                    <!-- 일요일 -->
+                                                    <DataTrigger Binding="{Binding DayOfWeek}" Value="Sunday">
+                                                        <Setter Property="Foreground" Value="{StaticResource Color_PointRed}"/>
+                                                    </DataTrigger>
+
+                                                    <!-- 토요일 -->
+                                                    <DataTrigger Binding="{Binding DayOfWeek}" Value="Saturday">
+                                                        <Setter Property="Foreground" Value="{StaticResource Color_PointBlue}"/>
+                                                    </DataTrigger>
+
+                                                    <!-- 마우스 오버 -->
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="Root" Property="Background" Value="#F3F4F6"/>
+                                                    </Trigger>
+                                                    <!-- 선택된 날짜 -->
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter TargetName="Root" Property="BorderBrush" Value="{StaticResource Color_PointBlue}"/>
+                                                        <Setter TargetName="Root" Property="BorderThickness" Value="0.5"/>
+                                                    </Trigger>
+                                                    <!-- 오늘 날짜 -->
+                                                    <Trigger Property="IsToday" Value="True">
+                                                        <Setter TargetName="TxtToDay" Property="Visibility" Value="Visible"/>
+                                                    </Trigger>
+                                                    <!-- 비활성 날짜 -->
+                                                    <Trigger Property="IsInactive" Value="True">
+                                                        <Setter Property="Foreground" Value="#999"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Calendar}">
+                                    <Border CornerRadius="8" Background="{StaticResource Color_White}" BorderThickness="0">
+                                        <CalendarItem x:Name="PART_CalendarItem" Background="{StaticResource Color_Transparent}">
+                                            <CalendarItem.Style>
+                                                <!-- 캘린더 내용물 -->
+                                                <Style TargetType="{x:Type CalendarItem}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type CalendarItem}">
+                                                                <Grid>
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="50" Tag="헤더"/>
+                                                                        <RowDefinition Height="50" Tag="요일"/>
+                                                                        <RowDefinition Height="*"    Tag="날짜"/>
+                                                                    </Grid.RowDefinitions>
+
+                                                                    <Grid Grid.Row="0" Margin="6" Tag="헤더">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="40" Tag="이전 버튼"/>
+                                                                            <ColumnDefinition Width="*"  Tag="월/연도 표시 + 모드 전환"/>
+                                                                            <ColumnDefinition Width="40" Tag="다음 버튼"/>
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <Grid.Resources>
+                                                                            <Style TargetType="{x:Type Button}">
+                                                                                <Setter Property="FontSize" Value="24"/>
+                                                                                <Setter Property="FontWeight" Value="Bold"/>
+                                                                                <Setter Property="Foreground" Value="{StaticResource Color_PointBlue}"/>
+                                                                                <Setter Property="Background" Value="{StaticResource Color_Transparent}"/>
+                                                                                <Setter Property="BorderThickness" Value="0"/>
+                                                                            </Style>
+                                                                        </Grid.Resources>
+
+                                                                        <Button x:Name="PART_PreviousButton" Grid.Column="0" Content="〈"/>
+                                                                        <Button x:Name="PART_HeaderButton" Grid.Column="1" Content="{Binding DisplayDate, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:yyyy MMMM}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                        <Button x:Name="PART_NextButton" Grid.Column="2" Content="〉"/>
+                                                                    </Grid>
+
+                                                                    <!-- 요일 헤더 -->
+                                                                    <Grid x:Name="PART_DaysOfWeek" Grid.Row="1">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <Grid.Resources>
+                                                                            <Style TargetType="{x:Type Border}">
+                                                                                <Setter Property="BorderBrush" Value="{StaticResource Color_Gray}"/>
+                                                                                <Setter Property="BorderThickness" Value="0.5"/>
+                                                                            </Style>
+                                                                            <Style TargetType="{x:Type TextBlock}">
+                                                                                <Setter Property="FontSize" Value="20"/>
+                                                                                <Setter Property="FontWeight" Value="Bold"/>
+                                                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                                                            </Style>
+                                                                        </Grid.Resources>
+                                                                        <Border Grid.Column="0">
+                                                                            <TextBlock Text="일" Foreground="{StaticResource Color_PointRed}"/>
+                                                                        </Border>
+                                                                        <Border Grid.Column="1">
+                                                                            <TextBlock Text="월"/>
+                                                                        </Border>
+                                                                        <Border Grid.Column="2">
+                                                                            <TextBlock Text="화"/>
+                                                                        </Border>
+                                                                        <Border Grid.Column="3">
+                                                                            <TextBlock Text="수"/>
+                                                                        </Border>
+                                                                        <Border Grid.Column="4">
+                                                                            <TextBlock Text="목"/>
+                                                                        </Border>
+                                                                        <Border Grid.Column="5">
+                                                                            <TextBlock Text="금"/>
+                                                                        </Border>
+                                                                        <Border Grid.Column="6">
+                                                                            <TextBlock Text="토" Foreground="{StaticResource Color_PointBlue}"/>
+                                                                        </Border>
+                                                                    </Grid>
+
+                                                                    <!-- 컨텐츠: Month / Year / Decade -->
+                                                                    <Grid Grid.Row="2" x:Name="PART_MonthView">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <Grid.RowDefinitions>
+                                                                            <RowDefinition Height="0"/>
+                                                                            <RowDefinition/>
+                                                                            <RowDefinition/>
+                                                                            <RowDefinition/>
+                                                                            <RowDefinition/>
+                                                                            <RowDefinition/>
+                                                                            <RowDefinition Height="0"/>
+                                                                        </Grid.RowDefinitions>
+                                                                    </Grid>
+
+                                                                    <Grid Grid.Row="2" x:Name="PART_YearView" Visibility="Hidden">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <Grid.RowDefinitions>
+                                                                            <RowDefinition/>
+                                                                            <RowDefinition/>
+                                                                            <RowDefinition/>
+                                                                        </Grid.RowDefinitions>
+                                                                    </Grid>
+
+                                                                    <Grid Grid.Row="2" x:Name="PART_DecadeView" Visibility="Hidden">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                            <ColumnDefinition/>
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <Grid.RowDefinitions>
+                                                                            <RowDefinition/>
+                                                                            <RowDefinition/>
+                                                                        </Grid.RowDefinitions>
+                                                                    </Grid>
+                                                                </Grid>
+
+                                                                <ControlTemplate.Triggers>
+                                                                    <!--<Trigger Property="IsEnabled" Value="False">
+                                                                        <Setter Property="Visibility" TargetName="PART_DisabledVisual" Value="Visible" />
+                                                                    </Trigger>-->
+
+                                                                    <DataTrigger Binding="{Binding DisplayMode,  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}}" Value="Year">
+                                                                        <Setter Property="Visibility" TargetName="PART_DaysOfWeek" Value="Hidden" />
+                                                                        <Setter Property="Visibility" TargetName="PART_MonthView" Value="Hidden" />
+                                                                        <Setter Property="Visibility" TargetName="PART_YearView" Value="Visible" />
+                                                                    </DataTrigger>
+
+                                                                    <DataTrigger Binding="{Binding DisplayMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}}" Value="Decade">
+                                                                        <Setter Property="Visibility" TargetName="PART_DaysOfWeek" Value="Hidden" />
+                                                                        <Setter Property="Visibility" TargetName="PART_MonthView" Value="Hidden" />
+                                                                        <Setter Property="Visibility" TargetName="PART_YearView" Value="Visible" />
+                                                                    </DataTrigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </CalendarItem.Style>
+                                        </CalendarItem>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Calendar.Style>
+            </Calendar>
         </Border>
     </Grid>
 </UserControl>

@@ -231,6 +231,7 @@
     </Compile>
     <Compile Include="View_Converters\Converter_Bool_Enum.cs" />
     <Compile Include="View_Converters\Converter_Bool_Int.cs" />
+    <Compile Include="View_Converters\Converter_DateToSchedules.cs" />
     <Compile Include="View_Converters\Converter_Visibility_Bool.cs" />
     <Compile Include="View_Converters\C_PageNumberButton.cs" />
     <Compile Include="Models\M_ComboItem.cs" />

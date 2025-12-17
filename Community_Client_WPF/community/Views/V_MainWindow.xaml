@@ -107,7 +107,6 @@
                 <RadioButton Content="직원관리" Tag="{StaticResource Img_Menu_Employee}" Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=7}"/>
                 <RadioButton Content="환경설정" Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=8}"/>
                 <!--<RadioButton Content="시설관리" Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=9}"/>-->
-                <!--<RadioButton Content="TEST"     Tag="{StaticResource Img_Menu_System}"   Template="{StaticResource MenuButton}" IsChecked="{Binding MenuSelected, Converter={StaticResource Converter_Bool_Int}, ConverterParameter=9}"/>-->
             </StackPanel>
         </Border>
             

@@ -150,12 +150,17 @@
     <Compile Include="Models\Post\M_Post_Comment.cs" />
     <Compile Include="Models\System\M_System_Log.cs" />
     <Compile Include="Models\M_TreeItem.cs" />
+    <Compile Include="ViewModels\VM_Approval.cs" />
+    <Compile Include="ViewModels\VM_ApprovalDetail.cs" />
     <Compile Include="ViewModels\VM_EmployeeAttendance.cs" />
     <Compile Include="ViewModels\VM_Home.cs" />
     <Compile Include="ViewModels\VM_PostDetail.cs" />
     <Compile Include="ViewModels\VM_ProjectDetail.cs" />
     <Compile Include="ViewModels\VM_Schedule.cs" />
     <Compile Include="ViewModels\VM_Test.cs" />
+    <Compile Include="Views\Approval\V_Approval.xaml.cs">
+      <DependentUpon>V_Approval.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MethodBinding.cs" />
     <Compile Include="Common\Notify.cs" />
     <Compile Include="Views\Chat\V_ChatList.xaml.cs">
@@ -175,6 +180,9 @@
     </Compile>
     <Compile Include="Views\Employee\V_EmployeeSchedule.xaml.cs">
       <DependentUpon>V_EmployeeSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Approval\V_ApprovalDetail.xaml.cs">
+      <DependentUpon>V_ApprovalDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\V_Home.xaml.cs">
       <DependentUpon>V_Home.xaml</DependentUpon>
@@ -203,14 +211,17 @@
     <Compile Include="Views\System\V_SystemPost.xaml.cs">
       <DependentUpon>V_SystemPost.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_PostDetail.xaml.cs">
+    <Compile Include="Views\Post\V_PostDetail.xaml.cs">
       <DependentUpon>V_PostDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\V_Test.xaml.cs">
-      <DependentUpon>V_Test.xaml</DependentUpon>
+    <Compile Include="Views\Schedule\V_ScheduleDetail.xaml.cs">
+      <DependentUpon>V_ScheduleDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Customer\V_CustomerList.xaml.cs">
       <DependentUpon>V_CustomerList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Approval\V_ApprovalList.xaml.cs">
+      <DependentUpon>V_ApprovalList.xaml</DependentUpon>
     </Compile>
     <Compile Include="View_Controls\PasswordBoxHelper.cs" />
     <Compile Include="Common\HTTP_Server.cs" />
@@ -328,6 +339,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Approval\V_Approval.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Chat\V_ChatList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -353,6 +368,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Employee\V_EmployeeSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Approval\V_ApprovalDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -432,15 +451,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_PostDetail.xaml">
+    <Page Include="Views\Post\V_PostDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\V_Test.xaml">
+    <Page Include="Views\Schedule\V_ScheduleDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Customer\V_CustomerList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Approval\V_ApprovalList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

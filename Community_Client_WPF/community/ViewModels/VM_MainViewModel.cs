@@ -1,7 +1,6 @@
 ﻿using community.Common;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Timers;
 using System.Windows;
 
@@ -21,7 +20,8 @@ namespace community.ViewModels
             { 7, new VM_Employee() }, // 직원 관리
             { 8, new VM_System() }, // 시스템
             { 9, new VM_Test() },    // TEST
-            { 11, new VM_Schedule() }
+            { 11, new VM_Schedule() },
+            { 12, new VM_Approval() }
         };
 
         private ViewModelBase currentViewModel = null;
@@ -54,55 +54,56 @@ namespace community.ViewModels
 
         public VM_MainViewModel()
         {
-            
-
             this.MenuSelected = 0; // 프로그램 초기 실행 시 Login 화면으로.
 
-            var login = this.viewModels[0] as VM_Login;
-            login.LoginEvent += async (loginUser) =>
+            // 로그인 화면 이벤트 처리 __________________________________
+            if (this.viewModels[0] is VM_Login v_login)
             {
-                await GD.Instance.LoadBaseCode();
-
-                CurrentUser = loginUser;
-
-                foreach (var vm in viewModels)
+                v_login.LoginEvent += async (loginUser) =>
                 {
-                    vm.Value.CurrentUser = loginUser;
-                }
+                    await GD.Instance.LoadBaseCode();
 
-                MenuSelected = 1; // 로그인 시 Home 화면으로.
-            };
+                    CurrentUser = loginUser;
 
-            var home = this.viewModels[1] as VM_Home;
-            home.OnQuickView += (index) =>
+                    foreach (var vm in viewModels)
+                    {
+                        vm.Value.CurrentUser = loginUser;
+                    }
+
+                    MenuSelected = 1; // 로그인 시 Home 화면으로.
+                };
+            }
+
+            // 홈 화면 이벤트 처리 __________________________________
+            if (this.viewModels[1] is VM_Home v_home)
             {
-                switch (index)
+                v_home.OnQuickView += (index) =>
                 {
-                    default:
-                    case 0: // 게시글
-                        var post_vm = this.viewModels[2] as VM_Post;
-                        this.MenuSelected = 2;
-                        break;
+                    switch (index)
+                    {
+                        default:
+                        case 0: // 게시글
+                            var post_vm = this.viewModels[2] as VM_Post;
+                            this.MenuSelected = 2;
+                            break;
 
-                    case 2: // 프로젝트
-                        this.MenuSelected = 4;
-                        break;
+                        case 2: // 프로젝트
+                            this.MenuSelected = 4;
+                            break;
 
-                }
-            };
-
+                    }
+                };
+            }
 
             Timer t = new Timer(1000);
             t.Elapsed += (sender, e) =>
             {
                 if (App.Current != null)
                 {
-                    var current_home = this.viewModels[1] as VM_Home;
-
                     App.Current.Dispatcher.Invoke(() =>
                     {
-                        if (currentViewModel is VM_Home)
-                            current_home.CurrentAt = DateTime.Now;
+                        if (currentViewModel is VM_Home h)
+                            h.CurrentAt = DateTime.Now;
                     });
                 }
             };

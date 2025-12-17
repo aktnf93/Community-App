@@ -3,11 +3,11 @@
 namespace community.Views
 {
     /// <summary>
-    /// V_Test.xaml에 대한 상호 작용 논리
+    /// V_ApprovalList.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class V_Test : UserControl
+    public partial class V_ApprovalList : UserControl
     {
-        public V_Test()
+        public V_ApprovalList()
         {
             InitializeComponent();
         }

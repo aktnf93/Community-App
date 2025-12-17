@@ -53,6 +53,8 @@ app.use('/post',         require('../routes/url_post'));
 app.use('/product',      require('../routes/url_product'));
 app.use('/project',      require('../routes/url_project'));
 app.use('/system',       require('../routes/url_system'));
+app.use('/schedule',       require('../routes/url_schedule'));
+app.use('/approval',       require('../routes/url_approval'));
 
 // ****************************************
 const multer = require('multer');

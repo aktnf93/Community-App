@@ -30,10 +30,10 @@
     <DataTemplate DataType="{x:Type vm:VM_System}">
         <v:V_System/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:VM_Test}">
-        <v:V_Test/>
-    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:VM_Schedule}">
         <v:V_Schedule/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:VM_Approval}">
+        <v:V_Approval/>
     </DataTemplate>
 </ResourceDictionary>

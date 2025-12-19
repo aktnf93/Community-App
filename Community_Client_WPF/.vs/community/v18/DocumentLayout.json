@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\schedule\\v_schedulecalendar.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\schedule\\v_schedulecalendar.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\approval\\v_approvaldetail.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\approval\\v_approvaldetail.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\models\\m_schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\models\\m_schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\viewmodels\\vm_approvaldetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_approvaldetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\viewmodels\\vm_schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\viewmodels\\vm_approval.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_approval.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\models\\approval\\m_approval.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\models\\approval\\m_approval.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\models\\approval\\m_approval_line.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\models\\approval\\m_approval_line.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\views\\approval\\v_approvallist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\approval\\v_approvallist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,46 +33,79 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 2716,
+          "DockedWidth": 321,
           "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "M_Schedule.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\M_Schedule.cs",
-              "RelativeDocumentMoniker": "community\\Models\\M_Schedule.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\M_Schedule.cs",
-              "RelativeToolTip": "community\\Models\\M_Schedule.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwCIAAAAbAAAAAAAAAA==",
+              "Title": "VM_ApprovalDetail.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_ApprovalDetail.cs",
+              "RelativeDocumentMoniker": "community\\ViewModels\\VM_ApprovalDetail.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_ApprovalDetail.cs",
+              "RelativeToolTip": "community\\ViewModels\\VM_ApprovalDetail.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-17T02:22:48.242Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-18T03:35:01.816Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "V_ScheduleCalendar.xaml",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Schedule\\V_ScheduleCalendar.xaml",
-              "RelativeDocumentMoniker": "community\\Views\\Schedule\\V_ScheduleCalendar.xaml",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Schedule\\V_ScheduleCalendar.xaml",
-              "RelativeToolTip": "community\\Views\\Schedule\\V_ScheduleCalendar.xaml",
+              "Title": "V_ApprovalDetail.xaml",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Approval\\V_ApprovalDetail.xaml",
+              "RelativeDocumentMoniker": "community\\Views\\Approval\\V_ApprovalDetail.xaml",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Approval\\V_ApprovalDetail.xaml",
+              "RelativeToolTip": "community\\Views\\Approval\\V_ApprovalDetail.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-17T01:51:32.88Z",
+              "WhenOpened": "2025-12-18T03:23:40.461Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "VM_Schedule.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Schedule.cs",
-              "RelativeDocumentMoniker": "community\\ViewModels\\VM_Schedule.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Schedule.cs",
-              "RelativeToolTip": "community\\ViewModels\\VM_Schedule.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABkAAAA6AAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "M_Approval_Line.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\Approval\\M_Approval_Line.cs",
+              "RelativeDocumentMoniker": "community\\Models\\Approval\\M_Approval_Line.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\Approval\\M_Approval_Line.cs",
+              "RelativeToolTip": "community\\Models\\Approval\\M_Approval_Line.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwBwAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-17T00:31:03.346Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-18T03:40:12.484Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "M_Approval.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\Approval\\M_Approval.cs",
+              "RelativeDocumentMoniker": "community\\Models\\Approval\\M_Approval.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\Approval\\M_Approval.cs",
+              "RelativeToolTip": "community\\Models\\Approval\\M_Approval.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T02:59:14.737Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VM_Approval.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Approval.cs",
+              "RelativeDocumentMoniker": "community\\ViewModels\\VM_Approval.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Approval.cs",
+              "RelativeToolTip": "community\\ViewModels\\VM_Approval.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAYwFEAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T02:55:53.85Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "V_ApprovalList.xaml",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Approval\\V_ApprovalList.xaml",
+              "RelativeDocumentMoniker": "community\\Views\\Approval\\V_ApprovalList.xaml",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Approval\\V_ApprovalList.xaml",
+              "RelativeToolTip": "community\\Views\\Approval\\V_ApprovalList.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-18T02:02:31.562Z"
             }
           ]
         }

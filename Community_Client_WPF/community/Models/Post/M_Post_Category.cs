@@ -62,7 +62,7 @@ namespace community.Models
             set => base.OnPropertyChanged(ref this.updated_at, value);
         }
 
-        public ObservableCollection<M_Post_Category> SubCategory { get; set; }
+        public ObservableCollection<M_Post_Category> SubTree { get; set; }
             = new ObservableCollection<M_Post_Category>();
 
         public bool IsSelected

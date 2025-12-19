@@ -5,7 +5,7 @@
     <Style TargetType="{x:Type TreeView}" x:Key="Tree_PostGroup">
         <Setter Property="ItemTemplate">
             <Setter.Value>
-                <HierarchicalDataTemplate ItemsSource="{Binding SubCategory}">
+                <HierarchicalDataTemplate ItemsSource="{Binding SubTree}">
                     <TextBlock Text="{Binding Name}"/>
                 </HierarchicalDataTemplate>
             </Setter.Value>
@@ -51,10 +51,10 @@
 
                                 <ControlTemplate.Triggers>
                                     <!-- 자식 요소가 없음 -->
-                                    <DataTrigger Binding="{Binding SubTree.Count}" Value="0">
+                                    <!--<DataTrigger Binding="{Binding SubTree.Count}" Value="0">
                                         <Setter TargetName="Image" Property="Source" Value="{StaticResource Img_FolderClose}"/>
                                         <Setter TargetName="Expander" Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
+                                    </DataTrigger>-->
 
                                     <!-- 전체 카테고리 -->
                                     <DataTrigger Binding="{Binding Parent_Id}" Value="{x:Null}">
@@ -126,7 +126,7 @@
                                                 <ColumnDefinition Width="20"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Image Grid.Column="0" x:Name="Image" Source="{Binding Image_Path}" Width="20" Height="20"/>
+                                            <!--<Image Grid.Column="0" x:Name="Image" Source="{Binding Image_Path}" Width="20" Height="20"/>-->
 
                                             <ContentPresenter Grid.Column="1" x:Name="Btn_Text" ContentSource="Header" HorizontalAlignment="Left" VerticalAlignment="Center"
                                                           TextBlock.Foreground="{StaticResource Color_Black}"/>
@@ -233,7 +233,7 @@
                                             </Grid.ColumnDefinitions>
                                             
                                             <TextBlock        Grid.Column="0" x:Name="TxtTop"   Text="┗" VerticalAlignment="Center" Visibility="Collapsed"/>
-                                            <Image            Grid.Column="1" x:Name="Image"    Source="{Binding Img_FolderCloseDoc}" Width="20" Height="20"/>
+                                            <Image            Grid.Column="1" x:Name="Image"    Source="{StaticResource Img_FolderCloseDoc}" Width="20" Height="20"/>
                                             <ContentPresenter Grid.Column="2" x:Name="Btn_Text" ContentSource="Header" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
                                             <Image            Grid.Column="3" x:Name="Expander" Source="{StaticResource Img_Post_ArrowDown}" 
                                                                                                 Width="18" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -245,10 +245,10 @@
 
                                 <ControlTemplate.Triggers>
                                     <!-- 자식 요소가 없음 -->
-                                    <DataTrigger Binding="{Binding SubTree.Count}" Value="0">
+                                    <!--<DataTrigger Binding="{Binding SubTree.Count}" Value="0">
                                         <Setter TargetName="Image" Property="Source" Value="{StaticResource Img_FolderClose}"/>
                                         <Setter TargetName="Expander" Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
+                                    </DataTrigger>-->
 
                                     <!-- 전체 -->
                                     <DataTrigger Binding="{Binding Depth}" Value="0">

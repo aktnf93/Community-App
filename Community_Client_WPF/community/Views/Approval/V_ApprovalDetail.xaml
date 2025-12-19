@@ -4,9 +4,164 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:community.Views"
+        xmlns:vm="clr-namespace:community.ViewModels"
+        xmlns:m="clr-namespace:community.Models"
         mc:Ignorable="d"
-        Title="V_ApprovalDetail" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="결재문서" Height="900" Width="800">
+    <Window.DataContext>
+        <vm:VM_ApprovalDetail/>
+    </Window.DataContext>
+
+    <Border Margin="2" Padding="40" BorderThickness="1" BorderBrush="Gray" CornerRadius="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <!-- 결재 라인 -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="결재 문서" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+                </TextBlock>
+
+                <ItemsControl Grid.Column="1">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="{x:Type ItemsControl}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Width="30" 
+                                    BorderBrush="Gray" BorderThickness="1" Margin="0,0,-1,0">
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Run Text="결"/>
+                                    <LineBreak/>
+                                    <Run Text="재"/>
+                                    </TextBlock>
+                                </Border>
+                                <ItemsPresenter Grid.Column="1"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" Width="70" BorderBrush="Gray" BorderThickness="1" Margin="0,0,-1,0">
+                                    <TextBlock Text="사원" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+
+                                <Border Grid.Row="1" Width="70" BorderBrush="Gray" BorderThickness="1" Margin="0,-1,-1,-1">
+                                    <TextBlock Text="홍길동" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+
+                                <Border Grid.Row="2" Width="70" BorderBrush="Gray" BorderThickness="1" Margin="0,0,-1,0">
+                                    <TextBlock Text="{Binding Status}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsSource>
+                        <x:Array Type="{x:Type m:M_Approval_Line}">
+                            <m:M_Approval_Line Approval_Id="1" Status="대기" Step_Order="1"/>
+                            <m:M_Approval_Line Approval_Id="1" Status="대기" Step_Order="2"/>
+                            <m:M_Approval_Line Approval_Id="1" Status="대기" Step_Order="3"/>
+                            <m:M_Approval_Line Approval_Id="1" Status="대기" Step_Order="4"/>
+                        </x:Array>
+                    </ItemsControl.ItemsSource>
+                </ItemsControl>
+            </Grid>
+
+            <!-- 문서 개요 -->
+            <Grid Grid.Row="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock Text="문서 종류:" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" TextAlignment="Center"/>
+                    <ComboBox  SelectedValue="{Binding CurrentApproval.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="26"/>
+
+                    <TextBlock Text="문서 제목:" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" TextAlignment="Center"/>
+                    <TextBox   Text="{Binding CurrentApproval.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="26"/>
+
+                    <TextBlock Text="문서 상태:" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" TextAlignment="Center"/>
+                    <Border BorderBrush="Gray" BorderThickness="1" Height="26" Margin="6" CornerRadius="8">
+                        <TextBlock Text="{Binding CurrentApproval.Status}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" TextAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            <ContentControl Grid.Row="2">
+                <ContentControl.Style>
+                    <Style TargetType="{x:Type ContentControl}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentApproval.Type}" Value="휴가">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ContentControl}">
+                                            <Border>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="76"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="30"/>
+                                                        <RowDefinition Height="30"/>
+                                                        <RowDefinition Height="30"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <TextBlock  Grid.Column="0" Grid.Row="0" Text="휴가 구분" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" TextAlignment="Center"/>
+                                                    <ComboBox   Grid.Column="1" Grid.Row="0" Width="120" Height="26" HorizontalAlignment="Left"/>
+
+                                                    <TextBlock  Grid.Column="0" Grid.Row="1" Text="휴가 일정" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" TextAlignment="Center"/>
+                                                    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left">
+                                                        <DatePicker Width="120" Height="26"/>
+                                                        <TextBlock Text=" ~ " VerticalAlignment="Center"/>
+                                                        <DatePicker Width="120" Height="26"/>
+                                                    </StackPanel>
+
+                                                    <TextBlock  Grid.Column="0" Grid.Row="2" Text="휴가 사유" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" TextAlignment="Center"/>
+                                                    <TextBox    Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Style="{x:Null}"/>
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+
+            <Grid Grid.Row="3">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding CurrentApproval.Created_at, StringFormat={}작성일: {0:yyyy년 MM월 dd일}}" FontSize="14" />
+                    <TextBlock Text="{Binding CurrentApproval.Employee_id, StringFormat={}작성자: {0}}" FontSize="14"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="4">
+                <Button Content="저장" Width="200" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

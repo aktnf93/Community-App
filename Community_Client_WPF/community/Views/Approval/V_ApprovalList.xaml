@@ -32,38 +32,81 @@
         </Grid>
 
         <!-- 중간 컨트롤 -->
-        <Border Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Style="{StaticResource BaseCard}">
+        <Border Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="2" Style="{StaticResource BaseCard}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
+                <!-- 필터 체크 박스 -->
                 <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <TextBlock Text="검색옵션" FontSize="13" FontWeight="Bold" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0"/>
                     <CheckBox Content="전체" IsChecked="True" Margin="20,0,0,0"/>
+                    <CheckBox Content="휴가 신청서" Margin="20,0,0,0"/>
+                    <CheckBox Content="지출 결의서" Margin="20,0,0,0"/>
                 </StackPanel>
 
-                <Line Grid.Row="0" Stroke="{StaticResource Color_Gray}" StrokeThickness="0.5" X1="0" X2="2000"
-                      HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+                <Line Grid.Row="0" Stroke="{StaticResource Color_Gray}" StrokeThickness="0.5" X1="0" X2="2000" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
 
+                <!-- 이름 검색 -->
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <TextBlock Text="방 생성" FontSize="13" FontWeight="Bold" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,20,0"/>
+                    <TextBlock Text="검색" FontSize="13" FontWeight="Bold" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,20,0"/>
 
                     <StackPanel Orientation="Horizontal" Width="300" VerticalAlignment="Center">
-                        <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="이름" Text="{Binding ChatRoomSelected.Name}"/>
-                        <Button Width="30" Height="30" Content="➕️" Margin="6,0,0,0" ToolTip="추가" Click="{local:MethodBinding ChatRoomAdd}"/>
-                        <Button Width="30" Height="30" Content="✏️"  Margin="2,0,0,0" ToolTip="수정" Click="{local:MethodBinding ChatRoomEdit}"/>
-                        <Button Width="30" Height="30" Content="➖️" Margin="2,0,0,0" ToolTip="삭제" Click="{local:MethodBinding ChatRoomDelete}"/>
-                        <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding ChatRoomSelected.Description}"/>
+                        <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="기안자"/>
+                        <Button Width="30" Height="30" Content="🔍︎" Margin="6,0,0,0" ToolTip="검색" Click="{local:MethodBinding BtnApprovalSearch}"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </Border>
 
         <!-- 결재 문서 타입 별 진행 -->
-        <Border Grid.Column="1" Grid.Row="4" Style="{StaticResource BaseCard}">
-            <TreeView Grid.Row="1" Style="{StaticResource Tree_ChatGroup}" ItemsSource="{Binding ChatRoomList}" Margin="10"/>
+        <Border Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource BaseCard}">
+            <Border.Resources>
+                <ControlTemplate TargetType="{x:Type RadioButton}" x:Key="ApprovalSelect">
+                    <Border x:Name="Bor" Height="42" 
+                            Background="Transparent"
+                            BorderBrush="Gray" BorderThickness="0.5" CornerRadius="8"
+                            Margin="0,20,0,0"
+                            Tag="{TemplateBinding Tag}"
+                            MouseLeftButtonDown="{local:MethodBinding BtnApprovalSelect}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+                            <Image     Grid.Column="0" Source="{StaticResource Img_FolderOpenDoc}" 
+                                       Width="20" Height="20"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       IsHitTestVisible="False"/>
+                            <TextBlock Grid.Column="1" Text="{TemplateBinding Uid}" 
+                                       FontSize="14"
+                                       HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                       IsHitTestVisible="False"/>
+                            <TextBlock Grid.Column="2"
+                                       IsHitTestVisible="False"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="Bor" Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="{StaticResource Color_PointBlue}"/>
+                            <Setter TargetName="Bor" Property="Background" Value="{StaticResource Color_WhiteGray}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Border.Resources>
+            
+            <StackPanel Orientation="Vertical" Margin="20">
+                <Button Content="결재 작성하기" Height="42" FontSize="14" Click="{local:MethodBinding BtnApprovalAdd}"/>
+
+                <RadioButton Uid="전체"      Tag="0" Template="{StaticResource ApprovalSelect}" IsChecked="True"/>
+                <RadioButton Uid="결재 대기" Tag="1" Template="{StaticResource ApprovalSelect}"/>
+                <RadioButton Uid="결재 진행" Tag="2" Template="{StaticResource ApprovalSelect}"/>
+                <RadioButton Uid="결재 승인" Tag="3" Template="{StaticResource ApprovalSelect}"/>
+                <RadioButton Uid="결재 거부" Tag="4" Template="{StaticResource ApprovalSelect}"/>
+            </StackPanel>
         </Border>
 
         <!-- 결재 문서 목록 -->

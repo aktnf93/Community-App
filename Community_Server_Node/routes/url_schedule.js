@@ -17,3 +17,5 @@ router.post('/select', async (req, res, next) => db.get(req, res, next, tb_sched
 router.post('/insert', async (req, res, next) => db.post(req, res, next, tb_schedule));
 router.put('/update', async (req, res, next) => db.put(req, res, next, tb_schedule));
 router.delete('/delete', async (req, res, next) => db.delete(req, res, next, tb_schedule));
+
+module.exports = router;

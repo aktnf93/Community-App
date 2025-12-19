@@ -57,3 +57,5 @@ router.post('/expense/select', async (req, res, next) => db.get(req, res, next, 
 router.post('/expense/insert', async (req, res, next) => db.post(req, res, next, tb_approval_expense));
 router.put('/expense/update', async (req, res, next) => db.put(req, res, next, tb_approval_expense));
 router.delete('/expense/delete', async (req, res, next) => db.delete(req, res, next, tb_approval_expense));
+
+module.exports = router;

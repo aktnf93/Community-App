@@ -157,7 +157,7 @@ namespace community.ViewModels
                 }
                 else if (lookup.TryGetValue(category.Parent_Id.Value, out var parent))
                 {
-                    parent.SubCategory.Add(category);
+                    parent.SubTree.Add(category);
                 }
             }
 

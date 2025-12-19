@@ -20,6 +20,7 @@ namespace community.Models
         private DateTime created_at;
         private DateTime updated_at;
         private DateTime? deleted_at;
+        private string image_path = string.Empty;
 
         [DataMember(Name = "members")]
         public ObservableCollection<M_Chat_Member> Members { get; set; } = new ObservableCollection<M_Chat_Member>();
@@ -79,6 +80,14 @@ namespace community.Models
             get => this.deleted_at;
             set => base.OnPropertyChanged(ref this.deleted_at, value);
         }
+
+        [DataMember(Name = "image_path")]
+        public string Image_Path
+        {
+            get => this.image_path;
+            set => base.OnPropertyChanged(ref this.image_path, value);
+        }
+
 
         private void OnChatRoomEnter()
         {

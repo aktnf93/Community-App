@@ -22,6 +22,6 @@
             </StackPanel>
         </Border>
 
-        <local:V_V_ApprovalList Grid.Row="1"/>
+        <local:V_ApprovalList Grid.Row="1"/>
     </Grid>
 </UserControl>

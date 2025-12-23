@@ -1,11 +1,15 @@
-using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using Newtonsoft.Json;
+using community.Models;
 
 
 namespace community.Common
@@ -52,7 +56,6 @@ namespace community.Common
 
             return serverPath;
         }
-
 
         public T HttpSend<T>(string url, Method method = Method.POST, object data = null)
         {
@@ -197,6 +200,53 @@ namespace community.Common
                 // throw new Exception($"서버 수신 실패했습니다.", ex);
                 return default(T);
             }
+        }
+
+        public async Task<List<M_Holiday>> GetHolidays(DateTime toDay)
+        {
+            string serviceKey = EnvConfig.Get("serviceKey");
+            string url = EnvConfig.Get("url");
+
+            url += $"ServiceKey={serviceKey}";
+            url += $"&solYear={toDay.Year}";
+            url += $"&solMonth={toDay.Month}";
+
+            var holidays = new List<M_Holiday>();
+
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.GetStringAsync(url);
+
+                // XML 파싱
+                var doc = XDocument.Parse(response);
+                foreach (var item in doc.Descendants("item"))
+                {
+                    string dateName = item.Element("dateName")?.Value;
+                    string locdate = item.Element("locdate")?.Value;
+                    string isHoliday = item.Element("isHoliday")?.Value;
+
+                    // Console.WriteLine($"{locdate} : {dateName} (휴일 여부: {isHoliday})");
+
+                    switch (dateName)
+                    {
+                        case "기독탄신일":
+                            dateName = "성탄절";
+                            break;
+
+                        default:
+                            break;
+                    }
+
+
+                    holidays.Add(new M_Holiday
+                    {
+                        Name = dateName,
+                        Date = DateTime.ParseExact(locdate, "yyyyMMdd", CultureInfo.InvariantCulture)
+                    });
+                }
+            }
+
+            return holidays;
         }
     }
 }

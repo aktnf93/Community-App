@@ -4,9 +4,75 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:community.Views"
+        xmlns:vm="clr-namespace:community.ViewModels"
         mc:Ignorable="d"
-        Title="V_ScheduleDetail" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="일정 상세">
+
+    <Border BorderBrush="Gray" BorderThickness="0.5" Margin="4" Padding="10" CornerRadius="2">
+        <Viewbox Width="320">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock  Grid.Column="0" Grid.Row="0" Text="일정 내용" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock  Grid.Column="0" Grid.Row="1" Text="일정 시작" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock  Grid.Column="0" Grid.Row="2" Text="일정 종료" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock  Grid.Column="0" Grid.Row="3" Text="일정 색상" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <TextBox    Grid.Column="1" Grid.Row="0" Margin="1" Text="{Binding Schedule.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DatePicker Grid.Column="1" Grid.Row="1" Margin="1" SelectedDate="{Binding Schedule.Start_At, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CalendarStyle="{StaticResource DatePicker_Calendar}"/>
+                <DatePicker Grid.Column="1" Grid.Row="2" Margin="1" SelectedDate="{Binding Schedule.End_At, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CalendarStyle="{StaticResource DatePicker_Calendar}"/>
+                <ComboBox   Grid.Column="1" Grid.Row="3" Margin="1" 
+                            ItemsSource="{Binding Schedule.Color_CodeList}"
+                            SelectedValue="{Binding Schedule.Color_Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedValuePath="Key">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="150" Height="16" Margin="2" CornerRadius="4">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding Value}"/>
+                                </Border.Background>
+                                <TextBlock Text="새 일정" Foreground="Black" Margin="10,0,0,0"/>
+                            </Border>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+
+                <Grid Grid.Column="1" Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Content="저장" Click="{local:MethodBinding BtnScheduleSave}" MinWidth="90" Margin="5,1,5,1"/>
+                    <Button Grid.Column="1" Content="삭제" Click="{local:MethodBinding BtnScheduleDelete}" Width="90" Margin="5,1,5,1" Background="{StaticResource Color_PointRed}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Template" Value="{StaticResource BaseButton}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Schedule.Id}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Viewbox>
+    </Border>
 </Window>

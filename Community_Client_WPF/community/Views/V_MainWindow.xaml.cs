@@ -207,6 +207,9 @@ namespace community.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Console.Clear();
+
+            return;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "이미지 파일 선택";
             openFileDialog.Filter = "이미지 파일 (*.png;*.jpg;*.jpeg;*.bmp)|*.png;*.jpg;*.jpeg;*.bmp";

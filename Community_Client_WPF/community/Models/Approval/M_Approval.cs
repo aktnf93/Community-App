@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using community.Common;
 
@@ -7,6 +8,8 @@ namespace community.Models
     [DataContract]
     public class M_Approval : Notify
     {
+        public event ActionHandler<M_Approval> SelectedEvent;
+
         private int id;
         private string type;
         private string title;
@@ -62,6 +65,18 @@ namespace community.Models
         {
             get => this.updated_at;
             set => base.OnPropertyChanged(ref this.updated_at, value);
+        }
+
+        // '휴가','지출'
+        public Dictionary<string, string> Approval_Types { get; set; } = new Dictionary<string, string>()
+        {
+            { "휴가", "휴가" },
+            { "지출", "지출" }
+        };
+
+        private void OnSelect()
+        {
+            this.SelectedEvent?.Invoke(this);
         }
     }
 }

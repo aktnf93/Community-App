@@ -13,7 +13,7 @@ namespace community.Common
     public class GD : Singleton<GD>
     {
         protected GD() { }
-
+        public M_Employee LoginUser { get; set; }
         public List<M_Organization_Company> Companies { get; set; } = new List<M_Organization_Company>();
         public List<M_Organization_Department> Departments { get; set; } = new List<M_Organization_Department>();
         public List<M_Organization_Team> Teams { get; set; } = new List<M_Organization_Team>();

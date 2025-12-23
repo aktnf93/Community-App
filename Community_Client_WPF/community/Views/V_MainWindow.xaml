@@ -38,6 +38,7 @@
         <Grid Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Background="{StaticResource Color_White}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"   Tag="Title"/>
+                <ColumnDefinition Width="50" Tag="TEST"/>
                 <ColumnDefinition Width="50" Tag="Min"/>
                 <ColumnDefinition Width="50" Tag="Max"/>
                 <ColumnDefinition Width="50" Tag="Close"/>
@@ -60,10 +61,10 @@
                 <TextBlock Text="v1.0.18-2025-12-03-11-13" Foreground="#404040"/>
             </StackPanel>
 
-            <!--<Button Grid.Column="3" ToolTip="TEST" Click="Button_Click" Template="{StaticResource IconButton}"/>-->
-            <Button Grid.Column="1" ToolTip="최소화" Click="Window_OnMinimize" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Min}"/>
-            <Button Grid.Column="2" ToolTip="최대화" Click="Window_OnMaximize" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Max}"/>
-            <Button Grid.Column="3" ToolTip="닫기"   Click="Window_OnClose" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Close}"/>
+            <Button Grid.Column="1" ToolTip="TEST" Click="Button_Click" Template="{StaticResource IconButton}"/>
+            <Button Grid.Column="2" ToolTip="최소화" Click="Window_OnMinimize" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Min}"/>
+            <Button Grid.Column="3" ToolTip="최대화" Click="Window_OnMaximize" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Max}"/>
+            <Button Grid.Column="4" ToolTip="닫기"   Click="Window_OnClose" Template="{StaticResource IconButton}" Content="{StaticResource Img_Window_Close}"/>
         </Grid>
 
         <!-- 왼쪽 메뉴 패널 -->

@@ -76,19 +76,18 @@ namespace community.ViewModels
 
         private async Task BtnApprovalAdd()
         {
+            // 창 호출
             var approval_add = new V_ApprovalDetail();
 
             var context = approval_add.DataContext as VM_ApprovalDetail;
+            context.CurrentEmployee = base.CurrentUser;
+            context.CurrentApproval.Employee_id = base.CurrentUser.Id;
             context.CurrentApproval.Type = "휴가";
             context.CurrentApproval.Status = "대기";
 
             approval_add.ShowDialog();
 
-            await UiAction.Instance.ExecuteAsync(async () =>
-            {
-            });
-
-            // 창 호출
+            await this.ApprovalLoad();
         }
 
         private async Task ApprovalEdit()

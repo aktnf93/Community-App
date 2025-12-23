@@ -96,7 +96,11 @@
             <Grid Grid.Row="1">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <TextBlock Text="문서 종류:" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" TextAlignment="Center"/>
-                    <ComboBox  SelectedValue="{Binding CurrentApproval.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="26"/>
+                    <ComboBox  Width="100" Height="26"
+                               ItemsSource="{Binding CurrentApproval.Approval_Types}" 
+                               SelectedValue="{Binding CurrentApproval.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               DisplayMemberPath="Key" SelectedValuePath="Value"
+                               SelectedIndex="0"/>
 
                     <TextBlock Text="문서 제목:" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" TextAlignment="Center"/>
                     <TextBox   Text="{Binding CurrentApproval.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="26"/>
@@ -116,7 +120,7 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="{x:Type ContentControl}">
-                                            <Border>
+                                            <Border DataContext="{Binding CurrentVacation}">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="76"/>
@@ -130,17 +134,27 @@
                                                     </Grid.RowDefinitions>
 
                                                     <TextBlock  Grid.Column="0" Grid.Row="0" Text="휴가 구분" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" TextAlignment="Center"/>
-                                                    <ComboBox   Grid.Column="1" Grid.Row="0" Width="120" Height="26" HorizontalAlignment="Left"/>
+                                                    <ComboBox   Grid.Column="1" Grid.Row="0" Width="120" Height="26" HorizontalAlignment="Left"
+                                                                ItemsSource="{Binding Vacation_Types}"
+                                                                SelectedValue="{Binding Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                DisplayMemberPath="Key" SelectedValuePath="Value"
+                                                                SelectedIndex="0"/>
 
                                                     <TextBlock  Grid.Column="0" Grid.Row="1" Text="휴가 일정" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" TextAlignment="Center"/>
                                                     <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left">
-                                                        <DatePicker Width="120" Height="26"/>
+                                                        <DatePicker Width="120" Height="26" SelectedDate="{Binding Start_At, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                                         <TextBlock Text=" ~ " VerticalAlignment="Center"/>
-                                                        <DatePicker Width="120" Height="26"/>
+                                                        <DatePicker Width="120" Height="26" SelectedDate="{Binding End_At, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                                     </StackPanel>
 
                                                     <TextBlock  Grid.Column="0" Grid.Row="2" Text="휴가 사유" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80" TextAlignment="Center"/>
-                                                    <TextBox    Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Style="{x:Null}"/>
+                                                    <TextBox    Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Style="{x:Null}" 
+                                                                Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                TextWrapping="Wrap"
+                                                                AcceptsReturn="True"
+                                                                AcceptsTab="True"
+
+                                                                />
                                                 </Grid>
                                             </Border>
                                         </ControlTemplate>
@@ -160,7 +174,7 @@
             </Grid>
 
             <Grid Grid.Row="4">
-                <Button Content="저장" Width="200" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="저장" Width="200" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="{local:MethodBinding BtnApprovalSave}"/>
             </Grid>
         </Grid>
     </Border>

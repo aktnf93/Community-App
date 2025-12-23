@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:community.Views"
              mc:Ignorable="d" 
              Width="1810" Height="1000" d:DesignWidth="1810" d:DesignHeight="1000"
-             Loaded="{local:MethodBinding Loaded}" Background="{StaticResource Color_WhiteGray}">
+             Background="{StaticResource Color_WhiteGray}"
+             Loaded="{local:MethodBinding Loaded}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -20,8 +21,8 @@
                 <TextBlock Width="30"/>
                 <RadioButton x:Name="RadSystem"   Content="일정관리"     Template="{StaticResource SubMenuButton}" IsChecked="True"/>
             </StackPanel>
-
         </Border>
+        
         <local:V_ScheduleCalendar Grid.Row="1"/>
     </Grid>
 </UserControl>

@@ -54,6 +54,9 @@ namespace community.ViewModels
 
         public VM_MainViewModel()
         {
+            EnvConfig.Load();
+
+
             this.MenuSelected = 0; // 프로그램 초기 실행 시 Login 화면으로.
 
             // 로그인 화면 이벤트 처리 __________________________________
@@ -61,6 +64,8 @@ namespace community.ViewModels
             {
                 v_login.LoginEvent += async (loginUser) =>
                 {
+                    GD.Instance.LoginUser = loginUser;
+
                     await GD.Instance.LoadBaseCode();
 
                     CurrentUser = loginUser;

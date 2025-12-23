@@ -110,7 +110,104 @@
         </Border>
 
         <!-- 결재 문서 목록 -->
-        <Border Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="4" Style="{StaticResource BaseCard}">
-        </Border>
+        <ItemsControl Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="4" ItemsSource="{Binding ApprovalList}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="{x:Type ItemsControl}">
+                    <Border Style="{StaticResource BaseCard}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140" Tag="ID"/>
+                                <ColumnDefinition Width="140" Tag="구분"/>
+                                <ColumnDefinition Width="*"   Tag="내용"/>
+                                <ColumnDefinition Width="140" Tag="기안자"/>
+                                <ColumnDefinition Width="140" Tag="상태"/>
+                                <ColumnDefinition Width="140" Tag="작성일"/>
+                                <ColumnDefinition Width="140" Tag="수정일"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                </Style>
+                            </Grid.Resources>
+
+                            <Border Grid.Row="0" Grid.ColumnSpan="20" Background="{StaticResource Color_LightGray}" CornerRadius="8,8,0,0"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="ID"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" Text="구분"/>
+                            <TextBlock Grid.Column="2" Grid.Row="0" Text="내용"/>
+                            <TextBlock Grid.Column="3" Grid.Row="0" Text="기안자"/>
+                            <TextBlock Grid.Column="4" Grid.Row="0" Text="상태"/>
+                            <TextBlock Grid.Column="5" Grid.Row="0" Text="작성일"/>
+                            <TextBlock Grid.Column="6" Grid.Row="0" Text="수정일"/>
+
+                            <Line Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="0" Stroke="{StaticResource Color_Gray2}" StrokeThickness="1" X1="0" X2="2000" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+
+                            <Line Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Stroke="{StaticResource Color_Gray2}" StrokeThickness="1" X1="0" Y2="2000" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+                            <Line Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Stroke="{StaticResource Color_Gray2}" StrokeThickness="1" X1="0" Y2="2000" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+                            <Line Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" Stroke="{StaticResource Color_Gray2}" StrokeThickness="1" X1="0" Y2="2000" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+                            <Line Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Stroke="{StaticResource Color_Gray2}" StrokeThickness="1" X1="0" Y2="2000" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+                            <Line Grid.Column="4" Grid.Row="0" Grid.RowSpan="2" Stroke="{StaticResource Color_Gray2}" StrokeThickness="1" X1="0" Y2="2000" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+                            <Line Grid.Column="5" Grid.Row="0" Grid.RowSpan="2" Stroke="{StaticResource Color_Gray2}" StrokeThickness="1" X1="0" Y2="2000" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+                            <Line Grid.Column="6" Grid.Row="0" Grid.RowSpan="2" Stroke="{StaticResource Color_Gray2}" StrokeThickness="1" X1="0" Y2="2000" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+                            <ScrollViewer Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" Margin="0,0,0,20">
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border x:Name="Bor" Height="40" Background="Transparent" BorderBrush="Transparent" BorderThickness="0.5" CornerRadius="4" 
+                            MouseLeftButtonDown="{local:MethodBinding OnSelect}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140" Tag="ID"/>
+                                <ColumnDefinition Width="140" Tag="구분"/>
+                                <ColumnDefinition Width="*"   Tag="내용"/>
+                                <ColumnDefinition Width="140" Tag="기안자"/>
+                                <ColumnDefinition Width="140" Tag="상태"/>
+                                <ColumnDefinition Width="140" Tag="작성일"/>
+                                <ColumnDefinition Width="140" Tag="수정일"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="FontSize" Value="13"/>
+                                </Style>
+                            </Grid.Resources>
+
+
+                            <TextBlock Grid.Column="0" Text="{Binding Id}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Type}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Title}"/>
+                            <TextBlock Grid.Column="3" Text="{Binding Employee_id}"/>
+                            <TextBlock Grid.Column="4" Text="{Binding Status}"/>
+                            <TextBlock Grid.Column="5" Text="{Binding Created_at, StringFormat={}{0:yyyy-MM-dd}}"/>
+                            <TextBlock Grid.Column="6" Text="{Binding Updated_at, StringFormat={}{0:yyyy-MM-dd}}"/>
+
+                            <Line Grid.Column="0" Grid.ColumnSpan="20" Grid.Row="0" Stroke="{StaticResource Color_Gray2}" StrokeThickness="1" X1="0" X2="2000" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+                        </Grid>
+                    </Border>
+                    <DataTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bor" Property="BorderBrush" Value="Blue"/>
+                        </Trigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>

@@ -10,6 +10,7 @@ namespace community.Models
         public string Alias { get; set; }
         public bool IsToday { get; set; }
 
-        public ObservableCollection<M_Schedule> Items { get; set; } = new ObservableCollection<M_Schedule>();
+        public ObservableCollection<M_Schedule> Items { get; set; } 
+            = new ObservableCollection<M_Schedule>();
     }
 }

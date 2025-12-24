@@ -7,16 +7,8 @@
       "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\schedule\\v_schedulecalendar.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\viewmodels\\vm_schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\models\\schedule\\m_schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\models\\schedule\\m_schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\schedule\\v_schedulecalendar.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\schedule\\v_schedulecalendar.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\methodbinding.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\methodbinding.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,58 +17,32 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 154,
-          "SelectedChildIndex": 2,
+          "DockedWidth": 212,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "M_Schedule.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\Schedule\\M_Schedule.cs",
-              "RelativeDocumentMoniker": "community\\Models\\Schedule\\M_Schedule.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Models\\Schedule\\M_Schedule.cs",
-              "RelativeToolTip": "community\\Models\\Schedule\\M_Schedule.cs",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAAAHEAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-23T07:45:40.773Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "V_ScheduleCalendar.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Schedule\\V_ScheduleCalendar.xaml.cs",
-              "RelativeDocumentMoniker": "community\\Views\\Schedule\\V_ScheduleCalendar.xaml.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Schedule\\V_ScheduleCalendar.xaml.cs",
-              "RelativeToolTip": "community\\Views\\Schedule\\V_ScheduleCalendar.xaml.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-23T07:19:32.583Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "V_ScheduleCalendar.xaml",
               "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Schedule\\V_ScheduleCalendar.xaml",
               "RelativeDocumentMoniker": "community\\Views\\Schedule\\V_ScheduleCalendar.xaml",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Schedule\\V_ScheduleCalendar.xaml",
-              "RelativeToolTip": "community\\Views\\Schedule\\V_ScheduleCalendar.xaml",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Schedule\\V_ScheduleCalendar.xaml*",
+              "RelativeToolTip": "community\\Views\\Schedule\\V_ScheduleCalendar.xaml*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-12-23T04:34:26.247Z",
+              "WhenOpened": "2025-12-23T13:32:15.743Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "VM_Schedule.cs",
-              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Schedule.cs",
-              "RelativeDocumentMoniker": "community\\ViewModels\\VM_Schedule.cs",
-              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Schedule.cs",
-              "RelativeToolTip": "community\\ViewModels\\VM_Schedule.cs",
-              "ViewState": "AgIAAHcAAAAAAAAAAAAiwOkAAAAjAAAAAAAAAA==",
+              "Title": "MethodBinding.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\MethodBinding.cs",
+              "RelativeDocumentMoniker": "community\\Views\\MethodBinding.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\MethodBinding.cs",
+              "RelativeToolTip": "community\\Views\\MethodBinding.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAgwGwAAABoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-23T04:15:49.316Z",
+              "WhenOpened": "2025-12-23T10:51:08.143Z",
               "EditorCaption": ""
             }
           ]

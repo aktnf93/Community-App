@@ -10,19 +10,21 @@ using System.Windows.Controls;
 
 namespace community.ViewModels
 {
-        public class VM_Schedule : ViewModelBase
+    public class VM_Schedule : ViewModelBase
     {
         public event ActionHandler OnScheduleViewChanged;
 
         /// <summary>
         /// 왼쪽 일정 리스트
         /// </summary>
-        public ObservableCollection<M_Schedule> ScheduleList { get; set; } = new ObservableCollection<M_Schedule>();
+        public ObservableCollection<M_Schedule> ScheduleList { get; set; } 
+            = new ObservableCollection<M_Schedule>();
 
         /// <summary>
         /// 캘린더에 표시될 일정 리스트
         /// </summary>
-        public ObservableCollection<M_DaySchedule> ScheduleView { get; set; } = new ObservableCollection<M_DaySchedule>();
+        public ObservableCollection<M_DaySchedule> ScheduleView { get; set; } 
+            = new ObservableCollection<M_DaySchedule>();
 
         private async Task Loaded()
         {

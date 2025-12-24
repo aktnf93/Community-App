@@ -206,7 +206,8 @@
                                                     <Trigger Property="IsInactive" Value="True">
                                                         <!--<Setter Property="Foreground" Value="#999"/>-->
                                                         <Setter Property="Foreground" Value="{StaticResource Color_Black}"/>
-                                                        <Setter TargetName="Bor" Property="Background" Value="#999"/>
+                                                        <!--<Setter TargetName="Bor" Property="Background" Value="#999"/>-->
+                                                        <Setter TargetName="Bor" Property="Background" Value="{StaticResource Color_Gray2}"/>
                                                     </Trigger>
                                                 </ControlTemplate.Triggers>
                                             </ControlTemplate>
@@ -247,7 +248,7 @@
                                                                             <Style TargetType="{x:Type Button}">
                                                                                 <Setter Property="FontSize" Value="20"/>
                                                                                 <Setter Property="FontWeight" Value="Bold"/>
-                                                                                <Setter Property="Foreground" Value="{StaticResource Color_PointBlue}"/>
+                                                                                <Setter Property="Foreground" Value="{StaticResource Color_Black}"/>
                                                                                 <Setter Property="Background" Value="{StaticResource Color_Transparent}"/>
                                                                                 <Setter Property="BorderThickness" Value="0"/>
                                                                             </Style>

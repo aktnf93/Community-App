@@ -78,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "14d4a21b41d4f4f8",
@@ -183,10 +182,11 @@
   },
   "active": "791ecf6659a48603",
   "lastOpenFiles": [
-    "Community_Client_WPF/community/community_dr2umbkw_wpftmp.csproj",
-    "Community_Document/Server_API.md.md",
+    "Community_Document/README 1.md",
     "README.md",
     "README.pdf",
+    "Community_Client_WPF/community/community_dr2umbkw_wpftmp.csproj",
+    "Community_Document/Server_API.md.md",
     "Community_Document/무제.md",
     "Community_Client_WPF/community/obj/Debug/View_Controls/U_RadialProgressBar.baml",
     "Community_Client_WPF/community/obj/Debug/View_Controls/U_ProgressBar.baml",
@@ -196,7 +196,6 @@
     "Community_Client_WPF/community/obj/Debug/Views/Schedule/V_ScheduleDetail.baml",
     "Community_Client_WPF/community/obj/Debug/Views/Post/V_PostDetail.baml",
     "Community_Client_WPF/community/obj/Debug/Views/System/V_SystemPost.baml",
-    "Community_Client_WPF/community/obj/Debug/Views/System/V_SystemList.baml",
     "Community_Document/Sample/chat_20251114.png",
     "Community_Document/Sample/post_20251114.png",
     "Community_Document/Sample/project_20251127.gif",

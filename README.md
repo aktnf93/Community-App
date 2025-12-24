@@ -118,31 +118,31 @@ flowchart LR
 ## 📌 샘플 이미지
 ---
 1. 로그인 화면
-![](./Community_Document/Sample/0.login_20251223_1712.png|600x320)
+![Post](./Community_Document/Sample/0.login_20251223_1712.png)
 
 2. 홈 화면
-![](./Community_Document/Sample/1.home_20251221_2325.png|600x320)
+![Post](./Community_Document/Sample/1.home_20251221_2325.png)
 
 3. 일정관리 화면
-![](./Community_Document/Sample/2.schedule_20251223_1652.png|600x320)
+![Post](./Community_Document/Sample/2.schedule_20251223_1652.png)
 
 4. 전자결재 화면
-![](./Community_Document/Sample/3.approval_20251221_2329.png|600x320)
+![Post](./Community_Document/Sample/3.approval_20251221_2329.png)
 
 5. 게시판 화면
-![](./Community_Document/Sample/4.post_20251223_1713.png|600x320)
+![Post](./Community_Document/Sample/4.post_20251223_1713.png)
 
 6. 프로젝트 화면
-![](./Community_Document/Sample/5.project_20251221_2325.png|600x320)
+![Post](./Community_Document/Sample/5.project_20251221_2325.png)
 
 7. 프로젝트 편집 화면
-![](./Community_Document/Sample/6.project2_20251221_2327.png|600x320)
+![Post](./Community_Document/Sample/6.project2_20251221_2327.png)
 
 8. 직원관리 화면
-![](./Community_Document/Sample/7.employee_20251221_2325.png|600x320)
+![Post](./Community_Document/Sample/7.employee_20251221_2325.png)
 
 9. 직원근태 화면
-![](./Community_Document/Sample/8.employee2_20251221_2326.png|600x320)
+![Post](./Community_Document/Sample/8.employee2_20251221_2326.png)
 
 10. 기초코드 생성
 ![Post](./Community_Document/Sample/setup_20251114.gif)

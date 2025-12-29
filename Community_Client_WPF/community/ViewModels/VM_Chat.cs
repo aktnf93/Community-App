@@ -1,14 +1,9 @@
-﻿using community.Common;
-using community.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Sockets;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using System.Data;
 using System.Windows;
+using System.Collections.ObjectModel;
+using community.Common;
+using community.Models;
 
 namespace community.ViewModels
 {
@@ -35,7 +30,33 @@ namespace community.ViewModels
             }
         }
 
-        public M_Chat_Room ChatRoomLive { get; set; } = new M_Chat_Room();
+        private Scoket_IO_Client<DataTable> ChatRoom { get; set; }
+
+        public VM_Chat()
+        {
+            this.ChatRoom = new Scoket_IO_Client<DataTable>();
+
+            this.ChatRoom.OnConnectedMessage += (res) =>
+            {
+                Console.WriteLine("소켓 접속 성공");
+            };
+
+            this.ChatRoom.OnWelcomeMessage += (res) =>
+            {
+                Console.WriteLine("소켓 접속 성공");
+            };
+
+            this.ChatRoom.OnReceiveMessage += (res) =>
+            {
+                var members = this.ChatRoomSelected.Members;
+                var messages = this.ChatRoomSelected.Messages;
+            };
+
+            this.ChatRoom.OnDisconnectedMessage += (req) =>
+            {
+                Console.WriteLine("소켓 해제");
+            };
+        }
 
         private void Loaded()
         {
@@ -52,13 +73,10 @@ namespace community.ViewModels
             {
                 foreach (var room in rooms)
                 {
-                    room._user = CurrentUser;
                     room.OnChatRoomJoin += (r) =>
                     {
-                        this.ChatRoomLive = r;
-                        this.ChatRoomLive.OnConnect(r, CurrentUser);
+                        this.ChatRoomConnect();
                     };
-
 
                     this.ChatRoomList.Add(room);
                 }
@@ -113,6 +131,27 @@ namespace community.ViewModels
             {
                 ChatRoomSearch();
             }
+        }
+
+        private void ChatRoomConnect()
+        {
+            this.ChatRoom.Disconnect();
+
+            var join = new { roomId = ChatRoomSelected.Id, userId = CurrentUser.Id };
+            this.ChatRoom.Connect(join);
+        }
+
+        private void ChatRoomSend()
+        {
+            var msg = new M_Chat_Message
+            {
+                Chat_Room_Id = ChatRoomSelected.Id,
+                Employee_Id = CurrentUser.Id,
+                Message = "",
+                Employee_Name = CurrentUser.Name,
+            };
+
+            this.ChatRoom.SendMessage(msg);
         }
     }
 }

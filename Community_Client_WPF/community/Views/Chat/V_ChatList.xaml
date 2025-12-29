@@ -4,13 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:community.Views"
+             xmlns:m="clr-namespace:community.Models"
              mc:Ignorable="d" 
              Width="1810" Height="950"
              Background="{StaticResource Color_WhiteGray}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"  Tag="여백"/>
-            <ColumnDefinition Width="280" Tag="그룹"/>
+            <ColumnDefinition Width="390" Tag="그룹"/>
             <ColumnDefinition Width="30"  Tag="여백"/>
             <ColumnDefinition Width="*"   Tag="리스트"/>
             <ColumnDefinition Width="30"  Tag="여백"/>
@@ -32,7 +33,7 @@
         </Grid>
 
         <!-- 중간 컨트롤 -->
-        <Border Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Style="{StaticResource BaseCard}">
+        <Border Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Style="{StaticResource BaseCard}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -63,22 +64,26 @@
 
         <!-- 그룹 리스트 -->
         <Border Grid.Column="1" Grid.Row="4" Style="{StaticResource BaseCard}">
-            <TreeView Grid.Row="1" Style="{StaticResource Tree_ChatGroup}" ItemsSource="{Binding ChatRoomList}" Margin="10"/>
+            <TreeView Grid.Row="1" Style="{StaticResource Tree_ChatGroup}" Margin="10"
+                      ItemsSource="{Binding ChatRoomList}">
+            </TreeView>
         </Border>
 
-        <Border Grid.Column="3" Grid.Row="4" Style="{StaticResource BaseCard}">
+        <Border Grid.Column="3" Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource BaseCard}">
             <Grid DataContext="{Binding ChatRoomLive}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="160"/>
+                    <RowDefinition Height="180"/>
                 </Grid.RowDefinitions>
 
                 <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0,0,0,0.5">
+                    <TextBlock Text="# 연간 회의실" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"
+                               FontSize="18" FontWeight="Bold"/>
                 </Border>
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Margin="0.5">
-                    <ItemsControl ItemsSource="{Binding Messages}" Margin="0,20,0,20">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Margin="0.5" Background="#F8F9FD">
+                    <ItemsControl Margin="0,20,0,20">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel Orientation="Vertical"/>
@@ -86,34 +91,103 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
-                                    <TextBlock Text="{Binding Created_At, StringFormat={}{0:HH:mm}}" VerticalAlignment="Bottom" Margin="0,0,0,10" Foreground="Gray"/>
-                                    <Border Background="Yellow" CornerRadius="8" MaxWidth="200" Padding="10" HorizontalAlignment="Right" Margin="8,0,10,10">
-                                        <TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,20,20">
+                                    <Border CornerRadius="30" Width="40" Height="40" VerticalAlignment="Top" Margin="10,20,10,0">
+                                        <Border.Background>
+                                            <SolidColorBrush Color="LightBlue"/>
+                                        </Border.Background>
                                     </Border>
+
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Employee_Name}" FontSize="15"/>
+                                        <Border Background="LightGray" CornerRadius="8" Width="400" Padding="10" Margin="0,4,0,0">
+                                            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" FontSize="14"/>
+                                        </Border>
+                                    </StackPanel>
+                                        
+                                        <TextBlock Text="{Binding Created_At, StringFormat={}{0:tt HH:mm}}" VerticalAlignment="Bottom" Margin="4,0,0,0" Foreground="Gray"/>
                                     
-                                    <TextBlock Text="{Binding Employee_Name}"/>
-                                    
-                                    <Ellipse Width="40" Height="40" Fill="LightPink" VerticalAlignment="Top" Margin="0,0,10,0"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsSource>
+                            <x:Array Type="{x:Type m:M_Chat_Message}">
+                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27 13:55:00"/>
+                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27"/>
+                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27"/>
+                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27"/>
+                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27"/>
+                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27"/>
+                            </x:Array>
+                        </ItemsControl.ItemsSource>
                     </ItemsControl>
                 </ScrollViewer>
 
-                <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="0,0.5,0,0">
-                    <Grid>
-                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding SendMessage}" 
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="80" Margin="20,0,120,20"/>
-                        <Button Content="보내기" Click="{local:MethodBinding OnMessageSend}" 
-                                HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Height="30" Margin="0,0,20,70"/>
-                    </Grid>
-                </Border>
+                <Grid Grid.Row="2" Background="#F8F9FD">
+                    <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Margin="10" Background="White">
+                        <Grid>
+                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" 
+                                 Text="{Binding SendMessage, TargetNullValue=메시지, FallbackValue=메시지}" 
+                                 Style="{x:Null}" 
+                                 BorderBrush="Transparent"
+                                 Margin="10,10,10,50"/>
+
+                            <Button Content="보내기" Click="{local:MethodBinding OnMessageSend}" 
+                                HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Height="30" Margin="0,0,10,10"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+                
+
             </Grid>
         </Border>
 
-        <Border Grid.Column="5" Grid.Row="4" Style="{StaticResource BaseCard}">
-            
+        <Border Grid.Column="4" Grid.Row="2" 
+                Grid.ColumnSpan="2" Grid.RowSpan="3" Style="{StaticResource BaseCard}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="400"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <ItemsControl Grid.Row="1">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Gray" BorderThickness="0.5" CornerRadius="8" Margin="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Border Grid.Column="0" CornerRadius="30" Width="40" Height="40" VerticalAlignment="Center" Margin="8">
+                                        <Border.Background>
+                                            <SolidColorBrush Color="LightBlue"/>
+                                        </Border.Background>
+                                    </Border>
+
+                                    <TextBlock Grid.Column="1" Text="사용자1" FontSize="15" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsSource>
+                        <x:Array Type="{x:Type m:M_Chat_Member}">
+                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
+                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
+                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
+                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
+                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
+                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
+                        </x:Array>
+                    </ItemsControl.ItemsSource>
+                </ItemsControl>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

@@ -83,6 +83,7 @@ namespace community.ViewModels
         public ObservableCollection<M_Organization_Rank> RankList { get; set; } = new ObservableCollection<M_Organization_Rank>();
         public ObservableCollection<M_Organization_Position> PositionList { get; set; } = new ObservableCollection<M_Organization_Position>();
         public ObservableCollection<M_Organization_Role> RoleList { get; set; } = new ObservableCollection<M_Organization_Role>();
+        public ObservableCollection<M_Organization_Privilege> PrivilegeList { get; set; } = new ObservableCollection<M_Organization_Privilege>();
 
         private M_Organization_Company _CompanySelected = new M_Organization_Company();
         public M_Organization_Company CompanySelected
@@ -217,6 +218,8 @@ namespace community.ViewModels
             await RankSearch();
             await PositionSearch();
             await RoleSearch();
+
+            await privilegeSearch();
         }
 
         private async Task SysTemLogSearch()
@@ -846,6 +849,21 @@ namespace community.ViewModels
                     await RoleSearch();
                 }
             });
+        }
+
+        //
+        private async Task privilegeSearch()
+        {
+            // var ser = this.RoleSelected;
+            var result = await HTTP_Server.API.HttpSendAsync<M_Organization_Privilege[]>("/organization/privileg/select", HTTP_Server.Method.POST, null);
+            this.PrivilegeList.Clear();
+            if (result != null)
+            {
+                foreach (var r in result)
+                {
+                    this.PrivilegeList.Add(r);
+                }
+            }
         }
     }
 }

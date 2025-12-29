@@ -35,11 +35,7 @@
             
         </Border>
 
-        <Border Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="4" Style="{StaticResource BaseCard}">
-
-        </Border>
-
-        <Border Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="4" Style="{StaticResource BaseCard}">
+        <Border Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="4" Style="{StaticResource BaseCard}">
             
             <TabControl Margin="10">
                 <TabItem Header="  👨🏻‍💼 소속: 회사|부서|팀  " Height="28">
@@ -110,11 +106,11 @@
                     </StackPanel>
                 </TabItem>
 
-                <TabItem Header="  👨🏻‍💼 담당: 직급|직책|담당  " Height="28">
+                <TabItem Header="  👨🏻‍💼 직급 | 직책 | 담당 | 권한  " Height="28">
                     <StackPanel Orientation="Horizontal">
 
                         <!-- 직급 정보 -->
-                        <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
+                        <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
                             <StackPanel>
                                 <Label Content="직급 정보" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
                                 <!--<TextBox Width="60" Height="30" Template="{StaticResource Icon_TextBox}" HorizontalAlignment="Left" IsReadOnly="True" Cursor="No"/>-->
@@ -175,11 +171,36 @@
                                 </DataGrid>
                             </StackPanel>
                         </Border>
+
+                        <!-- 권한 정보 -->
+                        <Border HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" BorderBrush="Gray" BorderThickness="0.5" Padding="10">
+                            <StackPanel>
+                                <Label Content="권한 정보" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                                <!--<TextBox Width="60" Height="30" Template="{StaticResource Icon_TextBox}" HorizontalAlignment="Left" IsReadOnly="True" Cursor="No"/>-->
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Edit}" ToolTip="이름" Text="{Binding RoleSelected.Name}"/>
+                                    <Button Width="30" Height="30" Content="➕️" Margin="6,0,0,0" ToolTip="추가" Click="{local:MethodBinding RoleAdd}"/>
+                                    <Button Width="30" Height="30" Content="✏️"  Margin="2,0,0,0" ToolTip="수정" Click="{local:MethodBinding RoleEdit}"/>
+                                    <Button Width="30" Height="30" Content="➖️" Margin="2,0,0,0" ToolTip="삭제" Click="{local:MethodBinding RoleDelete}"/>
+                                </StackPanel>
+                                <TextBox Width="200" Height="30" Template="{StaticResource Icon_TextBox}" Tag="{StaticResource Img_Chat}" HorizontalAlignment="Left" ToolTip="설명" Text="{Binding RoleSelected.Description}"/>
+                                <DataGrid Width="Auto" Height="500" Margin="0,10,0,0" ColumnHeaderHeight="30" ItemsSource="{Binding PrivilegeList}" SelectedItem="{Binding RoleSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="이름" Binding="{Binding Name}" Width="100" ElementStyle="{StaticResource TxtColumn}"/>
+
+                                        <DataGridCheckBoxColumn Header="게시판"   Width="70"/>
+                                        <DataGridCheckBoxColumn Header="채팅방"   Width="70"/>
+                                        <DataGridCheckBoxColumn Header="고객사"   Width="70"/>
+                                        <DataGridCheckBoxColumn Header="프로젝트" Width="70"/>
+                                        <DataGridCheckBoxColumn Header="재고관리" Width="70"/>
+                                        <DataGridCheckBoxColumn Header="직원관리" Width="70"/>
+                                        <DataGridCheckBoxColumn Header="시스템"   Width="70"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </Border>
+                        
                     </StackPanel>
-                </TabItem>
-
-                <TabItem Header=" 🔑 권한 그룹 ">
-
                 </TabItem>
             </TabControl>
         </Border>

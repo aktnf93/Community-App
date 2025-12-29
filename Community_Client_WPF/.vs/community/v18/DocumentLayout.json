@@ -1,12 +1,59 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\views\\chat\\v_chatlist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\views\\chat\\v_chatlist.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|c:\\users\\a\\source\\repos\\community-app\\community_client_wpf\\community\\viewmodels\\vm_chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D5ABD7C-0524-49AE-A6F9-B14C6D1882A2}|community\\community.csproj|solutionrelative:community\\viewmodels\\vm_chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 247,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "V_ChatList.xaml",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Chat\\V_ChatList.xaml",
+              "RelativeDocumentMoniker": "community\\Views\\Chat\\V_ChatList.xaml",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\Views\\Chat\\V_ChatList.xaml",
+              "RelativeToolTip": "community\\Views\\Chat\\V_ChatList.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-27T13:10:37.523Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 247,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VM_Chat.cs",
+              "DocumentMoniker": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Chat.cs",
+              "RelativeDocumentMoniker": "community\\ViewModels\\VM_Chat.cs",
+              "ToolTip": "C:\\Users\\A\\source\\repos\\Community-App\\Community_Client_WPF\\community\\ViewModels\\VM_Chat.cs",
+              "RelativeToolTip": "community\\ViewModels\\VM_Chat.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAowIcAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T12:16:24.975Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

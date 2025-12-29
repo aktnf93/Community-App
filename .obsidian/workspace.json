@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Community_Document/무제.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "무제"
             }
           }
         ],
@@ -197,12 +197,13 @@
   },
   "active": "b4fb469879f25234",
   "lastOpenFiles": [
+    "Community_Document/Database_Query.md",
+    "Community_Document/README 1.md",
+    "Community_Document/Server_API.md.md",
     "README.md",
     "김성호 경력기술서 20251224.md",
-    "Community_Document/README 1.md",
     "README.pdf",
     "Community_Client_WPF/community/community_dr2umbkw_wpftmp.csproj",
-    "Community_Document/Server_API.md.md",
     "Community_Document/무제.md",
     "Community_Client_WPF/community/obj/Debug/View_Controls/U_RadialProgressBar.baml",
     "Community_Client_WPF/community/obj/Debug/View_Controls/U_ProgressBar.baml",
@@ -216,7 +217,6 @@
     "Community_Document/Sample/post_20251114.png",
     "Community_Document/Sample/project_20251127.gif",
     "Community_Document/Sample/setup_20251114.gif",
-    "Community_Document/Database_Query.md",
     "포폴 문서.md",
     "포트폴리오/문서.md",
     "Community_Client_WPF/community/Resource_Icon/user4.png",

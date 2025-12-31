@@ -70,7 +70,7 @@
         </Border>
 
         <Border Grid.Column="3" Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource BaseCard}">
-            <Grid DataContext="{Binding ChatRoomLive}">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="*"/>
@@ -83,7 +83,7 @@
                 </Border>
 
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" Margin="0.5" Background="#F8F9FD">
-                    <ItemsControl Margin="0,20,0,20">
+                    <ItemsControl Margin="0,20,0,20" ItemsSource="{Binding CurrentChatRoom.Messages}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel Orientation="Vertical"/>
@@ -91,35 +91,45 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,20,20">
-                                    <Border CornerRadius="30" Width="40" Height="40" VerticalAlignment="Top" Margin="10,20,10,0">
+
+                                <Grid Margin="10,0,10,30">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- 채팅 메시지의 사용자 프로필 사진 -->
+                                    <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" 
+                                            CornerRadius="30" Width="40" Height="40" VerticalAlignment="Top" Margin="0,0,10,0">
                                         <Border.Background>
                                             <SolidColorBrush Color="LightBlue"/>
                                         </Border.Background>
                                     </Border>
-
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding Employee_Name}" FontSize="15"/>
-                                        <Border Background="LightGray" CornerRadius="8" Width="400" Padding="10" Margin="0,4,0,0">
-                                            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" FontSize="14"/>
-                                        </Border>
-                                    </StackPanel>
-                                        
-                                        <TextBlock Text="{Binding Created_At, StringFormat={}{0:tt HH:mm}}" VerticalAlignment="Bottom" Margin="4,0,0,0" Foreground="Gray"/>
                                     
-                                </StackPanel>
+                                    <!-- 채팅 메시지의 사용자 이름 -->
+                                    <TextBlock Grid.Column="1" Grid.Row="0" 
+                                               Text="{Binding Employee_Name}" FontSize="15"/>
+                                    
+                                    <!-- 채팅 메시지 발생 시각 (DB 저장 기준) -->
+                                    <TextBlock Grid.Column="2" Grid.Row="0" 
+                                               Text="{Binding Created_At, StringFormat={}{0:tt HH:mm}}" 
+                                               HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4,0,0,0" Foreground="Gray"/>
+                                    
+                                    <!-- 채팅 메시지 내용 -->
+                                    <Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
+                                            Background="LightGray" CornerRadius="8" Padding="10" Margin="0,4,0,0">
+                                        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" FontSize="14"/>
+                                    </Border>
+                                    
+                                    
+                                </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemsSource>
-                            <x:Array Type="{x:Type m:M_Chat_Message}">
-                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27 13:55:00"/>
-                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27"/>
-                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27"/>
-                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27"/>
-                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27"/>
-                                <m:M_Chat_Message Id="1" Chat_Room_Id="1" Employee_Id="1" Employee_Name="name" Message="msg" Created_At="2025-12-27"/>
-                            </x:Array>
-                        </ItemsControl.ItemsSource>
                     </ItemsControl>
                 </ScrollViewer>
 
@@ -127,18 +137,16 @@
                     <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8" Margin="10" Background="White">
                         <Grid>
                             <TextBox TextWrapping="Wrap" AcceptsReturn="True" 
-                                 Text="{Binding SendMessage, TargetNullValue=메시지, FallbackValue=메시지}" 
+                                 Text="{Binding TxtChatRoomMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=메시지, FallbackValue=메시지}" 
                                  Style="{x:Null}" 
                                  BorderBrush="Transparent"
                                  Margin="10,10,10,50"/>
 
-                            <Button Content="보내기" Click="{local:MethodBinding OnMessageSend}" 
+                            <Button Content="보내기" Click="{local:MethodBinding BtnChatRoomMessageSend}" 
                                 HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="80" Height="30" Margin="0,0,10,10"/>
                         </Grid>
                     </Border>
                 </Grid>
-                
-
             </Grid>
         </Border>
 
@@ -149,8 +157,8 @@
                     <RowDefinition Height="400"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                
-                <ItemsControl Grid.Row="1">
+
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding CurrentChatRoom.Members}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel Orientation="Vertical"/>
@@ -176,16 +184,6 @@
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsSource>
-                        <x:Array Type="{x:Type m:M_Chat_Member}">
-                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
-                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
-                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
-                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
-                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
-                            <m:M_Chat_Member Id="1" Chat_Room_Id="1" Employee_Id="1" Created_At="2025-12-27"/>
-                        </x:Array>
-                    </ItemsControl.ItemsSource>
                 </ItemsControl>
             </Grid>
         </Border>

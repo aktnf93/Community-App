@@ -9,7 +9,7 @@ namespace community.Common
     {
         private Client client;
         public event ActionHandler<T> OnConnectedMessage;
-        public event ActionHandler<T> OnReceiveMessage;
+        public event ActionHandler<M_Chat_Message> OnReceiveMessage;
         public event ActionHandler<M_Chat_Room> OnWelcomeMessage;
         public event ActionHandler<T> OnDisconnectedMessage;
         private object joinMessage;
@@ -27,16 +27,13 @@ namespace community.Common
 
             this.client.On("receiveMessage", (response) =>
             {
-                Console.WriteLine(response);
-
-                var m = response.GetValue<T>();
+                var m = response.GetValue<M_Chat_Message>();
                 this.OnReceiveMessage?.Invoke(m);
             });
 
             this.client.On("welcome", (response) =>
             {
                 var m = response.GetValue<M_Chat_Room>();
-
                 this.OnWelcomeMessage?.Invoke(m);
             });
 
@@ -46,7 +43,7 @@ namespace community.Common
             };
         }
 
-        public void Connect(object message)
+        public bool Connect(object message)
         {
             if (this.client != null)
             {
@@ -54,7 +51,7 @@ namespace community.Common
             }
 
             this.joinMessage = message;
-            this.client.ConnectAsync().Wait(5000);
+            return this.client.ConnectAsync().Wait(5000);
         }
 
         public void Disconnect()

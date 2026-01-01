@@ -38,14 +38,12 @@ const initSocket = (server) => {
                 }
 
                 // 채팅방 멤버 조회
-                const members = await db.query(req, 'SELECT * FROM tb_chat_members m WHERE m.chat_room_id = ?;', [ join.roomId ]);
+                const members = await db.query(req, 'SELECT * FROM v_chat_members m WHERE m.chat_room_id = ?;', [ join.roomId ]);
 
                 // 채팅방 메시지 조회
                 const messages = await db.query(req, 'SELECT * FROM v_chat_messages m WHERE m.chat_room_id = ?;', [ join.roomId ]);
 
                 socket.join(join.roomId); // 채팅방 연결.
-
-                console.log(chatRoom[0]);
 
                 // 환영 메시지 전송
                 io.to(join.roomId).emit('welcome', { 

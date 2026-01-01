@@ -10,6 +10,7 @@ namespace community.Models
         private int id;
         private int chat_room_id;
         private int employee_id;
+        private string employee_name;
         private string message;
         private DateTime created_at;
         private DateTime? deleted_at;
@@ -35,7 +36,12 @@ namespace community.Models
             set => base.OnPropertyChanged(ref this.employee_id, value);
         }
 
-        public string Employee_Name { get; set; }
+        [DataMember(Name = "employee_name")]
+        public string Employee_Name
+        {
+            get => this.employee_name;
+            set => base.OnPropertyChanged(ref this.employee_name, value);
+        }
 
         [DataMember(Name = "message")]
         public string Message

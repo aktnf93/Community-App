@@ -1,26 +1,29 @@
 ﻿using community.Models;
 using Newtonsoft.Json;
 using System;
+using System.Threading.Tasks;
 using Client = SocketIOClient.SocketIO;
 
 namespace community.Common
 {
-    public class Scoket_IO_Client<T>
+    public class Scoket_IO
     {
+        public static Scoket_IO Client { get; private set; } = new Scoket_IO();
+
         private Client client;
-        public event ActionHandler<T> OnConnectedMessage;
-        public event ActionHandler<M_Chat_Message> OnReceiveMessage;
-        public event ActionHandler<M_Chat_Room> OnWelcomeMessage;
-        public event ActionHandler<T> OnDisconnectedMessage;
+        public event ActionHandler OnConnected;
+        public event ActionHandler<M_Chat_Room> OnWelcome;
+        public event ActionHandler<M_Chat_Message> OnReceived;
+        public event ActionHandler OnDisconnected;
         private object joinMessage;
 
-        public Scoket_IO_Client()
+        private Scoket_IO()
         {
             this.client = new Client(HTTP_Server.API.BaseUrl);
 
             this.client.OnConnected += async (sender, e) =>
             {
-                this.OnConnectedMessage?.Invoke(default(T));
+                this.OnConnected?.Invoke();
 
                 await this.client.EmitAsync("joinRoom", joinMessage);
             };
@@ -28,35 +31,33 @@ namespace community.Common
             this.client.On("receiveMessage", (response) =>
             {
                 var m = response.GetValue<M_Chat_Message>();
-                this.OnReceiveMessage?.Invoke(m);
+                this.OnReceived?.Invoke(m);
             });
 
             this.client.On("welcome", (response) =>
             {
                 var m = response.GetValue<M_Chat_Room>();
-                this.OnWelcomeMessage?.Invoke(m);
+                this.OnWelcome?.Invoke(m);
             });
 
             this.client.OnDisconnected += async (sender, e) =>
             {
-                this.OnDisconnectedMessage?.Invoke(default(T));
+                this.OnDisconnected?.Invoke();
             };
         }
 
-        public bool Connect(object message)
+        public async Task Connect(object message)
         {
-            if (this.client != null)
-            {
-                this.Disconnect();
-            }
+            await this.Disconnect();
 
             this.joinMessage = message;
-            return this.client.ConnectAsync().Wait(5000);
+
+            await this.client.ConnectAsync();
         }
 
-        public void Disconnect()
+        public async Task Disconnect()
         {
-            this.client.DisconnectAsync().Wait(5000);
+            await this.client.DisconnectAsync();
         }
 
         public void SendMessage(object message)

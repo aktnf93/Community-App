@@ -15,21 +15,20 @@ namespace community.ViewModels
         // 현재 채팅방
         public M_Chat_Room CurrentChatRoom { get; set; } = new M_Chat_Room();
 
-        // 소켓 객체
-        private Scoket_IO_Client<DataTable> CurrentChatRoomSocket { get; set; } = new Scoket_IO_Client<DataTable>();
+        private Scoket_IO Socket => Scoket_IO.Client;
 
         public string TxtChatRoomMessage { get; set; } = "";
 
         public VM_Chat()
         {
             // 소켓 접속
-            this.CurrentChatRoomSocket.OnConnectedMessage += (res) =>
+            this.Socket.OnConnected += () =>
             {
                 Console.WriteLine("소켓 접속");
             };
 
             // 채팅방 접속
-            this.CurrentChatRoomSocket.OnWelcomeMessage += (res) =>
+            this.Socket.OnWelcome += (res) =>
             {
                 Console.WriteLine("채팅방 접속");
 
@@ -41,7 +40,7 @@ namespace community.ViewModels
             };
 
             // 메시지 수신
-            this.CurrentChatRoomSocket.OnReceiveMessage += (res) =>
+            this.Socket.OnReceived += (res) =>
             {
                 Console.WriteLine("메시지 수신");
 
@@ -52,7 +51,7 @@ namespace community.ViewModels
             };
 
             // 소켓 해제
-            this.CurrentChatRoomSocket.OnDisconnectedMessage += (req) =>
+            this.Socket.OnDisconnected += () =>
             {
                 Console.WriteLine("소켓 해제");
             };
@@ -73,17 +72,14 @@ namespace community.ViewModels
             {
                 foreach (var room in rooms)
                 {
-                    room.OnChatRoomJoin += (r) =>
+                    room.OnChatRoomJoin += async (r) =>
                     {
-                        var join = new { roomId = r.Id, userId = CurrentUser.Id };
-                        if (this.CurrentChatRoomSocket.Connect(join))
+                        await UiAction.Instance.ExecuteAsync(async () =>
                         {
-                            // 접속 성공
-                        }
-                        else
-                        {
-                            // 접속 실패
-                        }
+                            var join = new { roomId = r.Id, userId = base.CurrentUser.Id };
+
+                            await this.Socket.Connect(join);
+                        });
                     };
 
                     this.ChatRoomList.Add(room);
@@ -145,13 +141,13 @@ namespace community.ViewModels
         {
             var msg = new M_Chat_Message
             {
-                Chat_Room_Id = CurrentChatRoom.Id,
-                Employee_Id = CurrentUser.Id,
-                Message = this.TxtChatRoomMessage,
-                Employee_Name = CurrentUser.Name,
+                Chat_Room_Id  = this.CurrentChatRoom.Id,
+                Message       = this.TxtChatRoomMessage,
+                Employee_Id   = base.CurrentUser.Id,
+                Employee_Name = base.CurrentUser.Name,
             };
 
-            this.CurrentChatRoomSocket.SendMessage(msg);
+            this.Socket.SendMessage(msg);
         }
     }
 }

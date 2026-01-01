@@ -118,7 +118,7 @@
     <Compile Include="Common\UiAction.cs" />
     <Compile Include="Common\Utility.cs" />
     <Compile Include="Common\Handlers.cs" />
-    <Compile Include="Common\Scoket_IO_Client.cs" />
+    <Compile Include="Common\Scoket_IO.cs" />
     <Compile Include="Models\Approval\M_Approval.cs" />
     <Compile Include="Models\Approval\M_Approval_Line.cs" />
     <Compile Include="Models\Approval\M_Approval_Vacation.cs" />

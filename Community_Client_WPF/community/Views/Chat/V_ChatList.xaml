@@ -173,13 +173,15 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     
+                                    <!-- 채팅방의 사용자 프로필 사진 -->
                                     <Border Grid.Column="0" CornerRadius="30" Width="40" Height="40" VerticalAlignment="Center" Margin="8">
                                         <Border.Background>
                                             <SolidColorBrush Color="LightBlue"/>
                                         </Border.Background>
                                     </Border>
 
-                                    <TextBlock Grid.Column="1" Text="사용자1" FontSize="15" VerticalAlignment="Center"/>
+                                    <!-- 채팅방의 사용자 이름 -->
+                                    <TextBlock Grid.Column="1" Text="{Binding Employee_Name}" FontSize="15" VerticalAlignment="Center"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
